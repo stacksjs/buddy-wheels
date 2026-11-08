@@ -1,7 +1,9 @@
 <script server>
+import { file, hash } from 'bun'
 import { basket } from '~/app/Storefront/Cart'
 const navBasket = basket(requestContext.cookie('stacks_cart'))
 const basketCount = navBasket.items.reduce((sum, item) => sum + item.qty, 0)
+const stylesheetRevision = hash(await file('public/assets/buddy.css').arrayBuffer()).toString(36)
 </script>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +19,7 @@ const basketCount = navBasket.items.reduce((sum, item) => sum + item.qty, 0)
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/buddy.css">
+  <link rel="stylesheet" href="/assets/buddy.css?v={{ stylesheetRevision }}">
   @yield('head')
 </head>
 <body class="antialiased">
