@@ -27,7 +27,7 @@ Invalid editing keeps the last valid preview and disables the kit button. Downlo
 ## Native delivery and provenance
 
 ```sh
-./buddy design:wheelchair --size XL --export --openscad /absolute/path/to/OpenSCAD
+./buddy design:wheelchair --size all --export --openscad /absolute/path/to/OpenSCAD
 ./buddy design:publish
 ./buddy test
 bun run test:studio

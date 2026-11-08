@@ -36,6 +36,14 @@ export const tsCloud: TsCloudConfig = {
     compute: { instances: 1, size: 'small', disk: { size: 20, type: 'ssd', encrypted: true }, webServer: 'rpx', proxy: { engine: 'rpx', onDemandTls: true } },
   },
   sites: {
+    // Publish backwards-compatible API changes before the pages that call them.
+    api: {
+      root: '.',
+      start: 'bun node_modules/@stacksjs/actions/dist/serve/api.js',
+      port: apiPort,
+      preStart: ['bun install --frozen-lockfile'],
+      env: { ...runtime },
+    },
     main: {
       root: '.', path: '/', domain,
       start: 'bun node_modules/@stacksjs/buddy/dist/serve-entry.js',
@@ -47,13 +55,6 @@ export const tsCloud: TsCloudConfig = {
         'bun node_modules/@stacksjs/buddy/dist/cli.js seed-catalog',
       ],
       env: { ...runtime, PORT_API: String(apiPort), API_URL: `http://127.0.0.1:${apiPort}` },
-    },
-    api: {
-      root: '.',
-      start: 'bun node_modules/@stacksjs/actions/dist/serve/api.js',
-      port: apiPort,
-      preStart: ['bun install --frozen-lockfile'],
-      env: { ...runtime },
     },
     www: { domain: `www.${domain}`, path: '/', redirect: { to: `https://${domain}`, preservePath: true } },
   },
