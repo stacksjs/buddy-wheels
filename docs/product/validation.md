@@ -72,3 +72,7 @@ After release, acknowledge concerns promptly, give a clear stop-use instruction 
 - The application checkout gate is changed through a reviewed release with the evidence record attached.
 
 None of these physical-product gates is reported complete by the website implementation.
+
+## Optional suspension and support modes
+
+Any later suspension or rehabilitation-support module requires additional verification for supported-position stability, rebound, roll, travel limits, lockout retention, adjuster failures and measured harness forces. Mechanical verification is separate from clinical benefit. Follow [the suspension research plan](suspension-research.md) before changing product claims, configurations or the checkout gate.

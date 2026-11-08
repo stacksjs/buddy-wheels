@@ -24,7 +24,7 @@ Default local web URL is `http://localhost:3460`; the native API runs at 3008 du
 - app/Storefront/Catalog.ts owns proposed size bands and dated price targets in cents. The financial model consumes the same catalog.
 - The local fit planner imports the pure catalog helper. Measurements remain in page memory and are not sent to an endpoint or placed in a URL.
 - app/Storefront/Cart.ts uses native signed-cookie verification and the native SQLite storefront read boundary.
-- Basket actions validate app inputs, then delegate to the native storefront implementation. Product prices are read by the server, not trusted from a form.
+- Basket actions validate app inputs and require native signed cookies. Adds use the native database transaction API with SQLite writer reservation to enforce a five-per-size limit under concurrency; reads and updates reuse the native storefront implementation. Product prices are read by the server, not trusted from a form.
 - The explicit checkout action always returns HTTP 409 with PRODUCT_VALIDATION_REQUIRED. An app override of the default PlaceOrderAction points to the same gate.
 
 Only the app's four API routes are mounted. No payment driver is initialized for the storefront and no orders, deposits or reservations are created. The preview checkout does not ask for personal or payment details. Native cart cookies and records persist the development basket.

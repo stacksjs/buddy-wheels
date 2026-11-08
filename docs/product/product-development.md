@@ -90,3 +90,7 @@ A refurbishing program needs inspection, sanitation, compatibility, residual-lif
 ## Custom giant-dog pathway
 
 Dogs beyond the proposed 180 lb catalog envelope need a separately engineered custom-giant program, not an XL override in the size calculator. Buddy's weight has not been supplied, so the present range cannot be represented as a confirmed fit for him. Collect measurements and professional requirements, reassess rails, wheel/axle architecture, stability, harness support and caregiver handling, and qualify the resulting envelope independently. No price or load rating is assigned to this pathway. The verified reference large chair also stops at 180 lb, so there is no established half-price comparison above that range.
+
+## Suspension and controlled-support investigation
+
+The founder proposed adjustable suspension for active use and rehabilitation. See [the separate research track](suspension-research.md). It distinguishes ground isolation, spring/preload/damping, and calibrated body support; no adjustable mode is available or included in the current price targets. Preserve a stable baseline while evaluating the concept.

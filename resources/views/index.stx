@@ -1,7 +1,7 @@
 @extends('layouts/buddy')
 @section('title', 'More walks. More together.')
 @section('head')
-  <link rel="preload" as="image" href="/images/buddy-meadow.png">
+  <link rel="preload" as="image" href="/images/buddy-meadow.webp">
 @endsection
 
 <script server>
@@ -17,7 +17,7 @@ const featured = catalog.filter(size => ['S', 'M', 'L'].includes(size.code)).map
       <p class="mt-6 hero-description">Repairable dog wheelchairs in development, so more good days can start with a walk.</p>
       <div class="flex flex-wrap gap-4 mt-8"><a href="/shop" class="button-primary">Explore the wheelchairs <i class="i-hugeicons-arrow-right-02" aria-hidden="true"></i></a><a href="/fit-guide" class="button-text">Start with their fit</a></div>
     </div>
-    <figure class="hero-photo"><img src="/images/buddy-meadow.png" alt="Generated concept of a golden retriever in a green rear-support wheelchair in a meadow" width="1672" height="941" fetchpriority="high"><figcaption>Original AI concept image. This is not Buddy or a tested product.</figcaption></figure>
+    <figure class="hero-photo"><img src="/images/buddy-meadow.webp" alt="Generated concept of a golden retriever in a green rear-support wheelchair in a meadow" width="1280" height="720" srcset="/images/buddy-meadow-640.webp 640w, /images/buddy-meadow.webp 1280w" sizes="(max-width: 1023px) calc(100vw - 40px), 50vw" fetchpriority="high"><figcaption>Original AI concept image. This is not Buddy or a tested product.</figcaption></figure>
   </section>
   <section class="grid gap-6 grid-cols-1 sm:grid-cols-3 py-8 principles shell" aria-label="Design intentions">
     <div class="flex gap-3 items-center"><i class="text-2xl i-hugeicons-3d-printer" aria-hidden="true"></i><div><h2 class="font-semibold text-sm">Print. Replace. Keep going.</h2><p class="mt-1 text-xs muted">A modular design with printable parts.</p></div></div>
@@ -29,7 +29,7 @@ const featured = catalog.filter(size => ['S', 'M', 'L'].includes(size.code)).map
     <p class="mt-4 max-w-2xl muted">One repairable idea. A family of fits. Small, medium and large target prices are half the listed reference prices.</p>
     <div class="grid gap-6 md:grid-cols-3 mt-9 collection">
       @foreach(featured as product)
-        <ProductCard :slug="product.slug" :name="product.name" :priceLabel="product.priceLabel" image="/images/chair-concept.png" :description="product.description" :weight="product.weight" :href="product.href" :speciesLabel="product.code" badge="Planned product" priceNote="Target price, before tax and delivery" imageAlt="AI concept of the proposed Buddy Wheels chair; size-specific geometry is not finalized" />
+        <ProductCard :slug="product.slug" :name="product.name" :priceLabel="product.priceLabel" image="/images/chair-concept-640.webp" :description="product.description" :weight="product.weight" :href="product.href" :speciesLabel="product.code" badge="Planned product" priceNote="Target price, before tax and delivery" imageAlt="AI concept of the proposed Buddy Wheels chair; size-specific geometry is not finalized" />
       @endforeach
     </div>
     <p class="mt-5 text-sm muted">XS and XL are also in the development plan. <a class="underline" href="/shop">Compare all five sizes</a>. Concept render shared across sizes.</p>

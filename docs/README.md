@@ -5,6 +5,7 @@ Prepared November 7, 2026. This is a development-stage business and product plan
 - [Business plan](business/business-plan.md): business model, market discovery, economics, operations, launch and risks.
 - [Unit economics](business/unit-economics.md): reproducible assumptions and scenario outputs, generated with `bun run finance`.
 - [Product and manufacturing plan](product/product-development.md): five proposed size families, printable architecture, material selection and release gates.
+- [Suspension research](product/suspension-research.md): wheel isolation, damping, lockout and separately controlled rehabilitation support.
 - [Validation and risk register](product/validation.md): bench tests, fitting studies, traceability, failure response and launch criteria.
 - [Buddy's immediate needs](product/buddy-first.md): care-first action list and the information still needed for his fit.
 - [Product marketing brief](marketing/product-marketing.md): positioning, evidence, audience and voice.

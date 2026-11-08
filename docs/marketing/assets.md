@@ -15,3 +15,7 @@ Prompt: original studio product concept of an empty rear-support dog wheelchair;
 Used for the product and basket, with a shared concept render across size families. The site explains that size-specific geometry is not finalized. Do not infer exact assembly, fastener count, clearances or load paths from the image.
 
 Both final PNG assets are saved in the repository. Fonts are DM Sans loaded with display=swap from Google Fonts. Icon glyphs use the existing Iconify/hugeicons pipeline. No icon package or hand-drawn icon path was added.
+
+## Native delivery variants
+
+`scripts/images.ts` uses @stacksjs/image to encode 640px and 1280px WebP variants at quality 82. The original PNGs remain the provenance inputs. The hero's 1280px derivative is about 178 KB and the chair's is about 72 KB; the 640px derivatives are about 63 KB and 28 KB. The hero uses native responsive `srcset` selection. These are delivery encodings, not changes to the product design shown.

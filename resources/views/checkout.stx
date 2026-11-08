@@ -13,7 +13,8 @@ const checked = state(false)
   <section class="section-space shell">
     <h1 class="section-title">Their comfort comes first.</h1>
     <p class="mb-8 mt-4 muted">A preview of the steps between choosing a chair and taking a walk.</p>
-    <CheckoutSteps current="fit" :steps="steps" />
+    <div :if="stage() === 1"><CheckoutSteps current="fit" :steps="steps" /></div>
+    <div :if="stage() === 2"><CheckoutSteps current="launch" :steps="steps" /></div>
     @if(items.length === 0)
       <div class="soft-panel"><h2 class="text-xl">Start with a configuration.</h2><a href="/shop" class="mt-5 button-primary">Choose a planned size</a></div>
     @else
