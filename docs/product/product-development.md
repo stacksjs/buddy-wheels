@@ -24,6 +24,12 @@ These are deliberately labeled screening hypotheses. They combine broad price-re
 
 Collect supported rear height, body length, maximum body width, harness routing/clearances, front support and professional posture assessment. A dog that meets a weight band may still be unsuitable. Record usable minimum/maximum dimensions and permissible adjustment combinations in a controlled configuration matrix after tests. Do not scale a CAD model uniformly to produce the other families: bolt sizes, bearing engagement, wheel clearance, wall thickness and adjustment travel do not scale safely together.
 
+## Outdoor and active-use requirements
+
+All-terrain readiness and support for active lifestyles are explicit development goals requested by the founder. Define that phrase through tested operating limits rather than an unlimited promise. Initial candidate surfaces are pavement, grass, firm trails and light gravel. For each family and permitted configuration, test rolling resistance, obstacle clearance, lateral/longitudinal stability, wheel retention, debris interaction and fatigue after repeated outdoor use. Set allowable gradients, obstacle dimensions, surface conditions and activity limitations before a release claim.
+
+All-terrain does not mean every terrain or every dog. Stairs, swimming, deep sand, unstable ground and extreme slopes remain outside the initial design scope. Any future support needs its own evidence. Public copy describes the ambition as planned until verification is complete. Activity remains subject to the treating professional's plan.
+
 ## Proposed architecture
 
 Use a hybrid design. Metal rails and axle hardware provide a primary structural path. Printable parts make customization, module replacement and small-batch iteration practical. A final design may need metal reinforcement or fully metal connections in heavily loaded locations. The 3D-printable ambition must accommodate that finding.
@@ -80,3 +86,7 @@ A family exits development only when its drawings, process, BOM, tests, fitting 
 Design a practical repair hierarchy: routine inspection; caregiver-replaceable noncritical parts; authorized mechanical service; complete withdrawal when structural history or condition is unknown. Keep replacement part prices and lead times visible. Define retirement criteria for rails, axles, harnesses and printed structural interfaces from test/field evidence.
 
 A refurbishing program needs inspection, sanitation, compatibility, residual-life and record-transfer procedures. Printable repairs are valuable only when the replacement process preserves the qualified interface. Do not claim recyclability, a carbon reduction or environmental superiority without material/region-specific evidence and an appropriate assessment.
+
+## Custom giant-dog pathway
+
+Dogs beyond the proposed 180 lb catalog envelope need a separately engineered custom-giant program, not an XL override in the size calculator. Buddy's weight has not been supplied, so the present range cannot be represented as a confirmed fit for him. Collect measurements and professional requirements, reassess rails, wheel/axle architecture, stability, harness support and caregiver handling, and qualify the resulting envelope independently. No price or load rating is assigned to this pathway. The verified reference large chair also stops at 180 lb, so there is no established half-price comparison above that range.

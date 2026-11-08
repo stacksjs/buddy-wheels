@@ -18,6 +18,7 @@ const selected = derived(() => sizeOptions.find(size => size.code === selectedSi
   <section class="grid gap-10 items-start lg:gap-16 lg:grid-cols-[1.15fr_0.85fr] pb-16 shell">
     <div><figure class="product-photo"><img src="/images/chair-concept.png" alt="Generated concept of the proposed forest-green modular rear-support dog wheelchair" width="1536" height="1024" fetchpriority="high"></figure><p class="mt-3 text-xs muted">AI design concept. Shared across sizes. Hardware and fit geometry are not finalized.</p>
       <div class="grid gap-5 grid-cols-2 mt-8"><div class="feature-rule"><h2 class="font-semibold text-base">Designed to be repaired</h2><p class="mt-2 text-sm muted">Replace a connection, keep the frame. Printable parts are central to the plan.</p></div><div class="feature-rule"><h2 class="font-semibold text-base">Made to adjust</h2><p class="mt-2 text-sm muted">Proposed height, width and length adjustment. Fit envelopes still require testing.</p></div></div>
+      <div class="mt-4 feature-rule"><h2 class="font-semibold text-base">Designed around active lives</h2><p class="mt-2 text-sm muted">All-terrain readiness is a development goal. Grass, pavement, firm trails and light gravel need stability, rollover and durability tests before we claim support. Your dog's activity plan belongs with their care professional.</p></div>
     </div>
     <div>
       <p class="eyebrow">Rear-support mobility, rethought.</p>

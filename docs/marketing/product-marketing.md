@@ -17,3 +17,5 @@ Voice: warm, plain, hopeful and specific. Use “planned,” “target” and �
 Design: trust-first consumer storefront. DESIGN_VARIANCE 4, MOTION_INTENSITY 3, VISUAL_DENSITY 4. Light theme, forest-green accent, cream/sage surfaces, DM Sans, generous photography, 12px panel radius and pill CTAs. Motion is limited to hover feedback; reduced-motion preference removes it. Use STX, ts-css, native Stacks components and Iconify.
 
 Conversions today: read the plan, explore a size, use the local planner, add a development configuration and understand the launch gate. No signup collection, reservation or purchase exists. Future conversions require consent-backed intake and operational support before launch.
+
+Outdoor direction: all-terrain readiness for active lifestyles is a founder-requested design goal. Copy may describe planned grass, pavement, firm-trail and light-gravel use. “All-terrain ready” must remain a goal until surface-specific testing establishes operating limits; do not imply universal terrain support or prescribe an activity level for an individual dog.

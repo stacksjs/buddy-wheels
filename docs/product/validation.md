@@ -26,6 +26,7 @@ A calendar date cannot substitute for any gate. The founder is accountable for o
 | Protect skin/contact | Professional review followed by approved supervised fit observations | Contact/pressure method, skin/comfort criteria and follow-up window |
 | Avoid entanglement | Harness, toe, fur and pinch-path inspection across adjustments | Required clearances and unacceptable accessible hazards |
 | Support correct assembly | Observed assembly by representative caregivers | Critical-error rate, time distribution, comprehension and corrective measures |
+| Support a defined outdoor-use claim | Surface-specific pavement, grass, firm-trail and light-gravel trials, with ballast before approved supervised use | Allowed gradients, obstacle sizes, rolling resistance, stability, retention and fatigue limits for each family/configuration |
 | Permit safe servicing | Repair trials using released instructions and parts | Allowed tasks, inspection, time and successful retention verification |
 
 Do not invent a standard number or use a human-wheelchair standard as proof of animal-device compliance. The engineer should identify applicable methods and explain any adaptations. Establish confidence and sample sizes appropriate to variation; a single visually intact prototype is insufficient. Include dimensional extremes, permitted combinations, material lots and foreseeable misuse.

@@ -34,6 +34,17 @@ const featured = catalog.filter(size => ['S', 'M', 'L'].includes(size.code)).map
     </div>
     <p class="mt-5 text-sm muted">XS and XL are also in the development plan. <a class="underline" href="/shop">Compare all five sizes</a>. Concept render shared across sizes.</p>
   </section>
+  <section class="section-space shell">
+    <h2 class="section-title">For dogs with places to go.</h2>
+    <p class="mt-4 max-w-2xl muted">Active days are part of the vision. We are developing toward all-terrain readiness, with grass, pavement, firm trails and light gravel in the testing plan.</p>
+    <div class="grid gap-6 grid-cols-2 md:grid-cols-4 mt-8">
+      <div class="feature-rule"><i class="text-2xl i-hugeicons-plant-01" aria-hidden="true"></i><h3 class="mt-3 font-medium">Grass &amp; parks</h3></div>
+      <div class="feature-rule"><i class="text-2xl i-hugeicons-road-01" aria-hidden="true"></i><h3 class="mt-3 font-medium">Everyday pavements</h3></div>
+      <div class="feature-rule"><i class="text-2xl i-hugeicons-mountain" aria-hidden="true"></i><h3 class="mt-3 font-medium">Firm outdoor trails</h3></div>
+      <div class="feature-rule"><i class="text-2xl i-hugeicons-route-01" aria-hidden="true"></i><h3 class="mt-3 font-medium">Light gravel paths</h3></div>
+    </div>
+    <p class="mt-4 text-sm muted">Planned capabilities, not tested claims. The released terrain limits and activity guidance will follow structural testing and professional fitting review.</p>
+  </section>
   <section class="section-space story-band">
     <div class="grid gap-10 items-start md:grid-cols-[1fr_1.25fr] shell">
       <div><p class="eyebrow">It started with Buddy.</p><h2 class="mt-4 section-title">A best friend.<br>A reason to build.</h2><a href="/our-story" class="inline-flex mt-6 button-text">Meet the idea behind Buddy Wheels <i class="i-hugeicons-arrow-right-02" aria-hidden="true"></i></a></div>
