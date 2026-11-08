@@ -1,9 +1,9 @@
 import { designRoot } from '../../Designs/Wheelchair'
-import { xlDownload } from '../../Designs/XLDownloads'
-import { parseXLSetup } from '../../Designs/XLSetup'
+import { studioDownload } from '../../Designs/StudioDownloads'
+import { parseStudioSetup } from '../../Designs/StudioSetup'
 
 export default new Action({
-  name: 'Download configured XL bench design',
+  name: 'Download configured wheelchair bench design',
   method: 'GET',
   async handle(request) {
     const artifact = request.getParam('artifact')
@@ -16,9 +16,9 @@ export default new Action({
         if (Object.hasOwn(input, key)) throw new Error('Repeated setup fields are not allowed.')
         input[key] = value
       }
-      setup = parseXLSetup(input)
+      setup = parseStudioSetup(input, request.getParam('size'))
     }
-    catch (error) { return response.json({ code: 'INVALID_XL_SETUP', error: error instanceof Error ? error.message : 'Check your XL setup.' }, { status: 422 }) }
-    return xlDownload(designRoot, String(artifact), setup)
+    catch (error) { return response.json({ code: 'INVALID_DESIGN_SETUP', error: error instanceof Error ? error.message : 'Check your wheelchair setup.' }, { status: 422 }) }
+    return studioDownload(designRoot, String(artifact), setup)
   },
 })

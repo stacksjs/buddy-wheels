@@ -1,4 +1,5 @@
 {
+  "size": "XL",
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
   "revision": "r0",
   "sourceHash": "af4ff4efc0ffb3bf23cca9a2df96aaef0e438001b228b70863b9e24c1e74aa30",
@@ -162,8 +163,8 @@
     },
     {
       "path": "print-guide.md",
-      "sha256": "a0c5bb87d9b2f3853bc8c21e4c3be5b92dad2331e71c14bab15f84da0f7929f4",
-      "bytes": 4144
+      "sha256": "178a1835759f74346e177f7134062b38071036f0ff2015b03d3f9155ace4b32e",
+      "bytes": 4146
     },
     {
       "path": "printer-options-la.md",

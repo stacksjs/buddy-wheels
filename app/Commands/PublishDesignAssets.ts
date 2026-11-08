@@ -1,10 +1,10 @@
 import { defineCommand } from '@stacksjs/cli'
 import { print } from '@stacksjs/cli/output'
 import { designRoot } from '../Designs/Wheelchair'
-import { publishXLAssets } from '../Designs/XLDownloads'
+import { publishStudioAssets } from '../Designs/StudioDownloads'
 
 export default defineCommand({
   name: 'design:publish',
-  description: 'Publish the verified XL bench parts and CAD drawing into versioned public assets',
-  async handle() { await publishXLAssets(designRoot); print('Published XL bench assets under public/designs/xl/r0.') },
+  description: 'Publish all verified wheelchair bench parts and CAD drawing into versioned public assets',
+  async handle() { await publishStudioAssets(designRoot); print('Published XS, S, M, L and XL bench assets under public/designs/{size}/r0.') },
 })

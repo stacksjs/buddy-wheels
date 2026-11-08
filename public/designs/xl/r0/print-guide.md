@@ -27,7 +27,7 @@ All ten types fit within a nominal 220 x 220 x 100 mm box in their exported orie
 
 ## Inspection and record
 
-Record printer/firmware/slicer version, nozzle, profile file/hash, filament supplier/grade/lot, drying history, part revision, date and operator. Compare STL checksum with `exports.json`. Record actual print mass, dimensions and defects; no estimated print time or mass is represented as measured data.
+Record printer/firmware/slicer version, nozzle, profile file/hash, filament supplier/grade/lot, drying history, part revision, date and operator. Compare STL checksum with `checksums.json`. Record actual print mass, dimensions and defects; no estimated print time or mass is represented as measured data.
 
 Reject missing layers, cracks, warping that changes interfaces, incomplete bore walls, embedded debris, poorly fused layers or sharp accessible edges. Check cap fit, collar clearance, guard access and tool removal on the empty rig. The collar is a loose witness marker and provides no adjustment retention. A cap or guard must never hide inspection of a critical fastener or act as a pin retainer. r0 does not provide complete fur/toe/pinch guarding; removable pivot shields are rig samples only.
 
