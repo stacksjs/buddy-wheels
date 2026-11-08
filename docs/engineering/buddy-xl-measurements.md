@@ -8,9 +8,11 @@ Have the treating veterinarian or rehabilitation professional establish whether 
 | --- | --- | --- |
 | Current body weight, kg or lb | Owner reports 140 lb, converted 63.503 kg | Owner report November 8, 2026; confirm with actual scale |
 | Clinician-approved supported posture / restrictions | Pending | Named clinician and date |
-| Floor to groin / selected support plane, mm | Pending | With appropriate support, record exactly where measured |
-| Widest hip/body width at rails, mm | Pending | Include required soft tissue and harness clearance |
-| Behind-front-leg to rear-thigh length, mm | Pending | Identify both anatomical landmarks |
+| A supported floor-to-groin height, mm | Pending | Approved supported posture; record the groin crease landmark and helper |
+| E lying rear-leg measurement, mm, separate optional input | Pending | Groin to paw pad with natural bend; never substitute for A |
+| B1 hip width, straight across, mm | Pending | Raw full-body width at hips; no added frame clearance |
+| B2 widest body width, mm | Pending | Check shoulders, ribs and hips; record widest location without compression |
+| C armpit-to-rump length, mm | Pending | Back edge of front-leg armpit to back of rump, excluding tail |
 | Chest girth and front harness size | Pending | Follow selected harness supplier method |
 | Hind-leg posture and toe/stirrup clearance | Pending | Professional determination, not suspension setting |
 | Left/right asymmetry or skin/contact concerns | Pending | Clinician review |
@@ -32,3 +34,5 @@ The editable estimate is `designs/wheelchair/profiles/buddy-xl-estimate.json`. T
 The generator rejects unsafe digital combinations such as insufficient tube overlap or shocks reaching their hard ends. Passing those checks does not validate a load case, fit or clinical use. A profile has no safe weight capacity field and cannot mark itself animal-approved.
 
 Next individual revision: retain this baseline, record measured inputs separately, generate a new revision with explicit geometry and collision review, obtain structural/fit review, then follow the bench and supervised evaluation gates. No user-entered measurement should silently overwrite a released part.
+
+Use the [illustrated fit page](https://buddywheels.org/fit-guide), [printable handbook](https://buddywheels.org/measurement-handbook) and [two-page PDF](https://buddywheels.org/guides/buddy-wheels-measuring-guide.pdf). These are raw anatomy fields. Required frame/harness clearance is determined separately; do not add it to the recorded body widths. Our A-E codes differ from supplier order forms.

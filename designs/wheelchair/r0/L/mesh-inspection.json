@@ -1,16 +1,16 @@
 {
   "status": "DIGITAL_GEOMETRY_ONLY_NOT_PHYSICAL_VALIDATION",
-  "sourceHash": "450b361dfdfe7dff446d383e3ccd8eb214cc2d56fbf1137cec57acc1a66dc935",
+  "sourceHash": "827539005602ee28058fc3a747433ea3aa5fbc62422bceae5457f52dc1bad83c",
   "meshes": [
     {
       "file": "stl/tube_cap.stl",
       "inspection": {
-        "triangles": 240,
-        "vertices": 120,
+        "triangles": 432,
+        "vertices": 216,
         "closed": true,
         "consistentlyOriented": true,
         "components": 1,
-        "signedVolumeMm3": 3877.05467029359,
+        "signedVolumeMm3": 3871.1998925830776,
         "boundsMm": {
           "min": [
             -14.5,
@@ -33,12 +33,12 @@
     {
       "file": "stl/inner_cap.stl",
       "inspection": {
-        "triangles": 240,
-        "vertices": 120,
+        "triangles": 432,
+        "vertices": 216,
         "closed": true,
         "consistentlyOriented": true,
         "components": 1,
-        "signedVolumeMm3": 2722.05467029359,
+        "signedVolumeMm3": 2716.1998925830776,
         "boundsMm": {
           "min": [
             -12,
@@ -61,12 +61,12 @@
     {
       "file": "stl/index_collar.stl",
       "inspection": {
-        "triangles": 48,
-        "vertices": 24,
+        "triangles": 240,
+        "vertices": 120,
         "closed": true,
         "consistentlyOriented": true,
         "components": 1,
-        "signedVolumeMm3": 5026.080900878878,
+        "signedVolumeMm3": 4984.447443225654,
         "boundsMm": {
           "min": [
             -16.5,
@@ -89,12 +89,12 @@
     {
       "file": "stl/pivot_guard.stl",
       "inspection": {
-        "triangles": 416,
-        "vertices": 208,
+        "triangles": 620,
+        "vertices": 310,
         "closed": true,
         "consistentlyOriented": true,
         "components": 1,
-        "signedVolumeMm3": 6818.186617803138,
+        "signedVolumeMm3": 6698.9699426731595,
         "boundsMm": {
           "min": [
             -20,

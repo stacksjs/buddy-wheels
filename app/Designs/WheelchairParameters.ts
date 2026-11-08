@@ -1,3 +1,6 @@
+/** Candidate industrial finish. Color does not qualify a material or joint. */
+export const wheelchairPalette = { frame: '#315e47', metal: '#b4bfb8', polymer: '#254b38', arm: '#3e4d43', tire: '#29322d' } as const
+
 export interface WheelchairFamily {
   size: string
   tube: number

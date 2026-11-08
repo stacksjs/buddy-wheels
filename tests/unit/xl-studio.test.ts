@@ -75,6 +75,7 @@ test('asset publishing refuses stale source, modified exports and incomplete pro
     await cp(join(designRoot, 'designs/wheelchair/r0/source'), join(base, 'source'), { recursive: true })
     await Bun.write(join(root, 'docs/engineering/wheelchair-printing-r0.md'), 'Print guide')
     await Bun.write(join(root, 'docs/engineering/printer-options-la.md'), 'Printer options')
+    await Bun.write(join(root, 'docs/engineering/industrial-design-refinement.md'), 'Design refinement')
     await Bun.write(join(root, 'docs/product/validation.md'), 'Bench only')
     await publishXLAssets(root)
     const sourcePath = join(base, 'source/wheelchair.scad')

@@ -4,7 +4,7 @@ import { projectPath } from '@stacksjs/path'
 import { inspectBinaryStl } from './Mesh'
 
 import type { WheelchairFamily } from "./WheelchairParameters"
-import { cadParts, suspensionLength, validateFamily, wheelchairFamilies } from "./WheelchairParameters"
+import { cadParts, suspensionLength, validateFamily, wheelchairFamilies, wheelchairPalette } from "./WheelchairParameters"
 export type { WheelchairFamily } from "./WheelchairParameters"
 export { cadParts, suspensionLength, validateFamily, wheelchairFamilies } from "./WheelchairParameters"
 
@@ -41,7 +41,8 @@ const rounded = (n: number) => Math.round(n * 1000) / 1000
 const rad = (n: number) => n * Math.PI / 180
 function parameters(f: WheelchairFamily): string {
   const names: Record<string, string> = { innerWall: 'inner_wall', tireWidth: 'tire_width', hubWidth: 'hub_width', wheelOffset: 'wheel_offset', shockFull: 'shock_full', shockStroke: 'shock_stroke', shockNeutral: 'shock_neutral', shockOd: 'shock_od', armPlate: 'arm_plate', eyeWidth: 'eye_width', eyeBolt: 'eye_bolt', pivotBore: 'pivot_bore', frameBolt: 'frame_bolt', stopBolt: 'stop_bolt', lockBolt: 'lock_bolt', stopR: 'stop_r', lockR: 'lock_r', innerLength: 'inner_length' }
-  return Object.entries(f).filter(([key]) => key !== 'size').map(([key, value]) => `${names[key] || key}=${JSON.stringify(value)};`).join('\n')
+  const finish = Object.entries(wheelchairPalette).map(([key, value]) => `bw_${key}=${JSON.stringify([1, 3, 5].map(offset => Math.round(Number.parseInt(value.slice(offset, offset + 2), 16) / 255 * 10000) / 10000))};`)
+  return [...Object.entries(f).filter(([key]) => key !== 'size').map(([key, value]) => `${names[key] || key}=${JSON.stringify(value)};`), ...finish].join('\n')
 }
 
 export function familyBom(f: WheelchairFamily): string {

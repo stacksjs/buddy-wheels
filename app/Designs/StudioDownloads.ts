@@ -55,11 +55,12 @@ export async function publishStudioFamilyAssets(root: string, size: StudioSize):
   await copy(join(original, `${size}/assembly.png`), 'assembly.png')
   await copy(join(original, 'source/wheelchair.scad'), 'wheelchair.scad')
   await copy(join(root, 'docs/engineering/wheelchair-printing-r0.md'), 'print-guide.md')
-  const printGuide = (await Bun.file(join(target, 'print-guide.md')).text()).replaceAll('designs/wheelchair/r0/README.md', 'README.md').replaceAll('../product/validation.md', 'validation.md').replaceAll('For XL: 6.1, 6.2, 6.3, 6.4 mm.', `For ${size}: ${[0.1, 0.2, 0.3, 0.4].map(clearance => (family.frameBolt + clearance).toFixed(1)).join(', ')} mm.`).replaceAll('For XL: 20.6 mm insertion square, 29 mm flange.', `For ${size}: ${(family.tube - 2 * family.wall - 0.4).toFixed(1)} mm insertion square, ${family.tube + 4} mm flange.`).replaceAll('BW XL r0 BENCH', `BW ${size} r0 BENCH`).replaceAll('`exports.json`', '`checksums.json`')
+  const printGuide = (await Bun.file(join(target, 'print-guide.md')).text()).replaceAll('designs/wheelchair/r0/README.md', 'README.md').replaceAll('../product/validation.md', 'validation.md').replaceAll('For XL: 6.1, 6.2, 6.3, 6.4 mm.', `For ${size}: ${[0.1, 0.2, 0.3, 0.4].map(clearance => (family.frameBolt + clearance).toFixed(1)).join(', ')} mm.`).replaceAll('For XL: 20.6 mm insertion square, 29 mm flange.', `For ${size}: ${(family.tube - 2 * family.wall - 0.4).toFixed(1)} mm insertion square, ${family.tube + 4} mm flange.`).replaceAll('BW XL r0 BENCH', `BW ${size} r0 BENCH`).replaceAll('`exports.json`', '`checksums.json`').replaceAll('https://buddywheels.org/guides/industrial-design-refinement.md', 'industrial-design.md')
   await Bun.write(join(target, 'print-guide.md'), printGuide)
   const printRecord = assets.find(asset => asset.path === 'print-guide.md')!
   printRecord.sha256 = new Bun.CryptoHasher('sha256').update(printGuide).digest('hex')
   printRecord.bytes = new TextEncoder().encode(printGuide).byteLength
+  await copy(join(root, 'docs/engineering/industrial-design-refinement.md'), 'industrial-design.md')
   await copy(join(root, 'docs/engineering/printer-options-la.md'), 'printer-options-la.md')
   await copy(join(root, 'docs/product/validation.md'), 'validation.md')
   await Bun.write(join(target, 'manifest.json'), `${JSON.stringify({ size, status: 'BENCH_ONLY_NOT_ANIMAL_USE', revision: 'r0', sourceHash: manifest.sourceHash, parts: cadParts.map(p => ({ ...p, name: studioPartNames[p.id], file: studioPartFile(p.id) })), assets }, null, 2)}\n`)
@@ -93,7 +94,7 @@ export async function studioDownload(root: string, artifact: string, setup: Stud
   const hashes: { file: string, sha256: string, bytes: number }[] = []
   for (const asset of manifest.assets as { path: string, sha256: string }[]) {
     // The manifest is an application artifact, with a second path allowlist at delivery.
-    if (!/^(?:parts\/(?:FIT_CHECK_ONLY_)?[a-z_]+\.stl|metal\/[a-z_]+\.dxf|wheelchair\.scad|assembly\.png|print-guide\.md|printer-options-la\.md|validation\.md)$/.test(asset.path))
+    if (!/^(?:parts\/(?:FIT_CHECK_ONLY_)?[a-z_]+\.stl|metal\/[a-z_]+\.dxf|wheelchair\.scad|assembly\.png|print-guide\.md|industrial-design\.md|printer-options-la\.md|validation\.md)$/.test(asset.path))
       throw new Error('Invalid design asset manifest.')
     const bytes = new Uint8Array(await Bun.file(join(assetDir, asset.path)).arrayBuffer())
     if (new Bun.CryptoHasher('sha256').update(bytes).digest('hex') !== asset.sha256)

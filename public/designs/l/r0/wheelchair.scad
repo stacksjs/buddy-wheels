@@ -13,6 +13,12 @@ E=shock_neutral;
 maxr=radii[2];
 plate_outer=gap/2+plate;
 arm_y=eye_width/2+arm_plate/2;
+// Shared candidate palette from WheelchairParameters.ts. Sliding/bearing interfaces stay uncoated.
+frame_finish=is_undef(bw_frame) ? [0.1922,0.3686,0.2784] : bw_frame;
+metal_finish=is_undef(bw_metal) ? [0.7059,0.7490,0.7216] : bw_metal;
+polymer_finish=is_undef(bw_polymer) ? [0.1451,0.2941,0.2196] : bw_polymer;
+arm_finish=is_undef(bw_arm) ? [0.2431,0.3020,0.2627] : bw_arm;
+tire_finish=is_undef(bw_tire) ? [0.1608,0.1961,0.1765] : bw_tire;
 
 module disc_hull(points,r) { hull() for(p=points) translate(p) circle(r); }
 module hole(p,d) { translate(p) circle(d=d); }
@@ -66,7 +72,8 @@ module cap(od=tube,w=wall) {
  id=od-2*w-0.4;
  difference() {
   union() {
-   translate([-(od+4)/2,-(od+4)/2,0]) cube([od+4,od+4,3]);
+   // Round only the nonstructural outside flange; insertion dimensions are unchanged.
+   linear_extrude(3) offset(r=1.5) square([od+1,od+1],center=true);
    translate([-id/2,-id/2,3-eps]) cube([id,id,12+eps]);
   }
   translate([-(id-3)/2,-(id-3)/2,3]) cube([id-3,id-3,13]);
@@ -75,14 +82,18 @@ module cap(od=tube,w=wall) {
 }
 module index_collar() {
  difference() {
-  translate([-(tube+8)/2,-(tube+8)/2,0]) cube([tube+8,tube+8,12]);
+  linear_extrude(12) offset(r=2) square([tube+4,tube+4],center=true);
   translate([-(tube+0.6)/2,-(tube+0.6)/2,-eps]) cube([tube+0.6,tube+0.6,13]);
   translate([tube/2,-3,4]) cube([6,6,9]);
  }
 }
 module pivot_guard() {
  difference() {
-  cylinder(d=40,h=7);
+  union() {
+   cylinder(d1=38,d2=40,h=1);
+   translate([0,0,1]) cylinder(d=40,h=5);
+   translate([0,0,6]) cylinder(d1=40,d2=38,h=1);
+  }
   translate([0,0,-eps]) cylinder(d=pivot+7,h=8);
   // Cover is a removable loose shield, not a bearing or fastener retainer.
   translate([-25,-2,3]) cube([50,4,6]);
@@ -127,26 +138,26 @@ module shock_model() {
  vec=top-bottom; len=norm(vec);
  translate(bottom) rotate([0,atan2(vec[0],vec[2]),0]) {
   color("silver") cylinder(d=eye_bolt+8,h=len);
-  color([0.24,0.28,0.27]) translate([0,0,len*0.28]) cylinder(d=shock_od,h=len*0.46);
+  color(polymer_finish) translate([0,0,len*0.28]) cylinder(d=shock_od,h=len*0.46);
  }
  color("silver") {pin_y(top[0],top[2],eye_bolt,gap+2*plate+8);
  pin_y(bottom[0],bottom[2],eye_bolt,eye_width+2*arm_plate+8);}
 }
 module suspension() {
- for(s=[-1,1]) color([0.55,0.60,0.62]) profile_in_xz("fixed",plate,s*(gap/2+plate/2+explode));
+ for(s=[-1,1]) color(metal_finish) profile_in_xz("fixed",plate,s*(gap/2+plate/2+explode));
  rotate([0,-angle,0]) {
-  for(s=[-1,1]) color([0.25,0.42,0.34]) profile_in_xz("arm",arm_plate,s*(arm_y+explode));
+  for(s=[-1,1]) color(arm_finish) profile_in_xz("arm",arm_plate,s*(arm_y+explode));
   color("silver") {pin_y(arm,0,axle,eye_width+2*arm_plate+60);
    pin_y(stop_r,0,stop_bolt,gap+2*plate+8);}
  }
  color("silver") pin_y(0,0,pivot,gap+2*plate+8);
- if(locked) color([0.19,0.37,0.28]) pin_y(lock_r,0,lock_bolt,gap+2*plate+12);
+ if(locked) color(polymer_finish) pin_y(lock_r,0,lock_bolt,gap+2*plate+12);
  shock_model();
 }
 module wheel_model() {
  rotate([90,0,0]) {
-  color([0.12,0.14,0.13]) difference() {cylinder(d=wheel,h=tire_width,center=true); cylinder(d=wheel-30,h=tire_width+1,center=true);}
-  color([0.65,0.67,0.65]) difference() {cylinder(d=wheel-28,h=6,center=true); cylinder(d=wheel-45,h=7,center=true);}
+  color(tire_finish) difference() {cylinder(d=wheel,h=tire_width,center=true); cylinder(d=wheel-30,h=tire_width+1,center=true);}
+  color(metal_finish) difference() {cylinder(d=wheel-28,h=6,center=true); cylinder(d=wheel-45,h=7,center=true);}
   color("silver") cylinder(d=30,h=hub_width,center=true);
   for(a=[0:30:330]) color("silver") rotate([0,0,a]) translate([-1,0,-1]) cube([2,wheel/2-17,2]);
  }
@@ -154,22 +165,20 @@ module wheel_model() {
 module assembly() {
  // No dog is depicted. Softgoods are not a fitted harness pattern.
  for(side=[-1,1]) translate([0,side*width/2,0]) {
-  color([0.72,0.75,0.74]) {
+  color(frame_finish) {
    translate([0,0,R+25]) square_tube(tube,wall,height-R-(2*pitch+20)-25);
-   translate([0,0,height-tube/2-inner_length]) square_tube(inner,inner_wall,inner_length);
    translate([-(rail-80),0,height]) rotate([0,90,0]) square_tube(tube,wall,rail);
   }
-  for(s=[-1,1]) color([0.55,0.60,0.62]) translate([0,0,height]) profile_in_xz("corner",plate,s*(tube/2+plate/2));
+  color(metal_finish) translate([0,0,height-tube/2-inner_length]) square_tube(inner,inner_wall,inner_length);
+  for(s=[-1,1]) color(metal_finish) translate([0,0,height]) profile_in_xz("corner",plate,s*(tube/2+plate/2));
   translate([0,0,R]) suspension();
   translate([arm*cos(angle),side*(wheel_offset+explode*2),R+arm*sin(angle)]) wheel_model();
-  color([0.23,0.40,0.31]) translate([-(rail-80),0,height]) rotate([0,90,0]) cap();
+  color(polymer_finish) translate([-(rail-80),0,height]) rotate([0,90,0]) cap();
  }
- color([0.72,0.75,0.74]) {
-  translate([60,-width/2+tube/2,height]) rotate([-90,0,0]) square_tube(tube,wall,(width-tube)*0.7);
-  translate([60,width/2-tube/2,height]) rotate([90,0,0]) square_tube(inner,inner_wall,(width-tube)*0.7);
- }
+ color(frame_finish) translate([60,-width/2+tube/2,height]) rotate([-90,0,0]) square_tube(tube,wall,(width-tube)*0.7);
+ color(metal_finish) translate([60,width/2-tube/2,height]) rotate([90,0,0]) square_tube(inner,inner_wall,(width-tube)*0.7);
  // Four metal corner plates join the rear bridge, above and below its tubes.
- for(side=[-1,1],s=[-1,1]) color([0.55,0.60,0.62]) translate([60,side*width/2,height+s*(tube/2+plate/2)])
+ for(side=[-1,1],s=[-1,1]) color(metal_finish) translate([60,side*width/2,height+s*(tube/2+plate/2)])
   scale([1,side,1]) linear_extrude(plate,center=true) corner_profile();
 }
 assert(setting>=0 && setting<=2 && setting==floor(setting),"setting must be 0, 1 or 2");

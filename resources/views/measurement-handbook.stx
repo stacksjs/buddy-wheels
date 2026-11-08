@@ -1,0 +1,33 @@
+@extends('layouts/handbook')
+@section('title', 'Illustrated measuring guide & worksheet')
+<script server>
+import { measurementDefinitions } from '~/app/Fitting/Measurements'
+const mainSteps = measurementDefinitions.slice(0, 4)
+const otherSteps = measurementDefinitions.slice(4)
+const allSteps = measurementDefinitions
+</script>
+@section('content')
+<article class="guide-sheet">
+  <header class="guide-brand"><strong>buddy<span>wheels</span></strong><span>MEASURING &amp; FITTING<br>Customer guide, November 8, 2026</span></header>
+  <h1>Measure their shape.<br>Keep the landmarks clear.</h1><p class="guide-lead">Record raw body measurements, with no added frame clearance. Our A-E labels apply to this worksheet, not another manufacturer’s order form.</p><a class="handbook-download" href="/guides/buddy-wheels-measuring-guide.pdf" download>Download this guide as PDF</a>
+  <div class="guide-callout"><strong>Comfort first.</strong> Ask your vet or rehabilitation professional how to support your dog. Never force standing or straighten a painful limb. New or sudden hind-leg loss needs urgent veterinary assessment; measuring must not delay care.</div>
+  <div class="guide-diagram-grid">@foreach (mainSteps as step)
+    <figure><img src="/guides/measure-{{ step.image }}.svg" alt="{{ step.code }}. {{ step.title }}. {{ step.start }} to {{ step.end }}." width="640" height="400"><figcaption><h3><span class="guide-key">{{ step.code }}</span>{{ step.title }}</h3><p><strong>From:</strong> {{ step.start }}. <strong>To:</strong> {{ step.end }}.</p><p>{{ step.method }}</p><p>{{ step.avoid }}</p></figcaption></figure>
+  @endforeach</div>
+  <footer class="guide-footer"><span>Original schematics, not to scale. Read the methods before measuring.</span><span>buddywheels.org/fit-guide · 1 / 2</span></footer>
+</article>
+<article class="guide-sheet">
+  <header class="guide-brand"><strong>buddy<span>wheels</span></strong><span>BODY MEASUREMENT RECORD<br>Bring this to the fitting conversation.</span></header>
+  <div class="guide-diagram-grid">@foreach (otherSteps as step)
+    <figure><img src="/guides/measure-{{ step.image }}.svg" alt="{{ step.code }}. {{ step.title }}." width="640" height="400"><figcaption><h3><span class="guide-key">{{ step.code }}</span>{{ step.title }}</h3><p>{{ step.method }}</p><p>{{ step.avoid }}</p></figcaption></figure>
+  @endforeach</div>
+  <div class="guide-meta"><div>Dog / breed: __________________________________</div><div>Current weight: __________ lb / kg &nbsp; Date: __________</div></div>
+  <div class="guide-table-scroll" role="region" aria-label="Measurement record, scroll horizontally on small screens" tabindex="0"><table class="guide-fields"><thead><tr><th align="left">Measurement</th><th align="left">Value &amp; unit</th><th align="left">Method note</th></tr></thead><tbody>@foreach (allSteps as step)<tr><td><strong>{{ step.code }}.</strong> {{ step.title }}</td><td><span class="blank">________________</span></td><td>{{ step.view }}</td></tr>@endforeach</tbody></table></div>
+  <p class="guide-body-note"><strong>Use one unit system.</strong> Circle inches or centimeters. A uses supported posture; E uses lying posture with a natural bend. Leave A pending if supported standing is not comfortable. Do not substitute E for A.</p>
+  <div class="guide-meta"><div>Supported posture / helper: _______________________</div><div>Widest location / asymmetry: _____________________</div></div>
+  <p class="guide-body-note"><strong>Before sharing:</strong> repeat the measurement; confirm the same landmarks and units. Note thick coat, posture changes or differences between sides. Buddy’s 140 lb is owner reported; all of his body dimensions are still pending until measured.</p>
+  <p class="guide-body-note">Body measurements are not CAD settings. Harness offsets, padding, tire deflection, clearances and suspension movement need separate engineering and fitting review. A completed worksheet does not approve a fit or establish a load capacity.</p>
+  <p class="guide-body-note">Method references: <a href="https://walkinpets.com/pages/wheelchair-sizer/">Walkin’ Pets rear-leg guide</a>; <a href="https://eddieswheels.com/files/A_Visual_Guide_to_Measuring_Your_Pet_-_Eddies_Wheels_for_Pets_-_The_Pet_Mobility_Experts.pdf">Eddie’s Wheels supported-measurement guide</a>. <a href="https://ruffwear.com/blogs/explored/the-size-is-right-how-to-measure-for-your-dogs-gear">Ruffwear’s girth guide</a> explains the chest landmark; follow the selected harness supplier’s instructions separately. Methods and codes differ between brands.</p>
+  <footer class="guide-footer"><span>Keep care and treatment moving independently of a prototype build.</span><span>buddywheels.org/fit-guide · 2 / 2</span></footer>
+</article>
+@endsection

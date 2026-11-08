@@ -58,7 +58,11 @@
     "finance": "bun scripts/finance.ts",
     "test:browser": "bun scripts/qa.ts",
     "test:studio": "bun scripts/qa-studio.ts",
-    "images": "bun scripts/images.ts"
+    "images": "bun scripts/images.ts",
+    "finance:prototype": "bun scripts/prototype-cost.ts",
+    "guides:art": "bun scripts/measurement-art.ts",
+    "guides:pdf": "bun scripts/export-guides.ts",
+    "test:fit": "bun scripts/qa-fit.ts"
   },
   "dependencies": {
     "@stacksjs/actions": "^0.75.526",

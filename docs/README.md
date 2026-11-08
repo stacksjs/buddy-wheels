@@ -26,3 +26,7 @@ Prepared November 7, 2026. This is a development-stage business and product plan
 - [Asset provenance](marketing/assets.md): original generated imagery, prompts and intended use.
 
 The catalog's weight and height bands are planning inputs, not proven load ratings. Price targets exclude tax and delivery. Public product copy must retain these distinctions until evidence supports a change.
+
+- [Illustrated measuring guide and customer handbooks](engineering/measurement-guide.md): six anatomical diagrams, private worksheet, unit conversion, PDF rebuild and review sources.
+- [One-off XL build budget](business/xl-prototype-build-budget.md): every BOM line, printer, tools, finish, tax reserve, contingency and development allowances.
+- [Industrial design refinement](engineering/industrial-design-refinement.md): candidate forest/silver finish and rounded nonstructural prints, with the remaining clinical/engineering gates.

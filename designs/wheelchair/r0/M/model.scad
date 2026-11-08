@@ -31,4 +31,9 @@ stop_r=23;
 lock_r=38;
 pitch=30;
 inner_length=150;
+bw_frame=[0.1922,0.3686,0.2784];
+bw_metal=[0.7059,0.749,0.7216];
+bw_polymer=[0.1451,0.2941,0.2196];
+bw_arm=[0.2431,0.302,0.2627];
+bw_tire=[0.1608,0.1961,0.1765];
 include <../source/wheelchair.scad>

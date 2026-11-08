@@ -32,3 +32,7 @@ Record printer/firmware/slicer version, nozzle, profile file/hash, filament supp
 Reject missing layers, cracks, warping that changes interfaces, incomplete bore walls, embedded debris, poorly fused layers or sharp accessible edges. Check cap fit, collar clearance, guard access and tool removal on the empty rig. The collar is a loose witness marker and provides no adjustment retention. A cap or guard must never hide inspection of a critical fastener or act as a pin retainer. r0 does not provide complete fur/toe/pinch guarding; removable pivot shields are rig samples only.
 
 Prints can creep, change with moisture/heat and fail between layers. The material/process and environmental qualification in [the validation plan](validation.md) is still outstanding. Retain the first print and any failed specimens with their records.
+
+## November 8 appearance refinement
+
+The current r0 nonstructural prints have rounded cap flanges, rounded loose marker corners and tapered sample-shield rims. Nominal interfaces and counts remain unchanged; compare source/output hashes before mixing files from earlier downloads. See [the industrial-design notes](industrial-design.md). None of these changes establishes a load rating, installed guard or approved animal-contact part. The candidate forest finish is an exterior-metal process requiring masking, qualification and a separate shop quote.

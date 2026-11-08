@@ -21,6 +21,8 @@ Mix: XS 10%, S 20%, M 35%, L 25%, XL 10%. Approximate weighted contribution: $48
 
 The downside case raises COGS 20% and acquisition cost 50%. It does not change price or include all possible risks. Unit counts use exact integer allocations, with the remainder assigned to XL. Startup validation of $32,000 is separate from operating results. No digital-file or repeat-purchase revenue is assumed.
 
+The [one-off XL suspension prototype budget](xl-prototype-build-budget.md) prices a separate r0 custom bench rig, including equipment and development allowances. The production targets below do not price that rig and remain unquoted.
+
 COGS must include purchased parts, printed material, failed-print allocation, machine capacity, assembly, inspection and packaging. Delivery and support are separate. The 2.9% + $0.30 fee and 5% warranty/return reserve are management inputs, not a processor quote or observed failure rate. Replace each with evidence before committing a production batch.
 
 For the L family the $125 COGS allocation is: printed material $12, rails $18, wheels/axles $38, soft supports $22, fasteners $8, machine/reject allowance $6, assembly $11, QA $5 and packaging $5. These allocations sum to $125 and remain unquoted. XS/S/M/XL are top-down COGS envelopes until their BOMs are priced.

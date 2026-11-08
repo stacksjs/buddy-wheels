@@ -2,7 +2,7 @@
   "size": "S",
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
   "revision": "r0",
-  "sourceHash": "9721f3e3b65badcc4bf68c2addbbae574ed3580bb58f460b87650de31af561e3",
+  "sourceHash": "682a7c727b871d6bbd5af58ebf4f7d0351f813dc90f3323492cde58953d1e633",
   "parts": [
     {
       "id": "tube_cap",
@@ -88,32 +88,32 @@
   "assets": [
     {
       "path": "parts/tube_cap.stl",
-      "sha256": "d492c991a8beadee9b1a0421322cde606ef2349e652e36dad5c38f64abe6ec6c",
-      "bytes": 12084
+      "sha256": "258c2347ea08a8d40e7c9e44fe08686b10e5f09ae6aac8446053bb3bea3abcbd",
+      "bytes": 21684
     },
     {
       "path": "parts/inner_cap.stl",
-      "sha256": "be55a936cf1624e8c8a5cea45b8253cb4a1ded8585ab93c66b53681c9c3c55cc",
-      "bytes": 12084
+      "sha256": "27ef4bbc9ec2cdff1cfdbebcbcdca39d59e9f089dad05dcc8a7565f12d7096bf",
+      "bytes": 21684
     },
     {
       "path": "parts/index_collar.stl",
-      "sha256": "3d297c91225c9c7a179bd9f8f13f1ece9141f52079ebd94a36f38209f4ba3ef2",
-      "bytes": 2484
+      "sha256": "094220b4ee449ba1115f1378efa664f0d30c75f88e2933c4da01bf040ae75fa4",
+      "bytes": 12084
     },
     {
       "path": "parts/pivot_guard.stl",
-      "sha256": "3299ac4af86fa3c81164e96c35dec36b14db835100691c5ced002c4e6ecaf377",
-      "bytes": 20884
+      "sha256": "ce8ae52ee04899544194b13a67af2cf9dbdac5965ea09662c41c9fbc95079461",
+      "bytes": 31084
     },
     {
       "path": "parts/drill_jig.stl",
-      "sha256": "a5909d41da00cdc32f0d8c513d0378551d116c6bdc47da028c60dd648a3ac9b7",
+      "sha256": "e3ed576614b51c7101d27a47405b6008893475fdbf41c91d96f62890bbb81394",
       "bytes": 41484
     },
     {
       "path": "parts/coupon.stl",
-      "sha256": "e726d388e5506047f1daed7a63e104d191d49b6d023226bc1027edc7f214ba12",
+      "sha256": "8ada8cb96e40fd35273862d23d807278d5662d5899fe1b6f69a7e827b5bface8",
       "bytes": 39884
     },
     {
@@ -153,18 +153,23 @@
     },
     {
       "path": "assembly.png",
-      "sha256": "a8ebd45e8ebfa4b128f60f6e5329268837828fb67e24ca4cb975cdb83a5aef25",
-      "bytes": 65303
+      "sha256": "a0d9314d8533c2cbd860090f24fbd94b95a0d3a4a1b9ddb40ce87af65f3a8af8",
+      "bytes": 65322
     },
     {
       "path": "wheelchair.scad",
-      "sha256": "4b4911bb1154fae9ca634591b0d0f76cc510429905549e3479b644fafb576261",
-      "bytes": 7181
+      "sha256": "1638a95a519a4844eb20bf1c8f8b41cd4e8c86f10d08f41fc69e2c51398b4212",
+      "bytes": 7827
     },
     {
       "path": "print-guide.md",
-      "sha256": "65dc80fd2a85891de51920d78cbcfb47f55bdaa9aef740f2b4ddc673c9595099",
-      "bytes": 4143
+      "sha256": "bf318cdfd4f5d1bd34b0071c8939b4924af7ff8288ab1472f2eb0fdd5aa776e2",
+      "bytes": 4697
+    },
+    {
+      "path": "industrial-design.md",
+      "sha256": "7615fdaa49bf1e40dd44c18ef04d8eaacc75149ee2bf30cf4a6cf7542d065a56",
+      "bytes": 5452
     },
     {
       "path": "printer-options-la.md",

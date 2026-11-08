@@ -1,0 +1,69 @@
+import { money } from '../Storefront/Catalog'
+
+export type BudgetCase = 'low' | 'base' | 'high'
+export interface BudgetLine {
+  id: string
+  group: 'device' | 'equipment' | 'consumables'
+  name: string
+  buy: string
+  bom: string[]
+  low: number
+  base: number
+  high: number
+  evidence: 'observed-price' | 'allowance'
+  note: string
+  source?: string
+}
+export const budgetDate = '2026-11-08'
+export const prototypeBudgetLines: BudgetLine[] = [
+  { id: 'outer', group: 'device', name: 'Outer aluminum tube stock', buy: '3 m, 25 x 25 x 2 mm', bom: ['M01', 'M02', 'M04'], low: 4500, base: 6500, high: 10000, evidence: 'allowance', note: '2,252.5 mm net cut length. Exact metric 6061-T6 stock, kerf and delivery need a quote. Imperial tube is not a drop-in replacement.' },
+  { id: 'inner', group: 'device', name: 'Inner aluminum tube stock', buy: '1 m, 20 x 20 x 2 mm', bom: ['M03', 'M05'], low: 2000, base: 3000, high: 4500, evidence: 'allowance', note: '622.5 mm net cut length. Actual telescoping and corner radii must be checked.' },
+  { id: 'finish', group: 'device', name: 'External frame finish and masking', buy: '1 small-batch finish operation', bom: [], low: 3500, base: 7000, high: 14000, evidence: 'allowance', note: 'Candidate matte forest coating on exterior outer tubes only. Mask sliding sections, tube interiors, bores, bearing interfaces and clamped joint faces. Exact process, adhesion, corrosion behavior and quote are pending. Separate from metal cutting/deburring and finish-hole work.' },
+  { id: 'plates', group: 'device', name: 'Metal cheeks and fabrication', buy: '16 plates: 4 fixed, 4 arm, 8 corner', bom: ['M06', 'M07', 'M08'], low: 12000, base: 22000, high: 40000, evidence: 'allowance', note: '6 mm plate stock, cutting, deburring and finish-hole work. Includes outsourced tube drilling/match-fitting allowance; no drill press purchase assumed. Shop RFQ required.' },
+  { id: 'pins', group: 'device', name: 'Machined pins and axles', buy: '10 retained pivot/stop/lock/eye pins, 2 axles', bom: ['S02', 'S06', 'S07', 'S11', 'S12', 'W02'], low: 10000, base: 20000, high: 40000, evidence: 'allowance', note: 'Headed shafts, finish fits and cross-holes are custom work. Drawing approval and actual quote pending.' },
+  { id: 'spacers', group: 'device', name: 'Metal spacers and crush sleeves', buy: '38 spacers and 26 sleeves', bom: ['S04', 'S05', 'S08', 'S09', 'S10', 'W03', 'W04', 'H05', 'H06', 'H07a', 'H07b'], low: 8000, base: 15000, high: 30000, evidence: 'allowance', note: 'Small-quantity material and machining. These are metal compression/load-path parts, not prints.' },
+  { id: 'bushes', group: 'device', name: 'Bronze pivot bushes', buy: '4, nominal 10 ID / 14 OD / 6 long', bom: ['S03'], low: 1200, base: 2400, high: 4800, evidence: 'allowance', note: 'Supplier press/running fits pending.' },
+  { id: 'bolts', group: 'device', name: 'Frame fastener sets', buy: '26 bolts, 52 washers, 26 locknuts', bom: ['H01', 'H02', 'H03', 'H04', 'H08', 'H09'], low: 2500, base: 4000, high: 6500, evidence: 'allowance', note: 'M6 nominal. Lengths and grades require the final joint drawing.' },
+  { id: 'retainers', group: 'device', name: 'Pin washers and retainers', buy: '12 end washers and 12 cotters', bom: ['H10', 'H11'], low: 1000, base: 1800, high: 3000, evidence: 'allowance', note: 'Positive retention, not friction caps. Final pin-end ligaments and cotter fit pending.' },
+  { id: 'wheels', group: 'device', name: 'Wheel, tire and bearing assemblies', buy: '2, requested 400 mm OD / 12 mm bore / 40 mm hub', bom: ['W01'], low: 9000, base: 14000, high: 22000, evidence: 'allowance', note: 'RFQ only. A nominal 16-inch wheel is not automatically compatible or load rated for this rig.' },
+  { id: 'shocks', group: 'device', name: 'Adjustable spring/damper assemblies', buy: '2 matched units', bom: ['S01'], low: 12000, base: 22000, high: 40000, evidence: 'allowance', note: '165 extended / 38 stroke / 155 installed / 8 pin / 20 eye width / 40 maximum body, all mm. No approved purchasable SKU or spring tune yet. This allowance can be exceeded.' },
+  { id: 'rear-support', group: 'device', name: 'Padded rear support', buy: '1 professionally selected harness', bom: ['T01'], low: 8000, base: 13000, high: 22000, evidence: 'allowance', note: 'Capacity, anatomy and attachment compatibility need fitting and supplier review.' },
+  { id: 'front-support', group: 'device', name: 'Front harness and paired tethers', buy: '1 fitted set', bom: ['T02'], low: 3500, base: 6000, high: 10000, evidence: 'allowance', note: 'Supplier-rated softgoods; not a homemade printed saddle.' },
+  { id: 'anchors', group: 'device', name: 'Support anchor interface reserve', buy: '1 interface set, design unresolved', bom: [], low: 3000, base: 6000, high: 12000, evidence: 'allowance', note: 'Additional allowance beyond the current BOM, because the harness anchor load path is not yet designed. Not an approved part or purchase instruction.' },
+  { id: 'filament', group: 'consumables', name: 'Initial PETG purchase', buy: '1 full 1 kg spool, 1.75 mm', bom: ['P-tube_cap', 'P-inner_cap', 'P-index_collar', 'P-pivot_guard', 'P-drill_jig', 'P-coupon', 'P-shock_dummy'], low: 2000, base: 2500, high: 3500, evidence: 'allowance', note: 'Cash purchase, not a measured print mass. Covers service/fixture prints and some fit-check iterations only as far as the actual slicer yield allows. Metal-part plastic copies are unloaded gauges. Do not charge consumed grams again.' },
+  { id: 'electricity', group: 'consumables', name: 'Printer and dryer electricity', buy: 'One printing/iteration allowance', bom: [], low: 100, base: 300, high: 800, evidence: 'allowance', note: 'Unmeasured allowance. Log actual hours, kWh and utility tariff; no print time is represented as observed.' },
+  { id: 'printer', group: 'equipment', name: 'Bambu Lab P2S, printer only', buy: '1, no AMS or laser bundle', bom: [], low: 54900, base: 54900, high: 54900, evidence: 'observed-price', note: 'Seller lists printer-only at $549. Verify configuration, current stock, freight and checkout price. The 256 mm bed accommodates the current nominal 220 mm part envelope; check brim and exclusions.', source: 'https://additiveplus.com/product/bambu-lab-p2s/' },
+  { id: 'dryer', group: 'equipment', name: 'Filament dryer', buy: '1 single-spool dryer', bom: [], low: 4000, base: 6000, high: 9000, evidence: 'allowance', note: 'SUNLU S2 is a capability reference, not a verified price. Match the filament maker drying guidance.', source: 'https://www.sunlu.com/products/filadryer-s2-filament-dryer' },
+  { id: 'calipers', group: 'equipment', name: 'Digital caliper for printed/metal parts', buy: '1, 150 mm range', bom: [], low: 2499, base: 2499, high: 2499, evidence: 'observed-price', note: 'Harbor Freight item 63711 regular listed price, no membership coupon assumed. Not a tool to squeeze or measure Buddy body width.', source: 'https://www.harborfreight.com/6-in-digital-caliper-63711.html' },
+  { id: 'tools', group: 'equipment', name: 'Hand tools and measuring supplies', buy: 'Wrenches, clamps, deburring tools, tape, ruler, boards', bom: [], low: 6000, base: 10000, high: 18000, evidence: 'allowance', note: 'Supplier fabricates metalwork. Borrowing an already suitable tool reduces cash outlay; calibration/torque procedure still needs approval.' },
+  { id: 'spares', group: 'equipment', name: 'Cleanup supplies and spare nozzle', buy: '1 starter set', bom: [], low: 2000, base: 3500, high: 6000, evidence: 'allowance', note: 'Check printer-specific consumables. No extra build plate assumed.' },
+  { id: 'storage', group: 'equipment', name: 'Dry storage and desiccant', buy: '1 starter set', bom: [], low: 1500, base: 2500, high: 4000, evidence: 'allowance', note: 'Reusable storage, not additional filament.' },
+  { id: 'bench', group: 'equipment', name: 'Empty-rig catch/cradle and scales', buy: '1 bench fixture allowance', bom: ['T03'], low: 5000, base: 10000, high: 18000, evidence: 'allowance', note: 'Testing equipment, not part of the wearable chair. This is not a qualified test program or calibrated lab quote.' },
+]
+
+export const developmentAllowances = [
+  { name: 'Paid assembly, if used', low: 15000, base: 35000, high: 96000, basis: '6 h x $25 / 10 h x $35 / 16 h x $60. Illustrative labor, not a quote. DIY cash scenarios exclude this line, but your time is not free economically.' },
+  { name: 'Mechanical engineering review', low: 60000, base: 120000, high: 216000, basis: '6 h x $100 / 8 h x $150 / 12 h x $180. Unquoted planning allowance, not a scope or sign-off commitment.' },
+  { name: 'Veterinary/rehabilitation fitting', low: 15000, base: 25000, high: 45000, basis: 'Unquoted visit allowance. Buddy care continues independently; treatment and ongoing care are additional.' },
+  { name: 'Bench testing and additional specimens', low: 25000, base: 50000, high: 100000, basis: 'Unquoted development allowance beyond the reusable cradle. Actual test protocol, repetitions and failures can cost more.' },
+] as const
+
+export function prototypeBudget(which: BudgetCase = 'base', options: { equipment?: boolean, taxBps?: number, contingencyBps?: number } = {}) {
+  const taxBps = options.taxBps ?? 975
+  const contingencyBps = options.contingencyBps ?? 2000
+  if (![taxBps, contingencyBps].every(n => Number.isSafeInteger(n) && n >= 0 && n <= 10000)) throw new Error('Budget rates must be integer basis points from 0 to 10000.')
+  const selected = prototypeBudgetLines.filter(line => options.equipment !== false || line.group !== 'equipment')
+  const sum = (group: BudgetLine['group']) => selected.filter(line => line.group === group).reduce((total, line) => total + line[which], 0)
+  const device = sum('device'); const equipment = sum('equipment'); const consumables = sum('consumables')
+  const electricity = selected.find(line => line.id === 'electricity')?.[which] ?? 0
+  const shipping = { low: 6000, base: 12000, high: 24000 }[which]
+  const taxablePlanningBase = device + equipment + consumables - electricity
+  const taxReserve = Math.round(taxablePlanningBase * taxBps / 10000)
+  const contingencyBase = device + consumables - electricity + shipping
+  const contingency = Math.round(contingencyBase * contingencyBps / 10000)
+  const diyCash = device + equipment + consumables + shipping + taxReserve + contingency
+  const paidAssembly = developmentAllowances[0][which]
+  const reviewAndTesting = developmentAllowances.slice(1).reduce((total, line) => total + line[which], 0)
+  return { which, device, equipment, consumables, electricity, shipping, taxablePlanningBase, taxBps, taxReserve, contingencyBase, contingencyBps, contingency, diyCash, paidAssembly, withPaidAssembly: diyCash + paidAssembly, reviewAndTesting, developmentBudget: diyCash + paidAssembly + reviewAndTesting }
+}
+export function prototypeBudgetLabel(which: BudgetCase = 'base'): string { return money(prototypeBudget(which).diyCash) }

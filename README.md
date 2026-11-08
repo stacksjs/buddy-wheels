@@ -43,3 +43,5 @@ STX templates, ts-css utilities, Stacks UI components, native Actions and route 
 Domain: buddywheels.org, registered by the owner at Porkbun. The native cloud config attaches this independent project to the server owned by the stacks project, using an isolated tenant slug, port pair, gateway fragment and persistent database. Deployment uses `./buddy deploy --prod --yes` after checking its dry-run plan. Provider credentials stay in the protected deploy environment.
 
 See [architecture and operations](docs/engineering/architecture.md) and the [acceptance record](docs/engineering/acceptance.md) for executed checks and remaining launch work.
+
+The [visual fit guide](https://buddywheels.org/fit-guide) includes an interactive body-measurement worksheet and printable customer handbook. The [complete XL prototype budget](docs/business/xl-prototype-build-budget.md) separates one-off build cash, reusable equipment and unquoted professional development work. See the [r0 appearance refinement](docs/engineering/industrial-design-refinement.md) for the updated forest/silver palette and rounded nonstructural prints.

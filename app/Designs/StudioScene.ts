@@ -2,20 +2,20 @@ import type { ModelGeometry, ModelMatrix, ModelNode, ModelScene, ModelVector } f
 import { modelTransform, multiplyModelMatrices } from '@stacksjs/browser/model-viewer'
 import type { StudioSetup } from './StudioSetup'
 import { studioAssetRoot, studioPartFile, studioSetupFamily } from './StudioSetup'
-import { cadParts } from './WheelchairParameters'
+import { cadParts, wheelchairPalette } from './WheelchairParameters'
 
 /** Same dimensions, local axes and neutral datums as the editable r0 CAD. */
 export function createStudioScene(setup: StudioSetup, focus = 'assembly', exploded = false, revision = 'r0'): ModelScene {
   const family = studioSetupFamily(setup)
   const nodes: ModelNode[] = []
-  const metal = '#9aa9a1'; const green = '#315e47'; const pin = '#c0c9c3'; const tire = '#303b34'
+  const metal = wheelchairPalette.metal; const green = wheelchairPalette.polymer; const pin = '#cbd2cc'; const tire = wheelchairPalette.tire
   const gap = exploded ? 28 : 0
   const R = family.wheel / 2
   const theta = (setup.locked ? 0 : setup.travel) * Math.PI / 180
   function add(id: string, geometry: ModelGeometry, color: string, transform: ModelMatrix): void { nodes.push({ id, geometry, color, transform }) }
   function stl(id: string, part: string, color: string, transform: ModelMatrix): void { add(id, { kind: 'stl', src: `${studioAssetRoot(setup.size)}/parts/${studioPartFile(part)}?v=${encodeURIComponent(revision)}` }, color, transform) }
   function tube(id: string, od: number, wall: number, length: number, position: ModelVector, rotation: ModelVector = [0, 0, 0]): void {
-    add(id, { kind: 'tube', outer: od, inner: od - 2 * wall, length }, metal, modelTransform(position, rotation))
+    add(id, { kind: 'tube', outer: od, inner: od - 2 * wall, length }, od === family.inner ? metal : wheelchairPalette.frame, modelTransform(position, rotation))
   }
   function cylinder(id: string, radius: number, length: number, position: ModelVector, rotation: ModelVector = [90, 0, 0], color = pin, innerRadius = 0): void {
     add(id, { kind: 'cylinder', radius, innerRadius, length }, color, modelTransform(position, rotation))
@@ -32,7 +32,7 @@ export function createStudioScene(setup: StudioSetup, focus = 'assembly', explod
     const arm = multiplyModelMatrices(pivot, modelTransform([0, 0, 0], [0, -(setup.locked ? 0 : setup.travel), 0]))
     for (const sign of [-1, 1]) {
       cheek(`${prefix}-fixed-${sign}`, 'fixed_plate', sign * (family.gap / 2 + family.plate / 2 + gap), 0, family.plate, metal, pivot)
-      cheek(`${prefix}-arm-${sign}`, 'arm_plate', sign * (family.eyeWidth / 2 + family.armPlate / 2 + gap), 0, family.armPlate, green, arm)
+      cheek(`${prefix}-arm-${sign}`, 'arm_plate', sign * (family.eyeWidth / 2 + family.armPlate / 2 + gap), 0, family.armPlate, wheelchairPalette.arm, arm)
     }
     cylinder(`${prefix}-pivot`, family.pivot / 2, family.gap + 2 * family.plate + 8 + gap * 2, [0, y, R])
     cylinder(`${prefix}-stop`, family.stopBolt / 2, family.gap + 2 * family.plate + 8 + gap * 2, [family.stopR * Math.cos(theta), y, R + family.stopR * Math.sin(theta)])

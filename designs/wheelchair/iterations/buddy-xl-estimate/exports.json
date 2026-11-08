@@ -1,43 +1,43 @@
 {
   "revision": "r0",
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
-  "sourceHash": "997a834f4a2c2d5f738bbc006c9154473a8f856f4f4994b9a27f8d784a805693",
+  "sourceHash": "b982e84a021759e66e6b7b0f3125255d944e5d64092dd89ac7d400b11d78f920",
   "tool": "OpenSCAD version 2021.01",
   "files": [
     {
       "file": "stl/tube_cap.stl",
-      "bytes": 12084,
-      "sha256": "3c50801c4a29870814fc2b519539f2cca8b2944b12f1a365f84627f1aacb3d3a",
+      "bytes": 21684,
+      "sha256": "e74b0109f8e96d698cc8ef1e06684784fe313219a78519fec0875fc771bc30e9",
       "purpose": "Outer-tube end protection, optional"
     },
     {
       "file": "stl/inner_cap.stl",
-      "bytes": 12084,
-      "sha256": "e4c2dd64611f73f1a9cd40c9f816e102a1d66a0b5af907b43c05d1fca990b475",
+      "bytes": 21684,
+      "sha256": "08084af83937cda64350fc291332a3cfa5ba1abe2267a8409678685f859578d0",
       "purpose": "Inner bridge end protection, optional"
     },
     {
       "file": "stl/index_collar.stl",
-      "bytes": 2484,
-      "sha256": "64c987b189453cbf6c326f7706f4ec0409a209430dccc54fe1313b85484c8ab0",
+      "bytes": 12084,
+      "sha256": "6bbcb448ac71feeeb8db4e0ceddf6c355912de179dfc9192bdd8ef13cd9b3755",
       "purpose": "Loose setup witness marker, no retention function"
     },
     {
       "file": "stl/pivot_guard.stl",
-      "bytes": 20884,
-      "sha256": "1a177739703fdabb9d2f527f0dc6c8db45f5c74f5fa0478191814f6774f976a6",
+      "bytes": 31084,
+      "sha256": "89d7034a0f2532fe07909a521635f43c971233e4658ad3095ae22b6af092d61d",
       "purpose": "Removable shield for non-animal rig only"
     },
     {
       "file": "stl/drill_jig.stl",
       "bytes": 41484,
-      "sha256": "7c101e3006e7bd21e2bb988cd3a6e45f622f61bc81ab4510ab2ea19e0e05e86c",
+      "sha256": "3bfa7db4c01aa2b57e00cc1265661d0ba06288dd05a37ddc7c99ed45445e72ae",
       "purpose": "Pilot layout aid only; metal bush tooling required for final holes"
     },
     {
       "file": "stl/coupon.stl",
       "bytes": 39884,
-      "sha256": "d2e870f034367044b3bb8b0bd3227deacab5b4b62b36efb22ae197baa32c0fe4",
+      "sha256": "6484840c5b08aab2d423d646e40b7656606a1122e746ee5c49d68e819ab55a95",
       "purpose": "Hole-clearance calibration coupon"
     },
     {
@@ -84,20 +84,20 @@
     },
     {
       "file": "assembly.png",
-      "bytes": 61776,
-      "sha256": "32dfb9746d3bc04fcd309e3204f13e43b5d277b85a7641b3ac529efae41022c6",
+      "bytes": 61807,
+      "sha256": "3cff2cc2f49e2579d9211ef8fdfe143ad1a35d9750675cb552e10ba7739e7112",
       "purpose": "CAD-derived bench visualization, not a product photo"
     },
     {
       "file": "suspension.png",
-      "bytes": 47357,
-      "sha256": "6c11550af8d238f36773cf7e82d5cda5b426d00a1b56331560cba9693227cb24",
+      "bytes": 47372,
+      "sha256": "79ba3ce5f3a3713b77343645d725475f7fa01696c17c55b569e5cfafa44c93f4",
       "purpose": "CAD-derived bench visualization, not a product photo"
     },
     {
       "file": "exploded-suspension.png",
-      "bytes": 51876,
-      "sha256": "0a46959e3b85cd0e2d17175085731414a656d4fb158b45b253661edbf64e0dbb",
+      "bytes": 51813,
+      "sha256": "b1e47e3556bd6ba16436befe251ffbce5c478c23fe642a03bf6ba052c0d94bd9",
       "purpose": "CAD-derived bench visualization, not a product photo"
     }
   ]
