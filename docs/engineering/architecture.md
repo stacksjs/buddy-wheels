@@ -31,7 +31,7 @@ Only the app's four API routes are mounted. No payment driver is initialized for
 
 ## Framework improvements
 
-Changes made in the Stacks source repository extend ProductCard with generic description, priceNote, href and imageAlt, and move status text below images. QuantitySelector now uses native STX state/model bindings with independent instances, live bounds, normalized native form values and one native change event. Source browser regression tests cover these contracts. The app should consume the resulting framework patch, rather than retain local copies of those components.
+Changes made in the Stacks source repository extend ProductCard with generic description, priceNote, href and imageAlt, and move status text below images. QuantitySelector now uses native STX state/model bindings with independent instances, live bounds, normalized native form values and one native change event. Source browser regression tests cover these contracts. The app uses the published framework components without local copies.
 
 The application consumes the published Stacks 0.75.522 patch through native `buddy upgrade`. Its lockfile pins the installed package graph, and the native component behavior was checked in the application through a real Chromium session.
 
@@ -42,6 +42,8 @@ The user owns buddywheels.org at Porkbun and authorized deployment with Buddy to
 Provider credentials are deploy-process inputs. Do not commit them, copy the owner's complete env into this app, log them or ship unrelated tenant secrets. Reuse only the explicitly needed provider credentials from the authorized protected source. The production runtime env is specific to Buddy Wheels, with its own APP_KEY and isolated SQLite path. Add the tenant slug to the private Stacks tenant roster so owner deployments strip its namespace.
 
 Preview the exact plan with `./buddy deploy --prod --dry-run --json`, inspect the live host's listening ports before finalizing ports, then deploy with `./buddy deploy --prod --yes`. Confirm DNS, TLS, marketing routes, same-origin API reachability, signed basket isolation and the HTTP 409 checkout gate on the public domain. A successful homepage alone is insufficient evidence.
+
+The initial native deployment completed November 8, 2026 at https://buddywheels.org using the existing Stacks server. Domain-specific Porkbun API access must remain enabled for subsequent DNS reconciliation. Full public verification and the deployed application revision are recorded in [the acceptance record](acceptance.md).
 
 ## Production data and release
 

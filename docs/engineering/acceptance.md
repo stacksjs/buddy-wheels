@@ -1,6 +1,6 @@
 # Acceptance record
 
-Implementation and local QA recorded November 7, 2026. This record covers software and planning artifacts only. It does not validate a physical wheelchair.
+Implementation and local QA recorded November 7, 2026. Production deployment and public QA recorded November 8, 2026. This record covers software and planning artifacts only. It does not validate a physical wheelchair.
 
 ## Completed locally
 
@@ -28,15 +28,27 @@ Implementation and local QA recorded November 7, 2026. This record covers softwa
 
 The Stacks source includes generic product-card props, status copy below images, isolated STX quantity state, native form values, one native change event, and live bounds/model normalization. Four retained source tests passed with 26 assertions, including real Chromium interactions. Source lint and framework typechecks passed.
 
-Source review found and corrected duplicate change events and stale form values after live bounds changed. The publishing pipeline also exposed a pre-existing router declaration-generator failure; removing a redundant nested conditional preserves type behavior and passed router build/type fixtures. Source changes were fast-forward pushed to origin/main and native patch release commands were run. Publication and installed-consumer evidence is recorded below when completed.
+Source review found and corrected duplicate change events and stale form values after live bounds changed. The publishing pipeline also exposed a pre-existing router declaration-generator failure; removing a redundant nested conditional preserves type behavior and passed router build/type fixtures. Source changes were fast-forward pushed to origin/main and native patch release commands were run. Publication and installed-consumer evidence follows.
 
 Stacks 0.75.522 was published to npm after the exact release source passed CI. Native `./buddy upgrade` installed it in this application, updating the root and framework-support manifests and lockfile. Installed stacks, defaults and actions package versions were verified as 0.75.522. App lint, native tests, typechecks and STX checks passed against that install. The real-browser journey passed again, including native ProductCard links to `/shop?size=L`, quantity updates, concurrent five-per-size enforcement and all four responsive widths. No local component fork is used.
 
 ## Production verification
 
-Deployment is pending Porkbun domain API access. The existing protected credentials successfully reach the provider, but Porkbun reports that buddywheels.org is not opted in. The domain-specific API Access switch is off. Enabling it requires the founder's action-time confirmation under the computer-use policy, or the founder can enable it directly. Global API access is not needed.
+Live at [buddywheels.org](https://buddywheels.org). The founder enabled domain-specific Porkbun API access, verified through the saved setting and a successful native provider request. The authorized provider keys remained deploy-process inputs.
 
-After that prerequisite, public acceptance must verify apex HTTPS, www redirect, assets, all pages, same-origin cart API, cookie isolation, target-price calculations and the server checkout gate. A successful dry-run or homepage response is not recorded as a deployed service.
+Native `./buddy deploy --prod --yes` successfully deployed application commit `8089b9153ef4e9e624ed6d6787349bb355c2421d` to the existing `stacks-production-app` server. It skipped provisioning and installed independent `buddy-wheels-main` and `buddy-wheels-api` services and the `buddy-wheels` gateway fragment. The API listener was verified on loopback port 3468; web traffic is routed to port 3460. SQLite persists at the app-specific absolute path declared in config/cloud.ts.
+
+- Native Porkbun reconciliation published apex and www IPv4/IPv6 records.
+- Native TLS issuance completed for both names. HTTPS passed with normal certificate verification.
+- HTTP and www requests for `/shop?size=L` returned 301 to `https://buddywheels.org/shop?size=L`.
+- All nine public pages returned 200: home, shop, fit guide, basket, checkout, story, care, policies and development plan.
+- The theme stylesheet and responsive WebP assets returned 200 with their expected content types.
+- Same-origin `/api/cart` returned 200 JSON; order placement returned HTTP 409 with PRODUCT_VALIDATION_REQUIRED.
+- The full native Chromium journey passed against the public HTTPS origin: L quantity two totals $529.00, quantity one totals $264.50, checkout remains disabled, unsigned/forged/absent cookies isolate baskets, invalid quantities and redirects are rejected, and concurrent adds retain the five-per-size limit.
+- The local fit planner example passed on the public site. Responsive checks at 320, 428, 768 and 1440 pixels found no horizontal overflow or browser console errors.
+- Application CI passed for the deployed commit; the Stacks 0.75.522 release workflow completed successfully.
+
+The site is a development storefront with persistent planning baskets. It accepts no payments, deposits, reservations or customer orders. Software delivery does not establish physical-product readiness.
 
 ## Product work still required
 
