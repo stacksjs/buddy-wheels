@@ -18,7 +18,7 @@ async function screenshot(name: string) {
 }
 try {
   await navigate(cdp, origin + '/design-studio?size=XL'); await settle(cdp)
-  await click(cdp, '.standard-r1-notice a[href="/design-studio-xl"]')
+  await click(cdp, '.standard-r1-notice a[href^="/design-studio-xl?"]')
   await waitFor(() => cdp.evaluate("location.pathname === '/design-studio-xl'"))
   await ready(); await settle(cdp)
   assert.match(await cdp.evaluate<string>('document.querySelector("[data-standard-cogs]").textContent'), /180\.01/)

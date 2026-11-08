@@ -3,6 +3,10 @@
 @section('description', 'Explore every Buddy wheelchair size in 3D, from XS to XL. Configure frame dimensions and suspension, inspect printable parts and download matching assembly instructions.')
 @section('social_image', 'https://buddywheels.org/designs/xl/r0/assembly.png')
 <script server>
+import { splitFinish as splitServerFinish, finishQuery as serverFinishQuery, defaultFinish as serverDefaultFinish } from '~/app/Storefront/Finish'
+export let initialFinish = serverDefaultFinish
+try { initialFinish = splitServerFinish(requestContext.query()).finish } catch {}
+const finishForm = 'studio-download'
 import { publicPath } from '@stacksjs/path'
 import { parseStudioSetup as parseServerSetup, parseStudioSize as parseServerSize, studioStartingSetup as startingServerSetup, studioSetupQuery as serverSetupQuery, studioPartNames as serverPartNames, studioSizes as serverSizes, studioSizeNames as serverSizeNames, studioDimensionLimits as serverLimits } from '~/app/Designs/StudioSetup'
 import { cadParts } from '~/app/Designs/WheelchairParameters'
@@ -14,7 +18,7 @@ const sizeChoices = serverSizes.map(size => ({ size, name: serverSizeNames[size]
 export let initialSetup = startingServerSetup('XL')
 export let initialError = ''
 try {
-  const { size = 'XL', ...fields } = requestContext.query()
+  const { size = 'XL', ...fields } = splitServerFinish(requestContext.query()).configuration
   const selected = parseServerSize(size)
   initialSetup = startingServerSetup(selected)
   initialSetup = parseServerSetup(fields, selected)
@@ -24,10 +28,14 @@ const initialLimits = serverLimits[initialSetup.size]
 const initialAssetRoot = '/designs/' + initialSetup.size.toLowerCase() + '/r0'
 const initialRevision = assetRevisions[initialSetup.size]
 const initialEndpoint = '/api/designs/' + initialSetup.size.toLowerCase()
-const initialAssembly = initialEndpoint + '/assembly?' + serverSetupQuery(initialSetup)
-defineClientPayload({ assetRevisions, initialSetup, initialError })
+const initialAssembly = initialEndpoint + '/assembly?' + serverSetupQuery(initialSetup) + '&' + serverFinishQuery(initialFinish)
+defineClientPayload({ initialFinish, assetRevisions, initialSetup, initialError })
 </script>
 <script client>
+import { finishScene, finishQuery } from '~/app/Storefront/Finish'
+const accent = state(initialFinish.accent)
+const trim = state(initialFinish.trim)
+const finish = derived(() => ({ accent: accent(), trim: trim() }))
 import type { StudioSetup, StudioSize } from '~/app/Designs/StudioSetup'
 import { createStudioScene } from '~/app/Designs/StudioScene'
 import { parseStudioSetup, parseStudioSize, studioStartingSetup, studioSetupQuery, studioSetupFamily, studioPartNames, studioDimensionLimits, studioSizeNames } from '~/app/Designs/StudioSetup'
@@ -53,9 +61,9 @@ const family = derived(() => studioSetupFamily(lastValid()))
 const limits = derived(() => studioDimensionLimits[size()])
 const poster = derived(() => '/designs/' + size().toLowerCase() + '/r0/assembly.png?v=' + assetRevisions[size()])
 const modelLabel = derived(() => 'Buddy ' + size() + ' adjustable wheelchair bench design')
-const scene = derived(() => createStudioScene(lastValid(), focus(), exploded(), assetRevisions[lastValid().size]))
+const scene = derived(() => finishScene(createStudioScene(lastValid(), focus(), exploded(), assetRevisions[lastValid().size]), finish()))
 const sceneName = derived(() => focus() === 'assembly' ? 'Complete ' + size() + ' frame' : focus() === 'suspension' ? size() + ' suspension detail' : size() + ' · ' + (studioPartNames[focus()] || 'Wheelchair part'))
-const query = derived(() => studioSetupQuery(lastValid()))
+const query = derived(() => studioSetupQuery(lastValid()) + '&' + finishQuery(finish()))
 const endpoint = derived(() => '/api/designs/' + size().toLowerCase())
 const sizeName = derived(() => studioSizeNames[size()])
 const assemblyUrl = derived(() => endpoint() + '/assembly?' + query())
@@ -93,7 +101,7 @@ function reset(): void {
     <fieldset class="studio-size-selector"><legend>Choose a frame size</legend><div class="studio-size-options">@foreach (sizeChoices as choice)
       <label><input type="radio" name="studio-size" value="{{ choice.size }}" :checked="String(size()) === '{{ choice.size }}'" @change="selectSize('{{ choice.size }}')" aria-label="{{ choice.name }} ({{ choice.size }})"><span><strong>{{ choice.size }}</strong><small>{{ choice.name }}</small></span></label>
     @endforeach</div><p class="muted">Each size keeps your edits while you compare. Frame sizes are starting points for a measured fit.</p><span class="sr-only" role="status" aria-live="polite">{{ sizeName() }} bench design selected.</span></fieldset>
-    <aside class="standard-r1-notice" :if="size() === 'XL'"><strong>New: the XL standard-parts redesign.</strong> r1 removes the costly shock platform for a simpler rigid base. <a href="/design-studio-xl">Inspect XL r1 and its per-chair cost</a>. <a href="/design-studio-xl-suspension">Explore r2 with standard die springs and adjustable preload</a>. This page retains the separate r0 adjustable-suspension research.</aside>
+    <aside class="standard-r1-notice" :if="size() === 'XL'"><strong>New: the XL standard-parts redesign.</strong> r1 removes the costly shock platform for a simpler rigid base. <a href="/design-studio-xl" :href="'/design-studio-xl' + '?' + finishQuery(finish())">Inspect XL r1 and its per-chair cost</a>. <a href="/design-studio-xl-suspension" :href="'/design-studio-xl-suspension' + '?' + finishQuery(finish())">Explore r2 with standard die springs and adjustable preload</a>. This page retains the separate r0 adjustable-suspension research.</aside>
     <div class="studio-workbench">
       <section ref="modelArea" tabindex="-1" class="studio-visual" aria-label="3D inspection">
         <div class="studio-view-heading"><h2>{{ sceneName() }}</h2><label class="studio-check"><input type="checkbox" x-model="exploded" :disabled="focus() !== 'assembly' && focus() !== 'suspension'">Separate plates</label></div>
@@ -117,6 +125,7 @@ function reset(): void {
           <div class="studio-travel"><label for="studio-travel">Travel preview <output>{{ travel() }}°</output></label><input id="studio-travel" name="travel" form="studio-download" type="range" min="-3" max="6" step="0.5" value="{{ initialSetup.travel }}" x-model.number="travel" :disabled="locked()"><div class="studio-range-ends"><span>Droop, -3°</span><span>Bump, +6°</span></div></div>
           <label class="studio-lock"><input type="checkbox" name="locked" form="studio-download" value="true" x-model="locked"><span><strong>Show the neutral lock installed</strong><small>Holds the inspection pose at zero travel.</small></span></label>
         </fieldset>
+        @include('../partials/finish-controls')
         <p class="studio-validation" :if="parsed().error" role="alert">{{ parsed().error }} The preview keeps your last valid setup.</p>
         <form id="studio-download" class="studio-download" action="{{ initialEndpoint }}/kit" :action="endpoint() + '/kit'" method="GET"><Button type="submit" variant="bare" class="w-full button-primary" :disabled="!parsed().value"><i class="i-hugeicons-download-01" aria-hidden="true"></i>Download this setup</Button></form>
         <p class="muted studio-download-note">STLs, metal DXFs, editable CAD, parts list and assembly notes. Your frame dimensions are included.</p>

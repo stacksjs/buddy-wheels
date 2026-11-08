@@ -6,6 +6,10 @@
   <link rel="preload" as="image" href="{{ initialImage }}">
 @endsection
 <script server>
+import { splitFinish as splitServerFinish, defaultFinish as serverDefaultFinish } from '~/app/Storefront/Finish'
+export let initialFinish = serverDefaultFinish
+try { initialFinish = splitServerFinish(requestContext.query()).finish } catch {}
+const finishForm = 'rover-purchase'
 import { roverConfigurations, money } from '~/app/Storefront/Catalog'
 export const configurations = roverConfigurations.map(item => ({ ...item, priceLabel: money(item.price), image: item.code === 'snow' ? '/images/buddy-rover-snow.webp' : '/images/buddy-rover.webp', imageAlt: item.code === 'snow' ? 'Buddy Rover ski conversion with twin skis and tow harness on a groomed winter route' : 'Buddy Rover running carrier with a golden retriever on a firm beach path', shown: item.code === 'snow' ? 'Snow configuration shown.' : 'Run configuration shown.' }))
 const requested = requestContext.query().mode
@@ -14,9 +18,13 @@ const first = configurations.find(item => item.code === initialMode)!
 const initialSlug = first.slug
 const initialImage = first.image
 const initialAlt = first.imageAlt
-defineClientPayload({ configurations, initialMode })
+defineClientPayload({ initialFinish, configurations, initialMode })
 </script>
 <script client>
+import { finishQuery } from '~/app/Storefront/Finish'
+const accent = state(initialFinish.accent)
+const trim = state(initialFinish.trim)
+const finish = derived(() => ({ accent: accent(), trim: trim() }))
 const mode = state(initialMode)
 const selected = derived(() => configurations.find(item => item.code === mode()) || configurations[0]!)
 </script>
@@ -35,6 +43,7 @@ const selected = derived(() => configurations.find(item => item.code === mode())
         <button type="button" class="mode-button" data-mode="all-season" :aria-pressed="mode() === 'all-season' ? 'true' : 'false'" @click="mode.set('all-season')"><strong>All-season</strong><span>The complete collection</span></button>
       </div></fieldset>
       <div class="mt-4 configuration-note" aria-live="polite"><h2 class="font-semibold text-base" data-rover-name>{{ selected().name }}</h2><p class="mt-2 text-sm muted">{{ selected().description }}</p></div>
+      @include('../partials/finish-controls')
       <form id="rover-purchase" action="/api/cart/add" method="POST" class="mt-6"><input type="hidden" name="slug" value="{{ initialSlug }}" :value="selected().slug"><input type="hidden" name="redirect" value="/cart"><div class="flex flex-wrap gap-4 items-center"><QuantitySelector :value="1" :min="1" :max="5" label="Rover quantity" /><span class="hidden md:block"><Button type="submit" variant="bare" class="button-primary">Add to basket</Button></span></div></form>
       <p class="mt-4 text-xs availability muted"><span class="availability-dot" aria-hidden="true"></span>Orders opening soon. Save your selection in the basket.</p>
       <div class="mt-7 faq"><details open><summary>In your configuration</summary><ul class="configuration-list"><li>{{ selected().included[0] }}</li><li>{{ selected().included[1] }}</li><li>{{ selected().included[2] }}</li></ul><p>Configuration contents are the design brief. Final specifications and use limits will be confirmed before orders open.</p></details><details><summary>A running setup with a purpose.</summary><p>The Run configuration centers on a three-wheel layout, a forward running wheel, a push handle, brake and wrist tether. Distance, speed and load limits will come from whole-system testing.</p></details><details><summary>What changes for the beach?</summary><p>Coast adds a wider-wheel conversion and easy-clean surfaces to the running configuration. Packed shoreline paths are the starting point. Deep loose sand, steep dunes and saltwater immersion are outside the initial use brief.</p></details><details><summary>And when the snow arrives?</summary><p>Snow pairs the cabin with a dedicated ski conversion and tow harness for groomed winter routes. The ski setup requires its own stability, attachment and stopping tests.</p></details><details><summary>Will my dog have enough room?</summary><p>Measure seated height, lying length and shoulder width, including space to change position. Cabin dimensions and load limits will be published after validation. <a href="/fit-guide#rover" class="underline">See the Rover measuring guide.</a></p></details></div>

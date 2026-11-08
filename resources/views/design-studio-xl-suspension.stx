@@ -3,20 +3,28 @@
 @section('description', 'Inspect the XL standard die-spring bench redesign, configure manufacturing dimensions and download matching CAD, printable service parts, complete BOM and priced cost assumptions.')
 @section('social_image', 'https://buddywheels.org/designs/xl/r2/assembly.png')
 <script server>
+import { splitFinish as splitServerFinish, finishQuery as serverFinishQuery, defaultFinish as serverDefaultFinish } from '~/app/Storefront/Finish'
+export let initialFinish = serverDefaultFinish
+try { initialFinish = splitServerFinish(requestContext.query()).finish } catch {}
+const finishForm = 'standard-download'
 import { publicPath } from '@stacksjs/path'
 import { parseSpringSetup as parseSetup, springStart as serverStart, springParts as parts, springPartFile as partFile, springQuery as queryString } from '~/app/Designs/XLSpring'
 import { springEvidence as evidence } from '~/app/Designs/XLSpringCost'
 export const revision = (await Bun.file(publicPath('designs/xl/r2/manifest.json')).json()).sourceHash.slice(0,16)
 export let initialSetup = serverStart
 export let initialError = ''
-try { initialSetup = parseSetup(requestContext.query()) }
+try { initialSetup = parseSetup(splitServerFinish(requestContext.query()).configuration) }
 catch { initialError = 'Those dimensions could not be loaded. The starting bench configuration is shown.' }
-const initialQuery = queryString(initialSetup)
+const initialQuery = queryString(initialSetup) + '&' + serverFinishQuery(initialFinish)
 const printParts = parts.filter(p => p.kind !== 'metal')
 const metalParts = parts.filter(p => p.kind === 'metal')
-defineClientPayload({ revision, initialSetup, initialError })
+defineClientPayload({ initialFinish, revision, initialSetup, initialError })
 </script>
 <script client>
+import { finishScene, finishQuery } from '~/app/Storefront/Finish'
+const accent = state(initialFinish.accent)
+const trim = state(initialFinish.trim)
+const finish = derived(() => ({ accent: accent(), trim: trim() }))
 import { springStart, springDimensions, parseSpringSetup, springQuery } from '~/app/Designs/XLSpring'
 import { springScene } from '~/app/Designs/XLSpringScene'
 import { springEconomics } from '~/app/Designs/XLSpringCost'
@@ -38,10 +46,10 @@ const parsed = derived(() => {
 })
 const lastValid = state(initialSetup)
 effect(() => { if (parsed().setup) lastValid.set(parsed().setup!) })
-const scene = derived(() => springScene(lastValid(), focus(), exploded(), revision))
+const scene = derived(() => finishScene(springScene(lastValid(), focus(), exploded(), revision), finish()))
 const dimensions = derived(() => springDimensions(lastValid()))
 const economics = derived(() => springEconomics(lastValid(), batchQuantity() ? 100 : 1, retail()))
-const setupQuery = derived(() => springQuery(lastValid()))
+const setupQuery = derived(() => springQuery(lastValid()) + '&' + finishQuery(finish()))
 const assemblyUrl = derived(() => '/api/designs/xl-r2/assembly?' + setupQuery())
 const profileUrl = derived(() => '/api/designs/xl-r2/profile?' + setupQuery())
 const bomUrl = derived(() => '/api/designs/xl-r2/bom?' + setupQuery())
@@ -53,8 +61,8 @@ function reset(): void { batch(() => { height.set(springStart.height); width.set
 </script>
 @section('content')
 <div class="design-studio shell standard-studio">
-  <header class="studio-heading"><a href="/shop?size=XL" class="studio-back"><i class="i-hugeicons-arrow-left-01" aria-hidden="true"></i>Back to XL wheelchairs</a><h1>A little travel.<br>A smaller parts bill.</h1><p class="muted">Buddy’s XL with replaceable industrial springs and a simpler, costed suspension cartridge.</p><div class="studio-context"><span>XL r2 · adjustable preload</span><span>Buddy · 140 lb, owner reported</span><span>Bench design, not animal ready</span></div></header>
-  <nav class="standard-revisions" aria-label="Wheelchair design revision"><a href="/design-studio-xl-suspension" aria-current="page">XL r2 · spring cartridge</a><a href="/design-studio-xl">XL r1 · rigid base</a><a href="/design-studio?size=XL">r0 · shock research and other sizes</a></nav>
+  <header class="studio-heading"><a href="/shop?size=XL" :href="'/shop?size=XL' + '&' + finishQuery(finish())" class="studio-back"><i class="i-hugeicons-arrow-left-01" aria-hidden="true"></i>Back to XL wheelchairs</a><h1>A little travel.<br>A smaller parts bill.</h1><p class="muted">Buddy’s XL with replaceable industrial springs and a simpler, costed suspension cartridge.</p><div class="studio-context"><span>XL r2 · adjustable preload</span><span>Buddy · 140 lb, owner reported</span><span>Bench design, not animal ready</span></div></header>
+  <nav class="standard-revisions" aria-label="Wheelchair design revision"><a href="/design-studio-xl-suspension" :href="'/design-studio-xl-suspension' + '?' + finishQuery(finish())" aria-current="page">XL r2 · spring cartridge</a><a href="/design-studio-xl" :href="'/design-studio-xl' + '?' + finishQuery(finish())">XL r1 · rigid base</a><a href="/design-studio?size=XL" :href="'/design-studio?size=XL' + '&' + finishQuery(finish())">r0 · shock research and other sizes</a></nav>
   <p class="studio-query-note" :if="initialError">{{ initialError }}</p>
   <div class="standard-brief"><strong>Standard springs. Adjustable preload.</strong><p>Two MISUMI SWH20-75 springs replace the earlier shock allowance. Set equal 0, 1 or 2 mm steel shims per wheel. Spring rate stays fixed at 65.3 N/mm. This short-travel bench design has no hydraulic damper.</p></div>
   <div class="studio-workbench">
@@ -69,12 +77,13 @@ function reset(): void { batch(() => { height.set(springStart.height); width.set
     <aside class="studio-controls" aria-label="XL r2 configuration">
       <div class="studio-control-heading"><h2>Cut to their dimensions.</h2><button type="button" class="studio-reset" @click="reset()">Reset setup</button></div><p class="muted studio-intro">These are bench manufacturing dimensions. Buddy’s anatomy is still pending. Measure the actual wheel hub before fabricating an axle.</p>
       <fieldset class="studio-fieldset"><legend>Frame and wheel interface</legend>
-        <div class="studio-field"><div class="studio-field-title"><label for="standard-height">Rail center height</label><div class="studio-number"><input id="standard-height" value="{{ initialSetup.height }}" name="height" form="standard-download" type="number" min="500" max="760" step="5" required x-model.number="height"><span>mm</span></div></div><input type="range" min="500" max="760" step="5" aria-label="r2 rail height slider" x-model.number="height"><p><span>500-760 mm</span><span>{{ (height() / 25.4).toFixed(1) }} in</span></p></div>
+        <div class="studio-field"><div class="studio-field-title"><label for="standard-height">Rail center height at full droop</label><div class="studio-number"><input id="standard-height" value="{{ initialSetup.height }}" name="height" form="standard-download" type="number" min="500" max="760" step="5" required x-model.number="height"><span>mm</span></div></div><input type="range" min="500" max="760" step="5" aria-label="r2 rail height slider" x-model.number="height"><p><span>500-760 mm</span><span>{{ (height() / 25.4).toFixed(1) }} in</span></p></div>
         <div class="studio-field"><div class="studio-field-title"><label for="standard-width">Rail center spacing</label><div class="studio-number"><input id="standard-width" value="{{ initialSetup.width }}" name="width" form="standard-download" type="number" min="320" max="520" step="5" required x-model.number="width"><span>mm</span></div></div><input type="range" min="320" max="520" step="5" aria-label="r2 rail spacing slider" x-model.number="width"><p><span>320-520 mm</span><span>{{ (width() / 25.4).toFixed(1) }} in</span></p></div>
         <div class="studio-field"><div class="studio-field-title"><label for="standard-rail">Side rail length</label><div class="studio-number"><input id="standard-rail" value="{{ initialSetup.rail }}" name="rail" form="standard-download" type="number" min="540" max="820" step="5" required x-model.number="rail"><span>mm</span></div></div><input type="range" min="540" max="820" step="5" aria-label="r2 rail length slider" x-model.number="rail"><p><span>540-820 mm</span><span>{{ (rail() / 25.4).toFixed(1) }} in</span></p></div>
         <div class="standard-hub studio-field"><div class="studio-field-title"><label for="standard-hub">Measured hub through-length</label><div class="studio-number"><input id="standard-hub" value="{{ initialSetup.hub }}" name="hub" form="standard-download" type="number" min="60" max="100" step="0.05" required x-model.number="hub"><span>mm</span></div></div><p>82.55 mm is a provisional layout value. The wheel supplier page does not confirm it. Both actual hubs, bearing faces and washers must be checked.</p></div>
       </fieldset>
       <fieldset class="studio-fieldset"><legend>Spring cartridge</legend><div class="studio-field"><div class="studio-field-title"><label for="spring-preload">Preload per wheel</label><div class="studio-number"><input id="spring-preload" name="preload" form="standard-download" value="{{ initialSetup.preload }}" type="number" min="0" max="2" step="1" required x-model.number="preload"><span>mm</span></div></div><input type="range" min="0" max="2" step="1" aria-label="Spring preload slider" x-model.number="preload"><p>Matched 1 mm steel shims. Unload the guarded rig before adjustment. Preload changes initial force, not stiffness.</p></div><div class="studio-field"><div class="studio-field-title"><label for="spring-travel">Preview bump travel</label><div class="studio-number"><input id="spring-travel" name="travel" form="standard-download" value="{{ initialSetup.travel }}" type="number" min="0" max="8" step="1" required x-model.number="travel"><span>mm</span></div></div><input type="range" min="0" max="8" step="1" aria-label="Spring travel preview slider" x-model.number="travel"><p>0-8 mm manual pose. Slots and smooth pins provide nominal stops. No damping or clinical setting is implied.</p></div><dl class="studio-readout"><div><dt>Rail height in this pose</dt><dd>{{ dimensions().loadedHeight }} mm</dd></div><div><dt>Ideal spring force per side</dt><dd>{{ dimensions().forceN.toFixed(1) }} N</dd></div></dl><p class="muted">Ideal force = 65.3 × (preload + travel). Excludes friction and spring tolerances. This does not rate the chair, predict supported weight or prescribe rehabilitation.</p></fieldset>
+      @include('../partials/finish-controls')
       <p class="studio-validation" role="alert" :if="parsed().error">{{ parsed().error }} Preview and links keep the last valid setup.</p>
       <form id="standard-download" class="studio-download" action="/api/designs/xl-r2/kit" method="GET"><Button type="submit" variant="bare" class="w-full button-primary" :disabled="!parsed().setup"><i class="i-hugeicons-download-01" aria-hidden="true"></i>Download this r2 setup</Button></form>
       <p class="muted studio-download-note">Configured editable CAD, eight actual STL types, four metal DXFs, complete BOM, drilling datums, assembly notes and cost assumptions.</p><div class="studio-file-links"><a href="/api/designs/xl-r2/assembly?{{ initialQuery }}" :href="assemblyUrl()">Assembly notes</a><a :href="bomUrl()">Parts list</a><a :href="profileUrl()">Setup JSON</a></div>

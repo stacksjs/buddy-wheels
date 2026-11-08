@@ -37,3 +37,4 @@ The catalog's weight and height bands are planning inputs, not proven load ratin
 
 - [XL r2 adjustable spring cartridge costs and online evidence](business/xl-spring-r2-costs.md)
 - [XL r2 design and verification scope](engineering/xl-r2-suspension-plan.md)
+- [Product customization, colors and saved finish preferences](product/customization.md)

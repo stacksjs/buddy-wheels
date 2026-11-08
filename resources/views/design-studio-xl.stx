@@ -3,20 +3,28 @@
 @section('description', 'Inspect the cost-reduced XL rigid-frame redesign, configure manufacturing dimensions and download matching CAD, printable service parts, complete BOM and priced cost assumptions.')
 @section('social_image', 'https://buddywheels.org/designs/xl/r1/assembly.png')
 <script server>
+import { splitFinish as splitServerFinish, finishQuery as serverFinishQuery, defaultFinish as serverDefaultFinish } from '~/app/Storefront/Finish'
+export let initialFinish = serverDefaultFinish
+try { initialFinish = splitServerFinish(requestContext.query()).finish } catch {}
+const finishForm = 'standard-download'
 import { publicPath } from '@stacksjs/path'
 import { parseStandardSetup as parseSetup, standardStart as serverStart, standardParts as parts, standardPartFile as partFile, standardQuery as queryString } from '~/app/Designs/XLStandard'
 import { standardPriceEvidence as evidence } from '~/app/Designs/XLStandardCost'
 export const revision = (await Bun.file(publicPath('designs/xl/r1/manifest.json')).json()).sourceHash.slice(0,16)
 export let initialSetup = serverStart
 export let initialError = ''
-try { initialSetup = parseSetup(requestContext.query()) }
+try { initialSetup = parseSetup(splitServerFinish(requestContext.query()).configuration) }
 catch { initialError = 'Those dimensions could not be loaded. The starting bench configuration is shown.' }
-const initialQuery = queryString(initialSetup)
+const initialQuery = queryString(initialSetup) + '&' + serverFinishQuery(initialFinish)
 const printParts = parts.filter(p => p.kind !== 'metal')
 const metalParts = parts.filter(p => p.kind === 'metal')
-defineClientPayload({ revision, initialSetup, initialError })
+defineClientPayload({ initialFinish, revision, initialSetup, initialError })
 </script>
 <script client>
+import { finishScene, finishQuery } from '~/app/Storefront/Finish'
+const accent = state(initialFinish.accent)
+const trim = state(initialFinish.trim)
+const finish = derived(() => ({ accent: accent(), trim: trim() }))
 import { standardStart, standardDimensions, parseStandardSetup, standardQuery } from '~/app/Designs/XLStandard'
 import { standardScene } from '~/app/Designs/XLStandardScene'
 import { standardEconomics } from '~/app/Designs/XLStandardCost'
@@ -35,10 +43,10 @@ const parsed = derived(() => {
 })
 const lastValid = state(initialSetup)
 effect(() => { if (parsed().setup) lastValid.set(parsed().setup!) })
-const scene = derived(() => standardScene(lastValid(), focus(), exploded(), revision))
+const scene = derived(() => finishScene(standardScene(lastValid(), focus(), exploded(), revision), finish()))
 const dimensions = derived(() => standardDimensions(lastValid()))
 const economics = derived(() => standardEconomics(lastValid(), batchQuantity() ? 100 : 1))
-const setupQuery = derived(() => standardQuery(lastValid()))
+const setupQuery = derived(() => standardQuery(lastValid()) + '&' + finishQuery(finish()))
 const assemblyUrl = derived(() => '/api/designs/xl-r1/assembly?' + setupQuery())
 const profileUrl = derived(() => '/api/designs/xl-r1/profile?' + setupQuery())
 const bomUrl = derived(() => '/api/designs/xl-r1/bom?' + setupQuery())
@@ -50,8 +58,8 @@ function reset(): void { batch(() => { height.set(standardStart.height); width.s
 </script>
 @section('content')
 <div class="design-studio shell standard-studio">
-  <header class="studio-heading"><a href="/shop?size=XL" class="studio-back"><i class="i-hugeicons-arrow-left-01" aria-hidden="true"></i>Back to XL wheelchairs</a><h1>A simpler frame.<br>A clearer cost.</h1><p class="muted">Buddy’s XL, redesigned around standard stock and fewer custom operations.</p><div class="studio-context"><span>XL r1 · rigid base</span><span>Buddy · 140 lb, owner reported</span><span>Bench design, not animal ready</span></div></header>
-  <nav class="standard-revisions" aria-label="Wheelchair design revision"><a href="/design-studio-xl-suspension">XL r2 · lower-cost spring cartridge</a><a href="/design-studio-xl" aria-current="page">XL r1 · standard parts</a><a href="/design-studio?size=XL">r0 · adjustable suspension research</a><a href="/design-studio?size=M">Other sizes</a></nav>
+  <header class="studio-heading"><a href="/shop?size=XL" :href="'/shop?size=XL' + '&' + finishQuery(finish())" class="studio-back"><i class="i-hugeicons-arrow-left-01" aria-hidden="true"></i>Back to XL wheelchairs</a><h1>A simpler frame.<br>A clearer cost.</h1><p class="muted">Buddy’s XL, redesigned around standard stock and fewer custom operations.</p><div class="studio-context"><span>XL r1 · rigid base</span><span>Buddy · 140 lb, owner reported</span><span>Bench design, not animal ready</span></div></header>
+  <nav class="standard-revisions" aria-label="Wheelchair design revision"><a href="/design-studio-xl-suspension" :href="'/design-studio-xl-suspension' + '?' + finishQuery(finish())">XL r2 · lower-cost spring cartridge</a><a href="/design-studio-xl" :href="'/design-studio-xl' + '?' + finishQuery(finish())" aria-current="page">XL r1 · standard parts</a><a href="/design-studio?size=XL" :href="'/design-studio?size=XL' + '&' + finishQuery(finish())">r0 · adjustable suspension research</a><a href="/design-studio?size=M" :href="'/design-studio?size=M' + '&' + finishQuery(finish())">Other sizes</a></nav>
   <p class="studio-query-note" :if="initialError">{{ initialError }}</p>
   <div class="standard-brief"><strong>Rigid, with pneumatic tires.</strong><p>No independent suspension is included at the $264.50 target. Suspension research remains separate. Frame dimensions change the manufacturing cuts; this version does not telescope after assembly.</p></div>
   <div class="studio-workbench">
@@ -71,6 +79,7 @@ function reset(): void { batch(() => { height.set(standardStart.height); width.s
         <div class="studio-field"><div class="studio-field-title"><label for="standard-rail">Side rail length</label><div class="studio-number"><input id="standard-rail" value="{{ initialSetup.rail }}" name="rail" form="standard-download" type="number" min="540" max="820" step="5" required x-model.number="rail"><span>mm</span></div></div><input type="range" min="540" max="820" step="5" aria-label="r1 rail length slider" x-model.number="rail"><p><span>540-820 mm</span><span>{{ (rail() / 25.4).toFixed(1) }} in</span></p></div>
         <div class="standard-hub studio-field"><div class="studio-field-title"><label for="standard-hub">Measured hub through-length</label><div class="studio-number"><input id="standard-hub" value="{{ initialSetup.hub }}" name="hub" form="standard-download" type="number" min="60" max="100" step="0.05" required x-model.number="hub"><span>mm</span></div></div><p>82.55 mm is a provisional layout value. The wheel supplier page does not confirm it. Both actual hubs, bearing faces and washers must be checked.</p></div>
       </fieldset>
+      @include('../partials/finish-controls')
       <p class="studio-validation" role="alert" :if="parsed().error">{{ parsed().error }} Preview and links keep the last valid setup.</p>
       <form id="standard-download" class="studio-download" action="/api/designs/xl-r1/kit" method="GET"><Button type="submit" variant="bare" class="w-full button-primary" :disabled="!parsed().setup"><i class="i-hugeicons-download-01" aria-hidden="true"></i>Download this r1 setup</Button></form>
       <p class="muted studio-download-note">Configured editable CAD, six actual STL types, two metal DXFs, complete BOM, drilling datums, assembly notes and cost assumptions.</p><div class="studio-file-links"><a href="/api/designs/xl-r1/assembly?{{ initialQuery }}" :href="assemblyUrl()">Assembly notes</a><a :href="bomUrl()">Parts list</a><a :href="profileUrl()">Setup JSON</a></div>

@@ -45,7 +45,7 @@
     "generate": "./buddy generate",
     "typecheck": "bun run typecheck:app",
     "typecheck:app": "bun x --bun tsc --noEmit -p tsconfig.json --pretty false",
-    "typecheck:views": "bun x --bun stx typecheck --lib storage/framework/types/request-context.d.ts --lib storage/framework/types/browser-composables.d.ts 'resources/**/*.stx'",
+    "typecheck:views": "bun x --bun stx typecheck --lib storage/framework/types/request-context.d.ts --lib storage/framework/types/browser-composables.d.ts --lib app/UI/FinishControls.d.ts 'resources/**/*.stx'",
     "typecheck:clean": "bunx --bun rimraf storage/framework/.cache/typescript",
     "types:check": "bun run typecheck",
     "types:fix": "./buddy types:fix",
@@ -64,7 +64,8 @@
     "guides:pdf": "bun scripts/export-guides.ts",
     "test:fit": "bun scripts/qa-fit.ts",
     "test:standard": "bun scripts/qa-standard.ts",
-    "test:spring": "bun scripts/qa-spring.ts"
+    "test:spring": "bun scripts/qa-spring.ts",
+    "test:finish": "bun scripts/qa-finish.ts"
   },
   "dependencies": {
     "@stacksjs/actions": "^0.75.526",

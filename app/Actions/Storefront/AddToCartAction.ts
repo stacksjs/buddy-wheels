@@ -1,3 +1,4 @@
+import {parseFinish,finishNote,savedFinish} from '../../Storefront/Finish'
 import { randomUUIDv7 } from 'bun'
 import { transaction } from '@stacksjs/orm'
 import { sqliteWriteOptions, sqlDateTime } from '@stacksjs/database/runtime'
@@ -12,6 +13,10 @@ export default new Action({
     const quantity = validQuantity(request.get('quantity') ?? 1)
     if (!selected || quantity === null)
       return response.json({ error: 'Choose a product and a whole quantity from 1 to 5.' }, { status: 422 as const })
+    let finish
+    try { finish=parseFinish({accent:request.get('accent')??undefined,trim:request.get('trim')??undefined}) }
+    catch { return response.json({error:'Choose valid six-digit finish colors.'},{status:422}) }
+    const note=finishNote(finish)
     const redirect = request.get('redirect')
     if (redirect && redirect !== '/cart')
       return response.json({ error: 'Invalid basket destination.' }, { status: 422 as const })
@@ -30,17 +35,18 @@ export default new Action({
       }
       if (!cart)
         throw new Error('The planning basket could not be created.')
-      const existing = await tx.selectFrom('cart_items').where('cart_id', '=', cart.id).where('product_sku', '=', selected.slug).selectAll().executeTakeFirst()
+      const variants=await tx.selectFrom('cart_items').where('cart_id','=',cart.id).where('product_sku','=',selected.slug).selectAll().execute()
+      const existing=variants.find(line=>finishNote(savedFinish(line.notes))===note)
       const totalQuantity = Number(existing?.quantity || 0) + quantity
-      if (totalQuantity > 5)
+      if (variants.reduce((sum,line)=>sum+Number(line.quantity),0)+quantity > 5)
         return { error: 'You can add up to five of each configuration.', status: 422 as const }
       const unitPrice = Number(product.price)
       if (!Number.isSafeInteger(unitPrice) || unitPrice < 0)
         throw new Error('The planning catalog contains an invalid price.')
       if (existing)
-        await tx.updateTable('cart_items').set({ quantity: totalQuantity, unit_price: unitPrice, total_price: totalQuantity * unitPrice }).where('id', '=', existing.id).execute()
+        await tx.updateTable('cart_items').set({ notes:note,quantity: totalQuantity, unit_price: unitPrice, total_price: totalQuantity * unitPrice }).where('id', '=', existing.id).execute()
       else
-        await tx.insertInto('cart_items').values({ cart_id: cart.id, quantity, unit_price: unitPrice, total_price: quantity * unitPrice, product_name: String(product.name), product_sku: selected.slug, product_image: String(product.image_url || '') }).execute()
+        await tx.insertInto('cart_items').values({ cart_id: cart.id, quantity, unit_price: unitPrice, total_price: quantity * unitPrice, product_name: String(product.name), product_sku: selected.slug, notes:note, product_image: String(product.image_url || '') }).execute()
       const lines = await tx.selectFrom('cart_items').where('cart_id', '=', cart.id).selectAll().execute()
       const totalItems = lines.reduce((sum, line) => sum + Number(line.quantity), 0)
       const subtotal = lines.reduce((sum, line) => sum + Number(line.total_price), 0)
