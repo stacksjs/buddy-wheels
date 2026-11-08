@@ -61,11 +61,11 @@
     "images": "bun scripts/images.ts"
   },
   "dependencies": {
-    "@stacksjs/browser": "0.75.526",
     "@stacksjs/actions": "^0.75.526",
+    "@stacksjs/browser": "0.75.526",
     "@stacksjs/cli": "0.75.526",
     "@stacksjs/database": "0.75.526",
-    "@stacksjs/defaults": "0.75.526",
+    "@stacksjs/defaults": "0.75.527",
     "@stacksjs/env": "^0.75.526",
     "@stacksjs/image": "0.75.526",
     "@stacksjs/orm": "0.75.526",
