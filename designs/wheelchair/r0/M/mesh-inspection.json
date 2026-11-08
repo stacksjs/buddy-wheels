@@ -1,0 +1,286 @@
+{
+  "status": "DIGITAL_GEOMETRY_ONLY_NOT_PHYSICAL_VALIDATION",
+  "sourceHash": "24c9a608ebf95014db48015e03bd2e52f46f88f7464b151989867c69976a0b05",
+  "meshes": [
+    {
+      "file": "stl/tube_cap.stl",
+      "inspection": {
+        "triangles": 240,
+        "vertices": 120,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 3238.05467029359,
+        "boundsMm": {
+          "min": [
+            -13,
+            -13,
+            0
+          ],
+          "max": [
+            13,
+            13,
+            15
+          ],
+          "size": [
+            26,
+            26,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "file": "stl/inner_cap.stl",
+      "inspection": {
+        "triangles": 240,
+        "vertices": 120,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 2374.05467029359,
+        "boundsMm": {
+          "min": [
+            -11,
+            -11,
+            0
+          ],
+          "max": [
+            11,
+            11,
+            15
+          ],
+          "size": [
+            22,
+            22,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "file": "stl/index_collar.stl",
+      "inspection": {
+        "triangles": 48,
+        "vertices": 24,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 4493.280791015597,
+        "boundsMm": {
+          "min": [
+            -15,
+            -15,
+            0
+          ],
+          "max": [
+            15,
+            15,
+            12
+          ],
+          "size": [
+            30,
+            30,
+            12
+          ]
+        }
+      }
+    },
+    {
+      "file": "stl/pivot_guard.stl",
+      "inspection": {
+        "triangles": 416,
+        "vertices": 208,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 7136.77093195915,
+        "boundsMm": {
+          "min": [
+            -20,
+            -20,
+            0
+          ],
+          "max": [
+            20,
+            20,
+            7
+          ],
+          "size": [
+            40,
+            40,
+            7
+          ]
+        }
+      }
+    },
+    {
+      "file": "stl/drill_jig.stl",
+      "inspection": {
+        "triangles": 828,
+        "vertices": 408,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 40000.07230619684,
+        "boundsMm": {
+          "min": [
+            -16,
+            -16,
+            0
+          ],
+          "max": [
+            16,
+            16,
+            85
+          ],
+          "size": [
+            32,
+            32,
+            85
+          ]
+        }
+      }
+    },
+    {
+      "file": "stl/coupon.stl",
+      "inspection": {
+        "triangles": 796,
+        "vertices": 392,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 24508.942156428457,
+        "boundsMm": {
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            90,
+            35,
+            8
+          ],
+          "size": [
+            90,
+            35,
+            8
+          ]
+        }
+      }
+    },
+    {
+      "file": "stl/shock_dummy.stl",
+      "inspection": {
+        "triangles": 588,
+        "vertices": 292,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 55369.26461549458,
+        "boundsMm": {
+          "min": [
+            -12,
+            -12,
+            0
+          ],
+          "max": [
+            142,
+            12,
+            16
+          ],
+          "size": [
+            154,
+            24,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "file": "stl/FIT_CHECK_ONLY_fixed_plate.stl",
+      "inspection": {
+        "triangles": 1724,
+        "vertices": 848,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 80274.13819479183,
+        "boundsMm": {
+          "min": [
+            -18,
+            -22,
+            0
+          ],
+          "max": [
+            100,
+            145,
+            5
+          ],
+          "size": [
+            118,
+            167,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "file": "stl/FIT_CHECK_ONLY_arm_plate.stl",
+      "inspection": {
+        "triangles": 1568,
+        "vertices": 772,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 17156.182046283426,
+        "boundsMm": {
+          "min": [
+            -12,
+            -12,
+            0
+          ],
+          "max": [
+            152,
+            12,
+            5
+          ],
+          "size": [
+            164,
+            24,
+            5
+          ]
+        }
+      }
+    },
+    {
+      "file": "stl/FIT_CHECK_ONLY_corner_plate.stl",
+      "inspection": {
+        "triangles": 804,
+        "vertices": 396,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 21383.265261258886,
+        "boundsMm": {
+          "min": [
+            -78,
+            -78,
+            0
+          ],
+          "max": [
+            14,
+            14,
+            5
+          ],
+          "size": [
+            92,
+            92,
+            5
+          ]
+        }
+      }
+    }
+  ]
+}

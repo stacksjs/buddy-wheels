@@ -71,6 +71,19 @@ The full retained Chromium journey passed again against https://buddywheels.org,
 
 Public smoke checks returned 200 for all pages, the revised stylesheet, both Rover WebP images and the cart API. HTTP and www preserved `/rover?mode=snow` in 301 redirects to the HTTPS apex. The stylesheet URL includes its content revision because the static server caches CSS for one hour; existing visitors receive the changed styles after a normal page refresh. GitHub deployment `7638107422` records the final web deployment.
 
+## Wheelchair bench CAD r0, November 8, 2026
+
+- Native `buddy design:wheelchair` generates editable OpenSCAD, family-specific BOMs, tube drilling coordinates and ideal rigid-linkage kinematics. It calls the official external OpenSCAD CLI for solid/mesh export; no CAD engine or web dependency was added to Stacks.
+- All five baseline families exported: 50 binary STL files, 15 metal DXF profiles and assembly previews. The separate Buddy XL estimate adds another 10 STL files and three DXF profiles. Each dataset includes source/output hashes and `mesh-inspection.json`.
+- All 60 actual STL files passed export-time checks for closed two-face edges, consistent winding, one connected body, positive signed volume and the declared 220 x 220 x 100 mm print envelope. These are digital checks, not structural tests.
+- All 50 baseline meshes also passed the retained native test suite's independent binary-STL inspection and authored arm dimensions. Nominal shock travel, tube overlap, hole separation, profile validation, invalid hardware/wall/corner combinations and isolation of configured iterations are covered.
+- `./buddy lint`: zero errors or warnings. `./buddy typecheck`: passed. `./buddy test`: 12 passed, 536 assertions.
+- The native Bun download bundle contains 60 STLs and 18 DXFs. Every bundled CAD file was compared byte-for-byte by SHA256 with its working-tree source; archive tests also confirm private environment/runtime files stay excluded.
+- Authored Standards and Spec reviews found incompatible parameter combinations, corner-hole edge breakout and an inconsistent XS cotter size. The generator now rejects incompatible dimensions/pitches and uses one family-specific retention-hole value consistently; regression checks cover the boundary errors.
+- XL and XS assembly views and the XL suspension/detail views were visually inspected. The rear-bridge cheek orientation and perpendicular tube termination were corrected during development.
+- Owner-reported Buddy weight is 140 lb, with standing reach context retained separately. Supported dimensions remain estimated and explicitly configurable. The compact shocks, exact wheel/harness interfaces, finish drawings, fastener procedures and physical verification remain open as described in the mechanical docs.
+- Current LA printer options were checked against manufacturer and seller sources. No printer, hardware, filament, testing service or fabrication was purchased or booked.
+
 ## Physical product gate
 
 No production CAD/STL/3MF, qualified print specification, structural test report, veterinary fitting study, certified load rating, production inventory, supplier quotes, insurance, final return/warranty terms, live payment provider or customer order exists. Follow docs/product/validation.md before enabling sales or using a prototype on an animal.

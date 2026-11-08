@@ -1,0 +1,22 @@
+{
+  "id": "buddy-xl-estimate",
+  "basis": "XL",
+  "context": {
+    "ownerReportedWeightLb": 140,
+    "weightKgConverted": 63.503,
+    "ownerReportedStandingReachFeetInches": "5 ft 11 in, paws on owner's shoulders",
+    "standingReachIsNotAFitMeasurement": true,
+    "geometrySource": "Explicit unmeasured design assumptions. Do not infer anatomy from standing reach.",
+    "supportedGroinHeightMm": null,
+    "hipWidthMm": null,
+    "bodyLengthMm": null,
+    "chestGirthMm": null,
+    "printer": null
+  },
+  "overrides": {
+    "height": 620,
+    "width": 400,
+    "rail": 680,
+    "wheel": 400
+  }
+}

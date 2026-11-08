@@ -1,0 +1,40 @@
+{
+  "status": "IDEAL_RIGID_KINEMATICS_NOT_LOAD_VALIDATION",
+  "angleRangeDegrees": [
+    -3,
+    6
+  ],
+  "clearanceAllowanceMm": 0.2,
+  "curves": [
+    {
+      "setting": 0,
+      "radius": 70,
+      "nominalWheelRatePerShockRate": 0.151,
+      "wheelBumpMm": 18.815,
+      "wheelDroopMm": 9.42,
+      "shockAtDroopMm": 158.664,
+      "shockAtNeutralMm": 155,
+      "shockAtBumpMm": 147.684
+    },
+    {
+      "setting": 1,
+      "radius": 90,
+      "nominalWheelRatePerShockRate": 0.25,
+      "wheelBumpMm": 18.815,
+      "wheelDroopMm": 9.42,
+      "shockAtDroopMm": 159.71,
+      "shockAtNeutralMm": 155,
+      "shockAtBumpMm": 145.593
+    },
+    {
+      "setting": 2,
+      "radius": 110,
+      "nominalWheelRatePerShockRate": 0.373,
+      "wheelBumpMm": 18.815,
+      "wheelDroopMm": 9.42,
+      "shockAtDroopMm": 160.757,
+      "shockAtNeutralMm": 155,
+      "shockAtBumpMm": 143.503
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # Product and manufacturing development plan
 
-November 7, 2026. All geometry, bands, costs and test targets in this document are proposals. No CAD release, printable production files or safe load ratings exist yet. Original renders are visual concepts, not mechanical drawings.
+November 7, 2026, updated November 8. All geometry, bands, costs and test targets in this document are proposals. The [r0 bench CAD package](../../designs/wheelchair/r0/README.md) now contains editable geometry, printable fit/fixture parts and metal fabrication profiles for all five families, starting with XL. No production files or safe load ratings are approved. Original marketing renders remain visual concepts, separate from the mechanical CAD.
 
 ## Product requirements
 
@@ -59,7 +59,7 @@ The production specification must identify printer/firmware/slicer versions, pro
 
 ## Parametric CAD release plan
 
-The application contains catalog planning parameters, not production CAD. The next mechanical work should create native parametric source in the design tool chosen by the engineer and retain editable geometry, not only triangulated exports. Export STEP for review and size/revision-specific STL/3MF for the approved manufacturing process when ready. Do not publish G-code as universally safe across machines.
+The application now generates the independent r0 bench CAD through `buddy design:wheelchair`, with editable OpenSCAD source, family-specific STL/DXF and recorded digital checks. It is not production CAD. The manufacturing engineer must review/remodel the geometry and close tolerances/supplier interfaces in their production design tool. Export STEP for review and size/revision-specific STL/3MF for the approved manufacturing process when ready. r0 does not claim STEP or a qualified machine profile. Do not publish G-code as universally safe across machines.
 
 Parameter groups should include tube outer/inner diameter, engagement length, fastener/washer envelope, junction fillet radii, minimum section, axle diameter, wheel offset/diameter, adjustable height, bridge width, side-rail length and harness clearances. Define valid ranges and incompatibilities. The generator must reject invalid combinations rather than emit geometry that looks plausible.
 

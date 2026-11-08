@@ -1,0 +1,92 @@
+{
+  "revision": "r0",
+  "status": "BENCH_ONLY_NOT_ANIMAL_USE",
+  "sourceHash": "601b865f5b43cd5c565f1035c9f10dbf6fc7099c3ee215249dacb933acdbc141",
+  "tool": "OpenSCAD version 2021.01",
+  "files": [
+    {
+      "file": "stl/tube_cap.stl",
+      "bytes": 12084,
+      "sha256": "0481fe167e39e383de4dc45ecca2a453a5f238d9244060474a3948e85ec99372",
+      "purpose": "Outer-tube end protection, optional"
+    },
+    {
+      "file": "stl/inner_cap.stl",
+      "bytes": 12084,
+      "sha256": "d125fad8f3e148bab73e47a13082c92f9e6ee25d9bd2cf8ab3ce7f6f2647988e",
+      "purpose": "Inner bridge end protection, optional"
+    },
+    {
+      "file": "stl/index_collar.stl",
+      "bytes": 2484,
+      "sha256": "3d297c91225c9c7a179bd9f8f13f1ece9141f52079ebd94a36f38209f4ba3ef2",
+      "purpose": "Loose setup witness marker, no retention function"
+    },
+    {
+      "file": "stl/pivot_guard.stl",
+      "bytes": 20884,
+      "sha256": "caf263930f4f88fb1d6334af312882b66fe20564102b288b68791ceef7f603c8",
+      "purpose": "Removable shield for non-animal rig only"
+    },
+    {
+      "file": "stl/drill_jig.stl",
+      "bytes": 41484,
+      "sha256": "eddc0fd0c4501319fe437a6ba80dc57362d3dc2ac931fe441ccd64083b9aef16",
+      "purpose": "Pilot layout aid only; metal bush tooling required for final holes"
+    },
+    {
+      "file": "stl/coupon.stl",
+      "bytes": 39884,
+      "sha256": "120f3f08365020360ecdcb859481d31c27290e24788419c44ec37c37574aaf4d",
+      "purpose": "Hole-clearance calibration coupon"
+    },
+    {
+      "file": "stl/shock_dummy.stl",
+      "bytes": 29484,
+      "sha256": "c580fd2020bbc1fe9dc6833af5db9dd8a322e4901c3b8d1be0c393abfcadf90a",
+      "purpose": "Rigid nominal eye-distance gauge, no spring/damping or load function"
+    },
+    {
+      "file": "stl/FIT_CHECK_ONLY_fixed_plate.stl",
+      "bytes": 86284,
+      "sha256": "9f81cd084b5453da5d7f5b0478b716c807895fb9d1d3d2bdff662a8d190897a8",
+      "purpose": "Suspension fixed cheek, STL is a fit-check copy only"
+    },
+    {
+      "file": "dxf/fixed_plate.dxf",
+      "bytes": 26326,
+      "sha256": "4a44a67e6db743b9f46e07ff967b25ba615946d7e18708178495a0556e7389d5",
+      "purpose": "Metal fabrication profile, finish holes per drawing"
+    },
+    {
+      "file": "stl/FIT_CHECK_ONLY_arm_plate.stl",
+      "bytes": 78484,
+      "sha256": "5a9a7e091278e2ce07a533b736f6ed149275d5c8669de9c6b180097fe3cf2880",
+      "purpose": "Trailing arm cheek, STL is a fit-check copy only"
+    },
+    {
+      "file": "dxf/arm_plate.dxf",
+      "bytes": 24028,
+      "sha256": "4ef461d02a6730bb613514f9cb28a321ade5fb024d4d8b728a350e2b0817d459",
+      "purpose": "Metal fabrication profile, finish holes per drawing"
+    },
+    {
+      "file": "stl/FIT_CHECK_ONLY_corner_plate.stl",
+      "bytes": 40284,
+      "sha256": "37c074e2afa620993e0290ac764a4bb5a2b49787038bb8369c03f15a3c62c7ad",
+      "purpose": "Paired rail/upright and rear-bridge joints, STL is a fit-check copy only"
+    },
+    {
+      "file": "dxf/corner_plate.dxf",
+      "bytes": 12746,
+      "sha256": "734a752df7c673b08c2b979517450ea6aae2c83c8d488a0ab62f03d75c2fb2f6",
+      "purpose": "Metal fabrication profile, finish holes per drawing"
+    },
+    {
+      "file": "assembly.png",
+      "bytes": 64562,
+      "sha256": "e374d052a8826d59e651e2f0fa64be468a24b16e5fcf6610761b08094afbad4f",
+      "purpose": "CAD-derived bench visualization, not a product photo"
+    }
+  ]
+}

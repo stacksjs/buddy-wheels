@@ -1,6 +1,6 @@
 # Adjustable suspension and rehabilitation support research
 
-Founder-requested research track, November 7, 2026. No suspension module or rehabilitation mode is implemented, qualified or available. This is a design investigation, not a use prescription for Buddy.
+Founder-requested research track, November 7, 2026, updated November 8. A [parameterized trailing-arm suspension](../../designs/wheelchair/r0/README.md) is now implemented as bench CAD with three leverage positions, external metal travel-stop geometry and a separate neutral lock pin. No physical module or rehabilitation mode has been qualified or made available. This remains a design investigation, not a use prescription for Buddy.
 
 ## The question
 

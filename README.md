@@ -6,6 +6,8 @@ The storefront includes five wheelchair size families, Buddy Rover Run/Coast/Sno
 
 Start with the [project documents](docs/README.md), [business plan](docs/business/business-plan.md), [wheelchair development plan](docs/product/product-development.md), [Buddy Rover brief](docs/product/buddy-rover.md) and [validation gates](docs/product/validation.md).
 
+The [XL-first mechanical package](designs/wheelchair/r0/README.md) contains actual editable bench CAD, 1:1 printable meshes and metal profiles for XS through XL, plus BOMs and assembly travelers. [Buddy's JSON profile](designs/wheelchair/profiles/buddy-xl-estimate.json) records his owner-reported 140 lb weight with configurable estimated geometry; it exports independently of the baseline families. Start with the [illustrated XL assembly guide](docs/engineering/xl-assembly-r0.md) and [LA printer comparison](docs/engineering/printer-options-la.md). These are bench prototypes requiring engineering verification and professional fit review before animal use.
+
 ## Development
 
 Requires Bun >= 1.3.0 and SQLite >= 3.47.2. This project currently declares the scaffold's Bun 1.4.4 toolchain.
