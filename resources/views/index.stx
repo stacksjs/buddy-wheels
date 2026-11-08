@@ -3,60 +3,34 @@
 @section('head')
   <link rel="preload" as="image" href="/images/buddy-meadow.webp">
 @endsection
-
 <script server>
-import { catalog, money } from '~/app/Storefront/Catalog'
+import { catalog, money, roverConfigurations } from '~/app/Storefront/Catalog'
 const featured = catalog.filter(size => ['S', 'M', 'L'].includes(size.code)).map(size => ({ ...size, priceLabel: money(size.price), href: `/shop?size=${size.code}` }))
+const wheelchairStart = money(Math.min(...catalog.map(item => item.price))).replace(/\.00$/, '')
+const roverStart = money(Math.min(...roverConfigurations.map(item => item.price))).replace(/\.00$/, '')
 </script>
-
 @section('content')
   <section class="grid gap-8 items-center lg:gap-12 lg:grid-cols-[0.9fr_1.1fr] py-10 lg:py-16 hero shell">
-    <div class="hero-copy">
-      <p class="eyebrow">A little support. A lot of life.</p>
-      <h1 class="mt-5">Their spirit<br>still has legs.</h1>
-      <p class="mt-6 hero-description">Repairable dog wheelchairs in development, so more good days can start with a walk.</p>
-      <div class="flex flex-wrap gap-4 mt-8"><a href="/shop" class="button-primary">Explore the wheelchairs <i class="i-hugeicons-arrow-right-02" aria-hidden="true"></i></a><a href="/fit-guide" class="button-text">Start with their fit</a></div>
-    </div>
-    <figure class="hero-photo"><img src="/images/buddy-meadow.webp" alt="Generated concept of a golden retriever in a green rear-support wheelchair in a meadow" width="1280" height="720" srcset="/images/buddy-meadow-640.webp 640w, /images/buddy-meadow.webp 1280w" sizes="(max-width: 1023px) calc(100vw - 40px), 50vw" fetchpriority="high"><figcaption>Original AI concept image. This is not Buddy or a tested product.</figcaption></figure>
+    <div class="hero-copy"><p class="eyebrow">A little support. A lot of life.</p><h1 class="mt-5">Their spirit<br>still has legs.</h1><p class="mt-6 hero-description">Repairable wheelchairs and adventure carriers for dogs with more life to get out and live.</p><div class="flex flex-wrap gap-4 items-center mt-8"><a href="/shop" class="button-primary">Find their wheels <i class="i-hugeicons-arrow-right-02" aria-hidden="true"></i></a><a href="/rover" class="button-text">Meet Buddy Rover</a></div></div>
+    <figure class="hero-photo"><img src="/images/buddy-meadow.webp" alt="Golden retriever wearing a forest-green rear-support wheelchair in a sunlit meadow" width="1280" height="720" srcset="/images/buddy-meadow-640.webp 640w, /images/buddy-meadow.webp 1280w" sizes="(max-width: 1023px) calc(100vw - 40px), 50vw" fetchpriority="high"></figure>
   </section>
-  <section class="grid gap-6 grid-cols-1 sm:grid-cols-3 py-8 principles shell" aria-label="Design intentions">
-    <div class="flex gap-3 items-center"><i class="text-2xl i-hugeicons-3d-printer" aria-hidden="true"></i><div><h2 class="font-semibold text-sm">Print. Replace. Keep going.</h2><p class="mt-1 text-xs muted">A modular design with printable parts.</p></div></div>
-    <div class="flex gap-3 items-center"><i class="text-2xl i-hugeicons-ruler" aria-hidden="true"></i><div><h2 class="font-semibold text-sm">Different dogs. Different fits.</h2><p class="mt-1 text-xs muted">Five size families planned, XS to XL.</p></div></div>
-    <div class="flex gap-3 items-center"><i class="text-2xl i-hugeicons-heart-check" aria-hidden="true"></i><div><h2 class="font-semibold text-sm">Care comes first.</h2><p class="mt-1 text-xs muted">Testing and professional fitting before sale.</p></div></div>
+  <section class="grid gap-6 grid-cols-1 sm:grid-cols-3 py-8 principles shell" aria-label="The Buddy Wheels approach">
+    <div class="flex gap-3 items-center"><i class="text-2xl i-hugeicons-3d-printer" aria-hidden="true"></i><div><h2 class="font-semibold text-sm">Keep the frame. Replace the part.</h2><p class="mt-1 text-xs muted">Repairability starts with the design.</p></div></div>
+    <div class="flex gap-3 items-center"><i class="text-2xl i-hugeicons-ruler" aria-hidden="true"></i><div><h2 class="font-semibold text-sm">Big dogs belong here, too.</h2><p class="mt-1 text-xs muted">Five wheelchair families, little to giant.</p></div></div>
+    <div class="flex gap-3 items-center"><i class="text-2xl i-hugeicons-plant-01" aria-hidden="true"></i><div><h2 class="font-semibold text-sm">Made with outside in mind.</h2><p class="mt-1 text-xs muted">From the neighborhood loop to the shoreline.</p></div></div>
   </section>
-  <section class="section-space shell" id="collection">
-    <h2 class="section-title">A way forward, in their size.</h2>
-    <p class="mt-4 max-w-2xl muted">One repairable idea. A family of fits. Small, medium and large target prices are half the listed reference prices.</p>
-    <div class="grid gap-6 md:grid-cols-3 mt-9 collection">
-      @foreach(featured as product)
-        <ProductCard :slug="product.slug" :name="product.name" :priceLabel="product.priceLabel" image="/images/chair-concept-640.webp" :description="product.description" :weight="product.weight" :href="product.href" :speciesLabel="product.code" badge="Planned product" priceNote="Target price, before tax and delivery" imageAlt="AI concept of the proposed Buddy Wheels chair; size-specific geometry is not finalized" />
-      @endforeach
-    </div>
-    <p class="mt-5 text-sm muted">XS and XL are also in the development plan. <a class="underline" href="/shop">Compare all five sizes</a>. Concept render shared across sizes.</p>
-  </section>
-  <section class="section-space shell">
-    <h2 class="section-title">For dogs with places to go.</h2>
-    <p class="mt-4 max-w-2xl muted">Active days are part of the vision. We are developing toward all-terrain readiness, with grass, pavement, firm trails and light gravel in the testing plan.</p>
-    <div class="grid gap-6 grid-cols-2 md:grid-cols-4 mt-8">
-      <div class="feature-rule"><i class="text-2xl i-hugeicons-plant-01" aria-hidden="true"></i><h3 class="mt-3 font-medium">Grass &amp; parks</h3></div>
-      <div class="feature-rule"><i class="text-2xl i-hugeicons-road-01" aria-hidden="true"></i><h3 class="mt-3 font-medium">Everyday pavements</h3></div>
-      <div class="feature-rule"><i class="text-2xl i-hugeicons-mountain" aria-hidden="true"></i><h3 class="mt-3 font-medium">Firm outdoor trails</h3></div>
-      <div class="feature-rule"><i class="text-2xl i-hugeicons-route-01" aria-hidden="true"></i><h3 class="mt-3 font-medium">Light gravel paths</h3></div>
-    </div>
-    <p class="mt-4 text-sm muted">Planned capabilities, not tested claims. The released terrain limits and activity guidance will follow structural testing and professional fitting review.</p>
-  </section>
-  <section class="section-space story-band">
-    <div class="grid gap-10 items-start md:grid-cols-[1fr_1.25fr] shell">
-      <div><p class="eyebrow">It started with Buddy.</p><h2 class="mt-4 section-title">A best friend.<br>A reason to build.</h2><a href="/our-story" class="inline-flex mt-6 button-text">Meet the idea behind Buddy Wheels <i class="i-hugeicons-arrow-right-02" aria-hidden="true"></i></a></div>
-      <div class="story-body"><p>When Buddy stopped using his hind legs, we started looking for support. But Buddy is a very large dog, and suitable sizes were hard to find. Cost was another barrier.</p><p class="mt-5">Buddy Wheels began with both needs: a better fit for bigger dogs and a more affordable, repairable design. Printable connections, standard parts, and the testing every size deserves.</p><p class="mt-5 text-sm muted">We have not established a diagnosis or a safe fit for Buddy. Veterinary care comes first.</p></div>
+  <section class="section-space shell" id="collection"><h2 class="section-title">Their next chapter starts outside.</h2><p class="mt-4 max-w-2xl muted">A little help walking, or a comfortable place to ride. Find the right way to bring them along.</p>
+    <div class="mt-9 family-collection">
+      <a href="/shop" class="family-card"><img src="/images/chair-concept.webp" width="1280" height="853" loading="lazy" alt="Forest-green modular dog wheelchair with aluminum rails"><div class="family-card-copy"><div><h3>Buddy Wheels</h3><p>Rear support for dogs who want to keep exploring.</p></div><span class="family-card-link">From {{ wheelchairStart }} <i class="i-hugeicons-arrow-right-02" aria-hidden="true"></i></span></div></a>
+      <a href="/rover" class="family-card"><img src="/images/buddy-rover.webp" width="1280" height="853" loading="lazy" alt="Buddy Rover adventure carrier with a golden retriever beside the ocean"><div class="family-card-copy"><div><h3>Buddy Rover</h3><p>Long runs. Beach walks. A seat for your best friend.</p></div><span class="family-card-link">From {{ roverStart }} <i class="i-hugeicons-arrow-right-02" aria-hidden="true"></i></span></div></a>
     </div>
   </section>
-  <section class="section-space shell">
-    <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]"><div><h2 class="section-title">Good questions.<br>Clear answers.</h2><p class="mt-4 muted">A little clarity before the next step.</p></div><div class="faq">
-      <details><summary>Can I order one for my dog today?</summary><p>No. We are developing the product and do not accept orders, deposits or reservations. If your dog needs support now, ask a vet or rehabilitation professional about an available, fitted chair.</p></details>
-      <details><summary>Is the whole wheelchair 3D printed?</summary><p>The proposed design combines printable connectors and fitting parts with standard metal rails, wheels, axles and washable harnesses. Load-bearing printed parts still need testing.</p></details>
-      <details><summary>Will it work for every dog?</summary><p>No chair suits every dog. Our planned range spans 2-180 lb, but suitability depends on body measurements, front-leg strength, diagnosis and professional assessment.</p></details>
-      <details><summary>How does the half-price target work?</summary><p>Our S, M, L and XL target prices are 50% of the corresponding Walkin' Pets listed frame prices checked November 7, 2026. Delivery, tax, fit service and product differences affect the final comparison. XS has no verified comparison.</p></details>
-    </div></div>
+  <section class="pb-16 shell"><h2 class="section-title">A way forward, in their size.</h2><p class="mt-4 max-w-2xl muted">Small companions, gentle giants, and everyone in between. Start with the fit that feels like them.</p><div class="grid gap-6 md:grid-cols-3 mt-9 collection">
+    @foreach(featured as product)
+      <ProductCard :slug="product.slug" :name="product.name" :priceLabel="product.priceLabel" image="/images/chair-concept-640.webp" :description="product.description" :href="product.href" :speciesLabel="product.code" imageAlt="Buddy Wheels rear-support wheelchair design" />
+    @endforeach
+    </div><a class="inline-flex mt-6 button-text" href="/fit-guide">Find a starting size <i class="i-hugeicons-arrow-right-02" aria-hidden="true"></i></a>
   </section>
+  <section class="section-space story-band"><div class="grid gap-10 items-start md:grid-cols-[1fr_1.25fr] shell"><div><h2 class="section-title">Buddy needed<br>a bigger idea.</h2><a href="/our-story" class="inline-flex mt-6 button-text">Read our story <i class="i-hugeicons-arrow-right-02" aria-hidden="true"></i></a></div><div class="story-body"><p>When Buddy stopped using his hind legs, finding support was hard. He is a very large dog, and few options came in a suitable size. The prices made a difficult moment harder.</p><p class="mt-5">We started Buddy Wheels for dogs like him: with big-dog fit, practical repairs, and more time outside at the heart of the design.</p></div></div></section>
+  <section class="section-space shell"><div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]"><div><h2 class="section-title">Find their kind<br>of freedom.</h2><p class="mt-4 muted">A few things to know before you choose.</p></div><div class="faq"><details><summary>Wheelchair or Rover?</summary><p>A rear-support wheelchair helps an eligible dog move using their front legs. Rover carries your dog while you walk or run. Your care professional can help you choose the right kind of support.</p></details><details><summary>What makes the design repairable?</summary><p>Standard mechanical parts and replaceable printed components give the design a practical repair path. A worn part should not mean replacing everything.</p></details><details><summary>Where do I start with sizing?</summary><p>Start with our fit guide. Weight helps narrow the wheelchair family; height, body shape and posture matter just as much.</p></details><details><summary>Is Buddy Rover for long runs and beach walks?</summary><p>That is its design focus. Run, Coast and Snow configurations let you explore the setup for your routes. Surface and activity limits will be published with the final use guide.</p></details></div></div></section>
 @endsection

@@ -1,10 +1,18 @@
+<script server>
+import { basket } from '~/app/Storefront/Cart'
+const navBasket = basket(requestContext.cookie('stacks_cart'))
+const basketCount = navBasket.items.reduce((sum, item) => sum + item.qty, 0)
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>@yield('title', 'Buddy Wheels') | Buddy Wheels</title>
-  <meta name="description" content="A repairable dog mobility project, inspired by Buddy. Explore adjustable wheelchair concepts, fit planning and transparent target prices.">
+  <meta name="description" content="@yield('description', 'More walks. More together. Repairable dog wheelchairs and Buddy Rover adventure carriers for days outside.')">
+  <meta property="og:title" content="@yield('title', 'More walks. More together.') | Buddy Wheels">
+  <meta property="og:description" content="@yield('description', 'Support their stride. Bring them along. Find their next adventure with Buddy Wheels.')">
+  <meta property="og:image" content="@yield('social_image', 'https://buddywheels.org/images/buddy-meadow.webp')">
   <meta name="theme-color" content="#234b38">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,22 +22,22 @@
 </head>
 <body class="antialiased">
   <a href="#main" class="skip-link">Skip to content</a>
-  <div class="px-4 py-2 text-center text-xs sm:text-sm announcement">Made for more time together. In development, with target pricing.</div>
+  <div class="px-4 py-2 text-center text-xs sm:text-sm announcement">For the dogs who still have places to go.</div>
   <header class="site-header">
     <nav aria-label="Main navigation" class="flex gap-4 items-center justify-between py-5 shell">
       <a href="/" class="flex gap-2 items-center wordmark" aria-label="Buddy Wheels home"><i class="text-2xl i-hugeicons-paw" aria-hidden="true"></i>buddy<span>wheels</span></a>
-      <div class="hidden md:flex gap-8 items-center font-medium text-sm"><a href="/shop">The wheelchairs</a><a href="/fit-guide">Find their fit</a><a href="/our-story">Our story</a><a href="/journal">The plan</a></div>
-      <a href="/cart" class="flex gap-2 items-center font-medium text-sm basket-link"><i class="text-xl i-hugeicons-shopping-bag-01" aria-hidden="true"></i>Basket</a>
+      <div class="hidden md:flex gap-8 items-center font-medium text-sm"><a href="/shop">Wheelchairs</a><a href="/rover">Buddy Rover</a><a href="/fit-guide">Find their fit</a><a href="/our-story">Our story</a></div>
+      <a href="/cart" class="flex gap-2 items-center font-medium text-sm basket-link"><i class="text-xl i-hugeicons-shopping-bag-01" aria-hidden="true"></i>Basket<span class="basket-count" data-cart-count>{{ basketCount }}</span></a>
     </nav>
-    <nav aria-label="Mobile navigation" class="flex md:hidden justify-between pb-4 px-5 text-sm mobile-nav"><a href="/shop">Wheelchairs</a><a href="/fit-guide">Fit guide</a><a href="/our-story">Our story</a><a href="/journal">The plan</a></nav>
+    <nav aria-label="Mobile navigation" class="flex md:hidden justify-between pb-4 px-5 text-sm mobile-nav"><a href="/shop">Wheelchairs</a><a href="/rover">Rover</a><a href="/fit-guide">Fit guide</a><a href="/our-story">Our story</a></nav>
   </header>
   <main id="main">@yield('content')</main>
   <footer class="site-footer">
     <div class="grid gap-10 md:grid-cols-2 py-12 shell">
-      <div><a href="/" class="wordmark">buddy<span>wheels</span></a><p class="mt-3 max-w-sm text-sm muted">For the dogs who still have places to go.<br>A mobility project, started for Buddy.</p></div>
-      <div class="grid gap-6 grid-cols-2 text-sm"><div class="space-y-3"><a class="block" href="/fit-guide">Measuring &amp; fitting</a><a class="block" href="/care">Care &amp; safety</a><a class="block" href="/policies">Delivery &amp; returns</a></div><div class="space-y-3"><a class="block" href="/journal">Development plan</a><a class="block" href="/policies#privacy">Privacy</a><a class="block" href="https://github.com/stacksjs/buddy-wheels">Project on GitHub</a></div></div>
+      <div><a href="/" class="wordmark">buddy<span>wheels</span></a><p class="mt-3 max-w-sm text-sm muted">A little support for a life well loved.<br>Started for Buddy. Built around dogs.</p></div>
+      <div class="grid gap-6 grid-cols-2 text-sm"><div class="space-y-3"><a class="block" href="/fit-guide">Measuring &amp; fitting</a><a class="block" href="/care">Care &amp; safety</a><a class="block" href="/policies">Delivery &amp; returns</a></div><div class="space-y-3"><a class="block" href="/journal">Designed to keep going</a><a class="block" href="/policies#privacy">Privacy</a><a class="block" href="https://github.com/stacksjs/buddy-wheels">Inside Buddy Wheels</a></div></div>
     </div>
-    <div class="py-6 text-xs footer-note muted shell">© 2026 Buddy Wheels. Development concepts, not validated medical devices. No orders or payments accepted.</div>
+    <div class="py-6 text-xs footer-note muted shell">© 2026 Buddy Wheels. Product visuals are design renders. Availability is shown with each product.</div>
   </footer>
 </body>
 </html>

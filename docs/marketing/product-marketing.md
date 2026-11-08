@@ -1,21 +1,35 @@
 # Product marketing context
 
-Updated November 7, 2026. Canonical brief for Buddy Wheels.
+Updated November 8, 2026. Canonical brief for Buddy Wheels.
 
-Product: a proposed modular rear-support dog wheelchair line with printable fit/connection parts, standard mechanical parts and a complete fitting/repair workflow. Current stage: concept and software prototype. No tested chair, clinical evidence, customer orders, professional endorsements or production files exist.
+## Product and evidence
 
-Origin: the founder's dog Buddy stopped using his hind legs. Buddy is very large, and the founder found few options offered a suitable size. Limited large-dog availability and cost are both reasons for this project. His diagnosis and suitability for a chair are unknown. Do not invent clinical progress, outcomes, age, breed or a personal photograph. Keep the emergency-care message where relevant.
+Two product families: modular rear-support wheelchairs and Buddy Rover adventure carriers. The physical products remain at design stage. No tested chair/carrier, clinical evidence, customer orders, endorsements, certified rating or production files exist. The deployed software catalog, basket and fit guide are functional; payment and order placement remain gated.
 
-Audience: caregivers pursuing professional assessment, and potential rehabilitation/rescue fitting partners. They care about suitability, time to support, fit, total cost and ongoing help. Their anxiety is a reason for clarity, not urgency-based sales tactics.
+Buddy is very large and stopped using his hind legs. Few available options offered a suitable size; cost mattered too. Do not invent his diagnosis, breed, age, recovery, fitted chair or photograph.
 
-Positioning hypothesis: repairable mobility hardware at a more accessible complete-kit price, with transparent fit guidance and support. Differentiation must be demonstrated through validated design, service and economics. “Best” is a research objective; never an unsupported headline.
+## Voice and current learning
 
-Price evidence: S $159.50 versus observed $319 reference; M $224.50 versus $449; L/XL $264.50 versus $529 large family. XS $129 has no verified half-price comparison. Checked November 7, 2026. Product price excludes tax/delivery. Differences in design, included services, availability and final cost must accompany comparison copy.
+The founder explicitly requested launch-style copy, without repeated planning language, dated price comparisons or competitor links in the shopping flow. Lead with what a caregiver can picture: a familiar walk, a place to ride, a frame worth repairing. Keep the warm, plain voice and the large-dog origin.
 
-Voice: warm, plain, hopeful and specific. Use “planned,” “target” and “in development” where true. Do not promise restored walking, healing, guaranteed fit, clinical approval, immediate shipping or universal suitability. No false countdown, invented review, fake customer logo, fabricated scarcity or medical credential. Use regular hyphens and ordinary punctuation.
+Use confident benefit-led headings and clear choices. Describe unverified performance as design intent. Put concise availability information at the product/basket/checkout boundary, with detailed product status and policies in the appropriate supporting pages. Do not repeat the entire validation checklist in every section.
 
-Design: trust-first consumer storefront. DESIGN_VARIANCE 4, MOTION_INTENSITY 3, VISUAL_DENSITY 4. Light theme, forest-green accent, cream/sage surfaces, DM Sans, generous photography, 12px panel radius and pill CTAs. Motion is limited to hover feedback; reduced-motion preference removes it. Use STX, ts-css, native Stacks components and Iconify.
+Keep competitor pricing and research in project docs. The wheelchair price hypothesis remains approximately half the verified references internally; it is not a public superiority, equivalence or discount claim. Rover has its own configuration economics. Do not fabricate shipping, inventory, ratings, guarantees, testimonials, certifications or clinical results.
 
-Conversions today: read the plan, explore a size, use the local planner, add a development configuration and understand the launch gate. No signup collection, reservation or purchase exists. Future conversions require consent-backed intake and operational support before launch.
+## Rover positioning
 
-Outdoor direction: all-terrain readiness for active lifestyles is a founder-requested design goal. Copy may describe planned grass, pavement, firm-trail and light-gravel use. “All-terrain ready” must remain a goal until surface-specific testing establishes operating limits; do not imply universal terrain support or prescribe an activity level for an individual dog.
+Buddy Rover is designed around long-distance running, beach walks and a dedicated winter conversion. Run, Coast, Snow and All-season are complete configurations. Large-dog room, repairability and suitable running gear are the positioning hypotheses. Cabin/load/speed/distance limits remain unpublished until validated. Cycling is a later separate research track.
+
+## Design and implementation
+
+Targeted evolution of the established light forest-green storefront. DESIGN_VARIANCE 4, MOTION_INTENSITY 2, VISUAL_DENSITY 4. Warm paper/sage surfaces, DM Sans, clear image-led product families and restrained hover feedback. No heavy animation or theme flips. Use STX, ts-css, native Stacks controls, server-rendered data and Iconify.
+
+Keep /shop and existing size links working. Add /rover with query-selectable configurations. Both families use native catalog, signed basket and server-side prices. Provide a mobile purchase action, product-specific basket images/links, automatic quantity updates and a single clear availability step. No fake checkout progress, forced preview checkbox or payment form.
+
+Product visuals are original generated design renders, disclosed once in the shared footer and supporting policies. Do not identify the generated dog as Buddy.
+
+## Conversion and safety
+
+Today: discover a family, choose a setup, check wheelchair starting size, save a basket and check availability. No orders, payments, deposits or reservations are accepted. Physical-product readiness and commercial operations must precede paid launch.
+
+Wheelchairs and carriers serve different jobs. Do not prescribe rehabilitation through suspension stiffness, suggest universal terrain support or give an exercise regimen. Retain concise professional-fit guidance and urgent-care information on the fit/care surfaces.

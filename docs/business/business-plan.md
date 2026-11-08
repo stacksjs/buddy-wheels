@@ -24,6 +24,8 @@ Proposed first segment: caregivers within one reachable US service region, with 
 
 ## 3. Product and differentiation
 
+The November 8 portfolio expansion adds Buddy Rover, an independent adventure-carrier design focused on long-distance running, beach walks and winter conversion. Its Run, Coast, Snow and All-season configuration briefs are priced separately from the wheelchair families. See the [Rover product plan](../product/buddy-rover.md) and [unit economics](rover-unit-economics.md). Existing wheelchair demand scenarios and startup budget do not include Rover. Release the first qualified family/configuration from evidence rather than trying to launch the entire portfolio at once.
+
 The design thesis is modularity. Use standard metal tubes as the primary rails, replaceable wheel/axle assemblies, washable soft support, and printable junctions, adjustment parts and non-structural covers. Separate the geometries used to fit the dog from the parts that provide a dependable load path. Printable does not mean entirely plastic.
 
 Proposed advantages to test are lower complete-kit price, simpler part replacement, adjustable width/length/height, clear measurement guidance, and a maker-friendly repair system. None is yet proven superior to the reference. Validate them through assembly-time observations, controlled repair trials, fatigue testing, fit outcomes and total-cost comparisons.

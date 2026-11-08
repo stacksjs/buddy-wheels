@@ -1,11 +1,12 @@
 @extends('layouts/buddy')
-@section('title', 'Delivery, returns & privacy')
+@section('title', 'Availability, delivery & privacy')
 @section('content')
-  <article class="content-page section-space shell"><h1>Clear expectations.<br>Before any order.</h1>
-    <h2>Development preview</h2><p>No products, deposits, preorders or reservations are available. Adding a configuration to the planning basket does not create an order or guarantee supply. Payment collection is disabled.</p>
-    <h2>Target prices</h2><p>Prices are proposed USD product prices, before taxes and delivery. S, M, L and XL target prices are half the reference product prices checked November 7, 2026. XS has an independent price target. Product design, fit, contents, support and final delivered cost may differ.</p>
-    <h2>Delivery and returns</h2><p>We have not finalized shipping regions, delivery charges, dispatch dates, warranty terms or return windows. These will be published before any paid launch. No free-shipping, lifetime-warranty or guaranteed-fit promise is currently made.</p>
-    <h2 id="privacy">Privacy in this preview</h2><p>The fit planner keeps entered measurements in page memory; it does not submit them or save them to the server. The checkout preview does not collect contact, shipping or payment information. Closing or reloading the page clears the planner inputs.</p><p>The basket uses the native Stacks signed, HttpOnly cart cookie and a server-side basket record. The cookie is intended to persist for up to 30 days. Server access logs may contain request metadata. The site loads a stylesheet and font files from Google Fonts, which makes requests to that provider. No marketing analytics or advertising pixels are configured by this project.</p>
-    <h2>Before a commercial launch</h2><p>A complete privacy notice, business contact, applicable consumer terms, tax and delivery setup, support process and validated product instructions are required. This page is an accurate description of the current preview, not a replacement for those launch documents.</p>
+  <article class="content-page section-space shell"><h1>The details,<br>made clear.</h1>
+    <h2>Availability</h2><p>Ordering is not open yet. Your basket saves a selection; it does not reserve stock or create an order. We do not collect payments or deposits.</p>
+    <h2>Prices</h2><p>Prices are shown in US dollars, before tax and delivery. Final configuration details, prices and any additional charges will be confirmed before orders open.</p>
+    <h2>Delivery and returns</h2><p>Delivery regions, dispatch times, shipping charges, returns and warranty terms will be published before the first paid order. Your complete order cost and the applicable terms must be available before payment.</p>
+    <h2>Product information</h2><p>Product images are design visualizations. Fit ranges, cabin dimensions, load ratings, configuration contents and use limits will be confirmed with the released product documentation. A size selector does not establish medical suitability.</p>
+    <h2 id="privacy">Your privacy</h2><p>The fit guide keeps measurements in your browser's page memory. It does not send them to the server or save them between visits. Closing or reloading the page clears the inputs.</p><p>A signed, HttpOnly basket cookie remembers your selection for up to 30 days, linked to a server-side basket record. Checkout does not collect your name, address or payment details. Server access logs may contain request metadata.</p><p>Fonts load through Google Fonts, which receives requests from your browser. We have not configured marketing analytics or advertising pixels.</p>
+    <h2>Before ordering opens</h2><p>We will publish business contact details, customer support information and the full commercial terms alongside the released product instructions.</p>
   </article>
 @endsection

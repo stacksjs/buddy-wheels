@@ -15,16 +15,16 @@ cp .env.example .env
 
 Default local web URL is `http://localhost:3460`; the native API runs at 3008 during development. Production uses an independent loopback web/API port pair on the shared server. See config/cloud.ts for the chosen production ports. The database is SQLite. No new schema was invented for the basket: the native Product, Cart and CartItem models/migrations supply it.
 
-`seed-catalog` is idempotent and writes only the five known development configurations through the native database query builder. `is_available` means available to the preview basket; zero physical inventory and the unconditional order gate prevent that flag being mistaken for sellable stock. Do not expose generated public product writes. `security.api.models` remains `own` and `STACKS_DEFAULT_ROUTES=none` prevents mounting unrelated default endpoints.
+`seed-catalog` is idempotent and writes only the nine known configurations through the native database query builder: five wheelchair sizes and four Rover setups. `is_available` means available to the basket; zero physical inventory and the unconditional order gate prevent that flag being mistaken for sellable stock. Do not expose generated public product writes. `security.api.models` remains `own` and `STACKS_DEFAULT_ROUTES=none` prevents mounting unrelated default endpoints.
 
 ## Request and rendering boundaries
 
 - STX renders the marketing, story, care, policies, product, fit, basket and checkout pages.
 - Native ProductCard, QuantitySelector, Button, OrderSummary and CheckoutSteps provide reusable shopping primitives.
-- app/Storefront/Catalog.ts owns proposed size bands and dated price targets in cents. The financial model consumes the same catalog.
+- app/Storefront/Catalog.ts owns the wheelchair size catalog, Rover configuration catalog and shared product allowlist. Financial models consume the same integer-cent prices. Wheelchair fitting never searches carrier records.
 - The local fit planner imports the pure catalog helper. Measurements remain in page memory and are not sent to an endpoint or placed in a URL.
 - app/Storefront/Cart.ts uses native signed-cookie verification and the native SQLite storefront read boundary.
-- Basket actions validate app inputs and require native signed cookies. Adds use the native database transaction API with SQLite writer reservation to enforce a five-per-size limit under concurrency; reads and updates reuse the native storefront implementation. Product prices are read by the server, not trusted from a form.
+- Basket actions validate app inputs and require native signed cookies. Adds use the native database transaction API with SQLite writer reservation to enforce a five-per-configuration limit under concurrency; reads and updates reuse the native storefront implementation. Product prices are read by the server, not trusted from a form. Product images and detail links follow each SKU. Native quantity changes submit their owning form, with an explicit update fallback and remove action.
 - The explicit checkout action always returns HTTP 409 with PRODUCT_VALIDATION_REQUIRED. An app override of the default PlaceOrderAction points to the same gate.
 
 Only the app's four API routes are mounted. No payment driver is initialized for the storefront and no orders, deposits or reservations are created. The preview checkout does not ask for personal or payment details. Native cart cookies and records persist the development basket.
@@ -33,7 +33,9 @@ Only the app's four API routes are mounted. No payment driver is initialized for
 
 Changes made in the Stacks source repository extend ProductCard with generic description, priceNote, href and imageAlt, and move status text below images. QuantitySelector now uses native STX state/model bindings with independent instances, live bounds, normalized native form values and one native change event. Source browser regression tests cover these contracts. The app uses the published framework components without local copies.
 
-The application consumes the published Stacks 0.75.522 patch through native `buddy upgrade`. Its lockfile pins the installed package graph, and the native component behavior was checked in the application through a real Chromium session.
+The application now consumes published Stacks 0.75.524 through native `buddy upgrade`. The earlier 0.75.522 patch delivered ProductCard and QuantitySelector changes. The current patch includes OrderSummary heading, tax and total-title props, so a basket can label an item subtotal without implying a quoted delivery/tax total. Its lockfile pins the package graph; real Chromium QA verifies installed-consumer behavior.
+
+The resolved shared Button is the native dashboard Button. Consumer styling uses its documented `class` prop with `variant="bare"` to avoid inheriting dashboard gradients and fixed sizing. Product pages have mobile submit buttons associated with the same native form. The shared layout reads the request's signed basket to show its current quantity; anonymous HTML renders are checked for basket isolation too.
 
 ## Deployment topology
 

@@ -50,6 +50,23 @@ Native `./buddy deploy --prod --yes` successfully deployed application commit `8
 
 The site is a development storefront with persistent planning baskets. It accepts no payments, deposits, reservations or customer orders. Software delivery does not establish physical-product readiness.
 
-## Product work still required
+## November 8 storefront and Rover update
+
+Launch-style copy replaces the repeated planning language and competitor-price references in all public pages. Internal price evidence remains in the project docs. A concise availability statement and the server order gate remain accurate.
+
+- Buddy Rover adds complete Run ($399), Coast ($449), Snow ($499) and All-season ($599) configurations to the native catalog, shared signed basket and idempotent seeder.
+- The wheelchair fit helper still searches only wheelchair size families. No untested carrier dimensions or load rating is published.
+- Native STX configuration state updates price, SKU, included items and imagery. Snow has its own generated visualization and SKU thumbnail.
+- Basket quantity changes save through their owning native form; removal, correct product images/links and the shared header count work across both families.
+- Product pages have mobile purchase actions; checkout now has one direct availability step without forced preview acknowledgements.
+- Native `buddy upgrade` installed Stacks 0.75.524. Source OrderSummary changes preserve defaults while supporting separate heading, tax and item-total labels. Source tests and exact release CI passed; a superseded 0.75.523 release was cancelled after the newer mainline release included its changes.
+- App lint has zero errors/warnings; app TypeScript and STX checks passed; seven tests passed with 45 assertions; both financial documents regenerated successfully.
+- Retained native Chromium QA passed on the installed package graph: real home-to-Rover-to-wheelchair navigation, configuration prices, image switching, mixed totals, mobile submit, quantity limits/concurrency, removal, cookie isolation, professional-fit wording and the HTTP 409 gate.
+- All ten public pages were checked at 320, 428, 768 and 1440 pixels with no horizontal overflow or console errors. Hero CTA centers, principle icons and heading tops align within one CSS pixel; native purchase buttons use the forest-green theme. Mobile safe-area spacing and visible keyboard focus are styled consistently.
+- Independent Standards and Spec reviews found three issues, all corrected: overly advanced readiness wording, an unverified stability adjective and incorrect Rover Open Graph metadata.
+
+Public deployment evidence for this iteration follows after the production check.
+
+## Physical product gate
 
 No production CAD/STL/3MF, qualified print specification, structural test report, veterinary fitting study, certified load rating, production inventory, supplier quotes, insurance, final return/warranty terms, live payment provider or customer order exists. Follow docs/product/validation.md before enabling sales or using a prototype on an animal.

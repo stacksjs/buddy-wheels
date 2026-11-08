@@ -2,16 +2,16 @@ import { randomUUIDv7 } from 'bun'
 import { transaction } from '@stacksjs/orm'
 import { sqliteWriteOptions, sqlDateTime } from '@stacksjs/database/runtime'
 import { verifyCartCookie, writeCartCookie } from '@stacksjs/defaults/app/Storefront/CartCookie.ts'
-import { catalog, validQuantity } from '../../Storefront/Catalog'
+import { storeProducts, validQuantity } from '../../Storefront/Catalog'
 
 export default new Action({
-  name: 'Add development configuration to basket',
+  name: 'Add a product to the basket',
   method: 'POST',
   async handle(request) {
-    const selected = catalog.find(item => item.slug === request.get('slug'))
+    const selected = storeProducts.find(item => item.slug === request.get('slug'))
     const quantity = validQuantity(request.get('quantity') ?? 1)
     if (!selected || quantity === null)
-      return response.json({ error: 'Choose a known size and a whole quantity from 1 to 5.' }, { status: 422 as const })
+      return response.json({ error: 'Choose a product and a whole quantity from 1 to 5.' }, { status: 422 as const })
     const redirect = request.get('redirect')
     if (redirect && redirect !== '/cart')
       return response.json({ error: 'Invalid basket destination.' }, { status: 422 as const })
@@ -22,7 +22,7 @@ export default new Action({
     const result = await transaction(async (tx) => {
       const product = await tx.selectFrom('products').where('slug', '=', selected.slug).where('is_available', '=', true).selectAll().executeTakeFirst()
       if (!product)
-        return { error: 'This configuration is not available in the planning catalog.', status: 404 as const }
+        return { error: 'This configuration is unavailable. Please choose another.', status: 404 as const }
       let cart = await tx.selectFrom('carts').where('session_token', '=', token).where('status', '=', 'active').selectAll().executeTakeFirst()
       if (!cart) {
         await tx.insertInto('carts').values({ status: 'active', total_items: 0, subtotal: 0, total: 0, currency: 'USD', session_token: token, checkout_step: 'cart', expires_at: sqlDateTime(new Date(Date.now() + 30 * 86400000)) }).execute()
@@ -33,7 +33,7 @@ export default new Action({
       const existing = await tx.selectFrom('cart_items').where('cart_id', '=', cart.id).where('product_sku', '=', selected.slug).selectAll().executeTakeFirst()
       const totalQuantity = Number(existing?.quantity || 0) + quantity
       if (totalQuantity > 5)
-        return { error: 'Your planning basket can contain at most five of each size.', status: 422 as const }
+        return { error: 'You can add up to five of each configuration.', status: 422 as const }
       const unitPrice = Number(product.price)
       if (!Number.isSafeInteger(unitPrice) || unitPrice < 0)
         throw new Error('The planning catalog contains an invalid price.')

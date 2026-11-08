@@ -1,0 +1,7 @@
+<script>
+const { active = 'wheelchairs' } = defineProps<{ active?: string }>()
+</script>
+<nav class="family-nav" aria-label="Product collections">
+  <a href="/shop" aria-current="{{ active === 'wheelchairs' ? 'page' : 'false' }}"><i class="i-hugeicons-heart-check" aria-hidden="true"></i>Wheelchairs<span>Support their stride</span></a>
+  <a href="/rover" aria-current="{{ active === 'rover' ? 'page' : 'false' }}"><i class="i-hugeicons-route-01" aria-hidden="true"></i>Buddy Rover<span>Bring them along</span></a>
+</nav>

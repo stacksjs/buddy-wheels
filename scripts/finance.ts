@@ -1,4 +1,5 @@
 import { catalog, money } from '../app/Storefront/Catalog'
+import { writeRoverEconomics } from './rover-finance'
 
 export interface UnitAssumption {
   code: string
@@ -44,6 +45,7 @@ export function scenario(units: number, cogsMultiplier = 1, cacMultiplier = 1) {
 }
 
 if (import.meta.main) {
+  await writeRoverEconomics()
   const units = assumptions.map(item => unitEconomics(item))
   const weightedContribution = assumptions.reduce((sum, item) => sum + unitEconomics(item).contribution * item.mix, 0)
   const rows = units.map(row => `| ${row.code} | ${money(row.revenue)} | ${money(row.cogs)} | ${money(row.gross)} | ${money(row.shipping)} | ${money(row.fee)} | ${money(row.reserve)} | ${money(row.acquisition)} | ${money(row.support)} | ${money(row.contribution)} |`).join('\n')

@@ -1,10 +1,10 @@
 # Buddy Wheels
 
-A repairable dog-mobility business and native Stacks storefront, inspired by Buddy.
+A repairable dog-mobility business and native Stacks storefront, inspired by Buddy. Live at [buddywheels.org](https://buddywheels.org).
 
-The product is in development. The storefront provides planned XS-XL sizes, a local fit planner, a persistent planning basket and a gated checkout preview. **No products, orders, reservations or payments are available.** There are no validated load ratings or approved printable production files yet.
+The storefront includes five wheelchair size families, Buddy Rover Run/Coast/Snow/All-season configurations, a local fit guide and a shared basket. Product pages have mobile basket actions; the basket supports automatic quantity updates, removal and product-specific images. **Ordering is not open: no orders, reservations, deposits or payments are accepted.** Physical products are still design concepts with no qualified ratings or production files.
 
-Start with the [project documents](docs/README.md), [business plan](docs/business/business-plan.md), [product development plan](docs/product/product-development.md) and [validation gates](docs/product/validation.md).
+Start with the [project documents](docs/README.md), [business plan](docs/business/business-plan.md), [wheelchair development plan](docs/product/product-development.md), [Buddy Rover brief](docs/product/buddy-rover.md) and [validation gates](docs/product/validation.md).
 
 ## Development
 
@@ -32,7 +32,7 @@ bun run finance
 
 ## Native stack
 
-STX templates, ts-css utilities, Stacks UI components, native Actions and route registration, SQLite query builder and native commerce Product/Cart/CartItem tables. Monetary values are integer cents. The two reusable shopping component improvements are maintained in the Stacks source and consumed through its framework patch.
+STX templates, ts-css utilities, Stacks UI components, native Actions and route registration, SQLite query builder and native commerce Product/Cart/CartItem tables. Monetary values are integer cents. Reusable ProductCard, QuantitySelector and OrderSummary improvements are maintained in the Stacks source and consumed through published framework patches.
 
 ## Production
 

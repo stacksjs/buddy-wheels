@@ -1,6 +1,6 @@
 import { image } from '@stacksjs/image'
 
-for (const name of ['buddy-meadow', 'chair-concept']) {
+for (const name of ['buddy-meadow', 'chair-concept', 'buddy-rover', 'buddy-rover-snow']) {
   const manifest = await image(`public/images/${name}.png`, { outputDir: 'storage/framework/runtime/image-variants', publicPath: '/images', concurrency: 1 })
     .widths([640, 1280]).formats(['webp']).quality(82).original(false).generate()
   for (const variant of manifest.variants) {

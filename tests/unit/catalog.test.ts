@@ -1,8 +1,16 @@
 import { describe, expect, test } from 'bun:test'
-import { catalog, money, planningSize, validQuantity } from '../../app/Storefront/Catalog'
+import { catalog, money, planningSize, roverConfigurations, storeProducts, validQuantity } from '../../app/Storefront/Catalog'
 import { assumptions, scenario, unitEconomics } from '../../scripts/finance'
+import { roverUnitEconomics } from '../../scripts/rover-finance'
 
 describe('planning catalog boundaries', () => {
+  test('offers distinct Rover configurations without putting carrier options into wheelchair sizing', () => {
+    expect(roverConfigurations.map(item => item.price)).toEqual([39900, 44900, 49900, 59900])
+    expect(new Set(storeProducts.map(item => item.slug)).size).toBe(9)
+    expect(storeProducts.find(item => item.slug === 'buddy-rover-coast')?.href).toBe('/rover?mode=coast')
+    expect(storeProducts.filter(item => item.family === 'wheelchair').length).toBe(5)
+    expect(planningSize(150, 22).code).toBe('XL')
+  })
   test('ties verified targets to half their dated references without inventing an XS comparison', () => {
     expect(catalog.map(item => item.price)).toEqual([12900, 15950, 22450, 26450, 26450])
     expect(catalog[0]?.referencePrice).toBeNull()
@@ -32,6 +40,11 @@ describe('planning catalog boundaries', () => {
 })
 
 describe('financial planning model', () => {
+  test('accounts for Rover shipping and support separately from COGS', () => {
+    expect(roverUnitEconomics('run').contribution).toBe(7218)
+    expect(roverUnitEconomics('run', 1.2).contribution).toBe(3018)
+    expect(() => roverUnitEconomics('unknown')).toThrow()
+  })
   test('keeps a worked large-kit contribution and exact scenario allocation', () => {
     expect(unitEconomics(assumptions[3]!).contribution).toBe(6730)
     expect(scenario(200).revenue).toBe(4319000)

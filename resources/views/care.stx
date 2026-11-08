@@ -1,13 +1,12 @@
 @extends('layouts/buddy')
-@section('title', 'Care comes first')
+@section('title', 'Care for every outing')
 @section('content')
-  <article class="content-page section-space shell"><h1>Care comes first.</h1>
-    <div class="mt-8 notice"><strong>New or sudden loss of movement needs urgent veterinary assessment.</strong><p>Do not delay treatment to measure, print, fit or buy a chair.</p></div>
-    <h2>Ask about suitability before fit</h2><p>A rear-support cart is not appropriate for every dog or every stage of care. Ask a veterinarian or rehabilitation professional about diagnosis, front support, posture, skin health and an appropriate activity plan.</p>
-    <h2>A chair is part of a care plan</h2><p>Supervision, comfort checks and rest matter. Follow the treating professional's instructions. The project does not prescribe a universal exercise schedule or offer medical treatment through a size selector.</p>
-    <h2>Our current product status</h2><p>Buddy Wheels is in development. There are no approved printable files, tested weight ratings or released use instructions. Concept images show an intention, not proof of a safe or effective aid.</p>
-    <h2>If your dog needs support today</h2><p>Ask your vet about currently available equipment, rehabilitation fitting services, loaners or rentals in your area. Availability and suitability need to be checked directly.</p>
-    <p><a href="https://www.aercmn.com/blog/my-dog-cant-walk-sudden-paralysis-in-dogs/" target="_blank" rel="noopener">Read the veterinary emergency guidance</a>.</p>
-    <a href="/fit-guide" class="mt-8 button-primary">Explore our fit planning guide</a>
+  <article class="content-page section-space shell"><h1>A little care.<br>A better outing.</h1><p class="mt-6 text-xl">Start with the dog in front of you. Their comfort, condition and care plan come before the route.</p><div class="mt-8 notice"><strong>Sudden loss of movement needs urgent veterinary assessment.</strong><p>Seek care before measuring, fitting or choosing equipment.</p></div>
+    <h2>Find the right support.</h2><p>A rear-support wheelchair depends on suitable front-leg strength, posture and skin health. Your veterinarian or rehabilitation professional can assess suitability and guide activity, fit checks and rest.</p>
+    <h2>Make comfort a habit.</h2><p>Supervise every outing. Follow your care professional's guidance and the released product instructions. Check contact areas, fasteners and running gear before use, and stop if your dog shows distress or discomfort.</p>
+    <h2 id="rover">A good ride starts before the first mile.</h2><p>Give your dog time to become comfortable with a carrier. Check that they can settle and change position. Plan for shade, water, ventilation and breaks, and check pavement and sand temperatures.</p><p>A running route, a shoreline and a ski trail each ask something different of the equipment. Use only the released configuration's stated surfaces and limits. Never leave a dog unattended in a carrier or use it as a vehicle restraint.</p>
+    <h2>Choose the route together.</h2><p>A long-distance run for you does not have to be a long-distance run for your dog. Ask your care professional when riding is appropriate and how to balance activity with rest.</p>
+    <h2>Keep repairs traceable.</h2><p>Use only the part revision, material and assembly instructions approved for a released configuration. Printable does not mean any material, printer setting or homemade substitute is suitable.</p>
+    <p><a href="https://www.aercmn.com/blog/my-dog-cant-walk-sudden-paralysis-in-dogs/" target="_blank" rel="noopener">Veterinary guidance on sudden paralysis</a></p><a href="/fit-guide" class="mt-8 button-primary">Start with their fit</a>
   </article>
 @endsection

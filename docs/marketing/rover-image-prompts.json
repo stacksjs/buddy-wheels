@@ -1,0 +1,17 @@
+[
+  {
+    "name": "buddy-rover",
+    "tool": "built-in image_gen",
+    "mode": "generate",
+    "output": "public/images/buddy-rover.png",
+    "prompt": "Create one premium outdoor equipment product design visualization for Buddy Wheels, a warm forest-green dog mobility brand. Photorealistic editorial landscape 3:2 composition. A new, independently designed LARGE DOG ADVENTURE STROLLER named conceptually Buddy Rover, no text or visible logos: low wide oval forest-green fabric cabin with black breathable mesh panels, a calm large golden retriever comfortably sitting inside, paws entirely inside cabin, rigid brushed-aluminum lower frame, two substantial black pneumatic rear wheels, one large forward running wheel with a long stable fork, ergonomic push handle with visible handbrake and wrist tether. Show the entire product from a flattering three-quarter side angle on a firm wet sandy beach path, calm ocean and dune grass softly out of focus, early morning natural light. Plenty of space around the product, all three wheels visible and mechanically coherent, subtle muted sage/cream tones. Cabin appears spacious and well ventilated with low step entry. This is an original concept, do not copy Burley branding, exact geometry, or orange details. No person, no lettering, no graphic overlays, no collage. Capture believable woven fabric, metal fittings, tire tread and dog fur. Professional high-end ecommerce lifestyle image, clean natural colors, no surreal reflections."
+  },
+  {
+    "name": "buddy-rover-snow",
+    "tool": "built-in image_gen",
+    "mode": "edit",
+    "reference": "public/images/buddy-rover.png",
+    "output": "public/images/buddy-rover-snow.png",
+    "prompt": "Edit this dog adventure carrier design visualization to show its SNOW configuration. Preserve the exact forest-green cabin shape, black mesh windows, golden retriever sitting entirely inside, brushed aluminum chassis, premium natural photography and 3:2 landscape composition. Replace the beach with a peaceful flat groomed snowy cross-country path beside frosted pine trees in soft winter morning light. Replace all three wheels and the front wheel fork with a mechanically coherent pair of broad short Nordic-style skis on secure metal supports beneath the cabin. Replace the upright push handle with two rigid forward tow shafts attached to the chassis and a padded waist tow harness resting visibly on the snow at the front. No person. Show the whole vehicle with space around it and the entire ski pair and tow assembly visibly coherent. No wheels remain, no downhill slope, no text or logos, no collage. This is a premium original product concept render, not a recreation of a particular competitor."
+  }
+]
