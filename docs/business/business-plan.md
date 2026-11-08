@@ -72,7 +72,7 @@ No subscription is required for a dog to keep using its chair. If professional f
 
 ## 7. Unit economics and price discipline
 
-Use integer cents throughout the app and financial model. `bun run finance` generates the current scenario tables from versioned assumptions. The current complete-kit COGS assumptions are $58 XS, $72 S, $99 M, $125 L and $155 XL. They include material, purchased parts, print capacity, assembly, inspection and packaging allocations, but require supplier quotes and measured labor.
+Use integer cents throughout the app and financial model. `bun run finance` generates the current scenario tables from versioned assumptions. The current complete-kit COGS assumptions are $58 XS, $72 S, $99 M and $125 L. XL uses the separate [r1 standard-parts model](xl-standard-r1-costs.md): $180.01 landed manufacturing at 100 chairs, with customer-paid outbound freight. These scenarios include material, purchased parts, print capacity, assembly, inspection and packaging allocations, but still require manufacturing quotes and measured labor. The former $155 XL envelope is superseded.
 
 Contribution subtracts COGS, outbound delivery subsidy, assumed payment cost, warranty/return reserve, acquisition cost and variable support. A 2.9% plus $0.30 payment cost is only a scenario input; it is not a verified processor quote. A 5% revenue reserve is an accounting assumption, not evidence that returns will stay below 5%.
 
