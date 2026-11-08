@@ -65,7 +65,11 @@ Launch-style copy replaces the repeated planning language and competitor-price r
 - All ten public pages were checked at 320, 428, 768 and 1440 pixels with no horizontal overflow or console errors. Hero CTA centers, principle icons and heading tops align within one CSS pixel; native purchase buttons use the forest-green theme. Mobile safe-area spacing and visible keyboard focus are styled consistently.
 - Independent Standards and Spec reviews found three issues, all corrected: overly advanced readiness wording, an unverified stability adjective and incorrect Rover Open Graph metadata.
 
-Public deployment evidence for this iteration follows after the production check.
+Production verification completed November 8, 2026. Native Buddy deployed the complete collection at application commit `1b1ecd1f8170f8ccb85283e660880afc36b9a89c`; a subsequent web-only release `f7cdb152cc35e38b9ddb8226dd167d580c704ef1` added automatic stylesheet revisions. Both commits passed application CI. The web and API continue to use the existing Stacks server.
+
+The full retained Chromium journey passed again against https://buddywheels.org, including native navigation, all configuration prices, Snow image switching, mixed totals, mobile purchase, automatic quantity updates, removal, anonymous HTML/API isolation, concurrency limits, the fit guide and disabled order placement. All ten public pages passed responsive overflow and console checks at the four recorded widths, including alignment and native button-color assertions.
+
+Public smoke checks returned 200 for all pages, the revised stylesheet, both Rover WebP images and the cart API. HTTP and www preserved `/rover?mode=snow` in 301 redirects to the HTTPS apex. The stylesheet URL includes its content revision because the static server caches CSS for one hour; existing visitors receive the changed styles after a normal page refresh. GitHub deployment `7638107422` records the final web deployment.
 
 ## Physical product gate
 

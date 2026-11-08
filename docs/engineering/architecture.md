@@ -37,6 +37,8 @@ The application now consumes published Stacks 0.75.524 through native `buddy upg
 
 The resolved shared Button is the native dashboard Button. Consumer styling uses its documented `class` prop with `variant="bare"` to avoid inheriting dashboard gradients and fixed sizing. Product pages have mobile submit buttons associated with the same native form. The shared layout reads the request's signed basket to show its current quantity; anonymous HTML renders are checked for basket isolation too.
 
+The shared layout uses native Bun file/hash APIs to revision the custom stylesheet URL from its contents. The static server advertises one-hour CSS caching, so this revision prevents an existing visitor from retaining old alignment/theme rules after a release. No manual hard refresh or separate asset service is required.
+
 ## Deployment topology
 
 The user owns buddywheels.org at Porkbun and authorized deployment with Buddy to the existing server owned by the stacks project. The tenant declares `cloud.attachTo: 'stacks'`, its own project slug and its own sites in this repository. The host project must not check out or publish tenant source. The tenant owns only its gateway fragment, application services, certificates and persistent data directories.
