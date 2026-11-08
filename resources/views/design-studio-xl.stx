@@ -1,0 +1,88 @@
+@extends('layouts/buddy')
+@section('title', 'Buddy XL r1 | Standard-parts 3D studio')
+@section('description', 'Inspect the cost-reduced XL rigid-frame redesign, configure manufacturing dimensions and download matching CAD, printable service parts, complete BOM and priced cost assumptions.')
+@section('social_image', 'https://buddywheels.org/designs/xl/r1/assembly.png')
+<script server>
+import { publicPath } from '@stacksjs/path'
+import { parseStandardSetup as parseSetup, standardStart as serverStart, standardParts as parts, standardPartFile as partFile, standardQuery as queryString } from '~/app/Designs/XLStandard'
+import { standardPriceEvidence as evidence } from '~/app/Designs/XLStandardCost'
+export const revision = (await Bun.file(publicPath('designs/xl/r1/manifest.json')).json()).sourceHash.slice(0,16)
+export let initialSetup = serverStart
+export let initialError = ''
+try { initialSetup = parseSetup(requestContext.query()) }
+catch { initialError = 'Those dimensions could not be loaded. The starting bench configuration is shown.' }
+const initialQuery = queryString(initialSetup)
+const printParts = parts.filter(p => p.kind !== 'metal')
+const metalParts = parts.filter(p => p.kind === 'metal')
+defineClientPayload({ revision, initialSetup, initialError })
+</script>
+<script client>
+import { standardStart, standardDimensions, parseStandardSetup, standardQuery } from '~/app/Designs/XLStandard'
+import { standardScene } from '~/app/Designs/XLStandardScene'
+import { standardEconomics } from '~/app/Designs/XLStandardCost'
+import { money } from '~/app/Storefront/Catalog'
+const height = state(initialSetup.height)
+const width = state(initialSetup.width)
+const rail = state(initialSetup.rail)
+const hub = state(initialSetup.hub)
+const focus = state('assembly')
+const exploded = state(false)
+const batchQuantity = state(true)
+const modelArea = useRef('standardModel')
+const parsed = derived(() => {
+  try { return { setup: parseStandardSetup({ height: height(), width: width(), rail: rail(), hub: hub() }), error: '' } }
+  catch (e) { return { setup: null, error: e instanceof Error ? e.message : 'Check the dimensions.' } }
+})
+const lastValid = state(initialSetup)
+effect(() => { if (parsed().setup) lastValid.set(parsed().setup!) })
+const scene = derived(() => standardScene(lastValid(), focus(), exploded(), revision))
+const dimensions = derived(() => standardDimensions(lastValid()))
+const economics = derived(() => standardEconomics(lastValid(), batchQuantity() ? 100 : 1))
+const setupQuery = derived(() => standardQuery(lastValid()))
+const assemblyUrl = derived(() => '/api/designs/xl-r1/assembly?' + setupQuery())
+const profileUrl = derived(() => '/api/designs/xl-r1/profile?' + setupQuery())
+const bomUrl = derived(() => '/api/designs/xl-r1/bom?' + setupQuery())
+function inspect(id: string): void {
+  focus.set(id)
+  void nextTick(() => { modelArea.current?.scrollIntoView({ block: 'start', behavior: 'instant' }); modelArea.current?.focus({ preventScroll: true }) })
+}
+function reset(): void { batch(() => { height.set(standardStart.height); width.set(standardStart.width); rail.set(standardStart.rail); hub.set(standardStart.hub); focus.set('assembly'); exploded.set(false) }) }
+</script>
+@section('content')
+<div class="design-studio shell standard-studio">
+  <header class="studio-heading"><a href="/shop?size=XL" class="studio-back"><i class="i-hugeicons-arrow-left-01" aria-hidden="true"></i>Back to XL wheelchairs</a><h1>A simpler frame.<br>A clearer cost.</h1><p class="muted">Buddy’s XL, redesigned around standard stock and fewer custom operations.</p><div class="studio-context"><span>XL r1 · rigid base</span><span>Buddy · 140 lb, owner reported</span><span>Bench design, not animal ready</span></div></header>
+  <nav class="standard-revisions" aria-label="Wheelchair design revision"><a href="/design-studio-xl" aria-current="page">XL r1 · standard parts</a><a href="/design-studio?size=XL">r0 · adjustable suspension research</a><a href="/design-studio?size=M">Other sizes</a></nav>
+  <p class="studio-query-note" :if="initialError">{{ initialError }}</p>
+  <div class="standard-brief"><strong>Rigid, with pneumatic tires.</strong><p>No independent suspension is included at the $264.50 target. Suspension research remains separate. Frame dimensions change the manufacturing cuts; this version does not telescope after assembly.</p></div>
+  <div class="studio-workbench">
+    <section class="studio-visual" ref="standardModel" tabindex="-1" aria-label="XL r1 3D inspection">
+      <div class="studio-view-heading"><h2>{{ focus() === 'assembly' ? 'The standard-parts XL' : focus() === 'axle' ? 'Stock axle and retention' : 'Actual r1 part mesh' }}</h2><label class="studio-check"><input type="checkbox" x-model="exploded" :disabled="focus() !== 'assembly' && focus() !== 'axle'">Separate plates</label></div>
+      <ModelViewer :scene="scene()" label="Buddy XL r1 rigid standard-parts bench design" poster="/designs/xl/r1/assembly.png?v={{ revision }}" className="buddy-model" />
+      <noscript><img src="/designs/xl/r1/assembly.png" alt="XL r1 rigid metal frame with pneumatic wheels" width="1400" height="1000" class="studio-noscript"><p>Enable JavaScript to inspect configured geometry. <a href="/api/designs/xl-r1/kit?{{ initialQuery }}">Download the starting-design kit</a>, or use the configured form below.</p></noscript>
+      <div class="studio-view-options" role="group" aria-label="Inspection scope"><button type="button" :aria-pressed="focus() === 'assembly'" @click="focus.set('assembly')">Whole frame</button><button type="button" :aria-pressed="focus() === 'axle'" @click="focus.set('axle')">Axle detail</button></div>
+      <dl class="studio-readout"><div><dt>Inside rail clearance</dt><dd><strong>{{ (lastValid().width - 25.4).toFixed(1) }}</strong> <span>mm</span></dd></div><div><dt>Overall tire envelope</dt><dd><strong>{{ dimensions().tireWidth.toFixed(1) }}</strong> <span>mm</span></dd></div><div><dt>Inboard axle-end clearance</dt><dd><strong>{{ dimensions().innerAxleClearance.toFixed(1) }}</strong> <span>mm, before guards</span></dd></div></dl>
+      <p class="muted studio-model-note">Mill-finish aluminum, steel profiles and nonstructural printed covers. The complete textile support set is costed; its fitted pattern, anchors and full guarding still need engineering. The model has no suspension or support-force simulation.</p>
+    </section>
+    <aside class="studio-controls" aria-label="XL r1 configuration">
+      <div class="studio-control-heading"><h2>Cut to their dimensions.</h2><button type="button" class="studio-reset" @click="reset()">Reset setup</button></div><p class="muted studio-intro">These are bench manufacturing dimensions. Buddy’s anatomy is still pending. Measure the actual wheel hub before fabricating an axle.</p>
+      <fieldset class="studio-fieldset"><legend>Frame and wheel interface</legend>
+        <div class="studio-field"><div class="studio-field-title"><label for="standard-height">Rail center height</label><div class="studio-number"><input id="standard-height" value="{{ initialSetup.height }}" name="height" form="standard-download" type="number" min="500" max="760" step="5" required x-model.number="height"><span>mm</span></div></div><input type="range" min="500" max="760" step="5" aria-label="r1 rail height slider" x-model.number="height"><p><span>500-760 mm</span><span>{{ (height() / 25.4).toFixed(1) }} in</span></p></div>
+        <div class="studio-field"><div class="studio-field-title"><label for="standard-width">Rail center spacing</label><div class="studio-number"><input id="standard-width" value="{{ initialSetup.width }}" name="width" form="standard-download" type="number" min="320" max="520" step="5" required x-model.number="width"><span>mm</span></div></div><input type="range" min="320" max="520" step="5" aria-label="r1 rail spacing slider" x-model.number="width"><p><span>320-520 mm</span><span>{{ (width() / 25.4).toFixed(1) }} in</span></p></div>
+        <div class="studio-field"><div class="studio-field-title"><label for="standard-rail">Side rail length</label><div class="studio-number"><input id="standard-rail" value="{{ initialSetup.rail }}" name="rail" form="standard-download" type="number" min="540" max="820" step="5" required x-model.number="rail"><span>mm</span></div></div><input type="range" min="540" max="820" step="5" aria-label="r1 rail length slider" x-model.number="rail"><p><span>540-820 mm</span><span>{{ (rail() / 25.4).toFixed(1) }} in</span></p></div>
+        <div class="standard-hub studio-field"><div class="studio-field-title"><label for="standard-hub">Measured hub through-length</label><div class="studio-number"><input id="standard-hub" value="{{ initialSetup.hub }}" name="hub" form="standard-download" type="number" min="60" max="100" step="0.05" required x-model.number="hub"><span>mm</span></div></div><p>82.55 mm is a provisional layout value. The wheel supplier page does not confirm it. Both actual hubs, bearing faces and washers must be checked.</p></div>
+      </fieldset>
+      <p class="studio-validation" role="alert" :if="parsed().error">{{ parsed().error }} Preview and links keep the last valid setup.</p>
+      <form id="standard-download" class="studio-download" action="/api/designs/xl-r1/kit" method="GET"><Button type="submit" variant="bare" class="w-full button-primary" :disabled="!parsed().setup"><i class="i-hugeicons-download-01" aria-hidden="true"></i>Download this r1 setup</Button></form>
+      <p class="muted studio-download-note">Configured editable CAD, six actual STL types, two metal DXFs, complete BOM, drilling datums, assembly notes and cost assumptions.</p><div class="studio-file-links"><a href="/api/designs/xl-r1/assembly?{{ initialQuery }}" :href="assemblyUrl()">Assembly notes</a><a :href="bomUrl()">Parts list</a><a :href="profileUrl()">Setup JSON</a></div>
+    </aside>
+  </div>
+  <section class="standard-economics" aria-labelledby="standard-cost-heading"><div><span class="eyebrow">The economics of a simpler build</span><h2 id="standard-cost-heading">Price the whole chair.</h2><p class="muted">Frame stock and wheels use checked online listings. Metal finishing, textiles, hardware, paid labor and freight are unquoted allowances. The production price is conditional on supplier quotes and measured build times.</p><fieldset class="standard-cost-toggle"><legend>Manufacturing scenario</legend><label><input type="radio" name="cost-quantity" :checked="batchQuantity()" @change="batchQuantity.set(true)"><span>100-chair batch</span></label><label><input type="radio" name="cost-quantity" :checked="!batchQuantity()" @change="batchQuantity.set(false)"><span>One chair</span></label></fieldset><a href="/designs/xl/r1/cost-notes.md" class="button-text" download>Full priced breakdown (.md)</a><a href="/designs/xl/r1/costs.csv" class="button-text standard-csv" download>Line-item CSV</a></div>
+    <div class="standard-cost-panel"><dl><div><dt>Estimated landed manufacturing</dt><dd data-standard-cogs>{{ money(economics().cogs) }}<small>per chair, unquoted scenario</small></dd></div><div><dt>Retail target</dt><dd>{{ money(economics().retail) }}</dd></div><div><dt>Product gross margin</dt><dd data-standard-margin>{{ economics().grossPercent.toFixed(1) }}%</dd></div><div><dt>Contribution before fixed overhead</dt><dd>{{ money(economics().contribution) }}</dd></div></dl><p class="standard-gate" role="status" data-standard-gate>{{ economics().meetsCostGate ? 'Meets the numerical 30% gross-margin gate. Quotes still pending.' : 'Does not meet the 30% gross-margin gate at this size and quantity.' }}</p><p>Includes paid labor, inspection, packaging, inbound freight and machine wear. Contribution also subtracts card fees, a 5% return reserve, $10 support and $25 acquisition. Outbound shipping is charged separately; adding a $24 delivery subsidy leaves {{ money(economics().freeShippingContribution) }}. Capital and qualification are separate.</p><p class="standard-stock">{{ economics().packing.bars }} whole 12-foot stock bars for {{ economics().quantity }} chair{{ economics().quantity === 1 ? '' : 's' }}, including kerf and offcuts.</p></div>
+  </section>
+  <section class="studio-parts"><div class="studio-section-heading"><h2>Fewer interfaces. Every part accounted for.</h2><p class="muted">These r1 meshes are separate from r0. Printed pieces protect or help manufacture the frame; metal and qualified textiles carry the load.</p></div><div class="studio-parts-grid">@foreach (printParts as part)
+    <article class="studio-part"><div><span class="studio-part-category">{{ part.kind === 'fixture' ? 'Bench fixture' : 'Nonstructural print' }} · Qty {{ part.qty }}</span><h3>{{ part.name }}</h3><p>{{ part.note }}</p></div><div class="studio-part-actions"><button type="button" @click="inspect('{{ part.id }}')">Inspect in 3D</button><a href="/designs/xl/r1/parts/{{ partFile(part.id) }}?v={{ revision }}" download>STL<i class="i-hugeicons-download-01" aria-hidden="true"></i></a></div></article>
+  @endforeach</div><details class="studio-metal"><summary>Two metal profiles and their fit-check copies</summary><p>Eight identical T gussets and four axle patches. Metal DXFs are included in the kit. The STL copies are unloaded fit checks.</p><div class="studio-parts-grid">@foreach (metalParts as part)<article class="studio-part"><div><span class="studio-part-category">Steel · Qty {{ part.qty }}</span><h3>{{ part.name }}</h3><p>{{ part.note }}</p></div><div class="studio-part-actions"><button type="button" @click="inspect('{{ part.id }}')">Inspect in 3D</button><a href="/designs/xl/r1/parts/{{ partFile(part.id) }}?v={{ revision }}" download>Fit-check STL</a></div></article>@endforeach</div></details></section>
+  <section class="standard-sources"><h2>Checked prices, visible assumptions.</h2><p>Online prices checked November 8, 2026. Listings do not establish compatibility, local inventory or a chair load rating.</p><ul>@foreach (evidence as item)<li><a href="{{ item.url }}">{{ item.name }}</a><span>{{ item.note }}</span></li>@endforeach</ul></section>
+  <section class="studio-build-note"><h2>Designed for affordability. Still a bench prototype.</h2><div><p>Buddy’s measurements, the finished support and anchor design, actual wheel interfaces, joint strength, shaft retention, guarding, fatigue and stability tests are still required. No 140 lb working rating or all-terrain test result is claimed. The wheel pair alone weighs 9.4 lb, so weight and rolling resistance need testing.</p><p>Independent adjustable suspension is deferred from this base. The separate r0 studio keeps that research inspectable. Pneumatic tires provide compliance; they do not prescribe hind-leg training or body-support force.</p><a href="/fit-guide" class="button-text">Measure Buddy with the visual guide</a></div></section>
+</div>
+@endsection

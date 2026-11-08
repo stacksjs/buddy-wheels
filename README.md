@@ -45,3 +45,7 @@ Domain: buddywheels.org, registered by the owner at Porkbun. The native cloud co
 See [architecture and operations](docs/engineering/architecture.md) and the [acceptance record](docs/engineering/acceptance.md) for executed checks and remaining launch work.
 
 The [visual fit guide](https://buddywheels.org/fit-guide) includes an interactive body-measurement worksheet and printable customer handbook. The [complete XL prototype budget](docs/business/xl-prototype-build-budget.md) separates one-off build cash, reusable equipment and unquoted professional development work. See the [r0 appearance refinement](docs/engineering/industrial-design-refinement.md) for the updated forest/silver palette and rounded nonstructural prints.
+
+## XL r1 standard-parts redesign
+
+[Inspect XL r1](https://buddywheels.org/design-studio-xl): a separate cut-to-fit rigid bench frame with standard tube/shafts, two repeated metal profiles and nonstructural prints. [Priced cost model](docs/business/xl-standard-r1-costs.md): $180.01 per chair at 100 units, mostly unquoted allowances, with customer-paid outbound shipping. This is not a verified price or an animal-use release. Adjustable suspension remains separate r0 research. Native rebuild: `./buddy design:xl-standard --export --openscad /absolute/path/to/OpenSCAD`.

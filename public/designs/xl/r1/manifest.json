@@ -1,0 +1,162 @@
+{
+  "revision": "r1",
+  "size": "XL",
+  "status": "BENCH_ONLY_NOT_ANIMAL_USE",
+  "suspension": "rigid",
+  "sourceHash": "18d4dd593bc8f36fd280ac76995a1621d2acc2f5ef5fbab2ac02cfd743ccf706",
+  "costHash": "0a37a141e7438406cbb4219de198dc32142fa70dc6d2e02559903bd5be81ccb3",
+  "setup": {
+    "height": 620,
+    "width": 400,
+    "rail": 680,
+    "hub": 82.55
+  },
+  "dimensions": {
+    "post": 487.2,
+    "bridge": 374.6,
+    "shaft": 162.4,
+    "stack": 142.7,
+    "offset": 82.55,
+    "axleStart": -27.225,
+    "innerAxleClearance": 345.55,
+    "tireWidth": 666.7,
+    "tireClearance": 15.875,
+    "tubeTotal": 2709
+  },
+  "assets": [
+    {
+      "path": "parts/end_cap.stl",
+      "sha256": "8009abc72d8af2fe0109de10a55f8a4dc36fe921245edbd3881b9d7ab8c2acec",
+      "bytes": 15084
+    },
+    {
+      "path": "parts/axle_cover.stl",
+      "sha256": "5b0260a6fdb2823128eee2ee6523a3fa68e7cd421505567e7064458f705c3d9f",
+      "bytes": 31884
+    },
+    {
+      "path": "parts/drill_guide.stl",
+      "sha256": "82ffc829928fd36b8b5f32a69180da7e2c9216ea9954409ecc87e9b6e3b0d7ad",
+      "bytes": 54284
+    },
+    {
+      "path": "parts/coupon.stl",
+      "sha256": "c42f50422bb2926976b8c9a0062abee190eccbc1e2c94e81c0ba32dcb03653c1",
+      "bytes": 52684
+    },
+    {
+      "path": "parts/FIT_CHECK_ONLY_joint_plate.stl",
+      "sha256": "1c63e5794c5f9bfa8f5885b578bc992f555a09bbbbd69f5f31b6f50e29f871c1",
+      "bytes": 72684
+    },
+    {
+      "path": "metal/joint_plate.dxf",
+      "sha256": "155afd0bc8b2edca8753ffbde4f7f9d8519a9cf79a3ff190e438ecaade91d878",
+      "bytes": 23116
+    },
+    {
+      "path": "parts/FIT_CHECK_ONLY_axle_plate.stl",
+      "sha256": "4e78187a9b2035174daa2f295e1e70a318625031728029f83d42b6c8e86d49d5",
+      "bytes": 52484
+    },
+    {
+      "path": "metal/axle_plate.dxf",
+      "sha256": "61d7731416c61c89d0071ead852c16206295ad1e5c6f79b3010ce452f59f1594",
+      "bytes": 16676
+    },
+    {
+      "path": "assembly.png",
+      "sha256": "3937a86383fa947c18fa4d6d1e3abe61835c400874cf921253a525a76aafb3da",
+      "bytes": 51725
+    },
+    {
+      "path": "source/standard.scad",
+      "sha256": "89cea6f499dc5749e4bef6154a966f83b2383e2e349762e39cce4201a5ce0548",
+      "bytes": 5671
+    },
+    {
+      "path": "model.scad",
+      "sha256": "b401ff0986732848196f4a37e05d4f215ad7399cf934fa934e5653e631268f5f",
+      "bytes": 319
+    },
+    {
+      "path": "assembly.md",
+      "sha256": "9b8577a7c66c8d1e7e58d88ac3fe2022936479fee0af35ba0420f65724da2dc9",
+      "bytes": 8205
+    },
+    {
+      "path": "bom.csv",
+      "sha256": "8a6aa148a8eb80634665fa10ed468fcb69a0280698cfe5ecc2ec10c6e8131510",
+      "bytes": 2652
+    },
+    {
+      "path": "drilling.csv",
+      "sha256": "ea84bf15e1c85af8226691e00a6d2513203ebf4c2da93fcfbb009455db2625f7",
+      "bytes": 813
+    },
+    {
+      "path": "setup.json",
+      "sha256": "aa525f7b2e238210a04c167264d24987a1557e0ee057daee7b71ab765428ed7d",
+      "bytes": 784
+    },
+    {
+      "path": "cost-notes.md",
+      "sha256": "20ad94a600cafdc7135e40ecb1790453d927ba3cc7737fc22123f3bc9574d126",
+      "bytes": 11084
+    },
+    {
+      "path": "cost-model.json",
+      "sha256": "4438e0fd4f47047f152f69ada9f1233046e7430f44fef678173cda97a2b89e81",
+      "bytes": 8556
+    },
+    {
+      "path": "costs.csv",
+      "sha256": "c87edc7762f818b4ef9707b5a4ff2f1c4b7ed744fd8136731920582ce5e91d62",
+      "bytes": 943
+    }
+  ],
+  "parts": [
+    {
+      "id": "end_cap",
+      "name": "Rounded tube cap",
+      "qty": 6,
+      "kind": "print",
+      "note": "Optional end protection. No structural retention."
+    },
+    {
+      "id": "axle_cover",
+      "name": "Axle end sample cover",
+      "qty": 2,
+      "kind": "print",
+      "note": "Empty-rig cover only. Never a shaft retainer or complete fur guard."
+    },
+    {
+      "id": "drill_guide",
+      "name": "Tube layout guide",
+      "qty": 1,
+      "kind": "fixture",
+      "note": "Bench layout aid. Finish holes require proper metal tooling."
+    },
+    {
+      "id": "coupon",
+      "name": "Clearance coupon",
+      "qty": 1,
+      "kind": "fixture",
+      "note": "Calibrate the actual printer. Not part of the chair."
+    },
+    {
+      "id": "joint_plate",
+      "name": "Repeated T gusset",
+      "qty": 8,
+      "kind": "metal",
+      "note": "1/8 inch A36 steel. STL is an unloaded fit-check copy."
+    },
+    {
+      "id": "axle_plate",
+      "name": "Axle reinforcement patch",
+      "qty": 4,
+      "kind": "metal",
+      "note": "1/8 inch A36 steel. STL is an unloaded fit-check copy."
+    }
+  ]
+}

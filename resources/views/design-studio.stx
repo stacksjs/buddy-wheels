@@ -93,6 +93,7 @@ function reset(): void {
     <fieldset class="studio-size-selector"><legend>Choose a frame size</legend><div class="studio-size-options">@foreach (sizeChoices as choice)
       <label><input type="radio" name="studio-size" value="{{ choice.size }}" :checked="String(size()) === '{{ choice.size }}'" @change="selectSize('{{ choice.size }}')" aria-label="{{ choice.name }} ({{ choice.size }})"><span><strong>{{ choice.size }}</strong><small>{{ choice.name }}</small></span></label>
     @endforeach</div><p class="muted">Each size keeps your edits while you compare. Frame sizes are starting points for a measured fit.</p><span class="sr-only" role="status" aria-live="polite">{{ sizeName() }} bench design selected.</span></fieldset>
+    <aside class="standard-r1-notice" :if="size() === 'XL'"><strong>New: the XL standard-parts redesign.</strong> r1 removes the costly shock platform for a simpler rigid base. <a href="/design-studio-xl">Inspect XL r1 and its per-chair cost</a>. This page retains the separate r0 adjustable-suspension research.</aside>
     <div class="studio-workbench">
       <section ref="modelArea" tabindex="-1" class="studio-visual" aria-label="3D inspection">
         <div class="studio-view-heading"><h2>{{ sceneName() }}</h2><label class="studio-check"><input type="checkbox" x-model="exploded" :disabled="focus() !== 'assembly' && focus() !== 'suspension'">Separate plates</label></div>

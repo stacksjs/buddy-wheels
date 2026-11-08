@@ -30,3 +30,7 @@ The catalog's weight and height bands are planning inputs, not proven load ratin
 - [Illustrated measuring guide and customer handbooks](engineering/measurement-guide.md): six anatomical diagrams, private worksheet, unit conversion, PDF rebuild and review sources.
 - [One-off XL build budget](business/xl-prototype-build-budget.md): every BOM line, printer, tools, finish, tax reserve, contingency and development allowances.
 - [Industrial design refinement](engineering/industrial-design-refinement.md): candidate forest/silver finish and rounded nonstructural prints, with the remaining clinical/engineering gates.
+
+- [XL r1 standard-parts manufacturing costs and checked prices](business/xl-standard-r1-costs.md)
+- [XL r1 scope, architecture and verification plan](engineering/xl-r1-plan.md)
+- [XL r1 configured assembly, BOM and drilling](../designs/wheelchair/r1/XL/assembly.md)

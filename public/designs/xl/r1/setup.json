@@ -1,0 +1,44 @@
+{
+  "revision": "r1",
+  "size": "XL",
+  "suspension": "rigid",
+  "height": 620,
+  "width": 400,
+  "rail": 680,
+  "hub": 82.55,
+  "dimensions": {
+    "post": 487.2,
+    "bridge": 374.6,
+    "shaft": 162.4,
+    "stack": 142.7,
+    "offset": 82.55,
+    "axleStart": -27.225,
+    "innerAxleClearance": 345.55,
+    "tireWidth": 666.7,
+    "tireClearance": 15.875,
+    "tubeTotal": 2709
+  },
+  "cuts": [
+    {
+      "id": "M01",
+      "name": "Side rail",
+      "qty": 2,
+      "length": 680
+    },
+    {
+      "id": "M02",
+      "name": "Upright",
+      "qty": 2,
+      "length": 487.2
+    },
+    {
+      "id": "M03",
+      "name": "Rear bridge",
+      "qty": 1,
+      "length": 374.6
+    }
+  ],
+  "status": "BENCH_ONLY_NOT_ANIMAL_USE",
+  "ownerReportedWeightLb": 140,
+  "fitted": false
+}

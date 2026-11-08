@@ -1,0 +1,8 @@
+"Tube","Quantity","Axis","Centers from cut end mm","Nominal hole mm","Notes"
+"Side rail","2","Y","450 / 510","9.725","T gusset x=-30/+30 at upright datum X=0"
+"Side rail","2","Z","570 / 630","9.725","Rear T gusset X=120, rail holes X=90/150; separated from upright gussets"
+"Upright","2","Y","464.9 / 439.9","9.725","T gusset lower holes at Z=height-35/-60"
+"Upright","2","Y","20 / 70","9.725","Axle patch retention at axle datum +/-25; axle datum 45 from bottom"
+"Upright","2","Y","45","19.25","Axle sleeve, nominal bore. Supplier finish-fit tolerance still pending"
+"Rear bridge","1","Z","22.3 / 47.3 / 327.3 / 352.3","9.725","Gusset holes on each side; mirror about bridge center"
+"Axle","2","radial","8 / 154.4","3.2","Do not drill until measured 82.55 mm hub, washer thickness and 0.5 mm end float verified"

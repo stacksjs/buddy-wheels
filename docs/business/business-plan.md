@@ -150,3 +150,11 @@ After launch, use closed cohorts for fit acceptance, returns, warranty claims an
 Open decisions: Buddy's clinical needs and measurements; first service region; first qualified family; mechanical/test advisors; validated material/process; final kit contents; supplier quotes; suspension feasibility and cost; real startup budget; insurance; brand clearance; support staffing; return/warranty policy; digital-file license; sales-tax setup. The founder selected buddywheels.org and the existing Stacks host; deployment evidence is tracked in the acceptance record. Other open decisions are not silently treated as approved.
 
 The next business commitment should be the smallest evidence-producing step: secure Buddy's care, choose a qualified design/fitting advisor, and obtain real requirements and quotes for one size family.
+
+## XL r1 affordability update, November 8, 2026
+
+The standard-parts XL rigid base supersedes the earlier top-down $155 XL COGS assumption. The native [r1 cost model](xl-standard-r1-costs.md) estimates $180.01 landed manufacturing at 100 chairs and $336.01 for one chair, excluding reusable capital and one-time qualification. Most operations and the textile support set remain unquoted. This is conditional cost feasibility, not a verified production price. The storefront target remains $264.50.
+
+At the 100-chair scenario, product gross margin is 31.9%. After assumed card fees, a 5% warranty reserve, $10 customer support and $25 acquisition, contribution is $28.29 before fixed overhead. Outbound freight must be paid separately in this scenario; subsidizing $24 delivery leaves only $4.29. No free-shipping or paid-acquisition promise should be made from this thin headroom. Quotes, measured assembly times, support/warranty evidence and qualification funding are required before a launch decision.
+
+Independent adjustable suspension is deferred from the base. The original r0 remains a separate research platform. r1 uses uncoated standard 6061-T6 square tube, repeated steel profiles, stock-shaft axles and pneumatic wheels. Printed pieces remain nonstructural. Weight, rolling resistance, safe support, anchors, guarding, stability and fatigue are still unverified; the design does not have a 140 lb rating.
