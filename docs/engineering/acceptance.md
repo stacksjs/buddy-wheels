@@ -95,7 +95,11 @@ Public smoke checks returned 200 for all pages, the revised stylesheet, both Rov
 - The complete shopping/cart/Rover/fit journey passed again at all four widths after the shared navigation change. Checkout remains gated and no payments or orders were created.
 - Editable controls change only frame height, rail spacing and rail length, so print geometry is unchanged. Downloaded dimensions, BOM, tube-hole datums, CAD pose, setup JSON and Markdown instructions match the selected setup. Independent review caught and corrected the missing optional lock-pin depiction and the publisher's stale-export acceptance.
 - CAD cap insertion direction and lock depiction were fixed in the parametric source; all family exports and provenance were regenerated. `design:publish` supplies the public XL assets only after verifying their canonical sources and output hashes.
-- The native production preview retains the existing attached Hetzner host, web port 3460 and API port 3468, with no additional compute. Public production verification follows the deployment.
+- The native production preview retains the existing attached Hetzner host, web port 3460 and API port 3468, with no additional compute.
+
+Production verification completed November 8, 2026. Native `buddy deploy --prod --yes` deployed both web and API at application commit `0604302cfeb1d5d2df1c1b17dc2621aa41241000`. Application CI passed and GitHub deployment `7640338088` records success. Existing Porkbun DNS and TLS remain attached to the Stacks host.
+
+The retained studio browser test passed against https://buddywheels.org/design-studio: real WebGL orbit, zoom, dimension changes, suspension settings, neutral lock, individual STL inspection, server validation, configured downloads and every archived checksum. Four responsive widths, 2x canvas resolution, dark mode and forced non-WebGL fallback passed without overflow or browser console errors. The separate public storefront journey also passed with the new shared navigation, including Rover configurations, mixed basket, mobile purchase controls, checkout gate, cart isolation and fit planner. No payments or orders were created.
 
 ## Physical product gate
 
