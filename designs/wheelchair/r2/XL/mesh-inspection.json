@@ -1,0 +1,230 @@
+{
+  "sourceHash": "40dde945ca891ef80cdbcca9f89825d3de81cdd3fd488adcb2b6ee815803bfd9",
+  "status": "DIGITAL_GEOMETRY_ONLY",
+  "meshes": [
+    {
+      "file": "parts/end_cap.stl",
+      "inspection": {
+        "triangles": 300,
+        "vertices": 152,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 4027.361615250993,
+        "boundsMm": {
+          "min": [
+            -14.699996948242188,
+            -14.699996948242188,
+            0
+          ],
+          "max": [
+            14.699996948242188,
+            14.699996948242188,
+            14.979999542236328
+          ],
+          "size": [
+            29.399993896484375,
+            29.399993896484375,
+            14.979999542236328
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/axle_cover.stl",
+      "inspection": {
+        "triangles": 636,
+        "vertices": 320,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 8598.073814430956,
+        "boundsMm": {
+          "min": [
+            -20,
+            -20,
+            0
+          ],
+          "max": [
+            20,
+            20,
+            12
+          ],
+          "size": [
+            40,
+            40,
+            12
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/drill_guide.stl",
+      "inspection": {
+        "triangles": 1084,
+        "vertices": 536,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 49968.63557375011,
+        "boundsMm": {
+          "min": [
+            -18,
+            -18,
+            0
+          ],
+          "max": [
+            18,
+            18,
+            85
+          ],
+          "size": [
+            36,
+            36,
+            85
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/coupon.stl",
+      "inspection": {
+        "triangles": 1052,
+        "vertices": 520,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 26881.287091297883,
+        "boundsMm": {
+          "min": [
+            0,
+            0,
+            0
+          ],
+          "max": [
+            100,
+            35,
+            8
+          ],
+          "size": [
+            100,
+            35,
+            8
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/FIT_CHECK_ONLY_joint_plate.stl",
+      "inspection": {
+        "triangles": 1452,
+        "vertices": 720,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 19214.816543833134,
+        "boundsMm": {
+          "min": [
+            -50,
+            -75,
+            0
+          ],
+          "max": [
+            50,
+            20,
+            3.174999952316284
+          ],
+          "size": [
+            100,
+            95,
+            3.174999952316284
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/FIT_CHECK_ONLY_axle_plate.stl",
+      "inspection": {
+        "triangles": 1048,
+        "vertices": 520,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 13113.396220345037,
+        "boundsMm": {
+          "min": [
+            -25,
+            -45,
+            0
+          ],
+          "max": [
+            25,
+            45,
+            3.174999952316284
+          ],
+          "size": [
+            50,
+            90,
+            3.174999952316284
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/FIT_CHECK_ONLY_rail_shim.stl",
+      "inspection": {
+        "triangles": 532,
+        "vertices": 264,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 7837.630771233284,
+        "boundsMm": {
+          "min": [
+            -50,
+            -12.699996948242188,
+            0
+          ],
+          "max": [
+            50,
+            12.699996948242188,
+            3.174999952316284
+          ],
+          "size": [
+            100,
+            25.399993896484375,
+            3.174999952316284
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/FIT_CHECK_ONLY_spring_seat.stl",
+      "inspection": {
+        "triangles": 272,
+        "vertices": 136,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 2378.4537223354814,
+        "boundsMm": {
+          "min": [
+            -13.899993896484375,
+            -13.899993896484375,
+            0
+          ],
+          "max": [
+            13.899993896484375,
+            13.899993896484375,
+            3.174999952316284
+          ],
+          "size": [
+            27.79998779296875,
+            27.79998779296875,
+            3.174999952316284
+          ]
+        }
+      }
+    }
+  ]
+}

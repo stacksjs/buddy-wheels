@@ -34,3 +34,6 @@ The catalog's weight and height bands are planning inputs, not proven load ratin
 - [XL r1 standard-parts manufacturing costs and checked prices](business/xl-standard-r1-costs.md)
 - [XL r1 scope, architecture and verification plan](engineering/xl-r1-plan.md)
 - [XL r1 configured assembly, BOM and drilling](../designs/wheelchair/r1/XL/assembly.md)
+
+- [XL r2 adjustable spring cartridge costs and online evidence](business/xl-spring-r2-costs.md)
+- [XL r2 design and verification scope](engineering/xl-r2-suspension-plan.md)

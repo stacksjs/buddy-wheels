@@ -1,0 +1,220 @@
+{
+  "revision": "r2",
+  "size": "XL",
+  "status": "BENCH_ONLY_NOT_ANIMAL_USE",
+  "suspension": "UNDAMPED_PRELOAD_ADJUSTABLE",
+  "sourceHash": "40dde945ca891ef80cdbcca9f89825d3de81cdd3fd488adcb2b6ee815803bfd9",
+  "costHash": "3fad3de34638e074847bf6f41e9d1f5a90475706c31b93ac200b01db6906e936",
+  "setup": {
+    "height": 620,
+    "width": 400,
+    "rail": 680,
+    "hub": 82.55,
+    "preload": 1,
+    "travel": 0
+  },
+  "dimensions": {
+    "bridge": 374.6,
+    "shaft": 162.4,
+    "stack": 142.7,
+    "offset": 82.55,
+    "axleStart": -27.225,
+    "innerAxleClearance": 345.55,
+    "tireWidth": 666.7,
+    "tireClearance": 15.875,
+    "frameTubeTotal": 2174.6,
+    "housingTubeTotal": 774.4,
+    "housingLength": 387.2,
+    "housingBottom": 220.1,
+    "carriageBottom": 120.1,
+    "carriageTop": 340.1,
+    "lowerSeatTop": 343.275,
+    "upperSeatBottom": 418.275,
+    "lowerPin": 275.1,
+    "upperPin": 425.45,
+    "springLength": 74,
+    "compression": 1,
+    "forceN": 65.3,
+    "loadedHeight": 620,
+    "overlap": 120,
+    "nominalLinerGap": 0.254,
+    "guideTop": 398.275,
+    "slotLow": 147,
+    "slotHigh": 155
+  },
+  "assets": [
+    {
+      "path": "parts/end_cap.stl",
+      "sha256": "b1875b02dcf30a08e95f4ab1fe1aa38d2335c62ef643d2ee7ece9789809253b3",
+      "bytes": 15084
+    },
+    {
+      "path": "parts/axle_cover.stl",
+      "sha256": "607436a5bf2e49388cf2dc57ee2f77a4ef305905fd87c17979cd994add9d94e0",
+      "bytes": 31884
+    },
+    {
+      "path": "parts/drill_guide.stl",
+      "sha256": "0d8f9edb41d9041be61566c47c938fc0d93cd1030268c1c5844a512c5a2534d5",
+      "bytes": 54284
+    },
+    {
+      "path": "parts/coupon.stl",
+      "sha256": "6d9886aebf945f937fa293a33282bf8095fa2c6b54ca587b2e725180ca14fb5d",
+      "bytes": 52684
+    },
+    {
+      "path": "parts/FIT_CHECK_ONLY_joint_plate.stl",
+      "sha256": "1c63e5794c5f9bfa8f5885b578bc992f555a09bbbbd69f5f31b6f50e29f871c1",
+      "bytes": 72684
+    },
+    {
+      "path": "parts/FIT_CHECK_ONLY_axle_plate.stl",
+      "sha256": "4e78187a9b2035174daa2f295e1e70a318625031728029f83d42b6c8e86d49d5",
+      "bytes": 52484
+    },
+    {
+      "path": "parts/FIT_CHECK_ONLY_rail_shim.stl",
+      "sha256": "0c4c931c1f2afbffed8a587de0518c77056f6a6d5b8e8ec1ecf306b17e78bec8",
+      "bytes": 26684
+    },
+    {
+      "path": "parts/FIT_CHECK_ONLY_spring_seat.stl",
+      "sha256": "93967743610234f26aca7402eb667f0c4355a67f468819e53ae401deddbfefa1",
+      "bytes": 13684
+    },
+    {
+      "path": "metal/joint_plate.dxf",
+      "sha256": "155afd0bc8b2edca8753ffbde4f7f9d8519a9cf79a3ff190e438ecaade91d878",
+      "bytes": 23116
+    },
+    {
+      "path": "metal/axle_plate.dxf",
+      "sha256": "61d7731416c61c89d0071ead852c16206295ad1e5c6f79b3010ce452f59f1594",
+      "bytes": 16676
+    },
+    {
+      "path": "metal/rail_shim.dxf",
+      "sha256": "b9c9a1e8fdd9b1644b02028a75fd4091f402839c47ce938a50f433ddff11ecf5",
+      "bytes": 8520
+    },
+    {
+      "path": "metal/spring_seat.dxf",
+      "sha256": "7c77eb330b34dbf0a034e00a2169c41ab106108060852da1dc5595b951ea905b",
+      "bytes": 4472
+    },
+    {
+      "path": "source/suspension.scad",
+      "sha256": "d3b97f5c0fa0163b76134d68f46506b66b270fcb0e89d282ed2222681a0725fe",
+      "bytes": 6115
+    },
+    {
+      "path": "source/rigid.scad",
+      "sha256": "89cea6f499dc5749e4bef6154a966f83b2383e2e349762e39cce4201a5ce0548",
+      "bytes": 5671
+    },
+    {
+      "path": "model.scad",
+      "sha256": "0551865c563ddd9465dbcb525307e5a92ff6badc16b751e3de0d97156332d027",
+      "bytes": 352
+    },
+    {
+      "path": "assembly.md",
+      "sha256": "faed842cdfe7f939904d7d9f4296e00d5bb93ba5629d56804664666ee0fcce7f",
+      "bytes": 6166
+    },
+    {
+      "path": "bom.csv",
+      "sha256": "11d9e8323d18fd1e4562fafebceabc75fd1f1b0bcb0ccb778fc7b2a614a15bb7",
+      "bytes": 4836
+    },
+    {
+      "path": "drilling.csv",
+      "sha256": "24bf78bf27176405c9657a477830994f9fa6a4fba84d5a8c203e13efd3f161bc",
+      "bytes": 1030
+    },
+    {
+      "path": "setup.json",
+      "sha256": "d0153a940dc2d2c5b98ab431f957415dbd5beb896b79e5838e9d6d2be70ac8c5",
+      "bytes": 1112
+    },
+    {
+      "path": "assembly.png",
+      "sha256": "cf05d788588d6fb83cd1ce3b11d0cdacad493e48bb0c2673ef840cd30c799f5e",
+      "bytes": 53121
+    },
+    {
+      "path": "cost-notes.md",
+      "sha256": "1c7d0563dcbfa4b8252270622b2890b0052f1b3fb38e2c2825540ab7d7ce6926",
+      "bytes": 12508
+    },
+    {
+      "path": "cost-model.json",
+      "sha256": "8797d03440d7f99ce0a557813eea6c50496294d84b5671a6391d311ec8eb311c",
+      "bytes": 15298
+    },
+    {
+      "path": "costs.csv",
+      "sha256": "a184e2171e137f86bb4fb9a1b5b589382b0a3a032ac311e30aa56f5fb0a0e8bf",
+      "bytes": 1263
+    }
+  ],
+  "parts": [
+    {
+      "id": "end_cap",
+      "name": "Rounded tube cap",
+      "qty": 6,
+      "kind": "print",
+      "note": "Optional end protection. No structural retention."
+    },
+    {
+      "id": "axle_cover",
+      "name": "Axle end sample cover",
+      "qty": 2,
+      "kind": "print",
+      "note": "Empty-rig cover only. Never a shaft retainer or complete fur guard."
+    },
+    {
+      "id": "drill_guide",
+      "name": "Tube layout guide",
+      "qty": 1,
+      "kind": "fixture",
+      "note": "Bench layout aid. Finish holes require proper metal tooling."
+    },
+    {
+      "id": "coupon",
+      "name": "Clearance coupon",
+      "qty": 1,
+      "kind": "fixture",
+      "note": "Calibrate the actual printer. Not part of the chair."
+    },
+    {
+      "id": "joint_plate",
+      "name": "Repeated T gusset",
+      "qty": 8,
+      "kind": "metal",
+      "note": "1/8 inch A36 steel. STL is an unloaded fit-check copy."
+    },
+    {
+      "id": "axle_plate",
+      "name": "Axle reinforcement patch",
+      "qty": 4,
+      "kind": "metal",
+      "note": "1/8 inch A36 steel. STL is an unloaded fit-check copy."
+    },
+    {
+      "id": "rail_shim",
+      "name": "Rail width shim",
+      "qty": 4,
+      "kind": "metal",
+      "note": "3.175 mm steel. Makes the 25.4 mm rail flush with the 31.75 mm housing. Not a printed load path."
+    },
+    {
+      "id": "spring_seat",
+      "name": "Captured spring seat",
+      "qty": 4,
+      "kind": "metal",
+      "note": "3.175 mm steel, 27.8 mm square, M5 clearance. Plate bending and pin contact need qualification."
+    }
+  ]
+}

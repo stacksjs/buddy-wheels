@@ -1,0 +1,92 @@
+@extends('layouts/buddy')
+@section('title', 'Buddy XL r2 | Adjustable spring 3D studio')
+@section('description', 'Inspect the XL standard die-spring bench redesign, configure manufacturing dimensions and download matching CAD, printable service parts, complete BOM and priced cost assumptions.')
+@section('social_image', 'https://buddywheels.org/designs/xl/r2/assembly.png')
+<script server>
+import { publicPath } from '@stacksjs/path'
+import { parseSpringSetup as parseSetup, springStart as serverStart, springParts as parts, springPartFile as partFile, springQuery as queryString } from '~/app/Designs/XLSpring'
+import { springEvidence as evidence } from '~/app/Designs/XLSpringCost'
+export const revision = (await Bun.file(publicPath('designs/xl/r2/manifest.json')).json()).sourceHash.slice(0,16)
+export let initialSetup = serverStart
+export let initialError = ''
+try { initialSetup = parseSetup(requestContext.query()) }
+catch { initialError = 'Those dimensions could not be loaded. The starting bench configuration is shown.' }
+const initialQuery = queryString(initialSetup)
+const printParts = parts.filter(p => p.kind !== 'metal')
+const metalParts = parts.filter(p => p.kind === 'metal')
+defineClientPayload({ revision, initialSetup, initialError })
+</script>
+<script client>
+import { springStart, springDimensions, parseSpringSetup, springQuery } from '~/app/Designs/XLSpring'
+import { springScene } from '~/app/Designs/XLSpringScene'
+import { springEconomics } from '~/app/Designs/XLSpringCost'
+import { springMoney as money } from '~/app/Designs/XLSpringCost'
+const height = state(initialSetup.height)
+const width = state(initialSetup.width)
+const rail = state(initialSetup.rail)
+const hub = state(initialSetup.hub)
+const preload = state(initialSetup.preload)
+const travel = state(initialSetup.travel)
+const retail = state(29900)
+const focus = state('assembly')
+const exploded = state(false)
+const batchQuantity = state(true)
+const modelArea = useRef('standardModel')
+const parsed = derived(() => {
+  try { return { setup: parseSpringSetup({ height: height(), width: width(), rail: rail(), hub: hub(), preload: preload(), travel: travel() }), error: '' } }
+  catch (e) { return { setup: null, error: e instanceof Error ? e.message : 'Check the dimensions.' } }
+})
+const lastValid = state(initialSetup)
+effect(() => { if (parsed().setup) lastValid.set(parsed().setup!) })
+const scene = derived(() => springScene(lastValid(), focus(), exploded(), revision))
+const dimensions = derived(() => springDimensions(lastValid()))
+const economics = derived(() => springEconomics(lastValid(), batchQuantity() ? 100 : 1, retail()))
+const setupQuery = derived(() => springQuery(lastValid()))
+const assemblyUrl = derived(() => '/api/designs/xl-r2/assembly?' + setupQuery())
+const profileUrl = derived(() => '/api/designs/xl-r2/profile?' + setupQuery())
+const bomUrl = derived(() => '/api/designs/xl-r2/bom?' + setupQuery())
+function inspect(id: string): void {
+  focus.set(id)
+  void nextTick(() => { modelArea.current?.scrollIntoView({ block: 'start', behavior: 'instant' }); modelArea.current?.focus({ preventScroll: true }) })
+}
+function reset(): void { batch(() => { height.set(springStart.height); width.set(springStart.width); rail.set(springStart.rail); hub.set(springStart.hub); preload.set(springStart.preload); travel.set(springStart.travel); focus.set('assembly'); exploded.set(false) }) }
+</script>
+@section('content')
+<div class="design-studio shell standard-studio">
+  <header class="studio-heading"><a href="/shop?size=XL" class="studio-back"><i class="i-hugeicons-arrow-left-01" aria-hidden="true"></i>Back to XL wheelchairs</a><h1>A little travel.<br>A smaller parts bill.</h1><p class="muted">Buddy’s XL with replaceable industrial springs and a simpler, costed suspension cartridge.</p><div class="studio-context"><span>XL r2 · adjustable preload</span><span>Buddy · 140 lb, owner reported</span><span>Bench design, not animal ready</span></div></header>
+  <nav class="standard-revisions" aria-label="Wheelchair design revision"><a href="/design-studio-xl-suspension" aria-current="page">XL r2 · spring cartridge</a><a href="/design-studio-xl">XL r1 · rigid base</a><a href="/design-studio?size=XL">r0 · shock research and other sizes</a></nav>
+  <p class="studio-query-note" :if="initialError">{{ initialError }}</p>
+  <div class="standard-brief"><strong>Standard springs. Adjustable preload.</strong><p>Two MISUMI SWH20-75 springs replace the earlier shock allowance. Set equal 0, 1 or 2 mm steel shims per wheel. Spring rate stays fixed at 65.3 N/mm. This short-travel bench design has no hydraulic damper.</p></div>
+  <div class="studio-workbench">
+    <section class="studio-visual" ref="standardModel" tabindex="-1" aria-label="XL r2 3D inspection">
+      <div class="studio-view-heading"><h2>{{ focus() === 'assembly' ? 'The spring-cartridge XL' : focus() === 'suspension' ? 'Inside the spring cartridge' : 'Actual r2 part mesh' }}</h2><label class="studio-check"><input type="checkbox" x-model="exploded" :disabled="focus() !== 'assembly' && focus() !== 'suspension'">Separate plates</label></div>
+      <ModelViewer :scene="scene()" label="Buddy XL r2 undamped spring bench design" poster="/designs/xl/r2/assembly.png?v={{ revision }}" className="buddy-model" />
+      <noscript><img src="/designs/xl/r2/assembly.png" alt="XL r2 metal frame with spring cartridges and pneumatic wheels" width="1400" height="1000" class="studio-noscript"><p>Enable JavaScript to inspect configured geometry. <a href="/api/designs/xl-r2/kit?{{ initialQuery }}">Download the starting-design kit</a>, or use the configured form below.</p></noscript>
+      <div class="studio-view-options" role="group" aria-label="Inspection scope"><button type="button" :aria-pressed="focus() === 'assembly'" @click="focus.set('assembly')">Whole frame</button><button type="button" :aria-pressed="focus() === 'suspension'" @click="focus.set('suspension')">Cartridge cutaway</button></div>
+      <dl class="studio-readout"><div><dt>Inside rail clearance</dt><dd><strong>{{ (lastValid().width - 25.4).toFixed(1) }}</strong> <span>mm</span></dd></div><div><dt>Overall tire envelope</dt><dd><strong>{{ dimensions().tireWidth.toFixed(1) }}</strong> <span>mm</span></dd></div><div><dt>Inboard axle-end clearance</dt><dd><strong>{{ dimensions().innerAxleClearance.toFixed(1) }}</strong> <span>mm, before guards</span></dd></div></dl>
+      <p class="muted studio-model-note">Cutaway hides the outer housings to reveal the spring and retained seats. Springs are purchased steel parts, never printed. Travel is a manual geometric pose, not predicted sag. Tube bores, trimmed liners, fitted textiles and complete guards require the CAD and engineering drawings; this view shows nominal envelopes.</p>
+    </section>
+    <aside class="studio-controls" aria-label="XL r2 configuration">
+      <div class="studio-control-heading"><h2>Cut to their dimensions.</h2><button type="button" class="studio-reset" @click="reset()">Reset setup</button></div><p class="muted studio-intro">These are bench manufacturing dimensions. Buddy’s anatomy is still pending. Measure the actual wheel hub before fabricating an axle.</p>
+      <fieldset class="studio-fieldset"><legend>Frame and wheel interface</legend>
+        <div class="studio-field"><div class="studio-field-title"><label for="standard-height">Rail center height</label><div class="studio-number"><input id="standard-height" value="{{ initialSetup.height }}" name="height" form="standard-download" type="number" min="500" max="760" step="5" required x-model.number="height"><span>mm</span></div></div><input type="range" min="500" max="760" step="5" aria-label="r2 rail height slider" x-model.number="height"><p><span>500-760 mm</span><span>{{ (height() / 25.4).toFixed(1) }} in</span></p></div>
+        <div class="studio-field"><div class="studio-field-title"><label for="standard-width">Rail center spacing</label><div class="studio-number"><input id="standard-width" value="{{ initialSetup.width }}" name="width" form="standard-download" type="number" min="320" max="520" step="5" required x-model.number="width"><span>mm</span></div></div><input type="range" min="320" max="520" step="5" aria-label="r2 rail spacing slider" x-model.number="width"><p><span>320-520 mm</span><span>{{ (width() / 25.4).toFixed(1) }} in</span></p></div>
+        <div class="studio-field"><div class="studio-field-title"><label for="standard-rail">Side rail length</label><div class="studio-number"><input id="standard-rail" value="{{ initialSetup.rail }}" name="rail" form="standard-download" type="number" min="540" max="820" step="5" required x-model.number="rail"><span>mm</span></div></div><input type="range" min="540" max="820" step="5" aria-label="r2 rail length slider" x-model.number="rail"><p><span>540-820 mm</span><span>{{ (rail() / 25.4).toFixed(1) }} in</span></p></div>
+        <div class="standard-hub studio-field"><div class="studio-field-title"><label for="standard-hub">Measured hub through-length</label><div class="studio-number"><input id="standard-hub" value="{{ initialSetup.hub }}" name="hub" form="standard-download" type="number" min="60" max="100" step="0.05" required x-model.number="hub"><span>mm</span></div></div><p>82.55 mm is a provisional layout value. The wheel supplier page does not confirm it. Both actual hubs, bearing faces and washers must be checked.</p></div>
+      </fieldset>
+      <fieldset class="studio-fieldset"><legend>Spring cartridge</legend><div class="studio-field"><div class="studio-field-title"><label for="spring-preload">Preload per wheel</label><div class="studio-number"><input id="spring-preload" name="preload" form="standard-download" value="{{ initialSetup.preload }}" type="number" min="0" max="2" step="1" required x-model.number="preload"><span>mm</span></div></div><input type="range" min="0" max="2" step="1" aria-label="Spring preload slider" x-model.number="preload"><p>Matched 1 mm steel shims. Unload the guarded rig before adjustment. Preload changes initial force, not stiffness.</p></div><div class="studio-field"><div class="studio-field-title"><label for="spring-travel">Preview bump travel</label><div class="studio-number"><input id="spring-travel" name="travel" form="standard-download" value="{{ initialSetup.travel }}" type="number" min="0" max="8" step="1" required x-model.number="travel"><span>mm</span></div></div><input type="range" min="0" max="8" step="1" aria-label="Spring travel preview slider" x-model.number="travel"><p>0-8 mm manual pose. Slots and smooth pins provide nominal stops. No damping or clinical setting is implied.</p></div><dl class="studio-readout"><div><dt>Rail height in this pose</dt><dd>{{ dimensions().loadedHeight }} mm</dd></div><div><dt>Ideal spring force per side</dt><dd>{{ dimensions().forceN.toFixed(1) }} N</dd></div></dl><p class="muted">Ideal force = 65.3 × (preload + travel). Excludes friction and spring tolerances. This does not rate the chair, predict supported weight or prescribe rehabilitation.</p></fieldset>
+      <p class="studio-validation" role="alert" :if="parsed().error">{{ parsed().error }} Preview and links keep the last valid setup.</p>
+      <form id="standard-download" class="studio-download" action="/api/designs/xl-r2/kit" method="GET"><Button type="submit" variant="bare" class="w-full button-primary" :disabled="!parsed().setup"><i class="i-hugeicons-download-01" aria-hidden="true"></i>Download this r2 setup</Button></form>
+      <p class="muted studio-download-note">Configured editable CAD, eight actual STL types, four metal DXFs, complete BOM, drilling datums, assembly notes and cost assumptions.</p><div class="studio-file-links"><a href="/api/designs/xl-r2/assembly?{{ initialQuery }}" :href="assemblyUrl()">Assembly notes</a><a :href="bomUrl()">Parts list</a><a :href="profileUrl()">Setup JSON</a></div>
+    </aside>
+  </div>
+  <section class="standard-economics" aria-labelledby="standard-cost-heading"><div><span class="eyebrow">Two retail scenarios</span><h2 id="standard-cost-heading">Cost the whole mechanism.</h2><p class="muted">Springs, frame stock and wheels use checked online listings. Metal finishing, textiles, hardware, paid labor and freight are unquoted allowances. Neither price clears the 30% margin gate at the starting setup. $299 is the closer candidate, pending quotes, cost reduction and qualification.</p><fieldset class="standard-cost-toggle"><legend>Manufacturing scenario</legend><label><input type="radio" name="cost-quantity" :checked="batchQuantity()" @change="batchQuantity.set(true)"><span>100-chair batch</span></label><label><input type="radio" name="cost-quantity" :checked="!batchQuantity()" @change="batchQuantity.set(false)"><span>One chair</span></label></fieldset><fieldset class="standard-cost-toggle"><legend>Retail scenario</legend><label><input type="radio" name="spring-retail" :checked="retail() === 26500" @change="retail.set(26500)"><span>$265</span></label><label><input type="radio" name="spring-retail" :checked="retail() === 29900" @change="retail.set(29900)"><span>$299</span></label></fieldset><a href="/designs/xl/r2/cost-notes.md" class="button-text" download>Full priced breakdown (.md)</a><a href="/designs/xl/r2/costs.csv" class="button-text standard-csv" download>Line-item CSV</a></div>
+    <div class="standard-cost-panel"><dl><div><dt>Estimated landed manufacturing</dt><dd data-standard-cogs>{{ money(economics().cogs) }}<small>per chair, unquoted scenario</small></dd></div><div><dt>Retail target</dt><dd>{{ money(economics().retail) }}</dd></div><div><dt>Product gross margin</dt><dd data-standard-margin>{{ economics().grossPercent.toFixed(1) }}%</dd></div><div><dt>Contribution before fixed overhead</dt><dd>{{ money(economics().contribution) }}</dd></div></dl><p class="standard-gate" role="status" data-standard-gate>{{ economics().meetsCostGate ? 'Meets the numerical 30% gross-margin gate. Quotes still pending.' : 'Does not meet the 30% gross-margin gate at this size and quantity.' }}</p><p>Includes paid labor, inspection, packaging, inbound freight and machine wear. Contribution also subtracts card fees, a 5% return reserve, $10 support and $25 acquisition. Outbound shipping is charged separately; adding a $24 delivery subsidy leaves {{ money(economics().freeShippingContribution) }}. Capital and qualification are separate.</p><p class="standard-stock">{{ economics().packing.bars }} whole 12-foot frame bars plus {{ economics().housings.bars }} six-foot housing lengths for {{ economics().quantity }} chair{{ economics().quantity === 1 ? '' : 's' }}, including kerf and offcuts.</p></div>
+  </section>
+  <section class="studio-parts"><div class="studio-section-heading"><h2>The cartridge, down to its seats.</h2><p class="muted">These r2 meshes are separate from r0. Printed pieces protect or help manufacture the frame; metal and qualified textiles carry the load.</p></div><div class="studio-parts-grid">@foreach (printParts as part)
+    <article class="studio-part"><div><span class="studio-part-category">{{ part.kind === 'fixture' ? 'Bench fixture' : 'Nonstructural print' }} · Qty {{ part.qty }}</span><h3>{{ part.name }}</h3><p>{{ part.note }}</p></div><div class="studio-part-actions"><button type="button" @click="inspect('{{ part.id }}')">Inspect in 3D</button><a href="/designs/xl/r2/parts/{{ partFile(part.id) }}?v={{ revision }}" download>STL<i class="i-hugeicons-download-01" aria-hidden="true"></i></a></div></article>
+  @endforeach</div><details class="studio-metal"><summary>Four metal profiles and their fit-check copies</summary><p>Eight T gussets, four axle patches, four rail width shims and four spring seats. Metal DXFs are included in the kit. The STL copies are unloaded fit checks.</p><div class="studio-parts-grid">@foreach (metalParts as part)<article class="studio-part"><div><span class="studio-part-category">Steel · Qty {{ part.qty }}</span><h3>{{ part.name }}</h3><p>{{ part.note }}</p></div><div class="studio-part-actions"><button type="button" @click="inspect('{{ part.id }}')">Inspect in 3D</button><a href="/designs/xl/r2/parts/{{ partFile(part.id) }}?v={{ revision }}" download>Fit-check STL</a></div></article>@endforeach</div></details></section>
+  <section class="standard-sources"><h2>Checked prices, visible assumptions.</h2><p>Online prices checked November 8, 2026. Listings do not establish compatibility, local inventory or a chair load rating.</p><ul>@foreach (evidence as item)<li><a href="{{ item.url }}">{{ item.name }}</a><span>{{ item.note }}</span></li>@endforeach</ul></section>
+  <section class="studio-build-note"><h2>Designed for affordability. Still a bench prototype.</h2><div><p>Buddy’s measurements, the finished support and anchor design, actual wheel interfaces, joint strength, shaft retention, guarding, fatigue and stability tests are still required. No 140 lb working rating or all-terrain test result is claimed. The wheel pair alone weighs 9.4 lb, so weight and rolling resistance need testing.</p><p>Preload is adjustable with matched steel shims. Undamped rebound, liner friction, side loads, pin and seat wear, stop impacts, stability and full guarding must pass physical testing. Catalog spring loads do not qualify this chair. Keep the rigid r1 option if this mechanism cannot meet those checks and the quoted cost gate.</p><a href="/fit-guide" class="button-text">Measure Buddy with the visual guide</a></div></section>
+</div>
+@endsection

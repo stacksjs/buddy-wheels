@@ -1,3 +1,4 @@
+route.get('/designs/xl-r2/{artifact}', 'Actions/Designs/DownloadXLSpringAction').rateLimit(20, 'minute')
 route.get('/cart', 'Actions/Storefront/GetCartAction')
 route.post('/cart/add', 'Actions/Storefront/AddToCartAction').skipCsrf().rateLimit(30, 'minute')
 route.post('/cart/update', 'Actions/Storefront/UpdateCartItemAction').skipCsrf().rateLimit(30, 'minute')

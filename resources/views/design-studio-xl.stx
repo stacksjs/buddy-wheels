@@ -51,7 +51,7 @@ function reset(): void { batch(() => { height.set(standardStart.height); width.s
 @section('content')
 <div class="design-studio shell standard-studio">
   <header class="studio-heading"><a href="/shop?size=XL" class="studio-back"><i class="i-hugeicons-arrow-left-01" aria-hidden="true"></i>Back to XL wheelchairs</a><h1>A simpler frame.<br>A clearer cost.</h1><p class="muted">Buddy’s XL, redesigned around standard stock and fewer custom operations.</p><div class="studio-context"><span>XL r1 · rigid base</span><span>Buddy · 140 lb, owner reported</span><span>Bench design, not animal ready</span></div></header>
-  <nav class="standard-revisions" aria-label="Wheelchair design revision"><a href="/design-studio-xl" aria-current="page">XL r1 · standard parts</a><a href="/design-studio?size=XL">r0 · adjustable suspension research</a><a href="/design-studio?size=M">Other sizes</a></nav>
+  <nav class="standard-revisions" aria-label="Wheelchair design revision"><a href="/design-studio-xl-suspension">XL r2 · lower-cost spring cartridge</a><a href="/design-studio-xl" aria-current="page">XL r1 · standard parts</a><a href="/design-studio?size=XL">r0 · adjustable suspension research</a><a href="/design-studio?size=M">Other sizes</a></nav>
   <p class="studio-query-note" :if="initialError">{{ initialError }}</p>
   <div class="standard-brief"><strong>Rigid, with pneumatic tires.</strong><p>No independent suspension is included at the $264.50 target. Suspension research remains separate. Frame dimensions change the manufacturing cuts; this version does not telescope after assembly.</p></div>
   <div class="studio-workbench">

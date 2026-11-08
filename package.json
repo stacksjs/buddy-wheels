@@ -63,7 +63,8 @@
     "guides:art": "bun scripts/measurement-art.ts",
     "guides:pdf": "bun scripts/export-guides.ts",
     "test:fit": "bun scripts/qa-fit.ts",
-    "test:standard": "bun scripts/qa-standard.ts"
+    "test:standard": "bun scripts/qa-standard.ts",
+    "test:spring": "bun scripts/qa-spring.ts"
   },
   "dependencies": {
     "@stacksjs/actions": "^0.75.526",
