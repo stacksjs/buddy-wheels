@@ -11,6 +11,7 @@ Implementation and local QA recorded November 7, 2026. This record covers softwa
 - Native ProductCard, QuantitySelector, Button, OrderSummary and CheckoutSteps used for commerce UI.
 - Business plan, reproducible financial model, product/manufacturing plan, validation/risk register, research, marketing and operations docs completed.
 - Origin story corrected to include Buddy's very large size and limited suitable options, alongside affordability.
+- Public development page includes outdoor-use goals and separate suspension/body-support research, with no availability or rehabilitation efficacy claim.
 - Native app lint passed with zero errors and zero warnings.
 - App TypeScript checks passed, including the direct application project check.
 - STX checks passed with zero errors and zero warnings.
@@ -29,9 +30,13 @@ The Stacks source includes generic product-card props, status copy below images,
 
 Source review found and corrected duplicate change events and stale form values after live bounds changed. The publishing pipeline also exposed a pre-existing router declaration-generator failure; removing a redundant nested conditional preserves type behavior and passed router build/type fixtures. Source changes were fast-forward pushed to origin/main and native patch release commands were run. Publication and installed-consumer evidence is recorded below when completed.
 
+Stacks 0.75.522 was published to npm after the exact release source passed CI. Native `./buddy upgrade` installed it in this application, updating the root and framework-support manifests and lockfile. Installed stacks, defaults and actions package versions were verified as 0.75.522. App lint, native tests, typechecks and STX checks passed against that install. The real-browser journey passed again, including native ProductCard links to `/shop?size=L`, quantity updates, concurrent five-per-size enforcement and all four responsive widths. No local component fork is used.
+
 ## Production verification
 
-Pending the final deployed release. Public acceptance must verify apex HTTPS, www redirect, assets, all pages, same-origin cart API, cookie isolation, target-price calculations and the server checkout gate. A successful dry-run or homepage response is not recorded as a deployed service.
+Deployment is pending Porkbun domain API access. The existing protected credentials successfully reach the provider, but Porkbun reports that buddywheels.org is not opted in. The domain-specific API Access switch is off. Enabling it requires the founder's action-time confirmation under the computer-use policy, or the founder can enable it directly. Global API access is not needed.
+
+After that prerequisite, public acceptance must verify apex HTTPS, www redirect, assets, all pages, same-origin cart API, cookie isolation, target-price calculations and the server checkout gate. A successful dry-run or homepage response is not recorded as a deployed service.
 
 ## Product work still required
 

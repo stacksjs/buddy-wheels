@@ -33,6 +33,8 @@ Only the app's four API routes are mounted. No payment driver is initialized for
 
 Changes made in the Stacks source repository extend ProductCard with generic description, priceNote, href and imageAlt, and move status text below images. QuantitySelector now uses native STX state/model bindings with independent instances, live bounds, normalized native form values and one native change event. Source browser regression tests cover these contracts. The app should consume the resulting framework patch, rather than retain local copies of those components.
 
+The application consumes the published Stacks 0.75.522 patch through native `buddy upgrade`. Its lockfile pins the installed package graph, and the native component behavior was checked in the application through a real Chromium session.
+
 ## Deployment topology
 
 The user owns buddywheels.org at Porkbun and authorized deployment with Buddy to the existing server owned by the stacks project. The tenant declares `cloud.attachTo: 'stacks'`, its own project slug and its own sites in this repository. The host project must not check out or publish tenant source. The tenant owns only its gateway fragment, application services, certificates and persistent data directories.

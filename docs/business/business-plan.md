@@ -32,6 +32,8 @@ Five size families are a portfolio roadmap. XS needs very low mass and a low cen
 
 The intended complete kit includes the qualified frame modules, standard wheels and axles, hardware, soft support, fitting instructions and an inspection checklist. Final contents and adjustment limits remain open. Do not advertise an all-terrain capability, folding mechanism, front conversion or compatibility with another brand until implemented and tested.
 
+Active outdoor use is a development priority. Investigate adjustable wheel suspension and tire cushioning against a fixed-frame baseline. Treat controlled body-weight support for professionally guided rehabilitation as a separate research track, with calibration and independent safeguards. Neither is included in today's target kit price. The [suspension research plan](../product/suspension-research.md) defines evidence, cost and release gates before committing to an optional module or advanced family.
+
 ## 4. Market discovery and sizing
 
 No verified total market size is available. Use bottom-up discovery rather than multiplying the global dog population by an invented disability rate. Conduct 20 caregiver interviews and 8 professional interviews before setting a volume plan. Ask about their actual purchase experience, fit attempts, total spend, time to support, returns and repair needs. Avoid asking only whether they like a cheap wheelchair.
@@ -125,7 +127,7 @@ Weeks are planning windows, conditional on evidence. They are not a shipping cal
 | Weeks 6-8 | Independent test engineer | Structural, cyclic, environmental and retention testing | Reviewed results meeting predeclared limits |
 | Weeks 9-12 | Rehab advisor and pilot coordinator | Consented supervised fit pilot after bench approval | Fit/skin/handling findings and corrective actions |
 | Weeks 13-16 | Founder and operations lead | Controlled first-family launch readiness | Product, claims, support and commerce gates complete |
-| Later | Same accountable roles | Qualify remaining families independently | Separate evidence for XS, S, L and XL |
+| Later | Same accountable roles | Qualify remaining families independently | Separate evidence for every family beyond the selected first release |
 
 Chris is the proposed accountable founder. Other roles are needed, not people already hired. Dates move when evidence is incomplete. A failed test produces redesign and retest, not a relabeled launch.
 
@@ -143,6 +145,6 @@ Before launch, measure suitable-case interviews, repeatable fit measurements, pa
 
 After launch, use closed cohorts for fit acceptance, returns, warranty claims and referral conversion. Treat customers still inside an observation window as pending. Track contribution, cash, time to fitting, first-response time, incident severity, repeat repairs and part availability. Publish product evidence only with consent and an accurate denominator.
 
-Open decisions: Buddy's clinical needs and measurements; first service region; first qualified family; mechanical/test advisors; validated material/process; final kit contents; supplier quotes; real startup budget; insurance; brand clearance; support staffing; return/warranty policy; digital-file license; sales-tax setup; production domain and hosting. None is silently treated as approved.
+Open decisions: Buddy's clinical needs and measurements; first service region; first qualified family; mechanical/test advisors; validated material/process; final kit contents; supplier quotes; suspension feasibility and cost; real startup budget; insurance; brand clearance; support staffing; return/warranty policy; digital-file license; sales-tax setup. The founder selected buddywheels.org and the existing Stacks host; deployment evidence is tracked in the acceptance record. Other open decisions are not silently treated as approved.
 
 The next business commitment should be the smallest evidence-producing step: secure Buddy's care, choose a qualified design/fitting advisor, and obtain real requirements and quotes for one size family.

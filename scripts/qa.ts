@@ -69,6 +69,8 @@ try {
   await waitFor(async () => (await text('[data-fit-result]')).includes('(M)'))
   assert.match(await text('[data-fit-result]'), /not a fit approval/)
   await mkdir('storage/framework/runtime/qa', { recursive: true })
+  await route('/')
+  assert.equal(await cdp.evaluate("document.querySelectorAll('a[href=\"/shop?size=L\"]').length > 0"), true, 'Native product card links to the size configurator')
   for (const width of [320, 428, 768, 1440]) {
     await cdp.send('Emulation.setDeviceMetricsOverride', { width, height: 1000, deviceScaleFactor: 1, mobile: width < 768 })
     await route('/')
