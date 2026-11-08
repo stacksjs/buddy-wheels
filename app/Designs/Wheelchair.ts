@@ -1,65 +1,12 @@
 import { mkdir } from 'node:fs/promises'
-import { join, resolve } from 'node:path'
+import { join } from 'node:path'
+import { projectPath } from '@stacksjs/path'
 import { inspectBinaryStl } from './Mesh'
 
-export interface WheelchairFamily {
-  size: string
-  tube: number
-  wall: number
-  inner: number
-  innerWall: number
-  rail: number
-  width: number
-  height: number
-  wheel: number
-  tireWidth: number
-  hubWidth: number
-  wheelOffset: number
-  arm: number
-  shockFull: number
-  shockStroke: number
-  shockNeutral: number
-  shockOd: number
-  radii: [number, number, number]
-  plate: number
-  armPlate: number
-  gap: number
-  eyeWidth: number
-  eyeBolt: number
-  pivot: number
-  pivotBore: number
-  axle: number
-  frameBolt: number
-  stopBolt: number
-  lockBolt: number
-  stopR: number
-  lockR: number
-  pitch: number
-  innerLength: number
-}
-
-// Independent nominal assembly rigs, not scaled meshes or dog-fit prescriptions.
-// No weight capacities are assigned. Buddy's individual measurements are pending.
-export const wheelchairFamilies: WheelchairFamily[] = [
-  { size: 'XL', tube: 25, wall: 2, inner: 20, innerWall: 2, rail: 680, width: 400, height: 620, wheel: 400, tireWidth: 50, hubWidth: 40, wheelOffset: 70, arm: 180, shockFull: 165, shockStroke: 38, shockNeutral: 155, shockOd: 40, radii: [70, 90, 110], plate: 6, armPlate: 6, gap: 48, eyeWidth: 20, eyeBolt: 8, pivot: 10, pivotBore: 14, axle: 12, frameBolt: 6, stopBolt: 6, lockBolt: 6, stopR: 30, lockR: 50, pitch: 30, innerLength: 180 },
-  { size: 'L', tube: 25, wall: 2, inner: 20, innerWall: 2, rail: 600, width: 340, height: 500, wheel: 350, tireWidth: 45, hubWidth: 40, wheelOffset: 70, arm: 165, shockFull: 165, shockStroke: 38, shockNeutral: 155, shockOd: 40, radii: [65, 85, 105], plate: 6, armPlate: 6, gap: 48, eyeWidth: 20, eyeBolt: 8, pivot: 10, pivotBore: 14, axle: 12, frameBolt: 6, stopBolt: 6, lockBolt: 6, stopR: 30, lockR: 50, pitch: 30, innerLength: 180 },
-  { size: 'M', tube: 22, wall: 1.5, inner: 18, innerWall: 1.5, rail: 460, width: 280, height: 380, wheel: 300, tireWidth: 40, hubWidth: 35, wheelOffset: 60, arm: 140, shockFull: 140, shockStroke: 28, shockNeutral: 130, shockOd: 32, radii: [55, 70, 85], plate: 5, armPlate: 5, gap: 40, eyeWidth: 16, eyeBolt: 8, pivot: 8, pivotBore: 12, axle: 10, frameBolt: 5, stopBolt: 4, lockBolt: 4, stopR: 23, lockR: 38, pitch: 30, innerLength: 150 },
-  { size: 'S', tube: 20, wall: 1.5, inner: 16, innerWall: 1.5, rail: 340, width: 210, height: 260, wheel: 200, tireWidth: 35, hubWidth: 30, wheelOffset: 50, arm: 100, shockFull: 100, shockStroke: 20, shockNeutral: 92, shockOd: 24, radii: [38, 50, 62], plate: 4, armPlate: 4, gap: 30, eyeWidth: 12, eyeBolt: 6, pivot: 8, pivotBore: 12, axle: 8, frameBolt: 4, stopBolt: 4, lockBolt: 4, stopR: 20, lockR: 80, pitch: 20, innerLength: 120 },
-  { size: 'XS', tube: 16, wall: 1.5, inner: 12, innerWall: 1.5, rail: 260, width: 160, height: 220, wheel: 120, tireWidth: 25, hubWidth: 25, wheelOffset: 40, arm: 70, shockFull: 75, shockStroke: 12, shockNeutral: 70, shockOd: 16, radii: [25, 32, 40], plate: 3, armPlate: 3, gap: 20, eyeWidth: 10, eyeBolt: 4, pivot: 6, pivotBore: 8, axle: 6, frameBolt: 3, stopBolt: 3, lockBolt: 4, stopR: 14, lockR: 55, pitch: 20, innerLength: 120 },
-]
-
-export const cadParts = [
-  { id: 'tube_cap', qty: 4, category: 'print', purpose: 'Outer-tube end protection, optional' },
-  { id: 'inner_cap', qty: 1, category: 'print', purpose: 'Inner bridge end protection, optional' },
-  { id: 'index_collar', qty: 2, category: 'print', purpose: 'Loose setup witness marker, no retention function' },
-  { id: 'pivot_guard', qty: 4, category: 'print', purpose: 'Removable shield for non-animal rig only' },
-  { id: 'drill_jig', qty: 1, category: 'fixture', purpose: 'Pilot layout aid only; metal bush tooling required for final holes' },
-  { id: 'coupon', qty: 1, category: 'fixture', purpose: 'Hole-clearance calibration coupon' },
-  { id: 'shock_dummy', qty: 2, category: 'fixture', purpose: 'Rigid nominal eye-distance gauge, no spring/damping or load function' },
-  { id: 'fixed_plate', qty: 4, category: 'metal', purpose: 'Suspension fixed cheek, STL is a fit-check copy only' },
-  { id: 'arm_plate', qty: 4, category: 'metal', purpose: 'Trailing arm cheek, STL is a fit-check copy only' },
-  { id: 'corner_plate', qty: 8, category: 'metal', purpose: 'Paired rail/upright and rear-bridge joints, STL is a fit-check copy only' },
-] as const
+import type { WheelchairFamily } from "./WheelchairParameters"
+import { cadParts, suspensionLength, validateFamily, wheelchairFamilies } from "./WheelchairParameters"
+export type { WheelchairFamily } from "./WheelchairParameters"
+export { cadParts, suspensionLength, validateFamily, wheelchairFamilies } from "./WheelchairParameters"
 
 export interface WheelchairProfile {
   id: string
@@ -92,56 +39,6 @@ export async function readWheelchairProfile(path: string): Promise<WheelchairPro
 
 const rounded = (n: number) => Math.round(n * 1000) / 1000
 const rad = (n: number) => n * Math.PI / 180
-
-export function suspensionLength(f: WheelchairFamily, radius: number, degrees: number): number {
-  return Math.hypot(radius - radius * Math.cos(rad(degrees)), f.shockNeutral - radius * Math.sin(rad(degrees)))
-}
-
-export function validateFamily(f: WheelchairFamily): void {
-  for (const [key, value] of Object.entries(f)) {
-    if (typeof value === 'number' && (!Number.isFinite(value) || value <= 0))
-      throw new Error(`${f.size}: ${key} must be positive and finite`)
-  }
-  if (f.radii.length !== 3 || !f.radii.every((r, i) => Number.isFinite(r) && r > 0 && r < f.arm && (i === 0 || r > f.radii[i - 1]!)))
-    throw new Error(`${f.size}: three increasing shock radii must lie inside the arm`)
-  if (f.wall * 2 >= f.tube || f.innerWall * 2 >= f.inner || f.tube > 28)
-    throw new Error(`${f.size}: tubes need positive bores within the authored corner envelope`)
-  if (f.pitch < 20 || f.pitch > 30 || f.rail < 80 + 2 * f.pitch + 15)
-    throw new Error(`${f.size}: corner holes fall outside the authored plate or rail envelope`)
-  if (f.pivotBore < f.pivot + 1 || f.pivotBore > 20 || f.axle + 0.2 > 20 || f.eyeBolt + 0.2 > 20)
-    throw new Error(`${f.size}: incompatible bushing or arm-hole interface`)
-  if (f.frameBolt + 2.2 > f.inner - 4 || f.stopR >= f.lockR || f.lockR >= f.arm || f.gap <= f.tube + 2)
-    throw new Error(`${f.size}: incompatible tube sleeve, stop/lock or cheek spacing`)
-  if (f.wheel < 80 || f.wheelOffset - f.hubWidth / 2 - (f.eyeWidth + 2 * f.armPlate) / 2 < 2)
-    throw new Error(`${f.size}: incompatible wheel or outer axle spacer envelope`)
-  if (f.inner >= f.tube - 2 * f.wall || f.eyeWidth + 2 * f.armPlate >= f.gap || f.shockOd > f.gap - 4)
-    throw new Error(`${f.size}: telescoping or suspension envelope interference`)
-  if (f.wheelOffset - f.tireWidth / 2 <= f.gap / 2 + f.plate + 3)
-    throw new Error(`${f.size}: insufficient static tire-to-plate envelope`)
-  if (f.innerLength - (2 * f.pitch + 20) < 20 + f.pitch + 5 || f.innerLength - (2 * f.pitch + 20) < 3 * f.inner)
-    throw new Error(`${f.size}: insufficient nominal upright overlap`)
-  if (f.height - f.wheel / 2 - (2 * f.pitch + 20) < 75)
-    throw new Error(`${f.size}: lower upright does not cover its attachment holes`)
-  if ((f.width - f.tube) * 0.4 < 3 * f.tube)
-    throw new Error(`${f.size}: insufficient nominal bridge overlap`)
-  for (const radius of f.radii) {
-    if (suspensionLength(f, radius, -3) >= f.shockFull - 1.5 || suspensionLength(f, radius, 6) <= f.shockFull - f.shockStroke + 1.5)
-      throw new Error(`${f.size}: shock reaches stroke end before external stops`)
-  }
-  // Hole-to-hole clearances matter independently of mesh manifoldness.
-  const holes = [
-    { x: 0, d: f.pivotBore }, { x: f.stopR, d: f.stopBolt + 0.2 },
-    { x: f.lockR, d: f.lockBolt + 0.2 }, { x: f.arm, d: f.axle + 0.2 },
-    ...f.radii.map(x => ({ x, d: f.eyeBolt + 0.2 })),
-  ].sort((a, b) => a.x - b.x)
-  for (let i = 1; i < holes.length; i++) {
-    const a = holes[i - 1]!
-    const b = holes[i]!
-    if (b.x - a.x - (a.d + b.d) / 2 < 1.5)
-      throw new Error(`${f.size}: overlapping arm holes or inadequate nominal ligament`)
-  }
-}
-
 function parameters(f: WheelchairFamily): string {
   const names: Record<string, string> = { innerWall: 'inner_wall', tireWidth: 'tire_width', hubWidth: 'hub_width', wheelOffset: 'wheel_offset', shockFull: 'shock_full', shockStroke: 'shock_stroke', shockNeutral: 'shock_neutral', shockOd: 'shock_od', armPlate: 'arm_plate', eyeWidth: 'eye_width', eyeBolt: 'eye_bolt', pivotBore: 'pivot_bore', frameBolt: 'frame_bolt', stopBolt: 'stop_bolt', lockBolt: 'lock_bolt', stopR: 'stop_r', lockR: 'lock_r', innerLength: 'inner_length' }
   return Object.entries(f).filter(([key]) => key !== 'size').map(([key, value]) => `${names[key] || key}=${JSON.stringify(value)};`).join('\n')
@@ -203,34 +100,42 @@ function familyDirectory(root: string, f: WheelchairFamily, profile?: Wheelchair
   return profile ? join(root, 'designs/wheelchair/iterations', profile.id) : join(root, 'designs/wheelchair/r0', f.size)
 }
 
+export function wheelchairDocuments(f: WheelchairFamily, profile?: WheelchairProfile): Record<string, string> {
+  const files: Record<string, string> = {}
+  validateFamily(f)
+  files['model.scad'] = `// GENERATED by buddy design:wheelchair. BENCH ONLY, NOT FITTED TO A DOG.\n${parameters(f)}\ninclude <${profile ? '../../r0/source' : '../source'}/wheelchair.scad>\n`
+  files['parameters.json'] = `${JSON.stringify({ revision: 'r0', status: 'BENCH_ONLY_NOT_ANIMAL_USE', fittedToBuddy: false, units: 'mm', ...f }, null, 2)}\n`
+  if (profile)
+    files['profile.json'] = `${JSON.stringify({ id: profile.id, basis: f.size, context: profile.context, geometryIsEstimated: true, status: 'BENCH_ONLY_NOT_ANIMAL_USE' }, null, 2)}\n`
+  files['bom.csv'] = familyBom(f)
+  const curves = f.radii.map((radius, index) => ({ setting: index, radius, nominalWheelRatePerShockRate: rounded((radius / f.arm) ** 2), wheelBumpMm: rounded(f.arm * Math.sin(rad(6))), wheelDroopMm: rounded(f.arm * Math.sin(rad(3))), shockAtDroopMm: rounded(suspensionLength(f, radius, -3)), shockAtNeutralMm: f.shockNeutral, shockAtBumpMm: rounded(suspensionLength(f, radius, 6)) }))
+  files['kinematics.json'] = `${JSON.stringify({ status: 'IDEAL_RIGID_KINEMATICS_NOT_LOAD_VALIDATION', angleRangeDegrees: [-3, 6], clearanceAllowanceMm: 0.2, curves }, null, 2)}\n`
+  const tubeBore = f.frameBolt + 2.2
+  const lowerLength = f.height - f.wheel / 2 - (2 * f.pitch + 20) - 25
+  const uprightTop = f.height - f.wheel / 2 - (2 * f.pitch + 20)
+  const upperBottom = f.height - f.tube / 2 - f.innerLength
+  const tubeRows = [
+    ['Part', 'Quantity', 'Axis / datum', 'Hole centers mm', 'Tube hole diameter mm', 'Notes'],
+    ['Side rail', 2, 'X from front cut end; drill along Y', [f.rail - 80 - 2 * f.pitch, f.rail - 80 - f.pitch].join(' / '), tubeBore, 'Side corner pair'],
+    ['Side rail', 2, 'X from front cut end; drill along Z', [f.rail - 20 - 2 * f.pitch, f.rail - 20 - f.pitch].join(' / '), tubeBore, 'Rear bridge corner pair'],
+    ['Lower upright', 2, 'Z from lower cut end; drill along Y', '10 / 40', tubeBore, 'Fixed suspension cheek attachment'],
+    ['Lower upright', 2, 'Z from lower cut end; drill along Y', [lowerLength - 20 - f.pitch, lowerLength - 20].join(' / '), tubeBore, 'Height index pair, outer wall'],
+    ['Upper upright', 2, 'Z from lower cut end; drill along Y', [f.innerLength + f.tube / 2 - 2 * f.pitch, f.innerLength + f.tube / 2 - f.pitch].join(' / '), tubeBore, 'Upper frame corner pair, with cheek spacers'],
+    ['Upper upright', 2, 'Z from lower cut end; drill along Y', [f.wheel / 2 + uprightTop - 20 - f.pitch - upperBottom, f.wheel / 2 + uprightTop - 20 - upperBottom].join(' / '), tubeBore, 'Match-drill nominal telescoping pair after centering, no extra adjustment rows in r0'],
+    ['Bridge outer and inner', 1, 'Y from each bridge outboard cut end toward center; drill along Z', [f.pitch - f.tube / 2, 2 * f.pitch - f.tube / 2].join(' / '), tubeBore, 'End corner attachment pair, both ends'],
+    ['Bridge outer and inner', 1, 'Y from each outboard end toward center; drill along Z', [((f.width - f.tube) - f.pitch) / 2, ((f.width - f.tube) + f.pitch) / 2].join(' / '), tubeBore, 'Match-drill both nested tubes at nominal width'],
+  ]
+  files['tube-drilling.csv'] = `${tubeRows.map(row => row.map(value => `"${String(value)}"`).join(',')).join('\n')}\n`
+
+  return files
+}
+
 export async function generateWheelchairSources(root: string, profile?: WheelchairProfile): Promise<void> {
   for (const f of profile ? [profile.family] : wheelchairFamilies) {
-    validateFamily(f)
     const dir = familyDirectory(root, f, profile)
     await mkdir(dir, { recursive: true })
-    await Bun.write(join(dir, 'model.scad'), `// GENERATED by buddy design:wheelchair. BENCH ONLY, NOT FITTED TO A DOG.\n${parameters(f)}\ninclude <${profile ? '../../r0/source' : '../source'}/wheelchair.scad>\n`)
-    await Bun.write(join(dir, 'parameters.json'), `${JSON.stringify({ revision: 'r0', status: 'BENCH_ONLY_NOT_ANIMAL_USE', fittedToBuddy: false, units: 'mm', ...f }, null, 2)}\n`)
-    if (profile)
-      await Bun.write(join(dir, 'profile.json'), `${JSON.stringify({ id: profile.id, basis: f.size, context: profile.context, geometryIsEstimated: true, status: 'BENCH_ONLY_NOT_ANIMAL_USE' }, null, 2)}\n`)
-    await Bun.write(join(dir, 'bom.csv'), familyBom(f))
-    const curves = f.radii.map((radius, index) => ({ setting: index, radius, nominalWheelRatePerShockRate: rounded((radius / f.arm) ** 2), wheelBumpMm: rounded(f.arm * Math.sin(rad(6))), wheelDroopMm: rounded(f.arm * Math.sin(rad(3))), shockAtDroopMm: rounded(suspensionLength(f, radius, -3)), shockAtNeutralMm: f.shockNeutral, shockAtBumpMm: rounded(suspensionLength(f, radius, 6)) }))
-    await Bun.write(join(dir, 'kinematics.json'), `${JSON.stringify({ status: 'IDEAL_RIGID_KINEMATICS_NOT_LOAD_VALIDATION', angleRangeDegrees: [-3, 6], clearanceAllowanceMm: 0.2, curves }, null, 2)}\n`)
-    const tubeBore = f.frameBolt + 2.2
-    const lowerLength = f.height - f.wheel / 2 - (2 * f.pitch + 20) - 25
-    const uprightTop = f.height - f.wheel / 2 - (2 * f.pitch + 20)
-    const upperBottom = f.height - f.tube / 2 - f.innerLength
-    const tubeRows = [
-      ['Part', 'Quantity', 'Axis / datum', 'Hole centers mm', 'Tube hole diameter mm', 'Notes'],
-      ['Side rail', 2, 'X from front cut end; drill along Y', [f.rail - 80 - 2 * f.pitch, f.rail - 80 - f.pitch].join(' / '), tubeBore, 'Side corner pair'],
-      ['Side rail', 2, 'X from front cut end; drill along Z', [f.rail - 20 - 2 * f.pitch, f.rail - 20 - f.pitch].join(' / '), tubeBore, 'Rear bridge corner pair'],
-      ['Lower upright', 2, 'Z from lower cut end; drill along Y', '10 / 40', tubeBore, 'Fixed suspension cheek attachment'],
-      ['Lower upright', 2, 'Z from lower cut end; drill along Y', [lowerLength - 20 - f.pitch, lowerLength - 20].join(' / '), tubeBore, 'Height index pair, outer wall'],
-      ['Upper upright', 2, 'Z from lower cut end; drill along Y', [f.innerLength + f.tube / 2 - 2 * f.pitch, f.innerLength + f.tube / 2 - f.pitch].join(' / '), tubeBore, 'Upper frame corner pair, with cheek spacers'],
-      ['Upper upright', 2, 'Z from lower cut end; drill along Y', [f.wheel / 2 + uprightTop - 20 - f.pitch - upperBottom, f.wheel / 2 + uprightTop - 20 - upperBottom].join(' / '), tubeBore, 'Match-drill nominal telescoping pair after centering, no extra adjustment rows in r0'],
-      ['Bridge outer and inner', 1, 'Y from each bridge outboard cut end toward center; drill along Z', [f.pitch - f.tube / 2, 2 * f.pitch - f.tube / 2].join(' / '), tubeBore, 'End corner attachment pair, both ends'],
-      ['Bridge outer and inner', 1, 'Y from each outboard end toward center; drill along Z', [((f.width - f.tube) - f.pitch) / 2, ((f.width - f.tube) + f.pitch) / 2].join(' / '), tubeBore, 'Match-drill both nested tubes at nominal width'],
-    ]
-    await Bun.write(join(dir, 'tube-drilling.csv'), `${tubeRows.map(row => row.map(value => `"${String(value)}"`).join(',')).join('\n')}\n`)
+    for (const [name, content] of Object.entries(wheelchairDocuments(f, profile)))
+      await Bun.write(join(dir, name), content)
   }
 }
 
@@ -288,7 +193,7 @@ export async function exportWheelchairCad(root: string, selected: string, execut
   }
 }
 
-export const designRoot = resolve(import.meta.dir, '../..')
+export const designRoot = projectPath()
 
 export async function bundleWheelchairDesign(root: string): Promise<string> {
   const output = join(root, 'storage/framework/runtime/buddy-wheels-bench-r0.tar.gz')

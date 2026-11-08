@@ -1,0 +1,104 @@
+@extends('layouts/buddy')
+@section('title', 'Buddy’s XL design studio')
+@section('description', 'Explore Buddy’s XL wheelchair in 3D. Adjust frame dimensions, inspect the suspension and download the bench parts with matching assembly notes.')
+@section('social_image', 'https://buddywheels.org/designs/xl/r0/assembly.png')
+<script server>
+import { publicPath } from '@stacksjs/path'
+import { parseXLSetup as parseServerSetup, xlStartingSetup as startingServerSetup, xlSetupQuery as serverSetupQuery, xlPartNames as serverPartNames } from '~/app/Designs/XLSetup'
+import { cadParts } from '~/app/Designs/WheelchairParameters'
+const manifest = await Bun.file(publicPath('designs/xl/r0/manifest.json')).json()
+export const assetRevision = manifest.sourceHash.slice(0, 16)
+const parts = cadParts.map(part => ({ ...part, name: serverPartNames[part.id] || part.id }))
+const printParts = parts.filter(part => part.category !== 'metal')
+const metalParts = parts.filter(part => part.category === 'metal')
+export let initialSetup = startingServerSetup
+export let initialError = ''
+try { initialSetup = parseServerSetup(requestContext.query()) }
+catch { initialError = 'Those settings could not be loaded. Buddy’s starting estimate is shown.' }
+const initialAssembly = '/api/designs/xl/assembly?' + serverSetupQuery(initialSetup)
+defineClientPayload({ assetRevision, initialSetup, initialError })
+</script>
+<script client>
+import { createXLScene } from '~/app/Designs/XLScene'
+import { parseXLSetup, xlStartingSetup, xlSetupQuery, xlPartNames } from '~/app/Designs/XLSetup'
+const height = state(initialSetup.height)
+const width = state(initialSetup.width)
+const rail = state(initialSetup.rail)
+const setting = state(initialSetup.setting)
+const travel = state(initialSetup.travel)
+const locked = state(initialSetup.locked)
+const focus = state('assembly')
+const exploded = state(false)
+const modelArea = useRef('modelArea')
+const lastValid = state(initialSetup)
+const parsed = derived(() => {
+  try { return { value: parseXLSetup({ height: height(), width: width(), rail: rail(), setting: setting(), travel: travel(), locked: locked() }), error: '' } }
+  catch (error) { return { value: null, error: error instanceof Error ? error.message : 'Check your dimensions.' } }
+})
+effect(() => { if (locked()) travel.set(0) })
+effect(() => { const next = parsed().value; if (next) lastValid.set(next) })
+const scene = derived(() => createXLScene(lastValid(), focus(), exploded(), assetRevision))
+const sceneName = derived(() => focus() === 'assembly' ? 'Complete XL frame' : focus() === 'suspension' ? 'Suspension detail' : xlPartNames[focus()] || 'XL part')
+const query = derived(() => xlSetupQuery(lastValid()))
+const assemblyUrl = derived(() => '/api/designs/xl/assembly?' + query())
+const profileUrl = derived(() => '/api/designs/xl/profile?' + query())
+const rate = derived(() => (([70, 90, 110][Number(setting())] || 90) / 180) ** 2)
+const inches = (mm: number) => (Number(mm) / 25.4).toFixed(1)
+function inspect(part: string): void {
+  focus.set(part)
+  void nextTick(() => { modelArea.current?.scrollIntoView({ block: 'start', behavior: 'instant' }); modelArea.current?.focus({ preventScroll: true }) })
+}
+function reset(): void {
+  batch(() => { height.set(xlStartingSetup.height); width.set(xlStartingSetup.width); rail.set(xlStartingSetup.rail); setting.set(1); travel.set(0); locked.set(false); focus.set('assembly'); exploded.set(false) })
+}
+</script>
+@section('content')
+  <div class="design-studio shell">
+    <header class="studio-heading">
+      <a href="/shop?size=XL" class="studio-back"><i class="i-hugeicons-arrow-left-01" aria-hidden="true"></i>Back to wheelchairs</a>
+      <h1>Buddy’s XL, from every angle.</h1>
+      <p class="muted">Adjust the frame. Look closer at the suspension. Keep the parts and build notes together.</p>
+      <div class="studio-context"><span>Buddy · 140 lb, owner reported</span><span>XL bench design</span><span>Dimensions in millimeters</span></div>
+    </header>
+    <p class="studio-query-note" :if="initialError">{{ initialError }}</p>
+    <div class="studio-workbench">
+      <section ref="modelArea" tabindex="-1" class="studio-visual" aria-label="3D inspection">
+        <div class="studio-view-heading"><h2>{{ sceneName() }}</h2><label class="studio-check"><input type="checkbox" x-model="exploded" :disabled="focus() !== 'assembly' && focus() !== 'suspension'">Separate plates</label></div>
+        <ModelViewer :scene="scene()" label="Buddy’s adjustable XL wheelchair bench design" poster="/designs/xl/r0/assembly.png?v={{ assetRevision }}" className="buddy-model" />
+        <noscript><img src="/designs/xl/r0/assembly.png" alt="Buddy’s XL bench frame drawing" width="1400" height="1000" class="studio-noscript"><p>Enable JavaScript for interactive 3D. The starting-design kit remains available below.</p></noscript>
+        <div class="studio-view-options" role="group" aria-label="Inspection scope"><button type="button" :aria-pressed="focus() === 'assembly'" @click="focus.set('assembly')">Whole frame</button><button type="button" :aria-pressed="focus() === 'suspension'" @click="focus.set('suspension')">Suspension close-up</button></div>
+        <dl class="studio-readout"><div><dt>Inside rail clearance</dt><dd>{{ lastValid().width - 25 }} <span>mm</span></dd></div><div><dt>Overall tire width</dt><dd>{{ lastValid().width + 190 }} <span>mm</span></dd></div><div><dt>Individual part print bed</dt><dd>220 × 220 <span>mm</span></dd></div></dl>
+        <p class="muted studio-model-note">Metal frame and suspension cheeks. Printable service parts. Pins, wheels and shock are nominal envelopes; the fitted harness and full guarding are still to be designed.</p>
+      </section>
+      <aside class="studio-controls" aria-label="XL design controls">
+        <div class="studio-control-heading"><h2>Make room for Buddy.</h2><button type="button" class="studio-reset" @click="reset()">Reset setup</button></div>
+        <p class="muted studio-intro">A starting estimate for a very big dog. These are frame dimensions, not body measurements.</p>
+        <fieldset class="studio-fieldset"><legend>Frame dimensions</legend>
+          <div class="studio-field"><div class="studio-field-title"><label for="studio-height">Rail center height</label><div class="studio-number"><input id="studio-height" name="height" form="studio-download" type="number" value="{{ initialSetup.height }}" min="500" max="760" step="5" required x-model.number="height"><span>mm</span></div></div><input type="range" aria-label="Rail center height slider" min="500" max="760" step="5" value="{{ initialSetup.height }}" x-model.number="height"><p>500-760 mm <span>{{ inches(height()) }} in</span></p></div>
+          <div class="studio-field"><div class="studio-field-title"><label for="studio-width">Rail center spacing</label><div class="studio-number"><input id="studio-width" name="width" form="studio-download" type="number" value="{{ initialSetup.width }}" min="320" max="520" step="5" required x-model.number="width"><span>mm</span></div></div><input type="range" aria-label="Rail center spacing slider" min="320" max="520" step="5" value="{{ initialSetup.width }}" x-model.number="width"><p>320-520 mm <span>{{ inches(width()) }} in</span></p></div>
+          <div class="studio-field"><div class="studio-field-title"><label for="studio-rail">Side rail length</label><div class="studio-number"><input id="studio-rail" name="rail" form="studio-download" type="number" value="{{ initialSetup.rail }}" min="540" max="820" step="5" required x-model.number="rail"><span>mm</span></div></div><input type="range" aria-label="Side rail length slider" min="540" max="820" step="5" value="{{ initialSetup.rail }}" x-model.number="rail"><p>540-820 mm <span>{{ inches(rail()) }} in</span></p></div>
+        </fieldset>
+        <fieldset class="studio-fieldset"><legend>Suspension geometry</legend><p class="muted studio-help">Matched upper and lower eye positions. Larger leverage gives a firmer ideal response with the same spring.</p>
+          <div class="studio-leverage"><label><input type="radio" name="setting" form="studio-download" value="0" x-model.number="setting"><span><strong>A</strong><small>70 mm · softer</small></span></label><label><input type="radio" name="setting" form="studio-download" value="1" x-model.number="setting"><span><strong>B</strong><small>90 mm · middle</small></span></label><label><input type="radio" name="setting" form="studio-download" value="2" x-model.number="setting"><span><strong>C</strong><small>110 mm · firmer</small></span></label></div>
+          <p class="studio-rate">Ideal wheel rate: <strong>{{ rate().toFixed(3) }} ×</strong> shock spring rate at neutral.</p>
+          <div class="studio-travel"><label for="studio-travel">Travel preview <output>{{ travel() }}°</output></label><input id="studio-travel" name="travel" form="studio-download" type="range" min="-3" max="6" step="0.5" value="{{ initialSetup.travel }}" x-model.number="travel" :disabled="locked()"><div class="studio-range-ends"><span>Droop, -3°</span><span>Bump, +6°</span></div></div>
+          <label class="studio-lock"><input type="checkbox" name="locked" form="studio-download" value="true" x-model="locked"><span><strong>Show the neutral lock installed</strong><small>Holds the inspection pose at zero travel.</small></span></label>
+        </fieldset>
+        <p class="studio-validation" :if="parsed().error" role="alert">{{ parsed().error }} The preview keeps your last valid setup.</p>
+        <form id="studio-download" class="studio-download" action="/api/designs/xl/kit" method="GET"><Button type="submit" variant="bare" class="w-full button-primary" :disabled="!parsed().value"><i class="i-hugeicons-download-01" aria-hidden="true"></i>Download this setup</Button></form>
+        <p class="muted studio-download-note">STLs, metal DXFs, editable CAD, parts list and assembly notes. Your frame dimensions are included.</p>
+        <div class="studio-file-links"><a href="{{ initialAssembly }}" :href="assemblyUrl()">Assembly notes (.md)</a><a :href="profileUrl()">Setup file (.json)</a></div>
+      </aside>
+    </div>
+    <section class="studio-parts" aria-labelledby="studio-parts-heading">
+      <div class="studio-section-heading"><h2 id="studio-parts-heading">A closer look at every part.</h2><p class="muted">Select a part to inspect its actual mesh, or download the STL on its own.</p></div>
+      <div class="studio-parts-grid">@foreach (printParts as part)
+        <article class="studio-part" :class="focus() === '{{ part.id }}' ? 'studio-part-active' : ''"><div><span class="studio-part-category">{{ part.category === 'fixture' ? 'Bench fixture' : 'Printable service part' }} · Qty {{ part.qty }}</span><h3>{{ part.name }}</h3><p>{{ part.purpose }}</p></div><div class="studio-part-actions"><button type="button" @click="inspect('{{ part.id }}')" :aria-pressed="focus() === '{{ part.id }}'">Inspect in 3D</button><a href="/api/designs/xl/part/{{ part.id }}?v={{ assetRevision }}" download aria-label="Download {{ part.name }} STL">STL<i class="i-hugeicons-download-01" aria-hidden="true"></i></a></div></article>
+      @endforeach</div>
+      <details class="studio-metal"><summary>Metal structural parts and their fit-check copies</summary><p>These STL copies are unloaded layout gauges. The load-bearing counterparts are metal; matching DXF profiles are in the full kit.</p><div class="studio-parts-grid">@foreach (metalParts as part)
+        <article class="studio-part"><div><span class="studio-part-category">Metal part · Qty {{ part.qty }}</span><h3>{{ part.name }}</h3></div><div class="studio-part-actions"><button type="button" @click="inspect('{{ part.id }}')">Inspect in 3D</button><a href="/api/designs/xl/part/{{ part.id }}?v={{ assetRevision }}" download>Fit-check STL<i class="i-hugeicons-download-01" aria-hidden="true"></i></a></div></article>
+      @endforeach</div></details>
+    </section>
+    <section class="studio-build-note"><h2>A bench design, with a clear next step.</h2><div><p>Changing height, spacing or rail length updates the model, metal cut list and drilling schedule. The printable part geometry stays the same. Travel and separated plates are inspection views; fabrication uses neutral datums.</p><p>Engineering verification, exact shock and wheel selection, harness anchors, guarding and a professional fit are required before Buddy uses this prototype. A suspension setting does not prescribe hind-leg training or body support.</p><a href="/care" class="button-text">More about care and fitting</a></div></section>
+  </div>
+@endsection

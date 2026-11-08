@@ -1,6 +1,6 @@
 {
   "status": "DIGITAL_GEOMETRY_ONLY_NOT_PHYSICAL_VALIDATION",
-  "sourceHash": "4c426cdfb48134b1890cde5fdee173f6e6be22b3068017ad79e477158d6f3d19",
+  "sourceHash": "af4ff4efc0ffb3bf23cca9a2df96aaef0e438001b228b70863b9e24c1e74aa30",
   "meshes": [
     {
       "file": "stl/tube_cap.stl",
@@ -94,7 +94,7 @@
         "closed": true,
         "consistentlyOriented": true,
         "components": 1,
-        "signedVolumeMm3": 6818.186617803136,
+        "signedVolumeMm3": 6818.186617803138,
         "boundsMm": {
           "min": [
             -20,

@@ -84,6 +84,19 @@ Public smoke checks returned 200 for all pages, the revised stylesheet, both Rov
 - Owner-reported Buddy weight is 140 lb, with standing reach context retained separately. Supported dimensions remain estimated and explicitly configurable. The compact shocks, exact wheel/harness interfaces, finish drawings, fastener procedures and physical verification remain open as described in the mechanical docs.
 - Current LA printer options were checked against manufacturer and seller sources. No printer, hardware, filament, testing service or fabrication was purchased or booked.
 
+## Interactive XL studio, November 8, 2026
+
+- `/design-studio` uses native STX state, shared CAD parameters and the framework's new `<ModelViewer>` component. The underlying WebGL module has no external renderer dependency and is published in Stacks 0.75.526.
+- Framework commit `c6f6d044cd` adds the viewer, parser/primitives and retained component tests. The exact 0.75.526 release source (`fdc238ad30`) passed CI and Releaser. Framework lint/typecheck, three geometry/parser tests and two real-Chromium component/lifecycle tests passed.
+- Native `buddy upgrade` installed 0.75.526. The temporary development link was removed and registry-installed browser/defaults/actions packages were verified. Final checks below use the published packages with no source-component override.
+- App lint and TypeScript checks passed. STX checked 14 scripts and 177 expressions without diagnostics. Sixteen tests passed with 609 assertions, including configured artifact hashes and rejection of stale, modified or incomplete export provenance.
+- The retained native Chromium studio test passed pointer-driven orbit pixel changes, zoom, live dimensions, leverage/travel/lock behavior, individual part inspection, invalid fields, unknown parts, deep links, exact configured downloads and every packaged checksum.
+- Studio checks passed at 320, 428, 768 and 1440 pixels, including actual 2x canvas backing resolution, system dark theme and a forced non-WebGL drawing/download fallback. No horizontal overflow or browser console errors remained. The added navigation link initially overflowed at 320 pixels; the mobile navigation typography was corrected and verified again.
+- The complete shopping/cart/Rover/fit journey passed again at all four widths after the shared navigation change. Checkout remains gated and no payments or orders were created.
+- Editable controls change only frame height, rail spacing and rail length, so print geometry is unchanged. Downloaded dimensions, BOM, tube-hole datums, CAD pose, setup JSON and Markdown instructions match the selected setup. Independent review caught and corrected the missing optional lock-pin depiction and the publisher's stale-export acceptance.
+- CAD cap insertion direction and lock depiction were fixed in the parametric source; all family exports and provenance were regenerated. `design:publish` supplies the public XL assets only after verifying their canonical sources and output hashes.
+- The native production preview retains the existing attached Hetzner host, web port 3460 and API port 3468, with no additional compute. Public production verification follows the deployment.
+
 ## Physical product gate
 
 No production CAD/STL/3MF, qualified print specification, structural test report, veterinary fitting study, certified load rating, production inventory, supplier quotes, insurance, final return/warranty terms, live payment provider or customer order exists. Follow docs/product/validation.md before enabling sales or using a prototype on an animal.

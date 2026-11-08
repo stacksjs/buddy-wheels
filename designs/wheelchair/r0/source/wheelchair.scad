@@ -4,6 +4,7 @@ $fn=48;
 part = "assembly";
 setting = 1;
 angle = 0;
+locked = false;
 explode = 0;
 projection_mode = false;
 eps=0.05;
@@ -139,6 +140,7 @@ module suspension() {
    pin_y(stop_r,0,stop_bolt,gap+2*plate+8);}
  }
  color("silver") pin_y(0,0,pivot,gap+2*plate+8);
+ if(locked) color([0.19,0.37,0.28]) pin_y(lock_r,0,lock_bolt,gap+2*plate+12);
  shock_model();
 }
 module wheel_model() {
@@ -160,7 +162,7 @@ module assembly() {
   for(s=[-1,1]) color([0.55,0.60,0.62]) translate([0,0,height]) profile_in_xz("corner",plate,s*(tube/2+plate/2));
   translate([0,0,R]) suspension();
   translate([arm*cos(angle),side*(wheel_offset+explode*2),R+arm*sin(angle)]) wheel_model();
-  color([0.23,0.40,0.31]) translate([-(rail-80),0,height]) rotate([0,-90,0]) cap();
+  color([0.23,0.40,0.31]) translate([-(rail-80),0,height]) rotate([0,90,0]) cap();
  }
  color([0.72,0.75,0.74]) {
   translate([60,-width/2+tube/2,height]) rotate([-90,0,0]) square_tube(tube,wall,(width-tube)*0.7);
@@ -172,6 +174,7 @@ module assembly() {
 }
 assert(setting>=0 && setting<=2 && setting==floor(setting),"setting must be 0, 1 or 2");
 assert(angle>=-3 && angle<=6,"angle exceeds nominal bench stop range");
+assert(!locked || angle==0,"neutral lock requires zero travel");
 if(part=="fixed_plate") sheet("fixed");
 else if(part=="arm_plate") sheet("arm");
 else if(part=="corner_plate") sheet("corner");

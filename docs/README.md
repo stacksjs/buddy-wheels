@@ -12,6 +12,7 @@ Prepared November 7, 2026. This is a development-stage business and product plan
 - [Fabrication drawing notes](engineering/wheelchair-drawings-r0.md): datums, tube drilling, pin/spacer stacks and unresolved engineering details.
 - [Print instructions](engineering/wheelchair-printing-r0.md): file identity, orientation, bench profiles and inspection.
 - [Buddy's configurable fit inputs](engineering/buddy-xl-measurements.md): reported 140 lb weight and explicitly estimated geometry, with a separate JSON profile.
+- [Interactive XL design studio](engineering/design-studio.md): native 3D inspection, bounded live dimensions, suspension views and matching download provenance.
 - [Printer choices near LA](engineering/printer-options-la.md): current options, local support and starter budget.
 - [Buddy Rover product brief](product/buddy-rover.md): running, beach and ski configurations, mechanical architecture and qualification gates.
 - [Rover unit economics](business/rover-unit-economics.md): independently costed complete configurations, generated with `bun run finance`.

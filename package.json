@@ -57,19 +57,21 @@
     "probe:integrations": "./buddy integrations:probe",
     "finance": "bun scripts/finance.ts",
     "test:browser": "bun scripts/qa.ts",
+    "test:studio": "bun scripts/qa-studio.ts",
     "images": "bun scripts/images.ts"
   },
   "dependencies": {
-    "@stacksjs/actions": "^0.75.524",
-    "@stacksjs/cli": "0.75.524",
-    "@stacksjs/database": "0.75.524",
-    "@stacksjs/defaults": "0.75.524",
-    "@stacksjs/env": "^0.75.524",
-    "@stacksjs/image": "0.75.524",
-    "@stacksjs/orm": "0.75.524",
-    "@stacksjs/path": "^0.75.524",
+    "@stacksjs/browser": "0.75.526",
+    "@stacksjs/actions": "^0.75.526",
+    "@stacksjs/cli": "0.75.526",
+    "@stacksjs/database": "0.75.526",
+    "@stacksjs/defaults": "0.75.526",
+    "@stacksjs/env": "^0.75.526",
+    "@stacksjs/image": "0.75.526",
+    "@stacksjs/orm": "0.75.526",
+    "@stacksjs/path": "^0.75.526",
     "@stacksjs/stx": "0.2.807",
-    "stacks": "^0.75.524"
+    "stacks": "^0.75.526"
   },
   "workspaces": [
     "storage/framework",
@@ -87,7 +89,7 @@
   "devDependencies": {
     "@actions/expressions": "0.3.61",
     "@stacksjs/components": "0.2.807",
-    "@stacksjs/testing": "0.75.524",
+    "@stacksjs/testing": "0.75.526",
     "better-dx": "^0.2.37",
     "bun-plugin-stx": "0.2.807"
   },

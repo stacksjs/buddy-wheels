@@ -28,10 +28,10 @@ const stylesheetRevision = hash(await file('public/assets/buddy.css').arrayBuffe
   <header class="site-header">
     <nav aria-label="Main navigation" class="flex gap-4 items-center justify-between py-5 shell">
       <a href="/" class="flex gap-2 items-center wordmark" aria-label="Buddy Wheels home"><i class="text-2xl i-hugeicons-paw" aria-hidden="true"></i>buddy<span>wheels</span></a>
-      <div class="hidden md:flex gap-8 items-center font-medium text-sm"><a href="/shop">Wheelchairs</a><a href="/rover">Buddy Rover</a><a href="/fit-guide">Find their fit</a><a href="/our-story">Our story</a></div>
+      <div class="hidden lg:flex gap-8 items-center font-medium text-sm"><a href="/shop">Wheelchairs</a><a href="/rover">Buddy Rover</a><a href="/fit-guide">Find their fit</a><a href="/design-studio">3D studio</a><a href="/our-story">Our story</a></div>
       <a href="/cart" class="flex gap-2 items-center font-medium text-sm basket-link"><i class="text-xl i-hugeicons-shopping-bag-01" aria-hidden="true"></i>Basket<span class="basket-count" data-cart-count>{{ basketCount }}</span></a>
     </nav>
-    <nav aria-label="Mobile navigation" class="flex md:hidden justify-between pb-4 px-5 text-sm mobile-nav"><a href="/shop">Wheelchairs</a><a href="/rover">Rover</a><a href="/fit-guide">Fit guide</a><a href="/our-story">Our story</a></nav>
+    <nav aria-label="Mobile navigation" class="flex lg:hidden justify-between pb-4 px-5 mobile-nav"><a href="/shop">Wheelchairs</a><a href="/rover">Rover</a><a href="/fit-guide">Fit guide</a><a href="/design-studio">3D studio</a><a href="/our-story">Our story</a></nav>
   </header>
   <main id="main">@yield('content')</main>
   <footer class="site-footer">

@@ -6,6 +6,8 @@ This is an actual editable CAD and mesh package, starting with the XL rig inspir
 
 Start with [the XL assembly guide](../../../docs/engineering/xl-assembly-r0.md), [the manufacturing drawing notes](../../../docs/engineering/wheelchair-drawings-r0.md), and [print instructions](../../../docs/engineering/wheelchair-printing-r0.md). [The engineering research](../../../docs/engineering/wheelchair-cad-research.md) records supplier evidence and unresolved interfaces.
 
+The [website's XL design studio](https://buddywheels.org/design-studio) can inspect the actual meshes, adjust the three frame dimensions and suspension pose, and download a kit with matching dimensions and instructions. Frame-only changes retain these printable part shapes. The live studio does not validate loads or fit.
+
 ## Files you can use now
 
 | Folder | Contents |

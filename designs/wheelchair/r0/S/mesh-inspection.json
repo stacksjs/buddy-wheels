@@ -1,6 +1,6 @@
 {
   "status": "DIGITAL_GEOMETRY_ONLY_NOT_PHYSICAL_VALIDATION",
-  "sourceHash": "601b865f5b43cd5c565f1035c9f10dbf6fc7099c3ee215249dacb933acdbc141",
+  "sourceHash": "9721f3e3b65badcc4bf68c2addbbae574ed3580bb58f460b87650de31af561e3",
   "meshes": [
     {
       "file": "stl/tube_cap.stl",

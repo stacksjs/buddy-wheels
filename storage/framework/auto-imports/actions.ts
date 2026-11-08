@@ -5,6 +5,8 @@
 // resolves. Values are paths rather than import thunks on purpose: thunks
 // would make every compilation that touches a name resolve every module.
 export const actions = {
+  'Actions/Designs/DownloadXLAction': '../../../app/Actions/Designs/DownloadXLAction.ts',
+  'Actions/Designs/DownloadXLPartAction': '../../../app/Actions/Designs/DownloadXLPartAction.ts',
   'Actions/NotifyUser': '../../../app/Actions/NotifyUser.ts',
   'Actions/SendWelcomeEmail': '../../../app/Actions/SendWelcomeEmail.ts',
   'Actions/Storefront/AddToCartAction': '../../../app/Actions/Storefront/AddToCartAction.ts',

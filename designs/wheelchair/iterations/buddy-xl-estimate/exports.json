@@ -1,19 +1,19 @@
 {
   "revision": "r0",
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
-  "sourceHash": "409d2ccbc532f8faa0ef1acd693b15841094c77c484a4a3c6f61bbcc128ce08b",
+  "sourceHash": "997a834f4a2c2d5f738bbc006c9154473a8f856f4f4994b9a27f8d784a805693",
   "tool": "OpenSCAD version 2021.01",
   "files": [
     {
       "file": "stl/tube_cap.stl",
       "bytes": 12084,
-      "sha256": "72db17f7e0f41a53cda34d181bc65fb754fe880b2d1cc10319106cfa73834079",
+      "sha256": "3c50801c4a29870814fc2b519539f2cca8b2944b12f1a365f84627f1aacb3d3a",
       "purpose": "Outer-tube end protection, optional"
     },
     {
       "file": "stl/inner_cap.stl",
       "bytes": 12084,
-      "sha256": "4218194564c80064607ef43ef912f30e6a83fa418cc56084beb15fb8430ebbbe",
+      "sha256": "e4c2dd64611f73f1a9cd40c9f816e102a1d66a0b5af907b43c05d1fca990b475",
       "purpose": "Inner bridge end protection, optional"
     },
     {
@@ -25,19 +25,19 @@
     {
       "file": "stl/pivot_guard.stl",
       "bytes": 20884,
-      "sha256": "e2377af8bafa8ee7b4f467069a329bed3ea672f04a6f5e92571207a3587dbcec",
+      "sha256": "1a177739703fdabb9d2f527f0dc6c8db45f5c74f5fa0478191814f6774f976a6",
       "purpose": "Removable shield for non-animal rig only"
     },
     {
       "file": "stl/drill_jig.stl",
       "bytes": 41484,
-      "sha256": "57c12ffde2e8ebd8c460a0c52ada75a64ee9694abe452843c7a3774834ea153c",
+      "sha256": "7c101e3006e7bd21e2bb988cd3a6e45f622f61bc81ab4510ab2ea19e0e05e86c",
       "purpose": "Pilot layout aid only; metal bush tooling required for final holes"
     },
     {
       "file": "stl/coupon.stl",
       "bytes": 39884,
-      "sha256": "2bd32f14633986f1ea58519390f580976167f2ccc81b757844083b031c7cee90",
+      "sha256": "d2e870f034367044b3bb8b0bd3227deacab5b4b62b36efb22ae197baa32c0fe4",
       "purpose": "Hole-clearance calibration coupon"
     },
     {
@@ -84,8 +84,8 @@
     },
     {
       "file": "assembly.png",
-      "bytes": 61715,
-      "sha256": "ffceb00f94130c6878f2ed88a488df6364aaf7bea1d48d32e84fab648064d413",
+      "bytes": 61776,
+      "sha256": "32dfb9746d3bc04fcd309e3204f13e43b5d277b85a7641b3ac529efae41022c6",
       "purpose": "CAD-derived bench visualization, not a product photo"
     },
     {
