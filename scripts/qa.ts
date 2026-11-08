@@ -1,0 +1,68 @@
+import assert from 'node:assert/strict'
+import { mkdir } from 'node:fs/promises'
+import { click, launch, navigate, settle, waitFor } from '@stacksjs/testing/browser'
+
+const origin = (process.env.BUDDY_QA_URL || 'http://localhost:3460').replace(/\/$/, '')
+const browser = await launch()
+const { cdp } = browser
+const route = async (path: string) => navigate(cdp, `${origin}${path}`)
+const text = (selector: string) => cdp.evaluate<string>(`document.querySelector(${JSON.stringify(selector)})?.textContent || ''`)
+try {
+  await route('/shop')
+  await click(cdp, '[data-size="L"]')
+  await waitFor(async () => (await text('[data-product-price]')).includes('$264.50'))
+  assert.match(await text('[data-product-name]'), /Buddy Large/)
+  await click(cdp, '[data-stx-qty-inc]')
+  assert.equal(await cdp.evaluate("document.querySelector('input[name=quantity]').value"), '2')
+  await click(cdp, 'button[type=submit]')
+  await waitFor(() => cdp.evaluate("location.pathname === '/cart'"))
+  await settle(cdp)
+  assert.match(await text('main'), /\$529\.00/)
+  await click(cdp, '[data-stx-qty-dec]')
+  await click(cdp, 'button[type=submit]')
+  await settle(cdp)
+  await waitFor(() => cdp.evaluate("document.querySelector('input[name=quantity]')?.value === '1'"))
+  assert.match(await text('main'), /\$264\.50/)
+  await click(cdp, 'a[href="/checkout"]')
+  await waitFor(() => cdp.evaluate("location.pathname === '/checkout'"))
+  await settle(cdp)
+  await click(cdp, 'input[type=checkbox]')
+  await click(cdp, { selector: 'button', text: 'Continue to launch status' })
+  await waitFor(async () => (await text('[data-launch-status]')).includes('Not ready to take your money'))
+  assert.equal(await cdp.evaluate("[...document.querySelectorAll('button')].find(button => button.textContent.includes('Payments open')).disabled"), true)
+  const denied = await fetch(`${origin}/api/checkout/place`, { method: 'POST' })
+  assert.equal(denied.status, 409)
+  assert.equal((await denied.json()).code, 'PRODUCT_VALIDATION_REQUIRED')
+  const privateCookie = await cdp.send('Network.getCookies', { urls: [origin] }) as { cookies: Array<{ name: string, value: string }> }
+  const cartCookie = privateCookie.cookies.find(cookie => cookie.name === 'stacks_cart')
+  assert.ok(cartCookie)
+  const isolated = await fetch(`${origin}/api/cart`)
+  assert.equal((await isolated.json()).items.length, 0)
+  const forged = await fetch(`${origin}/api/cart`, { headers: { cookie: 'stacks_cart=tampered.invalid' } })
+  assert.equal((await forged.json()).items.length, 0)
+  const badQuantity = await fetch(`${origin}/api/cart/add`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ slug: 'buddy-large', quantity: 1.5 }) })
+  assert.equal(badQuantity.status, 422)
+  const badRedirect = await fetch(`${origin}/api/cart/add`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ slug: 'buddy-large', quantity: 1, redirect: 'https://example.com' }) })
+  assert.equal(badRedirect.status, 422)
+  await route('/fit-guide')
+  for (const [selector, value] of [['#weight', '50'], ['#height', '12']]) {
+    await cdp.evaluate(`(() => { const input = document.querySelector(${JSON.stringify(selector)}); input.value = ${JSON.stringify(value)}; input.dispatchEvent(new Event('input', { bubbles: true })); })()`)
+  }
+  await click(cdp, 'button[type=submit]')
+  await waitFor(async () => (await text('[data-fit-result]')).includes('(M)'))
+  assert.match(await text('[data-fit-result]'), /not a fit approval/)
+  await mkdir('storage/framework/runtime/qa', { recursive: true })
+  for (const width of [320, 428, 768, 1440]) {
+    await cdp.send('Emulation.setDeviceMetricsOverride', { width, height: 1000, deviceScaleFactor: 1, mobile: width < 768 })
+    await route('/')
+    const overflow = await cdp.evaluate<number>(`Math.max(0, document.documentElement.scrollWidth - ${width})`)
+    assert.equal(overflow, 0, `Horizontal overflow at ${width}px`)
+    const screenshot = await cdp.send('Page.captureScreenshot', { format: 'png' }) as { data: string }
+    await Bun.write(`storage/framework/runtime/qa/home-${width}.png`, Buffer.from(screenshot.data, 'base64'))
+  }
+  assert.deepEqual(cdp.errors, [])
+  console.log(JSON.stringify({ origin, shoppingJourney: 'passed', checkoutGate: 'passed', cartIsolation: 'passed', quantityValidation: 'passed', fitPlanner: 'passed', responsiveWidths: [320, 428, 768, 1440], consoleErrors: [] }, null, 2))
+}
+finally {
+  await browser.close()
+}

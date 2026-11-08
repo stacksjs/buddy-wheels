@@ -1,0 +1,38 @@
+@extends('layouts/buddy')
+@section('title', 'Start with their fit')
+<script client>
+import { planningSize } from '~/app/Storefront/Catalog'
+const weight = state('')
+const height = state('')
+const unit = state('imperial')
+const result = state('')
+const sizeCode = state('')
+function checkSize(): void {
+  const kg = unit() === 'metric'
+  const suggestion = planningSize(Number(weight()) * (kg ? 2.2046226218 : 1), Number(height()) / (kg ? 2.54 : 1))
+  result.set(suggestion.message)
+  sizeCode.set(suggestion.code || '')
+}
+function clearResult(): void {
+  result.set('')
+  sizeCode.set('')
+}
+</script>
+@section('content')
+  <section class="section-space shell">
+    <div class="max-w-2xl"><p class="eyebrow">Every body is different.</p><h1 class="mt-4 section-title">A fit starts with listening.</h1><p class="mt-5 muted">Use this planner to explore a size family. A professional assessment and full measurements are still needed.</p></div>
+    <div class="mt-8 notice">If loss of hind-leg use is new or sudden, seek urgent veterinary assessment. Do not delay treatment to measure or build a chair.</div>
+    <div class="grid gap-12 lg:grid-cols-2 mt-10">
+      <div class="soft-panel">
+        <h2 class="font-medium text-2xl">Explore a planned size</h2><p class="mt-3 text-sm muted">These are proposed ranges, not validated fit specifications. Inputs stay in this page and are not submitted.</p>
+        <form class="mt-7 space-y-5" @submit.prevent="checkSize()">
+          <div class="field"><label for="units">Measurement units</label><select id="units" x-model="unit" @change="clearResult()"><option value="imperial">Pounds &amp; inches</option><option value="metric">Kilograms &amp; centimeters</option></select></div>
+          <div class="grid gap-5 sm:grid-cols-2"><div class="field"><label for="weight">Weight ({{ unit() === 'metric' ? 'kg' : 'lb' }})</label><input id="weight" type="number" min="0.1" step="any" required x-model="weight" @input="clearResult()"></div><div class="field"><label for="height">Rear-leg height ({{ unit() === 'metric' ? 'cm' : 'in' }})</label><input id="height" type="number" min="0.1" step="any" required x-model="height" @input="clearResult()"></div></div>
+          <Button type="submit" class="button-primary">Explore the size range</Button>
+        </form>
+        <div aria-live="polite" role="status" class="mt-6"><p data-fit-result>{{ result() }}</p><a :if="sizeCode()" :href="'/shop?size=' + sizeCode()" class="inline-flex mt-4 button-text">View this size concept</a></div>
+      </div>
+      <div><h2 class="font-medium text-2xl">The complete picture</h2><div class="mt-6 feature-rule"><h3 class="font-semibold">Let a professional guide the posture</h3><p class="mt-2 text-sm muted">Ask your vet how to support your dog for measurements. Do not force standing or straighten a painful limb.</p></div><div class="feature-rule"><h3 class="font-semibold">Record length and width, too</h3><p class="mt-2 text-sm muted">Weight and rear-leg height only narrow the planning family. Body length, body width, harness position and wheel clearance determine the actual geometry.</p></div><div class="feature-rule"><h3 class="font-semibold">Review comfort and strength</h3><p class="mt-2 text-sm muted">A rear-support cart depends on adequate front support and an appropriate care plan. Some dogs need a different type of aid.</p></div><a href="/care" class="inline-flex mt-4 button-text">Read the care &amp; safety notes</a></div>
+    </div>
+  </section>
+@endsection

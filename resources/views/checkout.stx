@@ -1,0 +1,34 @@
+@extends('layouts/buddy')
+@section('title', 'Plan their next steps')
+<script server>
+import { basket } from '~/app/Storefront/Cart'
+const { items, subtotalLabel } = basket(requestContext.cookie('stacks_cart'))
+const steps = [{ key: 'review', label: 'Configuration', href: '/cart' }, { key: 'fit', label: 'Fit & delivery' }, { key: 'launch', label: 'Launch' }]
+</script>
+<script client>
+const stage = state(1)
+const checked = state(false)
+</script>
+@section('content')
+  <section class="section-space shell">
+    <h1 class="section-title">Their comfort comes first.</h1>
+    <p class="mb-8 mt-4 muted">A preview of the steps between choosing a chair and taking a walk.</p>
+    <CheckoutSteps current="fit" :steps="steps" />
+    @if(items.length === 0)
+      <div class="soft-panel"><h2 class="text-xl">Start with a configuration.</h2><a href="/shop" class="mt-5 button-primary">Choose a planned size</a></div>
+    @else
+      <div class="grid gap-10 items-start lg:grid-cols-[1.5fr_1fr]">
+        <div>
+          <div :if="stage() === 1" class="soft-panel">
+            <h2 class="font-medium text-2xl">Before a chair can be fitted</h2><p class="mt-4 muted">Your vet or rehabilitation professional should assess suitability, including front-leg strength, posture, skin health and your dog's recovery plan.</p>
+            <div class="grid gap-6 sm:grid-cols-2 mt-7"><div><h3 class="font-semibold">The measurements</h3><p class="mt-2 text-sm muted">Weight, rear-leg height, body length and body width. We will review the complete set before confirming any future fit.</p></div><div><h3 class="font-semibold">The delivery</h3><p class="mt-2 text-sm muted">Shipping region, lead time, taxes and delivery price are not finalized. There is no dispatch date or reservation today.</p></div></div>
+            <label class="flex gap-3 items-start mt-8 text-sm"><input type="checkbox" x-model="checked" class="mt-1 h-5 w-5"><span>I understand this is a development preview and a professional assessment is needed before use.</span></label>
+            <Button class="mt-7 button-primary" :disabled="!checked()" @click="stage.set(2)">Continue to launch status</Button>
+          </div>
+          <div :if="stage() === 2" class="soft-panel" data-launch-status><i class="text-3xl i-hugeicons-heart-check" aria-hidden="true"></i><h2 class="mt-4 font-medium text-2xl">Not ready to take your money.</h2><p class="mt-4 muted">We still need to validate the design, confirm fit procedures and prepare fulfillment. There is no order, payment or reservation to complete.</p><Button class="mt-7 button-primary" :disabled="true">Payments open after validation</Button><a href="/journal" class="block mt-6 button-text">See the development plan</a><button type="button" class="mt-5 button-text" @click="stage.set(1)">Back to fit &amp; delivery</button></div>
+        </div>
+        <div><OrderSummary :items="items" :showItems="true" :subtotalLabel="subtotalLabel" shippingLabel="Not quoted" :totalLabel="subtotalLabel" /><p class="mt-4 text-xs muted">Product target subtotal only. Tax and delivery unquoted. No personal or payment information is collected in this preview.</p></div>
+      </div>
+    @endif
+  </section>
+@endsection

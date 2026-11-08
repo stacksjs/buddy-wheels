@@ -1,0 +1,11 @@
+@extends('layouts/buddy')
+@section('title', 'Delivery, returns & privacy')
+@section('content')
+  <article class="content-page section-space shell"><h1>Clear expectations.<br>Before any order.</h1>
+    <h2>Development preview</h2><p>No products, deposits, preorders or reservations are available. Adding a configuration to the planning basket does not create an order or guarantee supply. Payment collection is disabled.</p>
+    <h2>Target prices</h2><p>Prices are proposed USD product prices, before taxes and delivery. S, M, L and XL target prices are half the reference product prices checked November 7, 2026. XS has an independent price target. Product design, fit, contents, support and final delivered cost may differ.</p>
+    <h2>Delivery and returns</h2><p>We have not finalized shipping regions, delivery charges, dispatch dates, warranty terms or return windows. These will be published before any paid launch. No free-shipping, lifetime-warranty or guaranteed-fit promise is currently made.</p>
+    <h2 id="privacy">Privacy in this preview</h2><p>The fit planner keeps entered measurements in page memory; it does not submit them or save them to the server. The checkout preview does not collect contact, shipping or payment information. Closing or reloading the page clears the planner inputs.</p><p>The basket uses the native Stacks signed, HttpOnly cart cookie and a server-side basket record. The cookie is intended to persist for up to 30 days. Server access logs may contain request metadata. The site loads a stylesheet and font files from Google Fonts, which makes requests to that provider. No marketing analytics or advertising pixels are configured by this project.</p>
+    <h2>Before a commercial launch</h2><p>A complete privacy notice, business contact, applicable consumer terms, tax and delivery setup, support process and validated product instructions are required. This page is an accurate description of the current preview, not a replacement for those launch documents.</p>
+  </article>
+@endsection

@@ -1,0 +1,47 @@
+@extends('layouts/buddy')
+@section('title', 'The wheelchairs')
+<script server>
+import { catalog, money } from '~/app/Storefront/Catalog'
+export const sizeOptions = catalog.map(size => ({ ...size, priceLabel: money(size.price), referenceLabel: size.referencePrice ? money(size.referencePrice) : '' }))
+const requested = requestContext.query().size
+export const initialSize = catalog.some(size => size.code === requested) ? requested : 'L'
+const first = sizeOptions.find(size => size.code === initialSize)
+const initialSlug = first?.slug || 'buddy-large'
+defineClientPayload({ initialSize, sizeOptions })
+</script>
+<script client>
+const selectedSize = state(initialSize)
+const selected = derived(() => sizeOptions.find(size => size.code === selectedSize()) || sizeOptions[3]!)
+</script>
+@section('content')
+  <div class="py-8 shell"><a href="/" class="text-sm muted">Home</a><span class="mx-3 muted" aria-hidden="true">/</span><span class="text-sm">The wheelchairs</span></div>
+  <section class="grid gap-10 items-start lg:gap-16 lg:grid-cols-[1.15fr_0.85fr] pb-16 shell">
+    <div><figure class="product-photo"><img src="/images/chair-concept.png" alt="Generated concept of the proposed forest-green modular rear-support dog wheelchair" width="1536" height="1024" fetchpriority="high"></figure><p class="mt-3 text-xs muted">AI design concept. Shared across sizes. Hardware and fit geometry are not finalized.</p>
+      <div class="grid gap-5 grid-cols-2 mt-8"><div class="feature-rule"><h2 class="font-semibold text-base">Designed to be repaired</h2><p class="mt-2 text-sm muted">Replace a connection, keep the frame. Printable parts are central to the plan.</p></div><div class="feature-rule"><h2 class="font-semibold text-base">Made to adjust</h2><p class="mt-2 text-sm muted">Proposed height, width and length adjustment. Fit envelopes still require testing.</p></div></div>
+    </div>
+    <div>
+      <p class="eyebrow">Rear-support mobility, rethought.</p>
+      <h1 class="mt-4 section-title" data-product-name>{{ selected().name }}</h1>
+      <p class="mt-4 muted">For familiar routes, interesting smells, and a little more time outside together.</p>
+      <div class="mt-6"><p class="price" data-product-price>{{ selected().priceLabel }}</p><p class="mt-2 text-xs muted">Target price. Tax and delivery are not included.</p></div>
+      <p class="mt-4 text-sm" :if="selected().referencePrice">Our target is half the <a class="underline" :href="selected().referenceUrl" target="_blank" rel="noopener">{{ selected().referenceLabel }} reference chair</a>. Price checked November 7, 2026. Products differ.</p>
+      <p class="mt-4 text-sm" :if="!selected().referencePrice">An independent XS target. We have not verified a comparable reference price.</p>
+      <fieldset class="mt-7 p-0 border-0"><legend class="mb-3 font-semibold text-sm">Choose a planned size</legend><div class="grid gap-2 grid-cols-5">
+        <button class="size-button" type="button" :aria-pressed="selectedSize() === 'XS' ? 'true' : 'false'" @click="selectedSize.set('XS')" data-size="XS">XS</button>
+        <button class="size-button" type="button" :aria-pressed="selectedSize() === 'S' ? 'true' : 'false'" @click="selectedSize.set('S')" data-size="S">S</button>
+        <button class="size-button" type="button" :aria-pressed="selectedSize() === 'M' ? 'true' : 'false'" @click="selectedSize.set('M')" data-size="M">M</button>
+        <button class="size-button" type="button" :aria-pressed="selectedSize() === 'L' ? 'true' : 'false'" @click="selectedSize.set('L')" data-size="L">L</button>
+        <button class="size-button" type="button" :aria-pressed="selectedSize() === 'XL' ? 'true' : 'false'" @click="selectedSize.set('XL')" data-size="XL">XL</button>
+      </div></fieldset>
+      <p class="mt-3 text-sm" data-size-range>Planning weight band: {{ selected().weight }}</p>
+      <a class="inline-flex mt-2 button-text" href="/fit-guide">Not sure? Start with measurements</a>
+      <form action="/api/cart/add" method="POST" class="mt-7">
+        <input type="hidden" name="slug" value="{{ initialSlug }}" :value="selected().slug">
+        <input type="hidden" name="redirect" value="/cart">
+        <div class="flex flex-wrap gap-4 items-center"><QuantitySelector :value="1" :min="1" :max="5" label="Wheelchair quantity" /><Button type="submit" class="button-primary" variant="primary">Add to planning basket</Button></div>
+      </form>
+      <div class="mt-6 notice"><strong>In development. Not available to order.</strong><p class="mt-2">Your basket is a configuration preview. It does not reserve a product. Every size needs structural testing and professional fitting review before launch.</p></div>
+      <div class="mt-6 faq"><details><summary>What is planned in the complete kit?</summary><p>Printable connectors, metal rails, two wheels, axles, hardware, a front harness, padded rear support and fitting instructions. Contents may change after testing.</p></details><details><summary>Can I print it at home?</summary><p>A maker kit and versioned files are planned after validation. There are no approved printable files yet. Home prints will need material, process and batch checks.</p></details><details><summary>My dog needs support now. What should I do?</summary><p>Ask a vet about a suitable available chair and supervised fitting. New or sudden loss of movement needs urgent veterinary assessment.</p></details></div>
+    </div>
+  </section>
+@endsection

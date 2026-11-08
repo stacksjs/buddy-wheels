@@ -1,0 +1,13 @@
+@extends('layouts/buddy')
+@section('title', 'Care comes first')
+@section('content')
+  <article class="content-page section-space shell"><h1>Care comes first.</h1>
+    <div class="mt-8 notice"><strong>New or sudden loss of movement needs urgent veterinary assessment.</strong><p>Do not delay treatment to measure, print, fit or buy a chair.</p></div>
+    <h2>Ask about suitability before fit</h2><p>A rear-support cart is not appropriate for every dog or every stage of care. Ask a veterinarian or rehabilitation professional about diagnosis, front support, posture, skin health and an appropriate activity plan.</p>
+    <h2>A chair is part of a care plan</h2><p>Supervision, comfort checks and rest matter. Follow the treating professional's instructions. The project does not prescribe a universal exercise schedule or offer medical treatment through a size selector.</p>
+    <h2>Our current product status</h2><p>Buddy Wheels is in development. There are no approved printable files, tested weight ratings or released use instructions. Concept images show an intention, not proof of a safe or effective aid.</p>
+    <h2>If your dog needs support today</h2><p>Ask your vet about currently available equipment, rehabilitation fitting services, loaners or rentals in your area. Availability and suitability need to be checked directly.</p>
+    <p><a href="https://www.aercmn.com/blog/my-dog-cant-walk-sudden-paralysis-in-dogs/" target="_blank" rel="noopener">Read the veterinary emergency guidance</a>.</p>
+    <a href="/fit-guide" class="mt-8 button-primary">Explore our fit planning guide</a>
+  </article>
+@endsection

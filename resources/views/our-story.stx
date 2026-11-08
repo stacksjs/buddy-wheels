@@ -1,0 +1,13 @@
+@extends('layouts/buddy')
+@section('title', 'It started with Buddy')
+@section('content')
+  <article class="content-page section-space shell">
+    <p class="eyebrow">Our reason to build</p><h1 class="mt-5">It started with<br>a dog named Buddy.</h1>
+    <p class="mt-7 text-xl">When Buddy stopped using his hind legs, we began looking for ways to support him. Buddy is a very large dog, and few of the available options came in a suitable size. Price mattered, too. That search became the beginning of Buddy Wheels.</p>
+    <figure class="mt-10"><img src="/images/buddy-meadow.png" width="1672" height="941" class="w-full rounded-xl" alt="AI concept of a golden retriever with a rear-support wheelchair"><figcaption class="mt-2 text-xs muted">An original concept image, not a photograph of Buddy.</figcaption></figure>
+    <h2>A fit for the bigger dogs, too</h2><p>Buddy made the limits of the available range personal. We want large and giant dogs to be considered from the beginning, with their own geometry, structural testing and fitting process.</p><h2>A more repairable way forward</h2><p>We want to build a thoughtful rear-support wheelchair with printable fitting parts and standard mechanical components. A broken part should have a clear repair path. A lower price should come from good design and practical production.</p>
+    <h2>Hope, with the work behind it</h2><p>We are at the development stage. We have not validated a chair, completed a veterinary fitting study or established a safe fit for Buddy. His care belongs with his veterinarian. Product testing and professional fitting review come before sales.</p>
+    <h2>Five families. One step at a time.</h2><p>The plan spans XS through XL, with each family needing its own evidence. The first validation family will follow Buddy's measurements and professional assessment, with large-dog fit a core priority. We will test it, learn from supervised fitting and qualify each family when it is ready.</p>
+    <a href="/journal" class="mt-8 button-primary">Read the development plan</a>
+  </article>
+@endsection
