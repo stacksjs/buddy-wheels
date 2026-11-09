@@ -1,3 +1,4 @@
+import {coilMesh} from './CoilMesh'
 import type {ModelGeometry,ModelScene,ModelVector} from '@stacksjs/browser/model-viewer'
 import {modelTransform} from '@stacksjs/browser/model-viewer'
 import type {SpringSetup} from './XLSpring'
@@ -38,15 +39,7 @@ export function springScene(s:SpringSetup,focus='assembly',exploded=false,revisi
     cylinder('guide-bolt-'+side,5,70,[0,y,d.carriageTop-10.825+35])
     cylinder('guide-washer-'+side,9,1,[0,y,d.lowerSeatTop+55.5],[0,0,0],5.3)
     cylinder('guide-head-'+side,8.5,5,[0,y,d.lowerSeatTop+58.5]);cylinder('guide-lower-washer-'+side,10,1,[0,y,d.carriageTop-.5],[0,0,0],5.3);cylinder('guide-nut-'+side,9.24,5,[0,y,d.carriageTop-3.5],[0,0,0],5)
-    // Seven turns, round wire envelope only. The purchased die spring is not printable.
-    const count=112
-    for(let i=0;i<count;i++){
-      const a=i/count*14*Math.PI;const b=(i+1)/count*14*Math.PI
-      const p:ModelVector=[7.5*Math.cos(a),y+7.5*Math.sin(a),d.lowerSeatTop+2.5+(d.springLength-5)*i/count]
-      const q:ModelVector=[7.5*Math.cos(b),y+7.5*Math.sin(b),d.lowerSeatTop+2.5+(d.springLength-5)*(i+1)/count]
-      const dx=q[0]-p[0],dy=q[1]-p[1],dz=q[2]-p[2];const len=Math.hypot(dx,dy,dz)
-      add(`spring-${side}-${i}`,{kind:'cylinder',radius:2.5,length:len},'#bd983e',[(p[0]+q[0])/2,(p[1]+q[1])/2,(p[2]+q[2])/2],[0,Math.acos(dz/len)*180/Math.PI,Math.atan2(dy,dx)*180/Math.PI])
-    }
+    add('spring-'+side,coilMesh(d.springLength),'#bd983e',[0,y,d.lowerSeatTop])
     // Unslotted liner envelopes; final trimmed pattern must keep both slots clear.
     for(const z of [120,180])for(const face of [0,1,2,3]){
       const pos:ModelVector=face%2?[face===1?13.335:-13.335,y,d.carriageBottom+z+17.5]:[0,y+(face===0?13.335:-13.335),d.carriageBottom+z+17.5]

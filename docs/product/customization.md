@@ -8,7 +8,7 @@ Rover Run, Coast and Snow choose running, beach or ski hardware. All-season incl
 
 ## Colors
 
-Forest, Ocean, Berry and Sunflower presets apply to nonstructural printed service parts. A native color picker also accepts any six-digit hex shade. Textile trim has an independent custom swatch. Metal, tires, bearings, springs, pins and other specified load-path materials keep their approved specification and reference finish. Only printable covers/markers/guards change color in 3D. Fitted textiles are not modeled, so trim is shown as a swatch. Product photographs and baseline CAD preview images retain reference colors.
+Forest, Ocean, Berry and Sunflower presets apply to nonstructural printed service parts. A native color picker also accepts any six-digit hex shade. Textile trim has an independent custom swatch. Metal, tires, bearings, springs, pins and other specified load-path materials keep their approved specification and reference finish. Only printable covers/markers/guards change color in 3D. The wheelchair studios now show candidate support and harness layers in the selected trim color. Their geometry is a bench layout, not a qualified fit. Product photographs and baseline CAD preview images retain reference colors.
 
 Colors are preferences while products remain in development. Pigments and filament grade/process can affect print behavior; choosing a shade never authorizes a material substitution or load-bearing printed part. Textile availability, durability, validation and final custom pricing must be confirmed. The current cost models use reference finishes; do not claim arbitrary custom colors are qualified, stocked or free.
 
@@ -21,6 +21,6 @@ Studio downloads carry finish.json, finish metadata in the setup/profile, select
 
 1. Choose a wheelchair size with the [visual fit guide](https://buddywheels.org/fit-guide), or choose the Rover gear configuration for your routes. Measurements and professional fitting still come first.
 2. Select Forest, Ocean, Berry or Sunflower for printable covers. To choose another shade, open Custom cover color. The hex value below the picker identifies your choice.
-3. Choose Textile trim independently. This is a swatch preference; it does not recolor the reference product photograph or add a fitted harness to the bench model.
+3. Choose Textile trim independently. This is a color preference for the candidate textile layers in the wheelchair studios. It does not recolor reference product photographs or approve a fabric or fitted harness.
 4. Save the product to your basket, or open a studio and download your configured kit. Color choices travel with the product links and between studio revisions. Geometry settings stay specific to each revision.
 5. Review the saved colors in your basket or finish.json. Confirm available, qualified materials and final pricing before manufacture or ordering. Ordering remains closed while development and validation continue.

@@ -1,0 +1,749 @@
+{
+  "revision": "textile-r1",
+  "status": "BENCH_ONLY_NOT_ANIMAL_USE",
+  "sourceHash": "480aa0d2a864e498fdfe42ec82bce85f71bea30504913208aad2b6dbfa5e486e",
+  "records": [
+    {
+      "frame": {
+        "size": "XS",
+        "revision": "r0",
+        "height": 260,
+        "width": 160,
+        "rail": 260,
+        "tube": 16,
+        "plate": 3,
+        "bridgeX": 60,
+        "frontX": -180,
+        "travel": 0
+      },
+      "setup": {
+        "legWidth": 15,
+        "legLength": 35,
+        "slingWidth": 120,
+        "slingLength": 80,
+        "drop": 30,
+        "chest": 350
+      },
+      "assets": [
+        {
+          "file": "softgoods/cost-notes.md",
+          "sha256": "b79a5181b5f4cab5fa683513c9b2e81a0160726d65473fb328558bf3dfe46918"
+        },
+        {
+          "file": "softgoods/setup.json",
+          "sha256": "bca55bc04df134a298943410fc3da2a6262a94c1dba2cdec774f7e0e1dab83dd"
+        },
+        {
+          "file": "softgoods/assembly.md",
+          "sha256": "9f47bd8dba9e099f7cc5623d13acd0be190d6325db7c5b5d12e5abbaeb086722"
+        },
+        {
+          "file": "softgoods/textile-bom.csv",
+          "sha256": "af704fea0ada40eaeff0b85b0e5b9d3345625707ff769839da632568bce3ca13"
+        },
+        {
+          "file": "softgoods/parts.scad",
+          "sha256": "2a0eca9ee31cc886fe41ef9d9a232dda47c85ac2d3250382cb2bb38eba094c52"
+        },
+        {
+          "file": "softgoods/saddle-shell.svg",
+          "sha256": "0ee8a46d7a6a20d59d610a94cc596f5f280215725924cef6e06f7b8808281999"
+        },
+        {
+          "file": "softgoods/front-bib.svg",
+          "sha256": "c56f0defe1d9bd71db10c1f4278fee5762d807d75d0e053cfae6efccae8fff59"
+        },
+        {
+          "file": "softgoods/saddle-shell.dxf",
+          "sha256": "9243e21d4d1f8b70423d9cf4ba4ed0e792fd58d3cffe3581f41d66864788e05f"
+        },
+        {
+          "file": "softgoods/front-bib.dxf",
+          "sha256": "ba4fca4a292338e789cb723213f366e36aa98d517a42e00b19694d4c6791a22e"
+        },
+        {
+          "file": "softgoods/closure-tabs.svg",
+          "sha256": "acd0915ca9424a61b2f51722151d28f2d3718a3230149357ecb1f4262f2325ef"
+        },
+        {
+          "file": "softgoods/pattern-tiles.html",
+          "sha256": "febab1b688f15e696dd52eaee67ace5dd5fd718c90ee061dfeb4170372144f5f"
+        },
+        {
+          "file": "assembly-with-softgoods.scad",
+          "sha256": "4e7014ace69d9b8b5733d966cc1d04eabfce5ddb584b7fa386e88565cb7a6b6a"
+        },
+        {
+          "file": "softgoods/chafe-rail.svg",
+          "sha256": "de92a8ede199a599c0bb2a6eaff2086ae20b3b3cfa260d8cdef61d7f32869438"
+        },
+        {
+          "file": "softgoods/chafe-bridge.svg",
+          "sha256": "01364efb109fedf7f7273cea73b589e955475541e0b681baab53a760e7158665"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_shell.stl",
+          "sha256": "4249247256b00c3808a6aa9e9023eb0b2349198d85be510c263810f9264f9dad"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_pad.stl",
+          "sha256": "3b5bed1ace8553f567f779525f6514ac2f3bb96b01afd2c3096b90581731c7f4"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_mesh.stl",
+          "sha256": "b7fe6b9f9bdd87389eb33544c256fe73148138ac1393e46a7619a5ded2f4e0f8"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_shell.stl",
+          "sha256": "cd052dafc6e517da0a61055fb34a880235e6a785dd9871edeb3bc1454338d143"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_pad.stl",
+          "sha256": "b670c49d60e93e1becfb042267191f073d75a06c2c64afe44abf8b8a95e08e34"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_mesh.stl",
+          "sha256": "bc68ac2c85ae15c8680f09db0b292166ab1c60c527a2aad4056ad95a143ca033"
+        }
+      ],
+      "previewHash": "ab06bf406bcecbe1397febf201f70369f3563e5b284bdced3bbf6f4e82547a7e",
+      "preview": "/designs/softgoods/r1/XS-r0/assembly.png"
+    },
+    {
+      "frame": {
+        "size": "S",
+        "revision": "r0",
+        "height": 300,
+        "width": 210,
+        "rail": 340,
+        "tube": 20,
+        "plate": 4,
+        "bridgeX": 60,
+        "frontX": -260,
+        "travel": 0
+      },
+      "setup": {
+        "legWidth": 35,
+        "legLength": 50,
+        "slingWidth": 165,
+        "slingLength": 95,
+        "drop": 40,
+        "chest": 485
+      },
+      "assets": [
+        {
+          "file": "softgoods/cost-notes.md",
+          "sha256": "3c01622ee81c071eed8d7ee0ca9784e9fa11c26934214766cd67ebf352c7eff8"
+        },
+        {
+          "file": "softgoods/setup.json",
+          "sha256": "6501e746220b1d6b270d775009edefcfd759d95a02199422c0c1cb04f0cb6e06"
+        },
+        {
+          "file": "softgoods/assembly.md",
+          "sha256": "331637ab250d58ad311602dc36f2c9b01cd695edbf0b3bfa0d25c57122ba9861"
+        },
+        {
+          "file": "softgoods/textile-bom.csv",
+          "sha256": "fb4268aa7218c727907d2b40f2a8b3ba8f73e0e5a5c3e248e4384ea60ef37282"
+        },
+        {
+          "file": "softgoods/parts.scad",
+          "sha256": "07de1d9849c7e7307db06f1e881c884e6e0f35bf07c6344a9b1abcd466b34923"
+        },
+        {
+          "file": "softgoods/saddle-shell.svg",
+          "sha256": "e7e026f388f3aaf8c88f3c4a63e7b4f9c110bef309f4976ac6f42cf44468b773"
+        },
+        {
+          "file": "softgoods/front-bib.svg",
+          "sha256": "6a8ef195a96630d61d86f1a176eb076156f34452c91fae3929c6afd9c5ec77ae"
+        },
+        {
+          "file": "softgoods/saddle-shell.dxf",
+          "sha256": "c8df50add32716100b95207f1c32a318e5dc2550f3e634cac729372b14fb5f87"
+        },
+        {
+          "file": "softgoods/front-bib.dxf",
+          "sha256": "4b398acb1fe34915dadce4f9f3c422a3988797f17a7863699721b16a85efab42"
+        },
+        {
+          "file": "softgoods/closure-tabs.svg",
+          "sha256": "acd0915ca9424a61b2f51722151d28f2d3718a3230149357ecb1f4262f2325ef"
+        },
+        {
+          "file": "softgoods/pattern-tiles.html",
+          "sha256": "150512affac57f2db3f6914564a4e4b9e30b547fed15673595fb3ca15e8c7a11"
+        },
+        {
+          "file": "assembly-with-softgoods.scad",
+          "sha256": "4e7014ace69d9b8b5733d966cc1d04eabfce5ddb584b7fa386e88565cb7a6b6a"
+        },
+        {
+          "file": "softgoods/chafe-rail.svg",
+          "sha256": "af9db21bf12418186e2af909c187b2ee4f86eeea063f5065c8c4a876af70f4ef"
+        },
+        {
+          "file": "softgoods/chafe-bridge.svg",
+          "sha256": "8d1f1a5b8d8447893605ddfaffdab4fabc2d4a7f07d19ed8debe49f93ba745cf"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_shell.stl",
+          "sha256": "00718a1108154fec3f57b2ed96165514d5bb63b2c69b619e77d3458a856dc96a"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_pad.stl",
+          "sha256": "824d1de279e69c0e2f639f586343e6d1d490e47d4693dc48e8d38a10ea9b28fe"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_mesh.stl",
+          "sha256": "02e2f96dd61a6927d381b50837510f04f67ef9aa1e116336dca6ce156ab2bac9"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_shell.stl",
+          "sha256": "2e18ca1aca3be24612aae0d1b2f983b5b2e1e9de57025ad391c9a66832cfcd53"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_pad.stl",
+          "sha256": "7d3597a3b10c69716c69183686aada10cf861f09e923d5c01a8e27fc0aaed0dc"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_mesh.stl",
+          "sha256": "9a711f4749ed5f9715c312463e6a5bbf259e360dd89f76e773525186fc1bb883"
+        }
+      ],
+      "previewHash": "4a34b4d8faaf08722c33f50e130690678b85bebd2d88014b8a39b95c7721f946",
+      "preview": "/designs/softgoods/r1/S-r0/assembly.png"
+    },
+    {
+      "frame": {
+        "size": "M",
+        "revision": "r0",
+        "height": 385,
+        "width": 280,
+        "rail": 460,
+        "tube": 22,
+        "plate": 5,
+        "bridgeX": 60,
+        "frontX": -380,
+        "travel": 0
+      },
+      "setup": {
+        "legWidth": 50,
+        "legLength": 75,
+        "slingWidth": 230,
+        "slingLength": 135,
+        "drop": 55,
+        "chest": 680
+      },
+      "assets": [
+        {
+          "file": "softgoods/cost-notes.md",
+          "sha256": "7d309c9c92f0d43cfd5505721fa822420fa5fd49f27adc9deb6816a752da580e"
+        },
+        {
+          "file": "softgoods/setup.json",
+          "sha256": "27adfd65114247af6a1cc31c826daab68326dfab2556769b0d0e140e5feadece"
+        },
+        {
+          "file": "softgoods/assembly.md",
+          "sha256": "79c0faa92a0f237119d080d14b28a8a983a964d3c1e8b8defdf85edc12ca4ce9"
+        },
+        {
+          "file": "softgoods/textile-bom.csv",
+          "sha256": "2c7f740117222592ec9b417aeeb8ee5c7904105257ccc0d7a89e563906f8cedc"
+        },
+        {
+          "file": "softgoods/parts.scad",
+          "sha256": "bc8bb5ef573e89ed5df4ef50e96391d060661fd4605f40d511a1f26f3569a1fb"
+        },
+        {
+          "file": "softgoods/saddle-shell.svg",
+          "sha256": "4280aa1c7a4b726df935db84a0b48e227bf1cbaa19f8ccb4fa37b1bb22e9ffcd"
+        },
+        {
+          "file": "softgoods/front-bib.svg",
+          "sha256": "0e0647dbfd6c83de6e720c6f63be8aaddd1c58f2fa7f4bed04ea96175b0a3f65"
+        },
+        {
+          "file": "softgoods/saddle-shell.dxf",
+          "sha256": "f3c23ebbc4cc528e6afa35d02580e8c15876754da6390c55e8185a32b006732d"
+        },
+        {
+          "file": "softgoods/front-bib.dxf",
+          "sha256": "8515d702d39c9947b2b899963f4076b70af378021190d4fcb271ee01f205da8d"
+        },
+        {
+          "file": "softgoods/closure-tabs.svg",
+          "sha256": "acd0915ca9424a61b2f51722151d28f2d3718a3230149357ecb1f4262f2325ef"
+        },
+        {
+          "file": "softgoods/pattern-tiles.html",
+          "sha256": "5e313e04a4edcf47cc450df986b8bf870915b87f12fe03a60daa27ee0bce70e6"
+        },
+        {
+          "file": "assembly-with-softgoods.scad",
+          "sha256": "4e7014ace69d9b8b5733d966cc1d04eabfce5ddb584b7fa386e88565cb7a6b6a"
+        },
+        {
+          "file": "softgoods/chafe-rail.svg",
+          "sha256": "eceb5f25b79e22d3cfcb6cc01a306f05cf1ca1d047acd29751b09dafaf7fc56f"
+        },
+        {
+          "file": "softgoods/chafe-bridge.svg",
+          "sha256": "342bef9060c2acd2af246d0ab9bcffd4be179bc79a0b3ea4f7dd965df974ec01"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_shell.stl",
+          "sha256": "8bc454e625f8cafb694490e3ab7d7ba8636f59b4d63b3030df38c430b9d02d4f"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_pad.stl",
+          "sha256": "c4ca545b80cd03fc2f9a025e38462cb2079b2ca76c3b777782fc4d7ed4e541f8"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_mesh.stl",
+          "sha256": "749770567bfedf88c811ba56ebb4c6775a35ed3eb6cea2277d8d4e6ded0d134d"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_shell.stl",
+          "sha256": "711264b204e9f786b4de92b5eb11cd8941e936d12e02634e9e2c58c556807bb5"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_pad.stl",
+          "sha256": "3a4e871119fd579e52faf75780c6c69867e2752c8baf8b4d7e798624fdcf2df6"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_mesh.stl",
+          "sha256": "2b7f494c9d08af63836cf9fd27410c715463b62d7c0fb5b186258c1636af15b6"
+        }
+      ],
+      "previewHash": "6677587662c77ec17b63fb4aa0d718dfa1bcfa66c334d05c19ca889cc5e6170e",
+      "preview": "/designs/softgoods/r1/M-r0/assembly.png"
+    },
+    {
+      "frame": {
+        "size": "L",
+        "revision": "r0",
+        "height": 500,
+        "width": 340,
+        "rail": 600,
+        "tube": 25,
+        "plate": 6,
+        "bridgeX": 60,
+        "frontX": -520,
+        "travel": 0
+      },
+      "setup": {
+        "legWidth": 60,
+        "legLength": 95,
+        "slingWidth": 290,
+        "slingLength": 175,
+        "drop": 70,
+        "chest": 880
+      },
+      "assets": [
+        {
+          "file": "softgoods/cost-notes.md",
+          "sha256": "af8b0e60e7bac5aa998b53f9b5daf56f06aea85018ed673e97cb2a2cab66fd25"
+        },
+        {
+          "file": "softgoods/setup.json",
+          "sha256": "efdfdeac8bfc762916868259ab5c0a29954181d04438fbfb45498bba3798e67d"
+        },
+        {
+          "file": "softgoods/assembly.md",
+          "sha256": "37d36aec36cd8aa29a1c6f51d9ba44ec2ca826c0735ebb17e408777e9f01f582"
+        },
+        {
+          "file": "softgoods/textile-bom.csv",
+          "sha256": "c5d50765e65c02ad21e2e742dd44936d5b640d857caf137245e6d3a78e0a788c"
+        },
+        {
+          "file": "softgoods/parts.scad",
+          "sha256": "b830bfe017a01555c84d964d00bf9e4c76217d656a4da49f3cfd4603fd6513ed"
+        },
+        {
+          "file": "softgoods/saddle-shell.svg",
+          "sha256": "382309b9bee144fca67e01fe5322519d8b2ac93120f41f1a7a7b1672f1c570e4"
+        },
+        {
+          "file": "softgoods/front-bib.svg",
+          "sha256": "0d03ce8161a8bef159d41b34c11ef6cb3c94c0946419f64ae1519af4b0d4b65a"
+        },
+        {
+          "file": "softgoods/saddle-shell.dxf",
+          "sha256": "e46a55cf9ce739ee329f5c3d5d85c156275e0dafcfcba43e5609d7a95122a157"
+        },
+        {
+          "file": "softgoods/front-bib.dxf",
+          "sha256": "4ba5de4fa03b7bc2aee2d15a4269ca8fbe70fed6fda349519e05a45b7e0a9f73"
+        },
+        {
+          "file": "softgoods/closure-tabs.svg",
+          "sha256": "acd0915ca9424a61b2f51722151d28f2d3718a3230149357ecb1f4262f2325ef"
+        },
+        {
+          "file": "softgoods/pattern-tiles.html",
+          "sha256": "1fca6b1835ac06f003ab5162bf7cef205ff96502cbb8c74419188611cb461a7c"
+        },
+        {
+          "file": "assembly-with-softgoods.scad",
+          "sha256": "4e7014ace69d9b8b5733d966cc1d04eabfce5ddb584b7fa386e88565cb7a6b6a"
+        },
+        {
+          "file": "softgoods/chafe-rail.svg",
+          "sha256": "98500e259e8d661adc63f8877b4121a68989f2dc3eaa290cfd8b6e347403c62f"
+        },
+        {
+          "file": "softgoods/chafe-bridge.svg",
+          "sha256": "1c26948a12ac9df5fdb07164e6d47422029b1dcd1d44886ecdae9809e34a0015"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_shell.stl",
+          "sha256": "031095a8249670ae311e5a630893326f8d7f509fe0b8a518b2800c3ab851fbd2"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_pad.stl",
+          "sha256": "478a7937bc8083ba3f1578bc3421fc6cbf0a1faa3cba0f46b108f3f93c2a4183"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_mesh.stl",
+          "sha256": "324acb76700b8774a113fc9de3de060ef91c2253240117fcd97b5c69517998fd"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_shell.stl",
+          "sha256": "2636071d5df7ed43bc2c56f76a18b500e7c34424baf9ae43624a367ea059563e"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_pad.stl",
+          "sha256": "acba3178ca8e40f259a98bcd894f9baf67e4b50e5ebe4a917bc588a925f24e8c"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_mesh.stl",
+          "sha256": "a866343f20b432a5df43b9175fd6a4d0d90f315f2e992f47d6dd4dbf6ffe3afd"
+        }
+      ],
+      "previewHash": "35551f8dac7e5797a2b350e0c5d493c1df513f4bca530e5c9791468cb218b8ac",
+      "preview": "/designs/softgoods/r1/L-r0/assembly.png"
+    },
+    {
+      "frame": {
+        "size": "XL",
+        "revision": "r0",
+        "height": 620,
+        "width": 400,
+        "rail": 680,
+        "tube": 25,
+        "plate": 6,
+        "bridgeX": 60,
+        "frontX": -600,
+        "travel": 0
+      },
+      "setup": {
+        "legWidth": 75,
+        "legLength": 120,
+        "slingWidth": 350,
+        "slingLength": 220,
+        "drop": 90,
+        "chest": 1065
+      },
+      "assets": [
+        {
+          "file": "softgoods/cost-notes.md",
+          "sha256": "4bc75c031fda3b6faa6c548c14385b9872b4a267a662c2c87b073fb9fa6865e0"
+        },
+        {
+          "file": "softgoods/setup.json",
+          "sha256": "fea5bb080c4fee9a8b17b8c70541945b44968e841e068dd85dd0a610bea9ab77"
+        },
+        {
+          "file": "softgoods/assembly.md",
+          "sha256": "db43e7ae70ebcdb8546fe20354a3f7daeaed1c86655daf8202141b49124b70e3"
+        },
+        {
+          "file": "softgoods/textile-bom.csv",
+          "sha256": "0260ade8cfd48ff551f87a4b82b929ddc338df509f3cb02a1b1c555b884feff7"
+        },
+        {
+          "file": "softgoods/parts.scad",
+          "sha256": "930a71059e927706a64f79dcce9d9d149aa3cfd729851d670823cfd0d4e9f064"
+        },
+        {
+          "file": "softgoods/saddle-shell.svg",
+          "sha256": "f38b857db2a19d63f39396dbd194185c521be6bd82cb1380bec3e57c30e20a2d"
+        },
+        {
+          "file": "softgoods/front-bib.svg",
+          "sha256": "c66126788c4046f65aa7c294d3223bfb027dfb04cd8670ee0930f37128e156fb"
+        },
+        {
+          "file": "softgoods/saddle-shell.dxf",
+          "sha256": "41bd4c4553b63d55640b74935bdd9d11f7715eb607ade6ec631524aeeba52a43"
+        },
+        {
+          "file": "softgoods/front-bib.dxf",
+          "sha256": "f4b891e945c3e83e9dca44b527e4e3715aaa6830cc5b385534b04016b7ddbb30"
+        },
+        {
+          "file": "softgoods/closure-tabs.svg",
+          "sha256": "acd0915ca9424a61b2f51722151d28f2d3718a3230149357ecb1f4262f2325ef"
+        },
+        {
+          "file": "softgoods/pattern-tiles.html",
+          "sha256": "be1a6e858741c7bf1961eafecbec735810c3e9f338ecc65fe9a78828c0c10e65"
+        },
+        {
+          "file": "assembly-with-softgoods.scad",
+          "sha256": "4e7014ace69d9b8b5733d966cc1d04eabfce5ddb584b7fa386e88565cb7a6b6a"
+        },
+        {
+          "file": "softgoods/chafe-rail.svg",
+          "sha256": "98500e259e8d661adc63f8877b4121a68989f2dc3eaa290cfd8b6e347403c62f"
+        },
+        {
+          "file": "softgoods/chafe-bridge.svg",
+          "sha256": "1c26948a12ac9df5fdb07164e6d47422029b1dcd1d44886ecdae9809e34a0015"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_shell.stl",
+          "sha256": "ce7f7ab6080f58057576c3acc5dadde3fe86402b64bd8892f3933cf3fa9aca77"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_pad.stl",
+          "sha256": "e253e9428c38dd250bfee42e884bd9d3d408189135a0e3f7e60e63116d357d17"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_mesh.stl",
+          "sha256": "ab188a8c86328434f36afe956d75e5d6ab1c8dde2cf2ec58883084b3d8d70f51"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_shell.stl",
+          "sha256": "eda4dda6b79200b2f05b76353e27c1422abb3414f34d94e93d53ed033a54f780"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_pad.stl",
+          "sha256": "ead336db14dfbebd1909e2036036173eaffd004be9b229d6535e1287577d6f76"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_mesh.stl",
+          "sha256": "aa415cab9bce762efd1d2a640a1e29c0531ab088d0f3827fa27388aae578b7fd"
+        }
+      ],
+      "previewHash": "34af7e67d2d120b02c52640597d95503f53db168e8643f32061d4bf964665839",
+      "preview": "/designs/softgoods/r1/XL-r0/assembly.png"
+    },
+    {
+      "frame": {
+        "size": "XL",
+        "revision": "r1",
+        "height": 620,
+        "width": 400,
+        "rail": 680,
+        "tube": 25.4,
+        "plate": 3.175,
+        "bridgeX": 120,
+        "frontX": -480,
+        "travel": 0
+      },
+      "setup": {
+        "legWidth": 75,
+        "legLength": 120,
+        "slingWidth": 350,
+        "slingLength": 220,
+        "drop": 90,
+        "chest": 1065
+      },
+      "assets": [
+        {
+          "file": "softgoods/cost-notes.md",
+          "sha256": "690faddec49dae53e3711722e4f4a23626cce31fc0480545439d8b18b32810ac"
+        },
+        {
+          "file": "softgoods/setup.json",
+          "sha256": "ba78279b209381d05b8b624f7abb3489918f46b9bb9d0093d08a6665d35e94a0"
+        },
+        {
+          "file": "softgoods/assembly.md",
+          "sha256": "61c2c6e8d9b2644e5b8a469cf462845619253f10672cd744a5c62ff905594b1a"
+        },
+        {
+          "file": "softgoods/textile-bom.csv",
+          "sha256": "3a64538b95aeb3a3d97d3fe521debefe1fb28c8153e1a97820803c4ff02a4718"
+        },
+        {
+          "file": "softgoods/parts.scad",
+          "sha256": "8590a1318ab4d9136063fd631276d325b719c9f299ea250a94844441c118c574"
+        },
+        {
+          "file": "softgoods/saddle-shell.svg",
+          "sha256": "f38b857db2a19d63f39396dbd194185c521be6bd82cb1380bec3e57c30e20a2d"
+        },
+        {
+          "file": "softgoods/front-bib.svg",
+          "sha256": "c66126788c4046f65aa7c294d3223bfb027dfb04cd8670ee0930f37128e156fb"
+        },
+        {
+          "file": "softgoods/saddle-shell.dxf",
+          "sha256": "41bd4c4553b63d55640b74935bdd9d11f7715eb607ade6ec631524aeeba52a43"
+        },
+        {
+          "file": "softgoods/front-bib.dxf",
+          "sha256": "f4b891e945c3e83e9dca44b527e4e3715aaa6830cc5b385534b04016b7ddbb30"
+        },
+        {
+          "file": "softgoods/closure-tabs.svg",
+          "sha256": "acd0915ca9424a61b2f51722151d28f2d3718a3230149357ecb1f4262f2325ef"
+        },
+        {
+          "file": "softgoods/pattern-tiles.html",
+          "sha256": "4d7efd743cc71bb7f819b8f1d8ee86ea5256de07623e6fa86973e0c4c0aba2b3"
+        },
+        {
+          "file": "assembly-with-softgoods.scad",
+          "sha256": "4e7014ace69d9b8b5733d966cc1d04eabfce5ddb584b7fa386e88565cb7a6b6a"
+        },
+        {
+          "file": "softgoods/chafe-rail.svg",
+          "sha256": "130f259746d714960c4fcea31e45b235f02af8c82f420ee908472d133b6bcbb0"
+        },
+        {
+          "file": "softgoods/chafe-bridge.svg",
+          "sha256": "12c732616bf9445897c85e2a9d7a5d0458949e09da6ce7804df1c9c839a47572"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_shell.stl",
+          "sha256": "ce7f7ab6080f58057576c3acc5dadde3fe86402b64bd8892f3933cf3fa9aca77"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_pad.stl",
+          "sha256": "e253e9428c38dd250bfee42e884bd9d3d408189135a0e3f7e60e63116d357d17"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_mesh.stl",
+          "sha256": "ab188a8c86328434f36afe956d75e5d6ab1c8dde2cf2ec58883084b3d8d70f51"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_shell.stl",
+          "sha256": "eda4dda6b79200b2f05b76353e27c1422abb3414f34d94e93d53ed033a54f780"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_pad.stl",
+          "sha256": "ead336db14dfbebd1909e2036036173eaffd004be9b229d6535e1287577d6f76"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_mesh.stl",
+          "sha256": "aa415cab9bce762efd1d2a640a1e29c0531ab088d0f3827fa27388aae578b7fd"
+        }
+      ],
+      "previewHash": "7cc592f676282bf454be9b8a734a45450683b76668576b179791d7d447f4be87",
+      "preview": "/designs/softgoods/r1/XL-r1/assembly.png"
+    },
+    {
+      "frame": {
+        "size": "XL",
+        "revision": "r2",
+        "height": 620,
+        "width": 400,
+        "rail": 680,
+        "tube": 25.4,
+        "plate": 3.175,
+        "bridgeX": 120,
+        "frontX": -480,
+        "travel": 0
+      },
+      "setup": {
+        "legWidth": 75,
+        "legLength": 120,
+        "slingWidth": 350,
+        "slingLength": 220,
+        "drop": 90,
+        "chest": 1065
+      },
+      "assets": [
+        {
+          "file": "softgoods/cost-notes.md",
+          "sha256": "9b005b9f856eaf627084c8afe5b2ff062a80215ea76cda2465f8d20d548df318"
+        },
+        {
+          "file": "softgoods/setup.json",
+          "sha256": "b778e2ea1c1b651338828666375878476e7b2b5e1a5acd66d5832212775a0074"
+        },
+        {
+          "file": "softgoods/assembly.md",
+          "sha256": "16d4bfe8f8cd0bccc6aa4704e8870ac6d9a2403f066e4933a539b65acbf2591b"
+        },
+        {
+          "file": "softgoods/textile-bom.csv",
+          "sha256": "3a64538b95aeb3a3d97d3fe521debefe1fb28c8153e1a97820803c4ff02a4718"
+        },
+        {
+          "file": "softgoods/parts.scad",
+          "sha256": "8590a1318ab4d9136063fd631276d325b719c9f299ea250a94844441c118c574"
+        },
+        {
+          "file": "softgoods/saddle-shell.svg",
+          "sha256": "f38b857db2a19d63f39396dbd194185c521be6bd82cb1380bec3e57c30e20a2d"
+        },
+        {
+          "file": "softgoods/front-bib.svg",
+          "sha256": "c66126788c4046f65aa7c294d3223bfb027dfb04cd8670ee0930f37128e156fb"
+        },
+        {
+          "file": "softgoods/saddle-shell.dxf",
+          "sha256": "41bd4c4553b63d55640b74935bdd9d11f7715eb607ade6ec631524aeeba52a43"
+        },
+        {
+          "file": "softgoods/front-bib.dxf",
+          "sha256": "f4b891e945c3e83e9dca44b527e4e3715aaa6830cc5b385534b04016b7ddbb30"
+        },
+        {
+          "file": "softgoods/closure-tabs.svg",
+          "sha256": "acd0915ca9424a61b2f51722151d28f2d3718a3230149357ecb1f4262f2325ef"
+        },
+        {
+          "file": "softgoods/pattern-tiles.html",
+          "sha256": "4d7efd743cc71bb7f819b8f1d8ee86ea5256de07623e6fa86973e0c4c0aba2b3"
+        },
+        {
+          "file": "assembly-with-softgoods.scad",
+          "sha256": "4e7014ace69d9b8b5733d966cc1d04eabfce5ddb584b7fa386e88565cb7a6b6a"
+        },
+        {
+          "file": "softgoods/chafe-rail.svg",
+          "sha256": "130f259746d714960c4fcea31e45b235f02af8c82f420ee908472d133b6bcbb0"
+        },
+        {
+          "file": "softgoods/chafe-bridge.svg",
+          "sha256": "12c732616bf9445897c85e2a9d7a5d0458949e09da6ce7804df1c9c839a47572"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_shell.stl",
+          "sha256": "ce7f7ab6080f58057576c3acc5dadde3fe86402b64bd8892f3933cf3fa9aca77"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_pad.stl",
+          "sha256": "e253e9428c38dd250bfee42e884bd9d3d408189135a0e3f7e60e63116d357d17"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_rear_mesh.stl",
+          "sha256": "ab188a8c86328434f36afe956d75e5d6ab1c8dde2cf2ec58883084b3d8d70f51"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_shell.stl",
+          "sha256": "eda4dda6b79200b2f05b76353e27c1422abb3414f34d94e93d53ed033a54f780"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_pad.stl",
+          "sha256": "ead336db14dfbebd1909e2036036173eaffd004be9b229d6535e1287577d6f76"
+        },
+        {
+          "file": "softgoods/TEXTILE_REFERENCE_ONLY_front_mesh.stl",
+          "sha256": "aa415cab9bce762efd1d2a640a1e29c0531ab088d0f3827fa27388aae578b7fd"
+        }
+      ],
+      "previewHash": "09fbe0c7ca3cd0f6e01e6ebcbde86252f9446d2685a39df4bf451b1a8b0dea7c",
+      "preview": "/designs/softgoods/r1/XL-r2/assembly.png"
+    }
+  ]
+}

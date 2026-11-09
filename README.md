@@ -2,7 +2,7 @@
 
 A repairable dog-mobility business and native Stacks storefront, inspired by Buddy. Live at [buddywheels.org](https://buddywheels.org).
 
-The storefront includes five wheelchair size families, Buddy Rover Run/Coast/Snow/All-season configurations, a local fit guide and a shared basket. Product pages have mobile basket actions; the basket supports automatic quantity updates, removal and product-specific images. **Ordering is not open: no orders, reservations, deposits or payments are accepted.** Physical products are still design concepts with no qualified ratings or production files.
+The storefront includes five wheelchair size families, Buddy Rover Run/Coast/Snow/All-season configurations, a local fit guide and a shared basket. Product pages have mobile basket actions; the basket supports automatic quantity updates, removal and product-specific images. **Ordering is not open: no orders, reservations, deposits or payments are accepted.** Physical products are still design concepts with no qualified ratings or production release.
 
 Start with the [project documents](docs/README.md), [business plan](docs/business/business-plan.md), [wheelchair development plan](docs/product/product-development.md), [Buddy Rover brief](docs/product/buddy-rover.md) and [validation gates](docs/product/validation.md).
 
@@ -49,3 +49,7 @@ The [visual fit guide](https://buddywheels.org/fit-guide) includes an interactiv
 ## XL r1 standard-parts redesign
 
 [Inspect XL r1](https://buddywheels.org/design-studio-xl): a separate cut-to-fit rigid bench frame with standard tube/shafts, two repeated metal profiles and nonstructural prints. [Priced cost model](docs/business/xl-standard-r1-costs.md): $180.01 per chair at 100 units, mostly unquoted allowances, with customer-paid outbound shipping. This is not a verified price or an animal-use release. The [r2 spring-cartridge studio](https://buddywheels.org/design-studio-xl-suspension) explores a lower-cost preload-adjustable option, with [separate checked cost scenarios](docs/business/xl-spring-r2-costs.md). Native rebuild: `./buddy design:xl-standard --export --openscad /absolute/path/to/OpenSCAD`.
+
+## Complete support and harness design
+
+All seven studio configurations now include a woven rear saddle, removable spacer-mesh and padding, a front bib/harness, webbing, wraps, adjusters and cover closures. [Cut/sew instructions](docs/engineering/softgoods-xl-r1.md) and [scope and verification](docs/engineering/softgoods-plan.md) explain the material layers, exact patterns and remaining physical qualification. Each configured kit includes 1:1 SVG/DXF patterns, printable paper tiles, a textile BOM and assembled CAD. Textile reference STLs are inspection volumes, not printable harnesses. Native rebuild: `./buddy design:softgoods --openscad /absolute/path/to/OpenSCAD`.

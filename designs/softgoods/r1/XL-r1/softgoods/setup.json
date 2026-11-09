@@ -1,0 +1,34 @@
+{
+  "revision": "textile-r1",
+  "frame": {
+    "size": "XL",
+    "revision": "r1",
+    "height": 620,
+    "width": 400,
+    "rail": 680,
+    "tube": 25.4,
+    "plate": 3.175,
+    "bridgeX": 120,
+    "frontX": -480,
+    "travel": 0
+  },
+  "setup": {
+    "legWidth": 75,
+    "legLength": 120,
+    "slingWidth": 350,
+    "slingLength": 220,
+    "drop": 90,
+    "chest": 1065
+  },
+  "dimensions": {
+    "legWidth": 75,
+    "legLength": 120,
+    "legCenter": 85.75,
+    "notch": 30,
+    "corner": 20,
+    "bibWidth": 159.75,
+    "bibLength": 213,
+    "webbing": 25.4
+  },
+  "status": "BENCH_ONLY_NOT_ANIMAL_USE"
+}

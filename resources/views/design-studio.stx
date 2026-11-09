@@ -3,6 +3,8 @@
 @section('description', 'Explore every Buddy wheelchair size in 3D, from XS to XL. Configure frame dimensions and suspension, inspect printable parts and download matching assembly instructions.')
 @section('social_image', 'https://buddywheels.org/designs/xl/r0/assembly.png')
 <script server>
+import {splitSoft as splitServerSoft,parseSoft as parseServerSoft,softStart as serverSoftStart} from '~/app/Designs/SoftGoods'
+import {xlSoftFrame as xlServerSoftFrame,studioSoftFrame as studioServerSoftFrame} from '~/app/Designs/SoftGoodsFrame'
 import { splitFinish as splitServerFinish, finishQuery as serverFinishQuery, defaultFinish as serverDefaultFinish } from '~/app/Storefront/Finish'
 export let initialFinish = serverDefaultFinish
 try { initialFinish = splitServerFinish(requestContext.query()).finish } catch {}
@@ -10,6 +12,8 @@ const finishForm = 'studio-download'
 import { publicPath } from '@stacksjs/path'
 import { parseStudioSetup as parseServerSetup, parseStudioSize as parseServerSize, studioStartingSetup as startingServerSetup, studioSetupQuery as serverSetupQuery, studioPartNames as serverPartNames, studioSizes as serverSizes, studioSizeNames as serverSizeNames, studioDimensionLimits as serverLimits } from '~/app/Designs/StudioSetup'
 import { cadParts } from '~/app/Designs/WheelchairParameters'
+const textileManifest = await Bun.file(publicPath('designs/softgoods/r1/manifest.json')).json()
+export const textilePreviews = Object.fromEntries(textileManifest.records.filter((record:{frame:{size:string,revision:string},preview:string,previewHash:string})=>record.frame.revision === 'r0').map((record:{frame:{size:string,revision:string},preview:string,previewHash:string})=>[record.frame.size,{url:record.preview,hash:record.previewHash}]))
 export const assetRevisions = Object.fromEntries(await Promise.all(serverSizes.map(async size => [size, (await Bun.file(publicPath('designs/' + size.toLowerCase() + '/r0/manifest.json')).json()).sourceHash.slice(0, 16)])))
 const parts = cadParts.map(part => ({ ...part, name: serverPartNames[part.id] || part.id }))
 const printParts = parts.filter(part => part.category !== 'metal')
@@ -18,7 +22,7 @@ const sizeChoices = serverSizes.map(size => ({ size, name: serverSizeNames[size]
 export let initialSetup = startingServerSetup('XL')
 export let initialError = ''
 try {
-  const { size = 'XL', ...fields } = splitServerFinish(requestContext.query()).configuration
+  const { size = 'XL', ...fields } = splitServerSoft(splitServerFinish(requestContext.query()).configuration).frame
   const selected = parseServerSize(size)
   initialSetup = startingServerSetup(selected)
   initialSetup = parseServerSetup(fields, selected)
@@ -26,21 +30,30 @@ try {
 catch { initialError = 'Those settings could not be loaded. The selected family’s starting dimensions are shown.' }
 const initialLimits = serverLimits[initialSetup.size]
 const initialAssetRoot = '/designs/' + initialSetup.size.toLowerCase() + '/r0'
+const initialTextilePoster=textilePreviews[initialSetup.size].url+'?v='+textilePreviews[initialSetup.size].hash
 const initialRevision = assetRevisions[initialSetup.size]
 const initialEndpoint = '/api/designs/' + initialSetup.size.toLowerCase()
 const initialAssembly = initialEndpoint + '/assembly?' + serverSetupQuery(initialSetup) + '&' + serverFinishQuery(initialFinish)
-defineClientPayload({ initialFinish, assetRevisions, initialSetup, initialError })
+export let initialGoods = serverSoftStart(studioServerSoftFrame(initialSetup))
+try { initialGoods = parseServerSoft(splitServerSoft(requestContext.query()).soft,studioServerSoftFrame(initialSetup)) } catch { initialError = 'Some textile dimensions could not be loaded. The starting textile layout is shown.' }
+const textileForm = 'studio-download'
+defineClientPayload({ textilePreviews, initialGoods, initialFinish, assetRevisions, initialSetup, initialError })
 </script>
 <script client>
+import {softScene} from '~/app/Designs/SoftGoodsScene'
+import {softStart,parseSoft,softLimits,softQuery,textilePreviewSvg,textileDataUrl} from '~/app/Designs/SoftGoods'
+import {xlSoftFrame,studioSoftFrame} from '~/app/Designs/SoftGoodsFrame'
 import { finishScene, finishQuery } from '~/app/Storefront/Finish'
 const accent = state(initialFinish.accent)
 const trim = state(initialFinish.trim)
 const finish = derived(() => ({ accent: accent(), trim: trim() }))
+import type {SoftSetup} from '~/app/Designs/SoftGoods'
 import type { StudioSetup, StudioSize } from '~/app/Designs/StudioSetup'
 import { createStudioScene } from '~/app/Designs/StudioScene'
 import { parseStudioSetup, parseStudioSize, studioStartingSetup, studioSetupQuery, studioSetupFamily, studioPartNames, studioDimensionLimits, studioSizeNames } from '~/app/Designs/StudioSetup'
 const size = state<StudioSize>(initialSetup.size)
 const saved = state<Partial<Record<StudioSize, StudioSetup>>>({})
+const savedTextiles = state<Partial<Record<StudioSize, SoftSetup>>>({})
 const height = state(initialSetup.height)
 const width = state(initialSetup.width)
 const rail = state(initialSetup.rail)
@@ -59,12 +72,28 @@ effect(() => { if (locked()) travel.set(0) })
 effect(() => { const next = parsed().value; if (next) lastValid.set(next) })
 const family = derived(() => studioSetupFamily(lastValid()))
 const limits = derived(() => studioDimensionLimits[size()])
-const poster = derived(() => '/designs/' + size().toLowerCase() + '/r0/assembly.png?v=' + assetRevisions[size()])
+const poster = derived(() => textilePreviews[size()].url + '?v=' + textilePreviews[size()].hash)
 const modelLabel = derived(() => 'Buddy ' + size() + ' adjustable wheelchair bench design')
-const scene = derived(() => finishScene(createStudioScene(lastValid(), focus(), exploded(), assetRevisions[lastValid().size]), finish()))
-const sceneName = derived(() => focus() === 'assembly' ? 'Complete ' + size() + ' frame' : focus() === 'suspension' ? size() + ' suspension detail' : size() + ' · ' + (studioPartNames[focus()] || 'Wheelchair part'))
-const query = derived(() => studioSetupQuery(lastValid()) + '&' + finishQuery(finish()))
+const slingWidth = state(initialGoods.slingWidth)
+const slingLength = state(initialGoods.slingLength)
+const legWidth = state(initialGoods.legWidth)
+const legLength = state(initialGoods.legLength)
+const supportDrop = state(initialGoods.drop)
+const chestGirth = state(initialGoods.chest)
+const showTextiles = state(true)
+const textileFrame = derived(() => studioSoftFrame(lastValid()))
+const goodsBounds = derived(() => softLimits(textileFrame()))
+const goodsState = derived(() => {try {return {setup:parseSoft({slingWidth:slingWidth(),slingLength:slingLength(),legWidth:legWidth(),legLength:legLength(),drop:supportDrop(),chest:chestGirth()},textileFrame()),error:''}} catch(e){return {setup:softStart(textileFrame()),error:e instanceof Error?e.message:'Check textile dimensions.'}}})
+const rearPattern = derived(() => textileDataUrl(new TextEncoder().encode(textilePreviewSvg(goodsState().setup))).replace('application/octet-stream','image/svg+xml'))
+const frontPattern = derived(() => textileDataUrl(new TextEncoder().encode(textilePreviewSvg(goodsState().setup,true))).replace('application/octet-stream','image/svg+xml'))
+function applyTextiles(start:SoftSetup):void {batch(()=>{slingWidth.set(start.slingWidth);slingLength.set(start.slingLength);legWidth.set(start.legWidth);legLength.set(start.legLength);supportDrop.set(start.drop);chestGirth.set(start.chest)})}
+function resetTextiles():void {applyTextiles(softStart(textileFrame()))}
+const frameScene = derived(() => finishScene(createStudioScene(lastValid(), focus(), exploded(), assetRevisions[lastValid().size]), finish()))
+const scene = derived(() => focus() === 'softgoods' ? softScene(textileFrame(),goodsState().setup,finish()) : focus() === 'assembly' && showTextiles() ? {nodes:[...frameScene().nodes,...softScene(textileFrame(),goodsState().setup,finish()).nodes]} : frameScene())
+const sceneName = derived(() => focus() === 'softgoods' ? 'Rear support and front harness' : focus() === 'assembly' ? 'Complete ' + size() + ' frame' : focus() === 'suspension' ? size() + ' suspension detail' : size() + ' · ' + (studioPartNames[focus()] || 'Wheelchair part'))
+const query = derived(() => studioSetupQuery(lastValid()) + '&' + finishQuery(finish()) + '&' + softQuery(goodsState().setup))
 const endpoint = derived(() => '/api/designs/' + size().toLowerCase())
+const textileUrl = derived(() => endpoint() + '/textiles?' + query())
 const sizeName = derived(() => studioSizeNames[size()])
 const assemblyUrl = derived(() => endpoint() + '/assembly?' + query())
 const profileUrl = derived(() => endpoint() + '/profile?' + query())
@@ -76,7 +105,9 @@ function inspect(part: string): void {
   void nextTick(() => { modelArea.current?.scrollIntoView({ block: 'start', behavior: 'instant' }); modelArea.current?.focus({ preventScroll: true }) })
 }
 function applySetup(next: StudioSetup): void {
-  batch(() => { size.set(next.size); height.set(next.height); width.set(next.width); rail.set(next.rail); setting.set(next.setting); travel.set(next.travel); locked.set(next.locked); lastValid.set(next) })
+  savedTextiles.update(current=>({...current,[size()]:goodsState().setup}))
+  const nextTextiles=savedTextiles()[next.size]??softStart(studioSoftFrame(next))
+  batch(() => { size.set(next.size); height.set(next.height); width.set(next.width); rail.set(next.rail); setting.set(next.setting); travel.set(next.travel); locked.set(next.locked); lastValid.set(next);applyTextiles(nextTextiles) })
 }
 function selectSize(value: string): void {
   const next = parseStudioSize(value)
@@ -106,10 +137,11 @@ function reset(): void {
       <section ref="modelArea" tabindex="-1" class="studio-visual" aria-label="3D inspection">
         <div class="studio-view-heading"><h2>{{ sceneName() }}</h2><label class="studio-check"><input type="checkbox" x-model="exploded" :disabled="focus() !== 'assembly' && focus() !== 'suspension'">Separate plates</label></div>
         <ModelViewer :scene="scene()" :label="modelLabel()" :poster="poster()" className="buddy-model" />
-        <noscript><img src="{{ initialAssetRoot }}/assembly.png" alt="Buddy {{ initialSetup.size }} bench frame drawing" width="1400" height="1000" class="studio-noscript"><p>Enable JavaScript for interactive 3D. The starting-design kit remains available below.</p></noscript>
-        <div class="studio-view-options" role="group" aria-label="Inspection scope"><button type="button" :aria-pressed="focus() === 'assembly'" @click="focus.set('assembly')">Whole frame</button><button type="button" :aria-pressed="focus() === 'suspension'" @click="focus.set('suspension')">Suspension close-up</button></div>
+        <noscript><img src="{{ initialTextilePoster }}" alt="Buddy {{ initialSetup.size }} bench frame with rear support, mesh and front harness" width="1400" height="1000" class="studio-noscript"><p>Enable JavaScript for interactive 3D. The starting-design kit remains available below.</p></noscript>
+        <label class="studio-check"><input type="checkbox" x-model="showTextiles" :disabled="focus() !== 'assembly'">Show support and harness</label>
+      <div class="studio-view-options" role="group" aria-label="Inspection scope"><button type="button" :aria-pressed="focus() === 'assembly'" @click="focus.set('assembly')">Whole frame</button><button type="button" :aria-pressed="focus() === 'suspension'" @click="focus.set('suspension')">Suspension close-up</button><button type="button" :aria-pressed="focus() === 'softgoods'" @click="focus.set('softgoods')">Supports and harness</button></div>
         <dl class="studio-readout"><div><dt>Inside rail clearance</dt><dd><strong>{{ lastValid().width - family().tube }}</strong> <span>mm</span></dd></div><div><dt>Overall tire width</dt><dd><strong>{{ lastValid().width + 2 * family().wheelOffset + family().tireWidth }}</strong> <span>mm</span></dd></div><div><dt>Individual part print bed</dt><dd>220 × 220 <span>mm</span></dd></div></dl>
-        <p class="muted studio-model-note">Metal frame and suspension cheeks. Printable service parts. Pins, wheels and shock are nominal envelopes; the fitted harness and full guarding are still to be designed.</p>
+        <p class="muted studio-model-note">The woven rear support, mesh, padding, front harness, webbing and frame wraps are included. Pins, wheels and shock remain nominal envelopes. This is a bench assembly, with no fabric, pressure or support-force simulation.</p>
       </section>
       <aside class="studio-controls" aria-label="Wheelchair design controls">
         <div class="studio-control-heading"><h2>Shape their frame.</h2><button type="button" class="studio-reset" @click="reset()">Reset setup</button></div>
@@ -125,9 +157,10 @@ function reset(): void {
           <div class="studio-travel"><label for="studio-travel">Travel preview <output>{{ travel() }}°</output></label><input id="studio-travel" name="travel" form="studio-download" type="range" min="-3" max="6" step="0.5" value="{{ initialSetup.travel }}" x-model.number="travel" :disabled="locked()"><div class="studio-range-ends"><span>Droop, -3°</span><span>Bump, +6°</span></div></div>
           <label class="studio-lock"><input type="checkbox" name="locked" form="studio-download" value="true" x-model="locked"><span><strong>Show the neutral lock installed</strong><small>Holds the inspection pose at zero travel.</small></span></label>
         </fieldset>
-        @include('../partials/finish-controls')
+        @include('../partials/softgoods-controls')
+      @include('../partials/finish-controls')
         <p class="studio-validation" :if="parsed().error" role="alert">{{ parsed().error }} The preview keeps your last valid setup.</p>
-        <form id="studio-download" class="studio-download" action="{{ initialEndpoint }}/kit" :action="endpoint() + '/kit'" method="GET"><Button type="submit" variant="bare" class="w-full button-primary" :disabled="!parsed().value"><i class="i-hugeicons-download-01" aria-hidden="true"></i>Download this setup</Button></form>
+        <form id="studio-download" class="studio-download" action="{{ initialEndpoint }}/kit" :action="endpoint() + '/kit'" method="GET"><Button type="submit" variant="bare" class="w-full button-primary" :disabled="!parsed().value || !!goodsState().error"><i class="i-hugeicons-download-01" aria-hidden="true"></i>Download this setup</Button></form>
         <p class="muted studio-download-note">STLs, metal DXFs, editable CAD, parts list and assembly notes. Your frame dimensions are included.</p>
         <div class="studio-file-links"><a href="{{ initialAssembly }}" :href="assemblyUrl()">Assembly notes (.md)</a><a :href="profileUrl()">Setup file (.json)</a></div>
       </aside>

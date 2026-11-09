@@ -3,6 +3,8 @@
 @section('description', 'Inspect the cost-reduced XL rigid-frame redesign, configure manufacturing dimensions and download matching CAD, printable service parts, complete BOM and priced cost assumptions.')
 @section('social_image', 'https://buddywheels.org/designs/xl/r1/assembly.png')
 <script server>
+import {splitSoft as splitServerSoft,parseSoft as parseServerSoft,softStart as serverSoftStart} from '~/app/Designs/SoftGoods'
+import {xlSoftFrame as xlServerSoftFrame,studioSoftFrame as studioServerSoftFrame} from '~/app/Designs/SoftGoodsFrame'
 import { splitFinish as splitServerFinish, finishQuery as serverFinishQuery, defaultFinish as serverDefaultFinish } from '~/app/Storefront/Finish'
 export let initialFinish = serverDefaultFinish
 try { initialFinish = splitServerFinish(requestContext.query()).finish } catch {}
@@ -10,17 +12,26 @@ const finishForm = 'standard-download'
 import { publicPath } from '@stacksjs/path'
 import { parseStandardSetup as parseSetup, standardStart as serverStart, standardParts as parts, standardPartFile as partFile, standardQuery as queryString } from '~/app/Designs/XLStandard'
 import { standardPriceEvidence as evidence } from '~/app/Designs/XLStandardCost'
+const textileManifest = await Bun.file(publicPath('designs/softgoods/r1/manifest.json')).json()
+const textilePreview = textileManifest.records.find((record:{frame:{size:string,revision:string},preview:string,previewHash:string})=>record.frame.size === 'XL' && record.frame.revision === 'r1')
+export const textilePoster = textilePreview.preview + '?v=' + textilePreview.previewHash
 export const revision = (await Bun.file(publicPath('designs/xl/r1/manifest.json')).json()).sourceHash.slice(0,16)
 export let initialSetup = serverStart
 export let initialError = ''
-try { initialSetup = parseSetup(splitServerFinish(requestContext.query()).configuration) }
+try { initialSetup = parseSetup(splitServerSoft(splitServerFinish(requestContext.query()).configuration).frame) }
 catch { initialError = 'Those dimensions could not be loaded. The starting bench configuration is shown.' }
 const initialQuery = queryString(initialSetup) + '&' + serverFinishQuery(initialFinish)
 const printParts = parts.filter(p => p.kind !== 'metal')
 const metalParts = parts.filter(p => p.kind === 'metal')
-defineClientPayload({ initialFinish, revision, initialSetup, initialError })
+export let initialGoods = serverSoftStart(xlServerSoftFrame(initialSetup,'r1'))
+try { initialGoods = parseServerSoft(splitServerSoft(requestContext.query()).soft,xlServerSoftFrame(initialSetup,'r1')) } catch { initialError = 'Some textile dimensions could not be loaded. The starting textile layout is shown.' }
+const textileForm = 'standard-download'
+defineClientPayload({ textilePoster, initialGoods, initialFinish, revision, initialSetup, initialError })
 </script>
 <script client>
+import {softScene} from '~/app/Designs/SoftGoodsScene'
+import {softStart,parseSoft,softLimits,softQuery,textilePreviewSvg,textileDataUrl} from '~/app/Designs/SoftGoods'
+import {xlSoftFrame,studioSoftFrame} from '~/app/Designs/SoftGoodsFrame'
 import { finishScene, finishQuery } from '~/app/Storefront/Finish'
 const accent = state(initialFinish.accent)
 const trim = state(initialFinish.trim)
@@ -43,10 +54,25 @@ const parsed = derived(() => {
 })
 const lastValid = state(initialSetup)
 effect(() => { if (parsed().setup) lastValid.set(parsed().setup!) })
-const scene = derived(() => finishScene(standardScene(lastValid(), focus(), exploded(), revision), finish()))
+const slingWidth = state(initialGoods.slingWidth)
+const slingLength = state(initialGoods.slingLength)
+const legWidth = state(initialGoods.legWidth)
+const legLength = state(initialGoods.legLength)
+const supportDrop = state(initialGoods.drop)
+const chestGirth = state(initialGoods.chest)
+const showTextiles = state(true)
+const textileFrame = derived(() => xlSoftFrame(lastValid(),'r1'))
+const goodsBounds = derived(() => softLimits(textileFrame()))
+const goodsState = derived(() => {try {return {setup:parseSoft({slingWidth:slingWidth(),slingLength:slingLength(),legWidth:legWidth(),legLength:legLength(),drop:supportDrop(),chest:chestGirth()},textileFrame()),error:''}} catch(e){return {setup:softStart(textileFrame()),error:e instanceof Error?e.message:'Check textile dimensions.'}}})
+const rearPattern = derived(() => textileDataUrl(new TextEncoder().encode(textilePreviewSvg(goodsState().setup))).replace('application/octet-stream','image/svg+xml'))
+const frontPattern = derived(() => textileDataUrl(new TextEncoder().encode(textilePreviewSvg(goodsState().setup,true))).replace('application/octet-stream','image/svg+xml'))
+function resetTextiles():void {const start=softStart(textileFrame());batch(()=>{slingWidth.set(start.slingWidth);slingLength.set(start.slingLength);legWidth.set(start.legWidth);legLength.set(start.legLength);supportDrop.set(start.drop);chestGirth.set(start.chest)})}
+const frameScene = derived(() => finishScene(standardScene(lastValid(), focus(), exploded(), revision), finish()))
+const scene = derived(() => focus() === 'softgoods' ? softScene(textileFrame(),goodsState().setup,finish()) : focus() === 'assembly' && showTextiles() ? {nodes:[...frameScene().nodes,...softScene(textileFrame(),goodsState().setup,finish()).nodes]} : frameScene())
 const dimensions = derived(() => standardDimensions(lastValid()))
 const economics = derived(() => standardEconomics(lastValid(), batchQuantity() ? 100 : 1))
-const setupQuery = derived(() => standardQuery(lastValid()) + '&' + finishQuery(finish()))
+const setupQuery = derived(() => standardQuery(lastValid()) + '&' + finishQuery(finish()) + '&' + softQuery(goodsState().setup))
+const textileUrl = derived(() => '/api/designs/xl-r1/textiles?' + setupQuery())
 const assemblyUrl = derived(() => '/api/designs/xl-r1/assembly?' + setupQuery())
 const profileUrl = derived(() => '/api/designs/xl-r1/profile?' + setupQuery())
 const bomUrl = derived(() => '/api/designs/xl-r1/bom?' + setupQuery())
@@ -64,12 +90,13 @@ function reset(): void { batch(() => { height.set(standardStart.height); width.s
   <div class="standard-brief"><strong>Rigid, with pneumatic tires.</strong><p>No independent suspension is included at the $264.50 target. Suspension research remains separate. Frame dimensions change the manufacturing cuts; this version does not telescope after assembly.</p></div>
   <div class="studio-workbench">
     <section class="studio-visual" ref="standardModel" tabindex="-1" aria-label="XL r1 3D inspection">
-      <div class="studio-view-heading"><h2>{{ focus() === 'assembly' ? 'The standard-parts XL' : focus() === 'axle' ? 'Stock axle and retention' : 'Actual r1 part mesh' }}</h2><label class="studio-check"><input type="checkbox" x-model="exploded" :disabled="focus() !== 'assembly' && focus() !== 'axle'">Separate plates</label></div>
-      <ModelViewer :scene="scene()" label="Buddy XL r1 rigid standard-parts bench design" poster="/designs/xl/r1/assembly.png?v={{ revision }}" className="buddy-model" />
-      <noscript><img src="/designs/xl/r1/assembly.png" alt="XL r1 rigid metal frame with pneumatic wheels" width="1400" height="1000" class="studio-noscript"><p>Enable JavaScript to inspect configured geometry. <a href="/api/designs/xl-r1/kit?{{ initialQuery }}">Download the starting-design kit</a>, or use the configured form below.</p></noscript>
-      <div class="studio-view-options" role="group" aria-label="Inspection scope"><button type="button" :aria-pressed="focus() === 'assembly'" @click="focus.set('assembly')">Whole frame</button><button type="button" :aria-pressed="focus() === 'axle'" @click="focus.set('axle')">Axle detail</button></div>
+      <div class="studio-view-heading"><h2>{{ focus() === 'softgoods' ? 'Rear support and front harness' : focus() === 'assembly' ? 'The standard-parts XL' : focus() === 'axle' ? 'Stock axle and retention' : 'Actual r1 part mesh' }}</h2><label class="studio-check"><input type="checkbox" x-model="exploded" :disabled="focus() !== 'assembly' && focus() !== 'axle'">Separate plates</label></div>
+      <ModelViewer :scene="scene()" label="Buddy XL r1 rigid standard-parts bench design" poster="{{ textilePoster }}" className="buddy-model" />
+      <noscript><img src="{{ textilePoster }}" alt="XL r1 rigid metal frame with pneumatic wheels" width="1400" height="1000" class="studio-noscript"><p>Enable JavaScript to inspect configured geometry. <a href="/api/designs/xl-r1/kit?{{ initialQuery }}">Download the starting-design kit</a>, or use the configured form below.</p></noscript>
+      <label class="studio-check"><input type="checkbox" x-model="showTextiles" :disabled="focus() !== 'assembly'">Show support and harness</label>
+      <div class="studio-view-options" role="group" aria-label="Inspection scope"><button type="button" :aria-pressed="focus() === 'assembly'" @click="focus.set('assembly')">Whole frame</button><button type="button" :aria-pressed="focus() === 'axle'" @click="focus.set('axle')">Axle detail</button><button type="button" :aria-pressed="focus() === 'softgoods'" @click="focus.set('softgoods')">Supports and harness</button></div>
       <dl class="studio-readout"><div><dt>Inside rail clearance</dt><dd><strong>{{ (lastValid().width - 25.4).toFixed(1) }}</strong> <span>mm</span></dd></div><div><dt>Overall tire envelope</dt><dd><strong>{{ dimensions().tireWidth.toFixed(1) }}</strong> <span>mm</span></dd></div><div><dt>Inboard axle-end clearance</dt><dd><strong>{{ dimensions().innerAxleClearance.toFixed(1) }}</strong> <span>mm, before guards</span></dd></div></dl>
-      <p class="muted studio-model-note">Mill-finish aluminum, steel profiles and nonstructural printed covers. The complete textile support set is costed; its fitted pattern, anchors and full guarding still need engineering. The model has no suspension or support-force simulation.</p>
+      <p class="muted studio-model-note">Metal frame, printable service parts and the complete candidate rear support and front harness. Mesh, padding, webbing and cut patterns are included. Their seams, hardware, anchors, fit and guarding still need qualification. No load or cloth simulation is shown.</p>
     </section>
     <aside class="studio-controls" aria-label="XL r1 configuration">
       <div class="studio-control-heading"><h2>Cut to their dimensions.</h2><button type="button" class="studio-reset" @click="reset()">Reset setup</button></div><p class="muted studio-intro">These are bench manufacturing dimensions. Buddy’s anatomy is still pending. Measure the actual wheel hub before fabricating an axle.</p>
@@ -79,9 +106,10 @@ function reset(): void { batch(() => { height.set(standardStart.height); width.s
         <div class="studio-field"><div class="studio-field-title"><label for="standard-rail">Side rail length</label><div class="studio-number"><input id="standard-rail" value="{{ initialSetup.rail }}" name="rail" form="standard-download" type="number" min="540" max="820" step="5" required x-model.number="rail"><span>mm</span></div></div><input type="range" min="540" max="820" step="5" aria-label="r1 rail length slider" x-model.number="rail"><p><span>540-820 mm</span><span>{{ (rail() / 25.4).toFixed(1) }} in</span></p></div>
         <div class="standard-hub studio-field"><div class="studio-field-title"><label for="standard-hub">Measured hub through-length</label><div class="studio-number"><input id="standard-hub" value="{{ initialSetup.hub }}" name="hub" form="standard-download" type="number" min="60" max="100" step="0.05" required x-model.number="hub"><span>mm</span></div></div><p>82.55 mm is a provisional layout value. The wheel supplier page does not confirm it. Both actual hubs, bearing faces and washers must be checked.</p></div>
       </fieldset>
+      @include('../partials/softgoods-controls')
       @include('../partials/finish-controls')
       <p class="studio-validation" role="alert" :if="parsed().error">{{ parsed().error }} Preview and links keep the last valid setup.</p>
-      <form id="standard-download" class="studio-download" action="/api/designs/xl-r1/kit" method="GET"><Button type="submit" variant="bare" class="w-full button-primary" :disabled="!parsed().setup"><i class="i-hugeicons-download-01" aria-hidden="true"></i>Download this r1 setup</Button></form>
+      <form id="standard-download" class="studio-download" action="/api/designs/xl-r1/kit" method="GET"><Button type="submit" variant="bare" class="w-full button-primary" :disabled="!parsed().setup || !!goodsState().error"><i class="i-hugeicons-download-01" aria-hidden="true"></i>Download this r1 setup</Button></form>
       <p class="muted studio-download-note">Configured editable CAD, six actual STL types, two metal DXFs, complete BOM, drilling datums, assembly notes and cost assumptions.</p><div class="studio-file-links"><a href="/api/designs/xl-r1/assembly?{{ initialQuery }}" :href="assemblyUrl()">Assembly notes</a><a :href="bomUrl()">Parts list</a><a :href="profileUrl()">Setup JSON</a></div>
     </aside>
   </div>

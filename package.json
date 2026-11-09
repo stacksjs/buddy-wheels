@@ -69,7 +69,7 @@
   },
   "dependencies": {
     "@stacksjs/actions": "^0.75.526",
-    "@stacksjs/browser": "0.75.526",
+    "@stacksjs/browser": "0.75.529",
     "@stacksjs/cli": "0.75.526",
     "@stacksjs/database": "0.75.526",
     "@stacksjs/defaults": "0.75.527",

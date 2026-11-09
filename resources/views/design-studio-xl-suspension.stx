@@ -3,6 +3,8 @@
 @section('description', 'Inspect the XL standard die-spring bench redesign, configure manufacturing dimensions and download matching CAD, printable service parts, complete BOM and priced cost assumptions.')
 @section('social_image', 'https://buddywheels.org/designs/xl/r2/assembly.png')
 <script server>
+import {splitSoft as splitServerSoft,parseSoft as parseServerSoft,softStart as serverSoftStart} from '~/app/Designs/SoftGoods'
+import {xlSoftFrame as xlServerSoftFrame,studioSoftFrame as studioServerSoftFrame} from '~/app/Designs/SoftGoodsFrame'
 import { splitFinish as splitServerFinish, finishQuery as serverFinishQuery, defaultFinish as serverDefaultFinish } from '~/app/Storefront/Finish'
 export let initialFinish = serverDefaultFinish
 try { initialFinish = splitServerFinish(requestContext.query()).finish } catch {}
@@ -10,17 +12,26 @@ const finishForm = 'standard-download'
 import { publicPath } from '@stacksjs/path'
 import { parseSpringSetup as parseSetup, springStart as serverStart, springParts as parts, springPartFile as partFile, springQuery as queryString } from '~/app/Designs/XLSpring'
 import { springEvidence as evidence } from '~/app/Designs/XLSpringCost'
+const textileManifest = await Bun.file(publicPath('designs/softgoods/r1/manifest.json')).json()
+const textilePreview = textileManifest.records.find((record:{frame:{size:string,revision:string},preview:string,previewHash:string})=>record.frame.size === 'XL' && record.frame.revision === 'r2')
+export const textilePoster = textilePreview.preview + '?v=' + textilePreview.previewHash
 export const revision = (await Bun.file(publicPath('designs/xl/r2/manifest.json')).json()).sourceHash.slice(0,16)
 export let initialSetup = serverStart
 export let initialError = ''
-try { initialSetup = parseSetup(splitServerFinish(requestContext.query()).configuration) }
+try { initialSetup = parseSetup(splitServerSoft(splitServerFinish(requestContext.query()).configuration).frame) }
 catch { initialError = 'Those dimensions could not be loaded. The starting bench configuration is shown.' }
 const initialQuery = queryString(initialSetup) + '&' + serverFinishQuery(initialFinish)
 const printParts = parts.filter(p => p.kind !== 'metal')
 const metalParts = parts.filter(p => p.kind === 'metal')
-defineClientPayload({ initialFinish, revision, initialSetup, initialError })
+export let initialGoods = serverSoftStart(xlServerSoftFrame(initialSetup,'r2'))
+try { initialGoods = parseServerSoft(splitServerSoft(requestContext.query()).soft,xlServerSoftFrame(initialSetup,'r2')) } catch { initialError = 'Some textile dimensions could not be loaded. The starting textile layout is shown.' }
+const textileForm = 'standard-download'
+defineClientPayload({ textilePoster, initialGoods, initialFinish, revision, initialSetup, initialError })
 </script>
 <script client>
+import {softScene} from '~/app/Designs/SoftGoodsScene'
+import {softStart,parseSoft,softLimits,softQuery,textilePreviewSvg,textileDataUrl} from '~/app/Designs/SoftGoods'
+import {xlSoftFrame,studioSoftFrame} from '~/app/Designs/SoftGoodsFrame'
 import { finishScene, finishQuery } from '~/app/Storefront/Finish'
 const accent = state(initialFinish.accent)
 const trim = state(initialFinish.trim)
@@ -46,10 +57,25 @@ const parsed = derived(() => {
 })
 const lastValid = state(initialSetup)
 effect(() => { if (parsed().setup) lastValid.set(parsed().setup!) })
-const scene = derived(() => finishScene(springScene(lastValid(), focus(), exploded(), revision), finish()))
+const slingWidth = state(initialGoods.slingWidth)
+const slingLength = state(initialGoods.slingLength)
+const legWidth = state(initialGoods.legWidth)
+const legLength = state(initialGoods.legLength)
+const supportDrop = state(initialGoods.drop)
+const chestGirth = state(initialGoods.chest)
+const showTextiles = state(true)
+const textileFrame = derived(() => xlSoftFrame(lastValid(),'r2'))
+const goodsBounds = derived(() => softLimits(textileFrame()))
+const goodsState = derived(() => {try {return {setup:parseSoft({slingWidth:slingWidth(),slingLength:slingLength(),legWidth:legWidth(),legLength:legLength(),drop:supportDrop(),chest:chestGirth()},textileFrame()),error:''}} catch(e){return {setup:softStart(textileFrame()),error:e instanceof Error?e.message:'Check textile dimensions.'}}})
+const rearPattern = derived(() => textileDataUrl(new TextEncoder().encode(textilePreviewSvg(goodsState().setup))).replace('application/octet-stream','image/svg+xml'))
+const frontPattern = derived(() => textileDataUrl(new TextEncoder().encode(textilePreviewSvg(goodsState().setup,true))).replace('application/octet-stream','image/svg+xml'))
+function resetTextiles():void {const start=softStart(textileFrame());batch(()=>{slingWidth.set(start.slingWidth);slingLength.set(start.slingLength);legWidth.set(start.legWidth);legLength.set(start.legLength);supportDrop.set(start.drop);chestGirth.set(start.chest)})}
+const frameScene = derived(() => finishScene(springScene(lastValid(), focus(), exploded(), revision), finish()))
+const scene = derived(() => focus() === 'softgoods' ? softScene(textileFrame(),goodsState().setup,finish()) : focus() === 'assembly' && showTextiles() ? {nodes:[...frameScene().nodes,...softScene(textileFrame(),goodsState().setup,finish()).nodes]} : frameScene())
 const dimensions = derived(() => springDimensions(lastValid()))
 const economics = derived(() => springEconomics(lastValid(), batchQuantity() ? 100 : 1, retail()))
-const setupQuery = derived(() => springQuery(lastValid()) + '&' + finishQuery(finish()))
+const setupQuery = derived(() => springQuery(lastValid()) + '&' + finishQuery(finish()) + '&' + softQuery(goodsState().setup))
+const textileUrl = derived(() => '/api/designs/xl-r2/textiles?' + setupQuery())
 const assemblyUrl = derived(() => '/api/designs/xl-r2/assembly?' + setupQuery())
 const profileUrl = derived(() => '/api/designs/xl-r2/profile?' + setupQuery())
 const bomUrl = derived(() => '/api/designs/xl-r2/bom?' + setupQuery())
@@ -67,12 +93,13 @@ function reset(): void { batch(() => { height.set(springStart.height); width.set
   <div class="standard-brief"><strong>Standard springs. Adjustable preload.</strong><p>Two MISUMI SWH20-75 springs replace the earlier shock allowance. Set equal 0, 1 or 2 mm steel shims per wheel. Spring rate stays fixed at 65.3 N/mm. This short-travel bench design has no hydraulic damper.</p></div>
   <div class="studio-workbench">
     <section class="studio-visual" ref="standardModel" tabindex="-1" aria-label="XL r2 3D inspection">
-      <div class="studio-view-heading"><h2>{{ focus() === 'assembly' ? 'The spring-cartridge XL' : focus() === 'suspension' ? 'Inside the spring cartridge' : 'Actual r2 part mesh' }}</h2><label class="studio-check"><input type="checkbox" x-model="exploded" :disabled="focus() !== 'assembly' && focus() !== 'suspension'">Separate plates</label></div>
-      <ModelViewer :scene="scene()" label="Buddy XL r2 undamped spring bench design" poster="/designs/xl/r2/assembly.png?v={{ revision }}" className="buddy-model" />
-      <noscript><img src="/designs/xl/r2/assembly.png" alt="XL r2 metal frame with spring cartridges and pneumatic wheels" width="1400" height="1000" class="studio-noscript"><p>Enable JavaScript to inspect configured geometry. <a href="/api/designs/xl-r2/kit?{{ initialQuery }}">Download the starting-design kit</a>, or use the configured form below.</p></noscript>
-      <div class="studio-view-options" role="group" aria-label="Inspection scope"><button type="button" :aria-pressed="focus() === 'assembly'" @click="focus.set('assembly')">Whole frame</button><button type="button" :aria-pressed="focus() === 'suspension'" @click="focus.set('suspension')">Cartridge cutaway</button></div>
+      <div class="studio-view-heading"><h2>{{ focus() === 'softgoods' ? 'Rear support and front harness' : focus() === 'assembly' ? 'The spring-cartridge XL' : focus() === 'suspension' ? 'Inside the spring cartridge' : 'Actual r2 part mesh' }}</h2><label class="studio-check"><input type="checkbox" x-model="exploded" :disabled="focus() !== 'assembly' && focus() !== 'suspension'">Separate plates</label></div>
+      <ModelViewer :scene="scene()" label="Buddy XL r2 undamped spring bench design" poster="{{ textilePoster }}" className="buddy-model" />
+      <noscript><img src="{{ textilePoster }}" alt="XL r2 metal frame with spring cartridges and pneumatic wheels" width="1400" height="1000" class="studio-noscript"><p>Enable JavaScript to inspect configured geometry. <a href="/api/designs/xl-r2/kit?{{ initialQuery }}">Download the starting-design kit</a>, or use the configured form below.</p></noscript>
+      <label class="studio-check"><input type="checkbox" x-model="showTextiles" :disabled="focus() !== 'assembly'">Show support and harness</label>
+      <div class="studio-view-options" role="group" aria-label="Inspection scope"><button type="button" :aria-pressed="focus() === 'assembly'" @click="focus.set('assembly')">Whole frame</button><button type="button" :aria-pressed="focus() === 'suspension'" @click="focus.set('suspension')">Cartridge cutaway</button><button type="button" :aria-pressed="focus() === 'softgoods'" @click="focus.set('softgoods')">Supports and harness</button></div>
       <dl class="studio-readout"><div><dt>Inside rail clearance</dt><dd><strong>{{ (lastValid().width - 25.4).toFixed(1) }}</strong> <span>mm</span></dd></div><div><dt>Overall tire envelope</dt><dd><strong>{{ dimensions().tireWidth.toFixed(1) }}</strong> <span>mm</span></dd></div><div><dt>Inboard axle-end clearance</dt><dd><strong>{{ dimensions().innerAxleClearance.toFixed(1) }}</strong> <span>mm, before guards</span></dd></div></dl>
-      <p class="muted studio-model-note">Cutaway hides the outer housings to reveal the spring and retained seats. Springs are purchased steel parts, never printed. Travel is a manual geometric pose, not predicted sag. Tube bores, trimmed liners, fitted textiles and complete guards require the CAD and engineering drawings; this view shows nominal envelopes.</p>
+      <p class="muted studio-model-note">Cutaway hides the outer housings to reveal the spring and retained seats. Springs are purchased steel parts, never printed. Travel is a manual geometric pose, not predicted sag. The textile scope includes the woven support, mesh, pads, front harness, straps and wrap anchors. These are candidate cut-and-sew designs; seams, interfaces, pressure, fit and guarding still need qualification.</p>
     </section>
     <aside class="studio-controls" aria-label="XL r2 configuration">
       <div class="studio-control-heading"><h2>Cut to their dimensions.</h2><button type="button" class="studio-reset" @click="reset()">Reset setup</button></div><p class="muted studio-intro">These are bench manufacturing dimensions. Buddy’s anatomy is still pending. Measure the actual wheel hub before fabricating an axle.</p>
@@ -83,9 +110,10 @@ function reset(): void { batch(() => { height.set(springStart.height); width.set
         <div class="standard-hub studio-field"><div class="studio-field-title"><label for="standard-hub">Measured hub through-length</label><div class="studio-number"><input id="standard-hub" value="{{ initialSetup.hub }}" name="hub" form="standard-download" type="number" min="60" max="100" step="0.05" required x-model.number="hub"><span>mm</span></div></div><p>82.55 mm is a provisional layout value. The wheel supplier page does not confirm it. Both actual hubs, bearing faces and washers must be checked.</p></div>
       </fieldset>
       <fieldset class="studio-fieldset"><legend>Spring cartridge</legend><div class="studio-field"><div class="studio-field-title"><label for="spring-preload">Preload per wheel</label><div class="studio-number"><input id="spring-preload" name="preload" form="standard-download" value="{{ initialSetup.preload }}" type="number" min="0" max="2" step="1" required x-model.number="preload"><span>mm</span></div></div><input type="range" min="0" max="2" step="1" aria-label="Spring preload slider" x-model.number="preload"><p>Matched 1 mm steel shims. Unload the guarded rig before adjustment. Preload changes initial force, not stiffness.</p></div><div class="studio-field"><div class="studio-field-title"><label for="spring-travel">Preview bump travel</label><div class="studio-number"><input id="spring-travel" name="travel" form="standard-download" value="{{ initialSetup.travel }}" type="number" min="0" max="8" step="1" required x-model.number="travel"><span>mm</span></div></div><input type="range" min="0" max="8" step="1" aria-label="Spring travel preview slider" x-model.number="travel"><p>0-8 mm manual pose. Slots and smooth pins provide nominal stops. No damping or clinical setting is implied.</p></div><dl class="studio-readout"><div><dt>Rail height in this pose</dt><dd>{{ dimensions().loadedHeight }} mm</dd></div><div><dt>Ideal spring force per side</dt><dd>{{ dimensions().forceN.toFixed(1) }} N</dd></div></dl><p class="muted">Ideal force = 65.3 × (preload + travel). Excludes friction and spring tolerances. This does not rate the chair, predict supported weight or prescribe rehabilitation.</p></fieldset>
+      @include('../partials/softgoods-controls')
       @include('../partials/finish-controls')
       <p class="studio-validation" role="alert" :if="parsed().error">{{ parsed().error }} Preview and links keep the last valid setup.</p>
-      <form id="standard-download" class="studio-download" action="/api/designs/xl-r2/kit" method="GET"><Button type="submit" variant="bare" class="w-full button-primary" :disabled="!parsed().setup"><i class="i-hugeicons-download-01" aria-hidden="true"></i>Download this r2 setup</Button></form>
+      <form id="standard-download" class="studio-download" action="/api/designs/xl-r2/kit" method="GET"><Button type="submit" variant="bare" class="w-full button-primary" :disabled="!parsed().setup || !!goodsState().error"><i class="i-hugeicons-download-01" aria-hidden="true"></i>Download this r2 setup</Button></form>
       <p class="muted studio-download-note">Configured editable CAD, eight actual STL types, four metal DXFs, complete BOM, drilling datums, assembly notes and cost assumptions.</p><div class="studio-file-links"><a href="/api/designs/xl-r2/assembly?{{ initialQuery }}" :href="assemblyUrl()">Assembly notes</a><a :href="bomUrl()">Parts list</a><a :href="profileUrl()">Setup JSON</a></div>
     </aside>
   </div>
