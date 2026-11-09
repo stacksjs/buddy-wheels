@@ -1,17 +1,21 @@
+import type {SoftSetup} from './SoftGoods'
+import {softStart} from './SoftGoods'
+import {xlSoftFrame} from './SoftGoodsFrame'
+import {textileCostNotes} from './SoftGoodsCost'
 import { mkdir } from 'node:fs/promises'
 import { join } from 'node:path'
 import { inspectBinaryStl } from './Mesh'
 import { standardDocuments } from './XLStandardDocuments'
 import type { StandardSetup } from './XLStandard'
 import { standardDimensions, standardParts, standardPartFile, standardStart } from './XLStandard'
-import { standardCostLines, standardEconomics, standardPriceDate, standardPriceEvidence } from './XLStandardCost'
-import { money } from '../Storefront/Catalog'
+import { pricedStandardLines, standardEconomics, standardPriceDate, standardPriceEvidence } from './XLStandardCost'
+import { signedMoney as money } from '../Storefront/Catalog'
 export const standardSourcePath = 'designs/wheelchair/r1/XL'
 export const standardPublicPath = 'public/designs/xl/r1'
 export const sha256 = (bytes: string | ArrayBuffer | Uint8Array) => new Bun.CryptoHasher('sha256').update(bytes).digest('hex')
-export function standardCostMarkdown(setup: StandardSetup = standardStart): string {
-  const batch = standardEconomics(setup); const one = standardEconomics(setup, 1)
-  const lines = [{ name: '6061-T6 tube stock, complete bars with 3 mm kerf', batch: batch.frame, one: one.frame, evidence: 'Observed price + computed whole-stock nesting', note: `${batch.packing.bars} full 144 inch bars /100 chairs. One-off buys ${one.packing.bars} full bar. Offcuts are charged, not free material.` }, ...standardCostLines]
+export function standardCostMarkdown(setup: StandardSetup = standardStart,goods?:SoftSetup): string {
+  const batch = standardEconomics(setup,100,goods); const one = standardEconomics(setup, 1,goods)
+  const lines = [{ name: '6061-T6 tube stock, complete bars with 3 mm kerf', batch: batch.frame, one: one.frame, evidence: 'Observed price + computed whole-stock nesting', note: `${batch.packing.bars} full 144 inch bars /100 chairs. One-off buys ${one.packing.bars} full bar. Offcuts are charged, not free material.` }, ...pricedStandardLines(setup,goods)]
   return `# XL r1 standard-parts cost and retail feasibility
 
 Checked ${standardPriceDate}, USD. Native Bun calculation, integer cents. r1 is a rigid, cut-to-fit bench design. This is a manufacturing scenario, not a verified production price, capacity rating or animal-use release.
@@ -20,7 +24,7 @@ Configuration: rail height ${setup.height}, rail spacing ${setup.width}, rail le
 
 ## Result and conditions
 
-At 100 chairs, estimated landed manufacturing COGS is **${money(batch.cogs)} per chair**, against **${money(batch.retail)} retail**. Product gross margin is ${batch.grossPercent.toFixed(1)}%. The minimum 30% gross-margin gate allows COGS up to ${money(batch.maxCogs)}; modeled headroom is ${money(batch.headroom)}. ${batch.meetsCostGate ? 'The scenario meets the numerical gate.' : 'The scenario FAILS the numerical gate.'} Most operations and softgoods are still unquoted. Cost feasibility is CONDITIONAL until itemized quotes and measured production times replace those allowances.
+At 100 chairs, estimated landed manufacturing COGS is **${money(batch.cogs)} per chair**, against **${money(batch.retail)} retail**. Product gross margin is ${batch.grossPercent.toFixed(1)}%. The minimum 30% gross-margin gate allows COGS up to ${money(batch.maxCogs)}; modeled headroom is ${money(batch.headroom)}. ${batch.meetsCostGate ? 'The scenario meets the numerical gate.' : 'The scenario FAILS the numerical gate.'} Production times, compatibility and freight are still unquoted. Cost feasibility is CONDITIONAL until itemized quotes and measured production times replace those allowances.
 
 A single chair at retail-stock purchase quantities is estimated at ${money(one.cogs)} before any applicable purchase tax and outbound freight. It does not support a ${money(batch.retail)} selling price. This redesign depends on a 100-chair batch, standardization and repeatable fixtures. Nothing has been bought and no batch is authorized.
 
@@ -61,7 +65,7 @@ Outbound shipping is charged separately at actual cost in the base scenario. It 
 
 ${standardPriceEvidence.map(e => `- [${e.name}](${e.url}): **${money(e.price)}**, ${e.unit}. ${e.note}`).join('\n')}
 
-Only the specified tube and wheel listings are selected price evidence. Hardware, precision plain shaft stock, sleeve stock, steel cutting/finish, textiles, labor and freight require RFQs. The rejected bolt/spacer/RC examples are price comparisons, not purchased or included substitutions. Listings are not checkout quotes or guaranteed local stock. No unverified wholesale reduction is represented as a supplier price.
+The tube/wheel evidence is listed above; the textile price candidates are itemized below. Hardware, precision plain shaft stock, sleeve stock, steel cutting/finish, completed textile production, labor and freight require RFQs. The rejected bolt/spacer/RC examples are price comparisons, not purchased or included substitutions. Listings are not checkout quotes or guaranteed local stock. No unverified wholesale reduction is represented as a supplier price.
 
 ## Adjustable suspension decision
 
@@ -73,17 +77,19 @@ The [r0 suspension studio](https://buddywheels.org/design-studio?size=XL) remain
 
 1. Confirm Buddy's measurements and clinical suitability. Frame height is not supported groin height. No 140 lb working rating exists.
 2. Approve drawings for the frame joints, tube sleeves, stock-shaft bearing fits and positive cotter retention. Review aluminum/steel corrosion interfaces and finish procedures. Verify actual wheel hub length, offset, runout and tire clearance.
-3. Obtain 12-profile steel, axle/sleeve finishing, standard hardware, complete support/anchor, labor and freight RFQs at 100 units. The $24 textile allowance is not an approved or purchasable harness. Review the actual continuous-webbing load path and anti-slide design.
+3. Obtain 12-profile steel, axle/sleeve finishing, standard hardware, complete support/anchor, labor and freight RFQs at 100 units. The old $24 textile allowance is replaced by the itemized candidate-material and assumed sewing model below. This is not an approved or purchasable completed harness. Review the actual continuous-webbing load path and anti-slide design.
 4. Build one guarded empty rig; qualify structure, joint slip, bearing wear, retention, stability, fatigue and intended terrain using an approved protocol before any animal. Garden-wheel ratings do not qualify a wheelchair. Two candidate wheels alone weigh 9.4 lb, so rolling resistance, total mass and handling require comparison with lighter wheels.
 5. Time actual cuts, drilling, assembly, prints and inspection. Replace every allowance. Release only when both physical qualification and the margin gate pass. Digital exports and a low spreadsheet total are insufficient.
+
+${textileCostNotes(xlSoftFrame(setup,'r1'),goods??softStart(xlSoftFrame(setup,'r1')))}
 
 Build/research commands: \`./buddy design:xl-standard --export --openscad /absolute/path/to/OpenSCAD\`, \`./buddy test\`, \`bun run test:standard\`. See the [r1 studio](https://buddywheels.org/design-studio-xl) for exact configured CAD, BOM and instructions. Other sizes remain r0.
 `
 }
-export function standardCostModel(setup: StandardSetup = standardStart) { return { checked: standardPriceDate, setup, base: standardEconomics(setup), one: standardEconomics(setup, 1), lines: standardCostLines, evidence: standardPriceEvidence } }
-export function standardCostCsv(setup: StandardSetup = standardStart): string {
-  const model = standardCostModel(setup)
-  return [['Line', 'One-chair dollars', '100-chair dollars', 'Evidence'], ['Tube stock', String(model.one.frame / 100), String(model.base.frame / 100), 'Observed full-bar price + computed nesting'], ...standardCostLines.map(l => [l.name, (l.one / 100).toFixed(2), (l.batch / 100).toFixed(2), l.evidence]), ['TOTAL', (model.one.cogs / 100).toFixed(2), (model.base.cogs / 100).toFixed(2), 'Unquoted manufacturing scenario']].map(row => row.map(v => `"${v.replaceAll('"', '""')}"`).join(',')).join('\n') + '\n'
+export function standardCostModel(setup: StandardSetup = standardStart,goods?:SoftSetup) { return { checked: standardPriceDate, setup, base: standardEconomics(setup,100,goods), one: standardEconomics(setup, 1,goods), lines: pricedStandardLines(setup,goods), evidence: standardPriceEvidence } }
+export function standardCostCsv(setup: StandardSetup = standardStart,goods?:SoftSetup): string {
+  const model = standardCostModel(setup,goods)
+  return [['Line', 'One-chair dollars', '100-chair dollars', 'Evidence'], ['Tube stock', String(model.one.frame / 100), String(model.base.frame / 100), 'Observed full-bar price + computed nesting'], ...pricedStandardLines(setup,goods).map(l => [l.name, (l.one / 100).toFixed(2), (l.batch / 100).toFixed(2), l.evidence]), ['TOTAL', (model.one.cogs / 100).toFixed(2), (model.base.cogs / 100).toFixed(2), 'Unquoted manufacturing scenario']].map(row => row.map(v => `"${v.replaceAll('"', '""')}"`).join(',')).join('\n') + '\n'
 }
 export async function writeStandardCosts(root: string): Promise<void> {
   const markdown = standardCostMarkdown()

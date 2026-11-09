@@ -7,6 +7,7 @@ import {softScene,softLayout}from '../../app/Designs/SoftGoodsScene'
 import {softFiles}from '../../app/Designs/SoftGoodsDocuments'
 import {softDownload}from '../../app/Designs/SoftGoodsDownloads'
 import {springDownload}from '../../app/Designs/XLSpringDownloads'
+import {springEconomics} from '../../app/Designs/XLSpringCost'
 import {springStart}from '../../app/Designs/XLSpring'
 import {finishDownload}from '../../app/Designs/FinishDownloads'
 import {designRoot}from '../../app/Designs/Wheelchair'
@@ -35,7 +36,7 @@ test('a configured full kit and textile-only kit include matching patterns, sewi
  const original=await springDownload(designRoot,'kit',springStart);const base=await new Bun.Archive(await original.clone().arrayBuffer()).files()
  const response=await finishDownload(await softDownload(designRoot,original,'kit',f,s,defaultFinish),'kit',defaultFinish)
  const files=await new Bun.Archive(await response.arrayBuffer()).files();expect(files.has('assembly-with-softgoods.scad')).toBe(true);expect(files.has('softgoods/kernel.ts')).toBe(true);expect(files.has('softgoods/export.ts')).toBe(true)
- expect(JSON.parse(await files.get('setup.json')!.text()).textiles.setup).toEqual(s);expect(await files.get('softgoods/parts.scad')!.text()).toContain('sg_width=340;');expect(await files.get('softgoods/textile-bom.csv')!.text()).toContain('SG13')
+ expect(JSON.parse(await files.get('setup.json')!.text()).textiles.setup).toEqual(s);expect(JSON.parse(await files.get('cost-model.json')!.text()).retails[1].cogs).toBe(springEconomics(springStart,100,29900,s).cogs);expect(JSON.parse(await files.get('softgoods/cost-model.json')!.text()).demand.panels[0]).toEqual({width:340,length:240});expect(await files.get('softgoods/parts.scad')!.text()).toContain('sg_width=340;');expect(await files.get('softgoods/textile-bom.csv')!.text()).toContain('SG13')
  for(const [name,file]of base)if(name.endsWith('.scad')||name.startsWith('parts/'))expect(sha256(await files.get(name)!.arrayBuffer())).toBe(sha256(await file.arrayBuffer()))
  const checks=JSON.parse(await files.get('checksums.json')!.text());for(const row of checks.files)expect(sha256(await files.get(row.file)!.arrayBuffer())).toBe(row.sha256)
  const only=await softDownload(designRoot,new Response('Not found',{status:404}),'textiles',f,s,defaultFinish);expect(only.status).toBe(200);expect(only.headers.get('Content-Type')).toBe('application/gzip');const cloth=await new Bun.Archive(await only.arrayBuffer()).files();expect(cloth.has('assembly-with-softgoods.scad')).toBe(false);expect(cloth.has('softgoods/parts.scad')).toBe(true)

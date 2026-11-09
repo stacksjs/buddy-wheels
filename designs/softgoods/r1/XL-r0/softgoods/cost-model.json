@@ -1,0 +1,321 @@
+{
+  "referenceOnly": false,
+  "hardwareWidthMm": 25.4,
+  "pricedHardwareWidthMm": 25.4,
+  "quantity": 100,
+  "minutes": 75,
+  "hourlyCents": 3000,
+  "demand": {
+    "webbing": [
+      1335,
+      369,
+      381,
+      403,
+      280,
+      215,
+      221,
+      369,
+      381,
+      403,
+      280,
+      215,
+      221,
+      309,
+      262,
+      309,
+      262,
+      439,
+      244,
+      244,
+      244,
+      244,
+      274,
+      274
+    ],
+    "binding": 8292,
+    "bindingCuts": [
+      2293,
+      2293,
+      818,
+      818,
+      207,
+      207,
+      207,
+      207,
+      207,
+      207,
+      207,
+      207,
+      207,
+      207
+    ],
+    "panels": [
+      {
+        "width": 350,
+        "length": 220
+      },
+      {
+        "width": 159.75,
+        "length": 213
+      }
+    ],
+    "woven": [
+      {
+        "width": 350,
+        "length": 220
+      },
+      {
+        "width": 159.75,
+        "length": 213
+      },
+      {
+        "width": 55.4,
+        "length": 144
+      },
+      {
+        "width": 55.4,
+        "length": 144
+      },
+      {
+        "width": 55.4,
+        "length": 144
+      },
+      {
+        "width": 55.4,
+        "length": 144
+      },
+      {
+        "width": 55.4,
+        "length": 144
+      },
+      {
+        "width": 55.4,
+        "length": 144
+      },
+      {
+        "width": 55.4,
+        "length": 144
+      },
+      {
+        "width": 55.4,
+        "length": 144
+      },
+      {
+        "width": 55.4,
+        "length": 174
+      },
+      {
+        "width": 55.4,
+        "length": 174
+      },
+      {
+        "width": 55.4,
+        "length": 174
+      },
+      {
+        "width": 55.4,
+        "length": 174
+      },
+      {
+        "width": 20,
+        "length": 70
+      },
+      {
+        "width": 20,
+        "length": 70
+      },
+      {
+        "width": 20,
+        "length": 70
+      },
+      {
+        "width": 20,
+        "length": 70
+      },
+      {
+        "width": 20,
+        "length": 70
+      },
+      {
+        "width": 20,
+        "length": 70
+      },
+      {
+        "width": 20,
+        "length": 70
+      },
+      {
+        "width": 20,
+        "length": 70
+      },
+      {
+        "width": 20,
+        "length": 70
+      },
+      {
+        "width": 20,
+        "length": 70
+      }
+    ],
+    "coveredIds": [
+      "SG01",
+      "SG02",
+      "SG03",
+      "SG04",
+      "SG05",
+      "SG06",
+      "SG07",
+      "SG08-1",
+      "SG08-2",
+      "SG08-3",
+      "SG08-4",
+      "SG08-5",
+      "SG08-6",
+      "SG08-7",
+      "SG08-8",
+      "SG08-9",
+      "SG08-10",
+      "SG08-11",
+      "SG08-12",
+      "SG08-13",
+      "SG08-14",
+      "SG08-15",
+      "SG08-16",
+      "SG08-17",
+      "SG09-R",
+      "SG09-B",
+      "SG10-R",
+      "SG10-B",
+      "SG11",
+      "SG12",
+      "SG13",
+      "SG14",
+      "SG15"
+    ]
+  },
+  "rows": [
+    {
+      "id": "woven",
+      "name": "Woven shells, 12 chafe panels and 10 closure tabs",
+      "purchase": 35549,
+      "units": 19,
+      "unit": "whole linear yards",
+      "allocation": 356
+    },
+    {
+      "id": "mesh",
+      "name": "Rear and front spacer mesh",
+      "purchase": 12680,
+      "units": 10,
+      "unit": "whole linear yards",
+      "allocation": 127
+    },
+    {
+      "id": "foam",
+      "name": "Rear and front 5 mm EVA pads",
+      "purchase": 37800,
+      "units": 12,
+      "unit": "39 x 51 inch sheets",
+      "allocation": 378
+    },
+    {
+      "id": "webbing",
+      "name": "Every webbing cut including returns, laps and tails",
+      "purchase": 178043,
+      "units": 23,
+      "unit": "120-foot rolls",
+      "allocation": 1781
+    },
+    {
+      "id": "adjusters",
+      "name": "Six metal double-bar adjusters",
+      "purchase": 45000,
+      "units": 600,
+      "unit": "each, higher conflicting listing price",
+      "allocation": 450
+    },
+    {
+      "id": "buckle",
+      "name": "One 1-inch acetal front closure",
+      "purchase": 11000,
+      "units": 100,
+      "unit": "each",
+      "allocation": 110
+    },
+    {
+      "id": "binding",
+      "name": "20 mm binding including cover-tab edges",
+      "purchase": 75516,
+      "units": 84,
+      "unit": "10-meter packs; each panel/tab edge stays continuous",
+      "allocation": 756
+    },
+    {
+      "id": "thread",
+      "name": "Tex 90 top/bobbin thread allowance",
+      "purchase": 14355,
+      "units": 9,
+      "unit": "987.552-meter cones",
+      "allocation": 144
+    },
+    {
+      "id": "hook",
+      "name": "Ten 20 x 20 mm hook patches",
+      "purchase": 6300,
+      "units": 70,
+      "unit": "linear feet of 1-inch hook",
+      "allocation": 63
+    },
+    {
+      "id": "loop",
+      "name": "Ten 20 x 20 mm loop patches",
+      "purchase": 6300,
+      "units": 70,
+      "unit": "linear feet of 1-inch loop",
+      "allocation": 63
+    }
+  ],
+  "purchases": {
+    "woven": {
+      "units": 19,
+      "cents": 35549,
+      "shelves": 101,
+      "netAreaMm2": 22740595.000000235,
+      "stockAreaMm2": 26477366.4
+    },
+    "mesh": {
+      "units": 10,
+      "cents": 12680,
+      "shelves": 38,
+      "netAreaMm2": 11102675,
+      "stockAreaMm2": 13470940.799999999
+    },
+    "foam": {
+      "units": 12,
+      "cents": 37800,
+      "shelves": 60,
+      "netAreaMm2": 11102675,
+      "stockAreaMm2": 15398678.880000003
+    },
+    "webbing": {
+      "units": 23,
+      "cents": 178043,
+      "cutMm": 817800,
+      "purchasedMm": 841248
+    },
+    "binding": {
+      "units": 84,
+      "cents": 75516,
+      "cutMm": 829200,
+      "purchasedMm": 840000
+    },
+    "patchFeet": 70,
+    "threadCones": 9
+  },
+  "materials": 4228,
+  "rejects": 423,
+  "labor": 3750,
+  "freight": 400,
+  "total": 8801,
+  "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
+}

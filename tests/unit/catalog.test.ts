@@ -48,8 +48,8 @@ describe('financial planning model', () => {
   test('keeps a worked large-kit contribution and exact scenario allocation', () => {
     expect(unitEconomics(assumptions[3]!).contribution).toBe(6730)
     expect(scenario(200).revenue).toBe(4319000)
-    expect(scenario(200).contribution).toBe(977680)
-    expect(scenario(200).operating).toBe(-822320)
+    expect(scenario(200).contribution).toBe(849660)
+    expect(scenario(200).operating).toBe(-950340)
     expect(scenario(200, 1.2, 1.5).contribution).toBeLessThan(scenario(200).contribution)
   })
 })

@@ -42,3 +42,6 @@ The catalog's weight and height bands are planning inputs, not proven load ratin
 - [Rear support, mesh, padding and front-harness cut/sew guide](engineering/softgoods-xl-r1.md)
 - [Complete textile design scope and verification](engineering/softgoods-plan.md)
 - [Textile design verification record](engineering/softgoods-verification.md)
+
+- [Complete XL per-unit cost and the $299 decision](business/xl-complete-unit-costs.md)
+- [Checked textile supplier SKUs, prices and availability](business/textile-supplier-research.md)

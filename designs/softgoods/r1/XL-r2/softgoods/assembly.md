@@ -12,7 +12,7 @@ All mm. Saddle width 350, fore-aft length 220, frame-to-shell drop 90; shell pla
 
 ## Material and cut schedule
 
-Use textile-bom.csv for every piece, strap length, lap and hardware interface. Rear shell/mesh/foam use saddle-shell.svg; the front shell/mesh/foam use front-bib.svg. All cut edges are bound, so the outline is the raw cut line and contains NO extra fold allowance. Do not add an assumed 12 mm fold to the leg openings. Webbing cut lengths already include two 60 mm candidate sewing laps and adjustable tails where stated. Verify required adjustment travel with the actual fit and hardware before cutting load webbing.
+Use textile-bom.csv for every piece, strap length, lap and hardware interface. Rear shell/mesh/foam use saddle-shell.svg; the front shell/mesh/foam use front-bib.svg. Body and cover-tab cut edges are bound; sleeve edges use their turned 10 mm seam allowance, so the outline is the raw cut line and contains NO extra fold allowance. Do not add an assumed 12 mm fold to the leg openings. Webbing cut lengths already include two 60 mm candidate sewing laps and adjustable tails where stated. Verify required adjustment travel with the actual fit and hardware before cutting load webbing.
 
 The shell is woven polyester, the mesh is bought spacer mesh, the pad is 5 mm closed-cell foam, and the load tapes are 25.4 mm polyester webbing. Exact fabric grade, finish, thread, foam chemistry, metal adjuster/buckle SKU and strength remain RFQ and qualification items. Do not replace load webbing with grosgrain, mesh, printed straps or unverified elastic. The specified thicknesses are model envelopes, not approved supplier tolerances.
 
@@ -33,7 +33,7 @@ Print pattern-tiles.html from a browser at 100% / Actual Size, with headers/foot
 
 ## Cost and manufacturing status
 
-All SG items expand the existing complete-support T01 cost line. Do not count both a complete bundle and its subparts twice. The existing $24 batch textile allocation remains an UNQUOTED target, not a quote for this pattern. It must cover shell, mesh, foam, webbing, hardware, binding, thread and sewing. This new cut schedule makes it quotable; it does not prove that it can be made for $24. Get an itemized manufacturing quote and replace the allowance before claiming the $265/$299 retail scenario is feasible. One-off material minimums, offcuts, shipping and a sewing machine are separate from consumed per-unit material. Colors: covers #254b38, textile trim #344c43. Black/reference materials may be the only currently listed stock colors; custom colors can require minimum orders.
+All SG items expand the existing complete-support T01 cost line. Do not count both a complete bundle and its subparts twice. The old $24 complete-set target is superseded. The current itemized material, reject, sewing and textile-freight estimate is $88.01 per set at 100 units. Read cost-notes.md for exact packs, candidate SKUs, missing stock/compatibility evidence and assumed labor. It is not a completed-harness supplier quote. Get an itemized manufacturing quote and replace the allowance before claiming the $265/$299 retail scenario is feasible. One-off material minimums, offcuts, shipping and a sewing machine are separate from consumed per-unit material. Colors: covers #254b38, textile trim #344c43. Black/reference materials may be the only currently listed stock colors; custom colors can require minimum orders.
 
 ## Files and reproduction
 

@@ -4,7 +4,7 @@
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
   "suspension": "UNDAMPED_PRELOAD_ADJUSTABLE",
   "sourceHash": "40dde945ca891ef80cdbcca9f89825d3de81cdd3fd488adcb2b6ee815803bfd9",
-  "costHash": "3fad3de34638e074847bf6f41e9d1f5a90475706c31b93ac200b01db6906e936",
+  "costHash": "4b4f908d432225cd58c4c260c7c23cf93b714e73c1105213be0b499e8eb594d5",
   "setup": {
     "height": 620,
     "width": 400,
@@ -45,22 +45,22 @@
   "assets": [
     {
       "path": "parts/end_cap.stl",
-      "sha256": "b1875b02dcf30a08e95f4ab1fe1aa38d2335c62ef643d2ee7ece9789809253b3",
+      "sha256": "3eb9412403b9805c7c15adad216fdab05cace46fab3c0948c54cb0b4a30d9739",
       "bytes": 15084
     },
     {
       "path": "parts/axle_cover.stl",
-      "sha256": "607436a5bf2e49388cf2dc57ee2f77a4ef305905fd87c17979cd994add9d94e0",
+      "sha256": "23aaf726d8df9b3b981bf06072f2ff5b95cd6867b38627b942f1cdabb4b30abf",
       "bytes": 31884
     },
     {
       "path": "parts/drill_guide.stl",
-      "sha256": "0d8f9edb41d9041be61566c47c938fc0d93cd1030268c1c5844a512c5a2534d5",
+      "sha256": "8ed57147c354c666b38c1c6e026c96ff0580ebccb9277f45ad2372386a81c442",
       "bytes": 54284
     },
     {
       "path": "parts/coupon.stl",
-      "sha256": "6d9886aebf945f937fa293a33282bf8095fa2c6b54ca587b2e725180ca14fb5d",
+      "sha256": "8a929b221d7ca9cd20e52aac0028f9a0a3e8037d09bac22f967c7c0af1103b1e",
       "bytes": 52684
     },
     {
@@ -145,18 +145,18 @@
     },
     {
       "path": "cost-notes.md",
-      "sha256": "1c7d0563dcbfa4b8252270622b2890b0052f1b3fb38e2c2825540ab7d7ce6926",
-      "bytes": 12508
+      "sha256": "a4e2c91a4d340355e41372ec6fc2443694da09ad2b32051b312158b7ec576431",
+      "bytes": 21603
     },
     {
       "path": "cost-model.json",
-      "sha256": "8797d03440d7f99ce0a557813eea6c50496294d84b5671a6391d311ec8eb311c",
-      "bytes": 15298
+      "sha256": "bea99c481691c64db4d43d1d40cc96f1e67dee5c18f8b21964c2e59f9857de90",
+      "bytes": 37789
     },
     {
       "path": "costs.csv",
-      "sha256": "a184e2171e137f86bb4fb9a1b5b589382b0a3a032ac311e30aa56f5fb0a0e8bf",
-      "bytes": 1263
+      "sha256": "93b47ad14fa164284b43219b5999b98acd5bd60632b3b26efeab15a799720147",
+      "bytes": 1307
     }
   ],
   "parts": [

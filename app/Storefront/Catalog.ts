@@ -42,6 +42,11 @@ export function money(cents: number): string {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(cents / 100)
 }
 
+export function signedMoney(cents:number):string {
+  const sign=cents<0?'-':''
+  return sign+money(Math.abs(cents))
+}
+
 export function planningSize(weightLb: number, heightIn: number): { code: string | null, message: string } {
   if (!Number.isFinite(weightLb) || !Number.isFinite(heightIn) || weightLb < 2 || weightLb > 180 || heightIn <= 0)
     return { code: null, message: 'Please enter a weight from 2 to 180 lb and a positive rear-leg height. Dogs outside this range need a custom review.' }

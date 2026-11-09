@@ -1,3 +1,7 @@
+import {springCostModel,springCostMarkdown,springCostCsv} from './XLSpringCost'
+import {parseSpringSetup} from './XLSpring'
+import {standardCostModel,standardCostMarkdown,standardCostCsv} from './XLStandardBuild'
+import {parseStandardSetup} from './XLStandard'
 import type { ProductFinish } from '../Storefront/Finish'
 import type { SoftFrame, SoftSetup } from './SoftGoods'
 import { join } from 'node:path'
@@ -19,6 +23,8 @@ export async function softDownload(root:string, response:Response, artifact:stri
     for(const [name, file]of base)files[name] = new Uint8Array(await file.arrayBuffer())
     previous = JSON.parse(new TextDecoder().decode(files['checksums.json'] as Uint8Array))
     const profileName = Object.hasOwn(files, 'setup.json')?'setup.json':'profile.json'; const profile = JSON.parse(new TextDecoder().decode(files[profileName] as Uint8Array)); files[profileName] = JSON.stringify({...profile, textiles:{frame:f, setup:s, status:'BENCH_ONLY_NOT_ANIMAL_USE'}}, null, 2)+'\n'
+    if(f.revision==='r2'){const setup=parseSpringSetup(profile.setup);files['cost-notes.md']=springCostMarkdown(setup,s);files['costs.csv']=springCostCsv(setup,s);files['cost-model.json']=JSON.stringify(springCostModel(setup,s),null,2)+'\n'}
+    if(f.revision==='r1'){const setup=parseStandardSetup({height:profile.height,width:profile.width,rail:profile.rail,hub:profile.hub});files['cost-notes.md']=standardCostMarkdown(setup,s);files['costs.csv']=standardCostCsv(setup,s);files['cost-model.json']=JSON.stringify(standardCostModel(setup,s),null,2)+'\n'}
     files['assembly.md'] = new TextDecoder().decode(files['assembly.md'] as Uint8Array)+'\n\n'+softInstructions(f, s, finish)
     files['bom.csv'] = new TextDecoder().decode(files['bom.csv'] as Uint8Array)+'\n'+softMainBom(f,s)
   }

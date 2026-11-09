@@ -1,7 +1,7 @@
 {
   "revision": "textile-r1",
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
-  "sourceHash": "480aa0d2a864e498fdfe42ec82bce85f71bea30504913208aad2b6dbfa5e486e",
+  "sourceHash": "71be2a6c3a04717ce9a97641fc78a8a4efec1bfcb3e0290fde46077a719e9403",
   "records": [
     {
       "frame": {
@@ -27,7 +27,7 @@
       "assets": [
         {
           "file": "softgoods/cost-notes.md",
-          "sha256": "b79a5181b5f4cab5fa683513c9b2e81a0160726d65473fb328558bf3dfe46918"
+          "sha256": "e4e2cac15c7d503a30722cb8d78d2d3a57ceaea9c8a282f74ef1a37b2e4303d6"
         },
         {
           "file": "softgoods/setup.json",
@@ -35,11 +35,11 @@
         },
         {
           "file": "softgoods/assembly.md",
-          "sha256": "9f47bd8dba9e099f7cc5623d13acd0be190d6325db7c5b5d12e5abbaeb086722"
+          "sha256": "98be416c0245e0555b26e00030114409030babaec87c0fd76745afc753711a13"
         },
         {
           "file": "softgoods/textile-bom.csv",
-          "sha256": "af704fea0ada40eaeff0b85b0e5b9d3345625707ff769839da632568bce3ca13"
+          "sha256": "101e03b82e3c44d5bf37c3d62dea192998fe158e6252ccd799f649f669dacc76"
         },
         {
           "file": "softgoods/parts.scad",
@@ -133,7 +133,7 @@
       "assets": [
         {
           "file": "softgoods/cost-notes.md",
-          "sha256": "3c01622ee81c071eed8d7ee0ca9784e9fa11c26934214766cd67ebf352c7eff8"
+          "sha256": "1a649ba53f80d7f486bd77980c5406816cbb4bc6ad530c3143559bd61396c0bc"
         },
         {
           "file": "softgoods/setup.json",
@@ -141,11 +141,11 @@
         },
         {
           "file": "softgoods/assembly.md",
-          "sha256": "331637ab250d58ad311602dc36f2c9b01cd695edbf0b3bfa0d25c57122ba9861"
+          "sha256": "95dd4400346d0fad2ea4ed5ff5165c9e3448447ec96c583ba961334638abdfa4"
         },
         {
           "file": "softgoods/textile-bom.csv",
-          "sha256": "fb4268aa7218c727907d2b40f2a8b3ba8f73e0e5a5c3e248e4384ea60ef37282"
+          "sha256": "c2505331bbe89a02e5986e738e45378004810e96ed0c5fa7739762db9f5f3e0a"
         },
         {
           "file": "softgoods/parts.scad",
@@ -239,7 +239,7 @@
       "assets": [
         {
           "file": "softgoods/cost-notes.md",
-          "sha256": "7d309c9c92f0d43cfd5505721fa822420fa5fd49f27adc9deb6816a752da580e"
+          "sha256": "bd49ef5479763208fb4122471e92026fe0eef58842f342f9cfbcc652025e8705"
         },
         {
           "file": "softgoods/setup.json",
@@ -247,11 +247,11 @@
         },
         {
           "file": "softgoods/assembly.md",
-          "sha256": "79c0faa92a0f237119d080d14b28a8a983a964d3c1e8b8defdf85edc12ca4ce9"
+          "sha256": "e51f807981881bb056825b38e5e8219258d8981e4b5a3f57aabbd823a5b112e1"
         },
         {
           "file": "softgoods/textile-bom.csv",
-          "sha256": "2c7f740117222592ec9b417aeeb8ee5c7904105257ccc0d7a89e563906f8cedc"
+          "sha256": "8b46852e62b5cac55b7e66c0d475c6be378f8aafbe29adf3896319d1a834e1a6"
         },
         {
           "file": "softgoods/parts.scad",
@@ -345,7 +345,7 @@
       "assets": [
         {
           "file": "softgoods/cost-notes.md",
-          "sha256": "af8b0e60e7bac5aa998b53f9b5daf56f06aea85018ed673e97cb2a2cab66fd25"
+          "sha256": "b253ded77e79cd5764034e58cdc8960cb7414e2605ca6bf04c3faf7986657350"
         },
         {
           "file": "softgoods/setup.json",
@@ -353,11 +353,11 @@
         },
         {
           "file": "softgoods/assembly.md",
-          "sha256": "37d36aec36cd8aa29a1c6f51d9ba44ec2ca826c0735ebb17e408777e9f01f582"
+          "sha256": "e114a48aa82797c895b008a970eeac4552f81bdc2d9289bd86162a8e4b804a5c"
         },
         {
           "file": "softgoods/textile-bom.csv",
-          "sha256": "c5d50765e65c02ad21e2e742dd44936d5b640d857caf137245e6d3a78e0a788c"
+          "sha256": "bbb7aeac2f0d0e1a665046f719c5757059d9f937b71046d969c69668989c7e75"
         },
         {
           "file": "softgoods/parts.scad",
@@ -451,7 +451,7 @@
       "assets": [
         {
           "file": "softgoods/cost-notes.md",
-          "sha256": "4bc75c031fda3b6faa6c548c14385b9872b4a267a662c2c87b073fb9fa6865e0"
+          "sha256": "fed9289a66137e0be96c74674865c50fdfa5e40b41c429c41007ed0db22b1e48"
         },
         {
           "file": "softgoods/setup.json",
@@ -459,11 +459,11 @@
         },
         {
           "file": "softgoods/assembly.md",
-          "sha256": "db43e7ae70ebcdb8546fe20354a3f7daeaed1c86655daf8202141b49124b70e3"
+          "sha256": "edaf93db4f33c303831f8e21415f55579722192a2b6c31fb97bad1f2692f729e"
         },
         {
           "file": "softgoods/textile-bom.csv",
-          "sha256": "0260ade8cfd48ff551f87a4b82b929ddc338df509f3cb02a1b1c555b884feff7"
+          "sha256": "c1632c4d0823cafe214a5dfd1b429abcd54e5b3ed78498f5917fdab061f15348"
         },
         {
           "file": "softgoods/parts.scad",
@@ -496,6 +496,14 @@
         {
           "file": "assembly-with-softgoods.scad",
           "sha256": "4e7014ace69d9b8b5733d966cc1d04eabfce5ddb584b7fa386e88565cb7a6b6a"
+        },
+        {
+          "file": "softgoods/cost-model.json",
+          "sha256": "abd2ac0e734756b34ffb4bbc43e7a56464138c56a67550fa30935503951dcca0"
+        },
+        {
+          "file": "softgoods/costs.csv",
+          "sha256": "be080301b9989c5f68637ace1d07e3586d1e00eae138db5d8245c02e88ceac58"
         },
         {
           "file": "softgoods/chafe-rail.svg",
@@ -557,7 +565,7 @@
       "assets": [
         {
           "file": "softgoods/cost-notes.md",
-          "sha256": "690faddec49dae53e3711722e4f4a23626cce31fc0480545439d8b18b32810ac"
+          "sha256": "ceeea711216f954b73c98e9e38f5a9690d89ef24a5bfb99fcb79aa12a889a186"
         },
         {
           "file": "softgoods/setup.json",
@@ -565,11 +573,11 @@
         },
         {
           "file": "softgoods/assembly.md",
-          "sha256": "61c2c6e8d9b2644e5b8a469cf462845619253f10672cd744a5c62ff905594b1a"
+          "sha256": "7d3de808d105440cef3ee9f932b204786f05c9613c6f9c13abf88ec8f9e3a3ed"
         },
         {
           "file": "softgoods/textile-bom.csv",
-          "sha256": "3a64538b95aeb3a3d97d3fe521debefe1fb28c8153e1a97820803c4ff02a4718"
+          "sha256": "d2a8f6dacc04cbcb8c09f2ae1ad6cdb8a4f722853fd6123dc9e463a3f3357a9d"
         },
         {
           "file": "softgoods/parts.scad",
@@ -602,6 +610,14 @@
         {
           "file": "assembly-with-softgoods.scad",
           "sha256": "4e7014ace69d9b8b5733d966cc1d04eabfce5ddb584b7fa386e88565cb7a6b6a"
+        },
+        {
+          "file": "softgoods/cost-model.json",
+          "sha256": "5c1aa06df3e170e4839c83caf4ca446e244e833b3eb6acfccdd3c81023a68d80"
+        },
+        {
+          "file": "softgoods/costs.csv",
+          "sha256": "fd117a3d229fd653ccb3715d71767ecc4d8cc2fbd28efc0f72e8cad84e48642c"
         },
         {
           "file": "softgoods/chafe-rail.svg",
@@ -663,7 +679,7 @@
       "assets": [
         {
           "file": "softgoods/cost-notes.md",
-          "sha256": "9b005b9f856eaf627084c8afe5b2ff062a80215ea76cda2465f8d20d548df318"
+          "sha256": "49fbf9753cac25c864a7a4b2349397a8f4b0ea017d44a1a0c105b747afc3a09d"
         },
         {
           "file": "softgoods/setup.json",
@@ -671,11 +687,11 @@
         },
         {
           "file": "softgoods/assembly.md",
-          "sha256": "16d4bfe8f8cd0bccc6aa4704e8870ac6d9a2403f066e4933a539b65acbf2591b"
+          "sha256": "30ca5d64f6fc4e070c22c3dba05542c54bf988a571f3d57febd6e6b43437f9be"
         },
         {
           "file": "softgoods/textile-bom.csv",
-          "sha256": "3a64538b95aeb3a3d97d3fe521debefe1fb28c8153e1a97820803c4ff02a4718"
+          "sha256": "d2a8f6dacc04cbcb8c09f2ae1ad6cdb8a4f722853fd6123dc9e463a3f3357a9d"
         },
         {
           "file": "softgoods/parts.scad",
@@ -708,6 +724,14 @@
         {
           "file": "assembly-with-softgoods.scad",
           "sha256": "4e7014ace69d9b8b5733d966cc1d04eabfce5ddb584b7fa386e88565cb7a6b6a"
+        },
+        {
+          "file": "softgoods/cost-model.json",
+          "sha256": "5c1aa06df3e170e4839c83caf4ca446e244e833b3eb6acfccdd3c81023a68d80"
+        },
+        {
+          "file": "softgoods/costs.csv",
+          "sha256": "fd117a3d229fd653ccb3715d71767ecc4d8cc2fbd28efc0f72e8cad84e48642c"
         },
         {
           "file": "softgoods/chafe-rail.svg",

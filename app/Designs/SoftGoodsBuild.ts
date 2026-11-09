@@ -1,3 +1,4 @@
+import {writeXLCompleteCosts} from './XLCompleteCosts'
 import {mkdir} from 'node:fs/promises'
 import {join} from 'node:path'
 import {studioStartingSetup,studioSizes} from './StudioSetup'
@@ -13,7 +14,7 @@ import {springStart} from './XLSpring'
 import {defaultFinish} from '../Storefront/Finish'
 import {inspectBinaryStl} from './Mesh'
 import {sha256} from './XLStandardBuild'
-export const softSourceFiles=['SoftGoods.ts','SoftGoodsFrame.ts','SoftGoodsScene.ts','SoftGoodsDocuments.ts','SoftGoodsCost.ts']
+export const softSourceFiles=['SoftGoods.ts','SoftGoodsFrame.ts','SoftGoodsScene.ts','SoftGoodsDocuments.ts','SoftGoodsCost.ts','SoftGoodsBill.ts','TextilePurchases.ts']
 export async function softCodeHash(root:string){return sha256((await Promise.all(softSourceFiles.map(name=>Bun.file(join(root,'app/Designs',name)).text()))).join('\n'))}
 export async function buildSoftGoods(root:string,openscad?:string){
  const frames=[...studioSizes.map(size=>studioSoftFrame(studioStartingSetup(size))),xlSoftFrame(standardStart,'r1'),xlSoftFrame({...standardStart,travel:0},'r2')]
@@ -47,5 +48,6 @@ export async function buildSoftGoods(root:string,openscad?:string){
  const manifest={revision:'textile-r1',status:'BENCH_ONLY_NOT_ANIMAL_USE',sourceHash:await softCodeHash(root),records}
  await Bun.write(join(root,'designs/softgoods/r1/manifest.json'),JSON.stringify(manifest,null,2)+'\n')
  if(openscad)await Bun.write(join(root,'public/designs/softgoods/r1/manifest.json'),JSON.stringify(manifest,null,2)+'\n')
+ await writeXLCompleteCosts(root)
  return manifest
 }

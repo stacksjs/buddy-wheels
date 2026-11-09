@@ -1,8 +1,13 @@
+import type {SoftSetup} from './SoftGoods'
+import {softStart} from './SoftGoods'
+import {xlSoftFrame} from './SoftGoodsFrame'
+import {completeTextileCost} from './TextilePurchases'
+import {textileCostNotes} from './SoftGoodsCost'
 import type { SpringSetup } from './XLSpring'
 import { packSpringCuts, springCuts, springDimensions, springStart } from './XLSpring'
 import { standardCostLines, standardPriceEvidence } from './XLStandardCost'
-import { money as unsignedMoney } from '../Storefront/Catalog'
-export const springMoney = (n: number) => (n < 0 ? '-' : '') + unsignedMoney(Math.abs(n))
+import {signedMoney} from '../Storefront/Catalog'
+export const springMoney=signedMoney
 const money = springMoney
 export const springEvidence = [
   {name:'Wurth ISO4762 M5 head dimensions',price:0,unit:'specification reference, price RFQ',url:'https://eshop.wuerth.de/Hexagon-Socket-Head-Cap-Screw-full-thread-ISO-4762-DIN-912-steel-88-plain-with-full-thread-SCR-CYL-ISO4762-88-HS4-M5X50-50/008295%2050.sku/en/US/EUR/',note:'M5 socket head diameter 8.5 mm, height 5 mm. The linked 50 mm listing verifies the head family only; our 70 mm length and actual thread engagement require supplier confirmation.'},
@@ -23,32 +28,33 @@ const overrides: Record<string, {batch:number,one:number,note:string}> = {
 } as const
 export const springCostLines = [
   {id:'guards',name:'Two cartridge bellows and axle/pinch guard set',batch:400,one:1500,coverage:['S10'],evidence:'RFQ',note:'Complete guard material/fastener allowance only. No qualified pattern, supplier, pinch envelope or tested attachment exists. Must replace with a quoted validated design before release.'},
-  ...standardCostLines.map(line=>({...line,...overrides[line.id],coverage:line.id==='plates'?[...line.coverage,'S03','S09']:line.id==='sleeves'?[...line.coverage,'H02L','S06']:line.id==='bolts'?[...line.coverage,'H01L']:line.coverage})),
+  ...standardCostLines.map(line=>({...line,...overrides[line.id],name:line.id==='plates'?'20 steel profiles, cutting, deburring and corrosion finish':line.name,coverage:line.id==='plates'?[...line.coverage,'S03','S09']:line.id==='sleeves'?[...line.coverage,'H02L','S06']:line.id==='bolts'?[...line.coverage,'H01L']:line.coverage})),
   {id:'springs',name:'Two MISUMI SWH20-75 springs',batch:924,one:1088,coverage:['S02'],evidence:'observed',note:'Two at $4.62 for 200 springs, or $5.44 for 2. Actual selected online tier, not an invented discount.'},
   {id:'retention',name:'Four smooth clevis pins with washers/cotters',batch:500,one:1200,coverage:['S04'],evidence:'RFQ',note:'$1.25 per complete pin set batch allowance. Supplier SKU, clear grip and retention drawing not yet verified.'},
   {id:'guidance',name:'16 liner pads and two M5 guide fastener sets',batch:400,one:1200,coverage:['S05','S07'],evidence:'RFQ',note:'Consumed .050 inch UHMW tape, 16 pads, two M5 x 70 ISO4762 screws, DIN433 upper washers, lower washers and locknuts. No full roll charged per unit; no verified price or wear test.'},
 ] as const
-export function springEconomics(setup: SpringSetup = springStart, quantity=100, retail=29900) {
+export function springEconomics(setup: SpringSetup = springStart, quantity=100, retail=29900, goods?:SoftSetup) {
   if (![1,100].includes(quantity) || ![26500,29900].includes(retail)) throw new Error('Use one/100 chairs and $265/$299 retail.')
   const packing=packSpringCuts(springCuts(setup),quantity,3657.6)
   const housings=packSpringCuts([{qty:2,length:springDimensions(setup).housingLength}],quantity,1828.8)
   const frame=Math.ceil(packing.bars*6003/quantity);const housing=Math.ceil(housings.bars*2520/quantity)
   const shimCost=setup.preload*2*(quantity===100?25:100)
-  const cogs=frame+housing+shimCost+springCostLines.reduce((t,l)=>t+l[quantity===100?'batch':'one'],0)
+  const textileFrame=xlSoftFrame(setup,'r2'),textiles=completeTextileCost(textileFrame,goods??softStart(textileFrame),quantity)
+  const cogs=frame+housing+shimCost+textiles.total+springCostLines.filter(line=>line.id!=='supports').reduce((t,l)=>t+l[quantity===100?'batch':'one'],0)
   const gross=retail-cogs; const fee=Math.round(retail*.029)+30;const warranty=Math.round(retail*.05);const support=1000;const acquisition=2500
   const contribution=gross-fee-warranty-support-acquisition;const maxCogs=Math.floor(retail*.7)
-  return {quantity,retail,packing,housings,frame,housing,shimCost,cogs,gross,grossPercent:gross/retail*100,fee,warranty,support,acquisition,contribution,freeShippingContribution:contribution-2400,maxCogs,headroom:maxCogs-cogs,meetsCostGate:cogs<=maxCogs,status:'UNQUOTED_MANUFACTURING_SCENARIO_NOT_VERIFIED_COST'}
+  return {textiles,quantity,retail,packing,housings,frame,housing,shimCost,cogs,gross,grossPercent:gross/retail*100,fee,warranty,support,acquisition,contribution,freeShippingContribution:contribution-2400,maxCogs,headroom:maxCogs-cogs,meetsCostGate:cogs<=maxCogs,status:'UNQUOTED_MANUFACTURING_SCENARIO_NOT_VERIFIED_COST'}
 }
-export function springCostModel(s: SpringSetup=springStart) {return {checked:'2026-11-08',setup:s,retails:[26500,29900].map(p=>springEconomics(s,100,p)),one:springEconomics(s,1),lines:springCostLines,evidence:springEvidence}}
-export function springCostCsv(s: SpringSetup=springStart) {
-  const one=springEconomics(s,1);const batch=springEconomics(s)
-  return [['Line','One-chair USD','100-chair allocation USD','Evidence'],['1 inch whole tube stock',one.frame/100,batch.frame/100,'Observed price + computed nesting'],['1.25 inch whole housing stock',one.housing/100,batch.housing/100,'Observed per-foot price;6 ft purchasing length assumption'],['Preload shims S08',one.shimCost/100,batch.shimCost/100,'RFQ'],...springCostLines.map(l=>[l.name,l.one/100,l.batch/100,l.evidence]),['LANDED COGS',one.cogs/100,batch.cogs/100,'Mostly unquoted']].map(row=>row.map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')).join('\n')+'\n'
+export function springCostModel(s: SpringSetup=springStart,goods?:SoftSetup) {return {checked:'2026-11-08',setup:s,retails:[26500,29900].map(p=>springEconomics(s,100,p,goods)),one:springEconomics(s,1,29900,goods),lines:pricedSpringLines(s,goods),evidence:springEvidence}}
+export function springCostCsv(s: SpringSetup=springStart,goods?:SoftSetup) {
+  const one=springEconomics(s,1,29900,goods);const batch=springEconomics(s,100,29900,goods)
+  return [['Line','One-chair USD','100-chair allocation USD','Evidence'],['1 inch whole tube stock',one.frame/100,batch.frame/100,'Observed price + computed nesting'],['1.25 inch whole housing stock',one.housing/100,batch.housing/100,'Observed per-foot price;6 ft purchasing length assumption'],['Preload shims S08',one.shimCost/100,batch.shimCost/100,'RFQ'],...pricedSpringLines(s,goods).map(l=>[l.name,l.one/100,l.batch/100,l.evidence]),['LANDED COGS',one.cogs/100,batch.cogs/100,'Mostly unquoted']].map(row=>row.map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')).join('\n')+'\n'
 }
-export function springCostMarkdown(s: SpringSetup=springStart) {
-  const a=springEconomics(s,100,26500);const b=springEconomics(s);const one=springEconomics(s,1)
+export function springCostMarkdown(s: SpringSetup=springStart,goods?:SoftSetup) {
+  const a=springEconomics(s,100,26500,goods);const b=springEconomics(s,100,29900,goods);const one=springEconomics(s,1,29900,goods)
   return `# Buddy XL r2: lower-cost adjustable spring cartridge
 
-Checked November 8, 2026. USD, integer-cent native Bun model. This is a costed bench candidate, not a production quote, retail release or animal-use rating. Anatomy, actual hub length and spring suitability remain unverified. Other sizes remain r0; XL r1 rigid files remain unchanged.
+Checked November 8, 2026. USD, integer-cent native Bun model. This is a costed bench candidate, not a production quote, retail release or animal-use rating. Anatomy, actual hub length and spring suitability remain unverified. Other sizes remain r0. XL r1 uses the same revised complete textile costing with its separate rigid frame.
 
 ## Decision
 
@@ -73,17 +79,17 @@ Configuration: height ${s.height}, width ${s.width}, rail ${s.rail}, provisional
 | Contribution before fixed overhead | ${money(a.contribution)} | ${money(b.contribution)} |
 | Contribution with $24 free delivery subsidy | ${money(a.freeShippingContribution)} | ${money(b.freeShippingContribution)} |
 
-At$299 the numerical 30% gate ${b.meetsCostGate?'passes':'FAILS'}; at $265 it ${a.meetsCostGate?'passes':'FAILS'}. Do not lower the gate to make the design appear viable. ${b.meetsCostGate?'$299 is the conditional price candidate, pending all quotes and qualification.':`$299 needs at least ${money(-b.headroom)} less landed COGS to pass 30%, plus enough contingency. Get quotes before accepting this architecture for retail.`} Single-unit retail-stock manufacturing is ${money(one.cogs)} and cannot sustain either retail price. No printer, software setup, reusable jig or development/engineering capital is charged as a new purchase per chair. Machine wear and consumables are recurring and included. A 100-chair batch is a scenario, not an authorized purchase.
+At $299 the numerical 30% gate ${b.meetsCostGate?'passes':'FAILS'}; at $265 it ${a.meetsCostGate?'passes':'FAILS'}. Do not lower the gate to make the design appear viable. ${b.meetsCostGate?'$299 is the conditional price candidate, pending all quotes and qualification.':`$299 needs at least ${money(-b.headroom)} less landed COGS to pass 30%, plus enough contingency. Get quotes before accepting this architecture for retail.`} Single-unit retail-stock manufacturing is ${money(one.cogs)} and cannot sustain either retail price. No printer, software setup, reusable jig or development/engineering capital is charged as a new purchase per chair. Machine wear and consumables are recurring and included. A 100-chair batch is a scenario, not an authorized purchase.
 
 | Recurring line | One unit |100-chair allocation | Evidence |
 | --- | ---: | ---: | --- |
 |1 inch frame/carriage tube, whole 12-foot bars | ${money(one.frame)} | ${money(b.frame)} | Checked bar price, computed nesting |
 |1.25 inch housings, whole 6-foot lengths | ${money(one.housing)} | ${money(b.housing)} | Checked price/foot, length assumption |
 | Preload shims, ${2*s.preload} total | ${money(one.shimCost)} | ${money(b.shimCost)} | RFQ |
-${springCostLines.map(l=>`| ${l.name} | ${money(l.one)} | ${money(l.batch)} | ${l.evidence} |`).join('\n')}
+${pricedSpringLines(s,goods).map(l=>`| ${l.name} | ${money(l.one)} | ${money(l.batch)} | ${l.evidence} |`).join('\n')}
 | **Landed COGS** | **${money(one.cogs)}** | **${money(b.cogs)}** | Mostly unquoted |
 
-${springCostLines.map(l=>`- **${l.name}:** ${l.note}`).join('\n')}
+${pricedSpringLines(s,goods).map(l=>`- **${l.name}:** ${l.note}`).join('\n')}
 
 ## Whole-stock purchasing
 
@@ -97,12 +103,15 @@ Prices are observed listings, not checkout quotes or guaranteed availability. Sp
 
 ## Conditions and exclusions
 
-Outbound delivery is charged separately at actual cost. Customer sales tax is not revenue; manufacturing assumes valid resale treatment. Add any nonrecoverable purchase tax. Every unquoted operation, steel profile finish, pin/axle supplier fit, complete padded support/front restraint, guard system, freight and production time needs an itemized quote. The textile $24 allowance does not establish a qualified support or anchoring design. Guard development, clinical/structural qualification, insurance, salaries and startup overhead need separate funding. Full fur/pinch/spring guards remain a release gate; the included $4 manufacturing allowance is provisional, with assembly time included in labor. A quoted validated guard design must replace it before a sale-ready COGS claim. A 20% COGS overrun costs ${money(Math.round(b.cogs*.2))} per chair and can eliminate contribution. The rigid r1 baseline remains the lower-complexity fallback.
+Outbound delivery is charged separately at actual cost. Customer sales tax is not revenue; manufacturing assumes valid resale treatment. Add any nonrecoverable purchase tax. Every unquoted operation, steel profile finish, pin/axle supplier fit, complete padded support/front restraint, guard system, freight and production time needs an itemized quote. The old $24 textile target is superseded by the itemized T01 estimate below. Listed material candidates and assumed sewing/freight still do not establish a qualified support or anchor. Guard development, clinical/structural qualification, insurance, salaries and startup overhead need separate funding. Full fur/pinch/spring guards remain a release gate; the included $4 manufacturing allowance is provisional, with assembly time included in labor. A quoted validated guard design must replace it before a sale-ready COGS claim. A 20% COGS overrun costs ${money(Math.round(b.cogs*.2))} per chair and can eliminate contribution. The rigid r1 baseline remains the lower-complexity fallback.
 
 ## Manufacturing release gates
 
 Measure Buddy using the fit guide; obtain clinical guidance. Review the complete metal/textile load paths and dimensions. Verify actual spring tolerances, stock corners, wear-liner fits, seats, guide clearances, slot and pin ligaments, positive retainers and wheel journals. Build only a guarded empty rig, measure force/travel and rebound, then qualify fatigue/stability/terrain and all guarding to an approved protocol before any animal. No hind-leg training or support-force prescription follows from the ideal spring-force preview. Time actual manufacturing and replace all allowances; both qualification and 30% margin gates must pass.
 
-Native commands: \`./buddy design:xl-spring --export --openscad /absolute/path/to/OpenSCAD\`, \`./buddy test\`, \`bun run test:spring\`. Inspect and download matching files at[the r2 studio](https://buddywheels.org/design-studio-xl-suspension).
+Native commands: \`./buddy design:xl-spring --export --openscad /absolute/path/to/OpenSCAD\`, \`./buddy test\`, \`bun run test:spring\`. Inspect and download matching files at [the r2 studio](https://buddywheels.org/design-studio-xl-suspension).
+${textileCostNotes(xlSoftFrame(s,'r2'),goods??softStart(xlSoftFrame(s,'r2'))).trimEnd()}
 `
 }
+
+export function pricedSpringLines(setup:SpringSetup=springStart,goods?:SoftSetup){const f=xlSoftFrame(setup,'r2'),s=goods??softStart(f);return springCostLines.map(line=>line.id==='supports'?{...line,batch:completeTextileCost(f,s,100).total,one:completeTextileCost(f,s,1).total}:line)}
