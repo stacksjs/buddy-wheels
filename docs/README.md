@@ -50,6 +50,6 @@ The catalog's weight and height bands are planning inputs, not proven load ratin
 - [Rover r0 scope, native geometry kit and verification](engineering/rover-r0-plan.md)
 - [Rover materials and weather system: rain, wind, sun, sand and snow](product/rover-materials.md)
 - [Rover r0 cost study: counted cost, the $999 price and the path to a lower cost](business/rover-r0-costs.md)
-- [Rover r0 build guide: briefing a fabrication shop, ordering, cutting, welding and assembly in order](engineering/rover-r0-build-guide.md)
+- [Rover r0 build guide: ordering, cutting, drilling and assembly at home, in order](engineering/rover-r0-build-guide.md)
 - [Rover r0 design files](../designs/rover/r0/README.md)
 - [Rover r0 buy list for one carrier, with supplier links](../designs/rover/r0/buy-list.md)

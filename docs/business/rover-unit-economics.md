@@ -4,10 +4,10 @@ Generated with bun run finance. No physical Rover has been manufactured or quali
 
 | Setup | Price | COGS | Freight | Fees | Reserve | Acquisition | Support | Contribution | COGS +20% contribution |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Run | $999.00 | $1,624.72 | $35.00 | $29.27 | $49.95 | $35.00 | $15.00 | -$789.94 | -$1,114.88 |
-| Coast | $1,049.00 | $1,659.72 | $40.00 | $30.72 | $52.45 | $35.00 | $17.00 | -$785.89 | -$1,117.83 |
-| Snow | $1,099.00 | $1,699.72 | $45.00 | $32.17 | $54.95 | $35.00 | $20.00 | -$787.84 | -$1,127.78 |
-| All-season | $1,199.00 | $1,759.72 | $55.00 | $35.07 | $59.95 | $35.00 | $23.00 | -$768.74 | -$1,120.68 |
+| Run | $999.00 | $1,607.79 | $35.00 | $29.27 | $49.95 | $35.00 | $15.00 | -$773.01 | -$1,094.57 |
+| Coast | $1,049.00 | $1,642.79 | $40.00 | $30.72 | $52.45 | $35.00 | $17.00 | -$768.96 | -$1,097.52 |
+| Snow | $1,099.00 | $1,682.79 | $45.00 | $32.17 | $54.95 | $35.00 | $20.00 | -$770.91 | -$1,107.47 |
+| All-season | $1,199.00 | $1,742.79 | $55.00 | $35.07 | $59.95 | $35.00 | $23.00 | -$751.81 | -$1,100.37 |
 
 **Every row loses money.** The Run COGS is the counted cost of the r0 bench design at 100 units from the [r0 cost study](rover-r0-costs.md), which is higher than the price. Coast, Snow and All-season add the earlier target steps of $35, $75 and $135 for conversion kits that have not been designed. A 30% gross margin at $999 needs the cost at $699.30 or less; the cost study lists what it would take to get there.
 

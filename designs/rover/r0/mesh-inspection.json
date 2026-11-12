@@ -1,5 +1,5 @@
 {
-  "geometryHash": "5d517a3f635c9743f7672c00a99049f03f12fdcf7c4ae985007cb2e986c71c3f",
+  "geometryHash": "77c855e62b909b518ab655607c022b458bb8eb0a1e3f6155e9ace3935b860849",
   "status": "DIGITAL_GEOMETRY_ONLY",
   "envelopeMm": [
     220,
@@ -400,28 +400,56 @@
       }
     },
     {
-      "file": "parts/FIT_CHECK_ONLY_shock_tab.stl",
+      "file": "parts/FIT_CHECK_ONLY_shock_plate.stl",
       "inspection": {
-        "triangles": 288,
-        "vertices": 144,
+        "triangles": 680,
+        "vertices": 336,
         "closed": true,
         "consistentlyOriented": true,
         "components": 1,
-        "signedVolumeMm3": 3266.6320870209643,
+        "signedVolumeMm3": 10731.421608470633,
         "boundsMm": {
           "min": [
-            -16,
-            -18,
+            -30,
+            -44.70000076293945,
             0
           ],
           "max": [
-            16,
-            16,
+            30,
+            14,
             3.174999952316284
           ],
           "size": [
-            32,
-            34,
+            60,
+            58.70000076293945,
+            3.174999952316284
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/FIT_CHECK_ONLY_shock_hanger.stl",
+      "inspection": {
+        "triangles": 680,
+        "vertices": 336,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 9721.771508112248,
+        "boundsMm": {
+          "min": [
+            -18,
+            -14,
+            0
+          ],
+          "max": [
+            18,
+            75,
+            3.174999952316284
+          ],
+          "size": [
+            36,
+            89,
             3.174999952316284
           ]
         }

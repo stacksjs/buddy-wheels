@@ -1,6 +1,6 @@
 # Buddy Rover r0 bench assembly
 
-Configuration rover-r0-l1300-w700-h1000-r1000-a560-g1000-hub101.6-trail-swivel310-k350-t180-welded-sprung. All dimensions mm. BENCH DESIGN. NOT FOR ANIMAL USE. No payload, speed, distance, slope or surface rating exists. Buddy is owner-reported 140 lb; his measurements and suitability for a carrier are not established.
+Configuration rover-r0-l1300-w700-h1000-r1000-a560-g930-hub101.6-trail-swivel310-k350-t180-bolted-sprung. All dimensions mm. BENCH DESIGN. NOT FOR ANIMAL USE. No payload, speed, distance, slope or surface rating exists. Buddy is owner-reported 140 lb; his measurements and suitability for a carrier are not established.
 
 ## What this revision is
 
@@ -23,12 +23,12 @@ Coordinates: X forward, Y across, Z up. Origin on the ground under the rear axle
 | Front wheel | swivel caster, mounting height 310 |
 | Kit | on wheels |
 | Wheelbase | 913.4 |
-| Handle height | 1000 (39.4 in) |
+| Handle height | 930 (36.6 in) |
 | Overall length, width over axle ends, height | 2120.8 x 1078.9 x 1254 |
 | Ground clearance under the base gussets | 108.125 |
 | Rear wheel | 15 inch trail (4.00-8) |
 | Assumed wheel hub through-length | 101.6 |
-| Estimated empty mass, arithmetic only | 44.3 kg (98 lb) |
+| Estimated empty mass, arithmetic only | 52.7 kg (116 lb) |
 
 ## Stated geometry beside the reference trailer
 
@@ -41,14 +41,14 @@ Burley Bark Ranger XL figures are the maker's published numbers, read 2026-11-11
 | Interior height | 29.9 in | 39.4 in |
 | Interior volume ratio | 1.0 | 2.29 |
 | Entry | 9 in step-up at a tailgate | 8.0 degree ramp, no step |
-| Weight | 33 lb | about 98 lb estimated |
+| Weight | 33 lb | about 116 lb estimated |
 | Capacity | 100 lb stated by its maker | none. Untested bench design |
 
 Rover is much larger and much heavier. The mass is the price of a bolted frame and plywood panels and is the first thing a second revision should reduce.
 
 ## Planning statics, not test results
 
-With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 90 mm ahead of the rear axle and the front wheel carries about 10% of that mass. The swivel caster steers without lifting anything. Lifting the front to climb a curb takes roughly 107 N (24 lbf) down on the handle. A swivel caster can shimmy at a run, so lock the swivel with its bolt-on lock before running and steer by lifting the front as with a fixed wheel. A dog that stands at the tailgate moves the center behind the axle. The two tip-stop feet exist for that case and their setting and strength are unproven.
+With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 90 mm ahead of the rear axle and the front wheel carries about 10% of that mass. The swivel caster steers without lifting anything. Lifting the front to climb a curb takes roughly 115 N (26 lbf) down on the handle. A swivel caster can shimmy at a run, so lock the swivel with its bolt-on lock before running and steer by lifting the front as with a fixed wheel. A dog that stands at the tailgate moves the center behind the axle. The two tip-stop feet exist for that case and their setting and strength are unproven.
 
 ## Cut list
 
@@ -71,51 +71,38 @@ With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 90 
 | C17 | 2 | Brake arm | 1/8 wall 6061-T6 | 140 |
 | C21 | 2 | Front pillar | 1/16 wall 6063-T52 | 905.5711 |
 | C22 | 2 | Swing arm | 1/8 wall 6061-T6 | 357.8103 |
-| C23 | 2 | Shock arm | 1/8 wall 6061-T6 | 46 |
+| C23 | 2 | Shock spacer tube | 1/8 wall 6061-T6 | 60 |
 
-Total 12.07 m of 1/8 inch wall 6061-T6 and 14.21 m of 1/16 inch wall 6063-T52. Base cross members sit at X = -572.7, -241.35, 95, 421.35, 752.7.
+Total 12.10 m of 1/8 inch wall 6061-T6 and 14.21 m of 1/16 inch wall 6063-T52. Base cross members sit at X = -572.7, -241.35, 95, 421.35, 752.7.
 
-## Joints
+## Joint patterns
 
-The frame is welded. There are 56 joints, listed in weld-schedule.csv, and no gussets. The top rails fall 180 from rear to front, 10.2 degrees, and each front pillar leans back 22.7 degrees from upright.
+Every joint is a flat gusset with 1/4 inch bolts through steel crush sleeves. Hole centers are measured from the joint centerline, where two tube centerlines cross. The top rails fall 180 from rear to front, 10.2 degrees, and each front pillar leans back 22.7 degrees from upright, so three plates are cut to those angles.
 
-| Weld | Qty | Joint | How |
+| Profile | Qty | Holes from the joint centerline | Where |
 | --- | ---: | --- | --- |
-| W01 | 10 | Base cross member to base side rail | Square tee, fillet all round |
-| W02 | 2 | Rear corner post to base side rail | Square tee, fillet all round |
-| W03 | 2 | Rear corner post to top side rail | Tee, post top cut 10.2 degrees off square, fillet all round |
-| W04 | 2 | Front pillar to base side rail | Tee, foot cut 22.7 degrees off square so the pillar leans back, fillet all round |
-| W05 | 2 | Front pillar to top side rail | Pillar under the front end of the rail, top cut 32.9 degrees off square, fillet all round |
-| W06 | 2 | Axle post to base side rail | Square tee, fillet all round |
-| W07 | 2 | Axle post to top side rail | Tee, post top cut 10.2 degrees off square, fillet all round |
-| W08 | 6 | Top cross tube to top side rail | Square tee, fillet all round |
-| W09 | 4 | Nose post to base side rail | Square tee, fillet all round |
-| W10 | 4 | Caster beam to nose post | Beam across the post top, fillet all round |
-| W11 | 2 | Brake arm to axle post | Square tee, fillet all round |
-| W12 | 4 | Handle arm to rear corner post and to axle post | Lap, fillet both long edges |
-| W13 | 2 | Handle grip tube to handle arm | Square tee, fillet all round |
-| W14 | 2 | Ramp leg to ramp rib | Square tee, fillet all round |
-| W16 | 2 | Shock arm to axle post | Square tee, fillet all round |
-| W17 | 4 | Shock tab to swing arm | Tab on edge on the top face, fillet both sides. Two tabs 25.4 apart, holes in line |
-| W18 | 4 | Shock tab to shock arm | Tab on edge on the under face, fillet both sides. Two tabs 25.4 apart, holes in line |
+| Corner gusset | 34 | Leg A 50 and 80. Leg B 35 and 65 | Rear post feet on the outside face, rail to cross member, roof corners on top, handle grip, brake arms, ramp legs, nose posts |
+| Roof gusset, 79.8 degrees between legs | 6 | Leg A 50 and 80. Leg B 35 and 65 | Rear post tops on the outside face, axle post tops on both faces |
+| Pillar foot gusset, 67.3 degrees between legs | 2 | Leg A 50 and 80. Leg B 35 and 65 | Pillar foot to base rail, outside face |
+| Pillar top gusset, 122.9 degrees between legs | 2 | Leg A 50 and 80. Leg B 35 and 65 | Pillar top to top rail, outside face |
+| Tee gusset | 12 | Bar 30 each side. Stem 35 and 60 | Intermediate base cross members, mid roof bow, axle post feet on both faces |
 
-What still bolts on: the two swing arms on their pivot bolts, the two shocks, the two brake clamp plates and the caster. Tube bores are 9.725 for the 1/4 inch sleeves, plate holes 6.75, axle sleeve bores 19.25. All are nominal.
-
-Welding softens the aluminum beside each weld. No strength figure exists for this frame in either build, and nothing here allows for that loss. A welded sample joint, a weld procedure and an engineer's review come before any load.
+Legs A and B alternate where two gussets meet on one tube, so bolts cross 15 mm apart and never share a station. Tube bores are 9.725 for the sleeves, plate holes 6.75, axle sleeve bores 19.25. All are nominal. Use the three printed drill guides for pilot centers and finish with metal tooling.
 
 ## Build order
 
 1. Print the clearance coupon and measure it. Print one cap and one clip before batching.
 2. Cut and deburr every tube. Mark each with its ID. The axle posts, rear posts and pillars have angled ends; see build-guide.md.
-3. The shop tacks the base ladder flat: two side rails, 5 cross members. Check the diagonals, then weld.
-4. Axle posts at X = 0, rear posts, front pillars, nose posts and caster beams. Tack, check both axle posts are square and in line, then weld.
-5. Top rails and three top cross tubes. Handle arms on the outside of the rear and axle posts at Z = 1000, grip tube between the arm ends. Brake arms on the axle posts.
-6. Drill for the hangers, the brake plates, the caster and the tip-stops after welding, from drilling.csv.
-7. Swing arms on their pivot bolts outside the base rails, shocks between the tabs, axle sleeves through the arms. Bolt the caster under the beams; its swivel axis sits 205 ahead of the cabin front.
+3. Base frame: two side rails, 5 cross members. Corner gussets under each corner, tee gussets under each intermediate member.
+4. Axle posts at X = 0 with a tee gusset on each side face, bar along the rail, stem up the post.
+5. Rear posts with a corner gusset at the foot. Front pillars with a pillar foot gusset. One plate each, on the outside face, with washers on the inside.
+6. Top rails on a roof gusset at each rear post, a pair at each axle post and a pillar top gusset at each pillar. Three top cross tubes, corner gussets on top, tee gussets at the mid bow.
+7. Nose: the base rails run 327.85 past the front cross member. Stand four nose posts on them at X = 927.55 and 1013.25, each with a pair of corner gussets, the rail leg pointing away from the other post. Lay the two caster beams across the post tops and tie each to its posts with one corner gusset on the outside face. Hold the caster plate up under the beams at the centerline, mark its four holes, drill, and bolt it with sleeves.
 8. Floor panel on bedding tape, fastened to the frame.
-9. Ramp: panel, two curb rails on top, two ribs underneath at 40 mm and mid length, stand legs welded to the hinge-end rib 60 mm in from each edge. Hinge leaves on the top faces of floor and ramp.
-10. Wheels, washers and cotters. Rear stack between outer washer faces 142.7, with 0.5 total end float.
-11. Tip-stop feet, the brake plates and clamps, latches, safety strap. Then the cover.
+9. Ramp: panel, two curb rails on top, two ribs underneath at 40 mm and mid length, stand legs on the hinge-end rib 60 mm in from each edge. Hinge leaves on the top faces of floor and ramp.
+10. Handle arms on the outside of the rear and axle posts at Z = 930, one 3 inch bolt per post. Grip tube between the arm ends.
+11. Swing arms on their pivot bolts, shock plates and hangers, shocks, then wheels, washers and cotters. Rear stack between outer washer faces 142.7, with 0.5 total end float.
+12. Tip-stop feet, the two brake arms with their plates and clamps, latches, safety strap. Then the cover.
 
 ## The ramp
 
@@ -127,7 +114,7 @@ The rear axles sit in the swing arms outside the frame, so nothing stands into t
 
 ## Rear suspension
 
-Each rear wheel hangs on a trailing swing arm outside the base rail. The arm pivots on one 1/2 inch bolt through the rail, 300 mm ahead of the axle, and a coil-over shock runs from two tabs on the arm up to two tabs under a short stub on the axle post.
+Each rear wheel hangs on a trailing swing arm outside the base rail. The arm pivots on one 1/2 inch bolt through the rail, 300 mm ahead of the axle, and a coil-over shock runs from a pair of plates bolted to the arm up to a pair hung from the axle post around a short spacer tube. Nothing in it is welded, so it fits either frame.
 
 | | |
 | --- | --- |
@@ -136,8 +123,8 @@ Each rear wheel hangs on a trailing swing arm outside the base rail. The arm piv
 | Shock movement per unit of wheel movement | 0.51 |
 | Rate at the wheel | 20.7 N/mm (118 lb/in) |
 | Wheel travel | about 59 mm |
-| Settles under its own weight | about 6 mm |
-| Settles with the 72.6 kg planning mass | about 22 mm, on 46 kg per rear wheel |
+| Settles under its own weight | about 8 mm |
+| Settles with the 72.6 kg planning mass | about 23 mm, on 48.5 kg per rear wheel |
 
 These are arithmetic from the drawn geometry and one candidate shock, taking the seller's spring label as pounds per inch, which nobody has checked. No shock has been fitted or measured, and the tires add their own give on top. The same shock is sold with softer and stiffer springs, so the settle can be tuned once a real one is on the frame. There is no ride measurement and no comparison with any other carrier. Open points: side play at a single-bolt pivot, the parking brake pad on a tire that now moves with the load, and the unsprung front caster.
 

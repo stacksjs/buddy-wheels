@@ -3,15 +3,15 @@
   "product": "Buddy Rover",
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
   "generator": "native Stacks solid kit, no external CAD executable",
-  "geometryHash": "5d517a3f635c9743f7672c00a99049f03f12fdcf7c4ae985007cb2e986c71c3f",
-  "costHash": "d2bb01f23bc1371ec4d14c33fcc25cca57ef4e3d87d79f3ddfd9f3bd0e696907",
+  "geometryHash": "77c855e62b909b518ab655607c022b458bb8eb0a1e3f6155e9ace3935b860849",
+  "costHash": "8269e44150aa54dac49b742019f9515dcf7d3a96600efeddc12e65f21f879a5d",
   "setup": {
     "length": 1300,
     "width": 700,
     "height": 1000,
     "ramp": 1000,
     "axle": 560,
-    "handle": 1000,
+    "handle": 930,
     "hub": 101.6,
     "caster": 310,
     "rake": 350,
@@ -19,7 +19,7 @@
     "wheel": "trail",
     "front": "swivel",
     "kit": "wheels",
-    "build": "welded",
+    "build": "bolted",
     "ride": "sprung",
     "cabin": "dog"
   },
@@ -51,111 +51,52 @@
     "clearance": 108.125,
     "rearX": -560,
     "frontX": 740,
-    "welded": true,
-    "welds": [
+    "welded": false,
+    "welds": [],
+    "angles": [
       {
-        "id": "W01",
-        "joint": "Base cross member to base side rail",
-        "qty": 10,
-        "type": "Square tee, fillet all round"
-      },
-      {
-        "id": "W02",
-        "joint": "Rear corner post to base side rail",
-        "qty": 2,
-        "type": "Square tee, fillet all round"
-      },
-      {
-        "id": "W03",
-        "joint": "Rear corner post to top side rail",
-        "qty": 2,
-        "type": "Tee, post top cut 10.2 degrees off square, fillet all round"
-      },
-      {
-        "id": "W04",
-        "joint": "Front pillar to base side rail",
-        "qty": 2,
-        "type": "Tee, foot cut 22.7 degrees off square so the pillar leans back, fillet all round"
-      },
-      {
-        "id": "W05",
-        "joint": "Front pillar to top side rail",
-        "qty": 2,
-        "type": "Pillar under the front end of the rail, top cut 32.9 degrees off square, fillet all round"
-      },
-      {
-        "id": "W06",
-        "joint": "Axle post to base side rail",
-        "qty": 2,
-        "type": "Square tee, fillet all round"
-      },
-      {
-        "id": "W07",
-        "joint": "Axle post to top side rail",
-        "qty": 2,
-        "type": "Tee, post top cut 10.2 degrees off square, fillet all round"
-      },
-      {
-        "id": "W08",
-        "joint": "Top cross tube to top side rail",
+        "id": "roof",
+        "file": "roof-gusset",
+        "name": "Roof gusset",
+        "angle": 79.804,
+        "shift": 0,
         "qty": 6,
-        "type": "Square tee, fillet all round"
+        "where": "Rear post tops on the outside face, axle post tops on both faces"
       },
       {
-        "id": "W09",
-        "joint": "Nose post to base side rail",
-        "qty": 4,
-        "type": "Square tee, fillet all round"
-      },
-      {
-        "id": "W10",
-        "joint": "Caster beam to nose post",
-        "qty": 4,
-        "type": "Beam across the post top, fillet all round"
-      },
-      {
-        "id": "W11",
-        "joint": "Brake arm to axle post",
+        "id": "foot",
+        "file": "pillar-foot-gusset",
+        "name": "Pillar foot gusset",
+        "angle": 67.2633,
+        "shift": 5.3221,
         "qty": 2,
-        "type": "Square tee, fillet all round"
+        "where": "Pillar foot to base rail, outside face"
       },
       {
-        "id": "W12",
-        "joint": "Handle arm to rear corner post and to axle post",
-        "qty": 4,
-        "type": "Lap, fillet both long edges"
-      },
-      {
-        "id": "W13",
-        "joint": "Handle grip tube to handle arm",
+        "id": "top",
+        "file": "pillar-top-gusset",
+        "name": "Pillar top gusset",
+        "angle": 122.9327,
+        "shift": -7.1039,
         "qty": 2,
-        "type": "Square tee, fillet all round"
-      },
-      {
-        "id": "W14",
-        "joint": "Ramp leg to ramp rib",
-        "qty": 2,
-        "type": "Square tee, fillet all round"
-      },
-      {
-        "id": "W16",
-        "joint": "Shock arm to axle post",
-        "qty": 2,
-        "type": "Square tee, fillet all round"
-      },
-      {
-        "id": "W17",
-        "joint": "Shock tab to swing arm",
-        "qty": 4,
-        "type": "Tab on edge on the top face, fillet both sides. Two tabs 25.4 apart, holes in line"
-      },
-      {
-        "id": "W18",
-        "joint": "Shock tab to shock arm",
-        "qty": 4,
-        "type": "Tab on edge on the under face, fillet both sides. Two tabs 25.4 apart, holes in line"
+        "where": "Pillar top to top rail, outside face"
       }
     ],
+    "pillarDir": [
+      -0.38649642764100844,
+      0,
+      0.9222909039022008
+    ],
+    "pillarFoot": [
+      758.0221,
+      124
+    ],
+    "pillarTop": [
+      395.9089,
+      988.1056
+    ],
+    "pillarFootBack": 13.7701,
+    "pillarTopBack": 17.571,
     "roofAngle": 10.196,
     "pillarAngle": 22.7367,
     "topRailCut": 1016.8582,
@@ -203,13 +144,13 @@
       207.6424
     ],
     "shockUpZ": 338.702,
-    "shockArmZ": 369.402,
+    "shockSpacerZ": 353.702,
     "motionRatio": 0.5123,
     "wheelRate": 20.682,
     "wheelTravel": 59,
-    "sag": 22,
-    "sagEmpty": 6,
-    "rearWheelKg": 46,
+    "sag": 23,
+    "sagEmpty": 8,
+    "rearWheelKg": 48.5,
     "seats": false,
     "seatTubeZ": 327.2,
     "seatLeg": 177.8,
@@ -233,7 +174,7 @@
     "gripX": -965.4,
     "handleArm": 1005.4,
     "grip": 750.8,
-    "handleMax": 1010,
+    "handleMax": 930,
     "centerAhead": 90,
     "roofSlope": 382.3748,
     "overallWidth": 1078.9,
@@ -362,23 +303,26 @@
       },
       {
         "id": "C23",
-        "name": "Shock arm",
+        "name": "Shock spacer tube",
         "wall": "heavy",
         "qty": 2,
-        "length": 46
+        "length": 60
       }
     ],
     "counts": {
-      "corner": 0,
-      "tee": 0,
+      "corner": 34,
+      "angle": 10,
+      "tee": 12,
       "hanger": 0,
       "wheels": 2,
-      "weldJoints": 56,
+      "weldJoints": 0,
       "shocks": 2,
-      "shockTabs": 8,
-      "bolts": 4,
-      "handleBolts": 0,
-      "sleeves": 4,
+      "shockPlates": 4,
+      "shockHangers": 4,
+      "shockBolts": 4,
+      "bolts": 174,
+      "handleBolts": 4,
+      "sleeves": 190,
       "casterBolts": 4,
       "brakeClamps": 2,
       "rampBolts": 18,
@@ -391,23 +335,23 @@
       "cableClip": 6,
       "axleCover": 4
     },
-    "heavyM": 12.0743,
+    "heavyM": 12.1023,
     "lightM": 14.2129,
     "tubeLb": 33.1,
     "floorArea": 1.0142,
     "rampArea": 0.688,
     "mass": {
       "tube": 15,
-      "plates": 0.4,
+      "plates": 4,
       "panels": 11.1,
       "wheels": 10,
-      "hardware": 3.6,
+      "hardware": 8.4,
       "softgoods": 4.2
     },
-    "carrierKg": 44.3,
+    "carrierKg": 52.7,
     "frontShare": 9.8533,
-    "tiltForceN": 107,
-    "tiltForceLbf": 24,
+    "tiltForceN": 115,
+    "tiltForceLbf": 26,
     "volumeRatio": 2.2901
   },
   "printVolumeCm3": 1339,
@@ -483,9 +427,14 @@
       "bytes": 24284
     },
     {
-      "path": "parts/FIT_CHECK_ONLY_shock_tab.stl",
-      "sha256": "2811405a0aa1b4b17dcacc00c5f2a241f66875cfe2c5d48967d1985a78d1e49c",
-      "bytes": 14484
+      "path": "parts/FIT_CHECK_ONLY_shock_plate.stl",
+      "sha256": "85ec078a47c797b7a5bdad816115c325c53f8f71619ca2195d1f034218f8061a",
+      "bytes": 34084
+    },
+    {
+      "path": "parts/FIT_CHECK_ONLY_shock_hanger.stl",
+      "sha256": "aeb4a925b27ee2126818a35d8b34ae665e481676e034fe3686a69b206628df83",
+      "bytes": 34084
     },
     {
       "path": "parts/FIT_CHECK_ONLY_axle_hanger_mid.stl",
@@ -518,9 +467,14 @@
       "bytes": 4710
     },
     {
-      "path": "metal/shock_tab.dxf",
-      "sha256": "d96f7b68fce4fa209d14e22698616280eebe164fc52aff30606fd1fbd5b7ea95",
-      "bytes": 2789
+      "path": "metal/shock_plate.dxf",
+      "sha256": "447c001193d7de5daa951bd32a8dad1daa3d45e6cf5d491a179576810d6b20df",
+      "bytes": 6655
+    },
+    {
+      "path": "metal/shock_hanger.dxf",
+      "sha256": "7fc80974d2db1b80892b9c1fe08d7326bf40bae4c6db1043b25149e003545a17",
+      "bytes": 6445
     },
     {
       "path": "metal/axle_hanger_mid.dxf",
@@ -539,18 +493,18 @@
     },
     {
       "path": "assembly.md",
-      "sha256": "340818c38ae4cd22933fbd2dd40dbc9e842f59cf015362e50a35273e331dd3b1",
-      "bytes": 13554
+      "sha256": "b3f630cb909e97c164a45ed7db5f7c8352d4e04d05b943482cc3ce98237cc336",
+      "bytes": 13290
     },
     {
       "path": "bom.csv",
-      "sha256": "2e6a02e1544c8c6887bf317addebfb593d36d025c9a0542b13b62f89e5ef46f9",
-      "bytes": 10228
+      "sha256": "c05055405b225ac99ccda323174c0c96ff6df54baef91306cc8c61395da82b6e",
+      "bytes": 11491
     },
     {
       "path": "materials.md",
-      "sha256": "6a90c437481783d8b3e9f22a777676f07758e5ed92e6d0ae3292966becbedc23",
-      "bytes": 11869
+      "sha256": "4e9222a5afc8bcb0a583d3e3c1288634ae376099270f3e2bd5a3b47d4d9115b9",
+      "bytes": 11868
     },
     {
       "path": "cover-cut-schedule.csv",
@@ -564,58 +518,68 @@
     },
     {
       "path": "drawing.svg",
-      "sha256": "7bf3a4b3bc00c26b79bcaa0e33d4b80a30d92b9eeba9b7447738612640170c4e",
-      "bytes": 5760
+      "sha256": "c42551552bd9dfe0b4671b0df538d53c1718c1875e92e860223020fdad46bcd9",
+      "bytes": 5858
     },
     {
       "path": "cut-list.csv",
-      "sha256": "6ab28f7543d0d8a6dac8466c7aa769f8d6caf09b5d45518805df5e4dcbcf64d7",
-      "bytes": 1393
+      "sha256": "d9397fa047389a39e51ff42cd636e83ed51035fbdf1798ac76b6c3d2c3d91650",
+      "bytes": 1401
     },
     {
       "path": "cost-notes.md",
-      "sha256": "d675d00a7a1ac2e9d40ae2aef8502a95fbcb8c5d052f8d3dd71f8d7e2b9a8e7e",
-      "bytes": 25226
+      "sha256": "27786109f4087b68bbf7decbeca333aca91042d26934c30d168a0f06d505fc21",
+      "bytes": 24784
     },
     {
       "path": "buy-list.md",
-      "sha256": "06c3c55c453bd98fbccba75ed6a553e88c01cfcf8779f2a38f682259f1a70813",
-      "bytes": 6330
+      "sha256": "202b171f7a810ddbd60aa0c734bc41eb0299a948deec6756b65716861d525094",
+      "bytes": 6223
     },
     {
       "path": "build-guide.md",
-      "sha256": "3c5b0991312ef2a9765546e10aab5b58aa85917a27192e6e0b9f705760bf7f18",
-      "bytes": 25704
+      "sha256": "b54c9f58c697dd91c1cabe43dc93bb2181114ea36df0357afc8b923b357323dc",
+      "bytes": 25968
     },
     {
       "path": "drilling.csv",
-      "sha256": "08dda1f772f76e1272f5eec164481dad7c3fdaf85fb41816547fdc20375dd3b5",
-      "bytes": 1207
+      "sha256": "482d18b5174be25aa792e2ab9dd04e9bf342acf286f7ab803ebfb5681607a630",
+      "bytes": 6257
     },
     {
-      "path": "weld-schedule.csv",
-      "sha256": "8da0e0855ccbb421e1924da0f5072da91a4e65c5caf21fd4f0e011d26c9f57ce",
-      "bytes": 1563
+      "path": "metal/roof-gusset.dxf",
+      "sha256": "624f4f9bc46d76daaeddafda164b7f7c1fdb892a013dcd3be99502f03ee1ce1e",
+      "bytes": 8927
+    },
+    {
+      "path": "metal/pillar-foot-gusset.dxf",
+      "sha256": "e5cda235e951f004b25ed877a04c2bfb6cf68ec97898b6200deb1b92f90e23c2",
+      "bytes": 9028
+    },
+    {
+      "path": "metal/pillar-top-gusset.dxf",
+      "sha256": "7ec33dec6ac8ce214ea38e670512f9bdc44fa7e50312574ac1c897a4118a49ce",
+      "bytes": 9107
     },
     {
       "path": "base-plan.svg",
-      "sha256": "d1566bda8ca3ec2a2806dddf8520a270f25b1ac0890b6522bbfb36752d72e2bb",
-      "bytes": 4999
+      "sha256": "6d75af585ef9689b7380eb1b9cd315f35cae65d21ceab3437037547c0d990882",
+      "bytes": 4995
     },
     {
       "path": "cost-model.json",
-      "sha256": "643655843867b9e06d4c6e167924bfa037ae0c05916a371c3829ae7daa61eb5f",
-      "bytes": 27420
+      "sha256": "101f3616f8b8e20391a9493c115bcfe0a4057330cd62118a09f62e6287462cf9",
+      "bytes": 27068
     },
     {
       "path": "setup.json",
-      "sha256": "46969cb4eeb262f395981dc175d0921100ec1e7ed43b523a43b42828f37f823d",
-      "bytes": 9111
+      "sha256": "7400488784fc71508739a1c8778379c15047e273dc0c1de574b2e05aef8fe6fd",
+      "bytes": 7312
     },
     {
       "path": "README.md",
-      "sha256": "1af1fd7b073a1479f6b2ae86058c1458838e59ee857c8ba8b162777dfb7bf191",
-      "bytes": 1844
+      "sha256": "643f5196d201257a6602ed3f4cf46c0e5c481881eb7f4dcfeca197ce214b2216",
+      "bytes": 2125
     }
   ],
   "parts": [
@@ -704,10 +668,16 @@
       "note": "1/8 inch 6061-T6 aluminum. Hangs from the brake arm on the two gusset bolts and carries the toggle clamp. STL is an unloaded fit-check copy."
     },
     {
-      "id": "shock_tab",
-      "name": "Shock tab",
+      "id": "shock_plate",
+      "name": "Shock plate, swing arm",
       "kind": "metal",
-      "note": "1/8 inch 6061-T6 aluminum. Welded in pairs to the swing arm and the shock arm to hold each shock eye. STL is an unloaded fit-check copy."
+      "note": "1/8 inch 6061-T6 aluminum. A pair bolts to the two side faces of each swing arm and holds the lower shock eye above it. STL is an unloaded fit-check copy."
+    },
+    {
+      "id": "shock_hanger",
+      "name": "Shock hanger, axle post",
+      "kind": "metal",
+      "note": "1/8 inch 6061-T6 aluminum. A pair bolts to the axle post around a short spacer tube and holds the upper shock eye below it. STL is an unloaded fit-check copy."
     },
     {
       "id": "axle_hanger_mid",

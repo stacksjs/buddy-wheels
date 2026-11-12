@@ -6,7 +6,7 @@
   "height": 1000,
   "ramp": 1000,
   "axle": 560,
-  "handle": 1000,
+  "handle": 930,
   "hub": 101.6,
   "caster": 310,
   "rake": 350,
@@ -14,7 +14,7 @@
   "wheel": "trail",
   "front": "swivel",
   "kit": "wheels",
-  "build": "welded",
+  "build": "bolted",
   "ride": "sprung",
   "cabin": "dog",
   "dimensions": {
@@ -45,111 +45,52 @@
     "clearance": 108.125,
     "rearX": -560,
     "frontX": 740,
-    "welded": true,
-    "welds": [
+    "welded": false,
+    "welds": [],
+    "angles": [
       {
-        "id": "W01",
-        "joint": "Base cross member to base side rail",
-        "qty": 10,
-        "type": "Square tee, fillet all round"
-      },
-      {
-        "id": "W02",
-        "joint": "Rear corner post to base side rail",
-        "qty": 2,
-        "type": "Square tee, fillet all round"
-      },
-      {
-        "id": "W03",
-        "joint": "Rear corner post to top side rail",
-        "qty": 2,
-        "type": "Tee, post top cut 10.2 degrees off square, fillet all round"
-      },
-      {
-        "id": "W04",
-        "joint": "Front pillar to base side rail",
-        "qty": 2,
-        "type": "Tee, foot cut 22.7 degrees off square so the pillar leans back, fillet all round"
-      },
-      {
-        "id": "W05",
-        "joint": "Front pillar to top side rail",
-        "qty": 2,
-        "type": "Pillar under the front end of the rail, top cut 32.9 degrees off square, fillet all round"
-      },
-      {
-        "id": "W06",
-        "joint": "Axle post to base side rail",
-        "qty": 2,
-        "type": "Square tee, fillet all round"
-      },
-      {
-        "id": "W07",
-        "joint": "Axle post to top side rail",
-        "qty": 2,
-        "type": "Tee, post top cut 10.2 degrees off square, fillet all round"
-      },
-      {
-        "id": "W08",
-        "joint": "Top cross tube to top side rail",
+        "id": "roof",
+        "file": "roof-gusset",
+        "name": "Roof gusset",
+        "angle": 79.804,
+        "shift": 0,
         "qty": 6,
-        "type": "Square tee, fillet all round"
+        "where": "Rear post tops on the outside face, axle post tops on both faces"
       },
       {
-        "id": "W09",
-        "joint": "Nose post to base side rail",
-        "qty": 4,
-        "type": "Square tee, fillet all round"
-      },
-      {
-        "id": "W10",
-        "joint": "Caster beam to nose post",
-        "qty": 4,
-        "type": "Beam across the post top, fillet all round"
-      },
-      {
-        "id": "W11",
-        "joint": "Brake arm to axle post",
+        "id": "foot",
+        "file": "pillar-foot-gusset",
+        "name": "Pillar foot gusset",
+        "angle": 67.2633,
+        "shift": 5.3221,
         "qty": 2,
-        "type": "Square tee, fillet all round"
+        "where": "Pillar foot to base rail, outside face"
       },
       {
-        "id": "W12",
-        "joint": "Handle arm to rear corner post and to axle post",
-        "qty": 4,
-        "type": "Lap, fillet both long edges"
-      },
-      {
-        "id": "W13",
-        "joint": "Handle grip tube to handle arm",
+        "id": "top",
+        "file": "pillar-top-gusset",
+        "name": "Pillar top gusset",
+        "angle": 122.9327,
+        "shift": -7.1039,
         "qty": 2,
-        "type": "Square tee, fillet all round"
-      },
-      {
-        "id": "W14",
-        "joint": "Ramp leg to ramp rib",
-        "qty": 2,
-        "type": "Square tee, fillet all round"
-      },
-      {
-        "id": "W16",
-        "joint": "Shock arm to axle post",
-        "qty": 2,
-        "type": "Square tee, fillet all round"
-      },
-      {
-        "id": "W17",
-        "joint": "Shock tab to swing arm",
-        "qty": 4,
-        "type": "Tab on edge on the top face, fillet both sides. Two tabs 25.4 apart, holes in line"
-      },
-      {
-        "id": "W18",
-        "joint": "Shock tab to shock arm",
-        "qty": 4,
-        "type": "Tab on edge on the under face, fillet both sides. Two tabs 25.4 apart, holes in line"
+        "where": "Pillar top to top rail, outside face"
       }
     ],
+    "pillarDir": [
+      -0.38649642764100844,
+      0,
+      0.9222909039022008
+    ],
+    "pillarFoot": [
+      758.0221,
+      124
+    ],
+    "pillarTop": [
+      395.9089,
+      988.1056
+    ],
+    "pillarFootBack": 13.7701,
+    "pillarTopBack": 17.571,
     "roofAngle": 10.196,
     "pillarAngle": 22.7367,
     "topRailCut": 1016.8582,
@@ -197,13 +138,13 @@
       207.6424
     ],
     "shockUpZ": 338.702,
-    "shockArmZ": 369.402,
+    "shockSpacerZ": 353.702,
     "motionRatio": 0.5123,
     "wheelRate": 20.682,
     "wheelTravel": 59,
-    "sag": 22,
-    "sagEmpty": 6,
-    "rearWheelKg": 46,
+    "sag": 23,
+    "sagEmpty": 8,
+    "rearWheelKg": 48.5,
     "seats": false,
     "seatTubeZ": 327.2,
     "seatLeg": 177.8,
@@ -227,7 +168,7 @@
     "gripX": -965.4,
     "handleArm": 1005.4,
     "grip": 750.8,
-    "handleMax": 1010,
+    "handleMax": 930,
     "centerAhead": 90,
     "roofSlope": 382.3748,
     "overallWidth": 1078.9,
@@ -356,23 +297,26 @@
       },
       {
         "id": "C23",
-        "name": "Shock arm",
+        "name": "Shock spacer tube",
         "wall": "heavy",
         "qty": 2,
-        "length": 46
+        "length": 60
       }
     ],
     "counts": {
-      "corner": 0,
-      "tee": 0,
+      "corner": 34,
+      "angle": 10,
+      "tee": 12,
       "hanger": 0,
       "wheels": 2,
-      "weldJoints": 56,
+      "weldJoints": 0,
       "shocks": 2,
-      "shockTabs": 8,
-      "bolts": 4,
-      "handleBolts": 0,
-      "sleeves": 4,
+      "shockPlates": 4,
+      "shockHangers": 4,
+      "shockBolts": 4,
+      "bolts": 174,
+      "handleBolts": 4,
+      "sleeves": 190,
       "casterBolts": 4,
       "brakeClamps": 2,
       "rampBolts": 18,
@@ -385,23 +329,23 @@
       "cableClip": 6,
       "axleCover": 4
     },
-    "heavyM": 12.0743,
+    "heavyM": 12.1023,
     "lightM": 14.2129,
     "tubeLb": 33.1,
     "floorArea": 1.0142,
     "rampArea": 0.688,
     "mass": {
       "tube": 15,
-      "plates": 0.4,
+      "plates": 4,
       "panels": 11.1,
       "wheels": 10,
-      "hardware": 3.6,
+      "hardware": 8.4,
       "softgoods": 4.2
     },
-    "carrierKg": 44.3,
+    "carrierKg": 52.7,
     "frontShare": 9.8533,
-    "tiltForceN": 107,
-    "tiltForceLbf": 24,
+    "tiltForceN": 115,
+    "tiltForceLbf": 26,
     "volumeRatio": 2.2901
   },
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",

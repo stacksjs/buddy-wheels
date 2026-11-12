@@ -6,7 +6,7 @@
     "height": 1000,
     "ramp": 1000,
     "axle": 560,
-    "handle": 1000,
+    "handle": 930,
     "hub": 101.6,
     "caster": 310,
     "rake": 350,
@@ -14,7 +14,7 @@
     "wheel": "trail",
     "front": "swivel",
     "kit": "wheels",
-    "build": "welded",
+    "build": "bolted",
     "ride": "sprung",
     "cabin": "dog"
   },
@@ -27,12 +27,12 @@
       "stockMm": 1472184
     },
     "heavy": {
-      "bars": 167,
-      "netMm": 1207425.92,
+      "bars": 168,
+      "netMm": 1210225.92,
       "kerfMm": 6600,
-      "stockMm": 1221638.4
+      "stockMm": 1228953.6
     },
-    "tube": 34517,
+    "tube": 34633,
     "textiles": {
       "quantity": 100,
       "minutes": 200,
@@ -166,24 +166,24 @@
       "total": 39997,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 87958,
-    "cogs": 162472,
+    "other": 86149,
+    "cogs": 160779,
     "retail": 99900,
-    "gross": -62572,
-    "grossPercent": -62.63463463463464,
+    "gross": -60879,
+    "grossPercent": -60.93993993993993,
     "maxCogs": 69930,
-    "headroom": -92542,
+    "headroom": -90849,
     "meetsCostGate": false,
     "fee": 2927,
     "reserve": 4995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -75494,
-    "retailForGate": 232200,
+    "contribution": -73801,
+    "retailForGate": 229700,
     "tubeMill": 14300,
-    "cogsMill": 142255,
-    "retailForGateMill": 203300,
-    "stainlessUpgrade": 92,
+    "cogsMill": 140446,
+    "retailForGateMill": 200700,
+    "stainlessUpgrade": 4094,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
   "one": {
@@ -196,7 +196,7 @@
     },
     "heavy": {
       "bars": 6,
-      "netMm": 12074.2592,
+      "netMm": 12102.2592,
       "kerfMm": 66,
       "stockMm": 14630.4
     },
@@ -334,48 +334,42 @@
       "total": 83006,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 178135,
-    "cogs": 325109,
+    "other": 146277,
+    "cogs": 293251,
     "retail": 99900,
-    "gross": -225209,
-    "grossPercent": -225.43443443443442,
+    "gross": -193351,
+    "grossPercent": -193.54454454454455,
     "maxCogs": 69930,
-    "headroom": -255179,
+    "headroom": -223321,
     "meetsCostGate": false,
     "fee": 2927,
     "reserve": 4995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -238131,
-    "retailForGate": 464500,
+    "contribution": -206273,
+    "retailForGate": 419000,
     "tubeMill": 14300,
-    "cogsMill": 275441,
-    "retailForGateMill": 393500,
-    "stainlessUpgrade": 92,
+    "cogsMill": 243583,
+    "retailForGateMill": 348000,
+    "stainlessUpgrade": 4094,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
   "lines": [
     {
       "id": "gussets",
-      "name": "2 brake clamp plates, laser cut 1/8 inch 6061",
-      "batch": 320,
-      "one": 900,
+      "name": "34 corner gussets, 10 gussets cut to this setup's angles, 12 tee gussets and 2 brake plates, laser cut 1/8 inch 6061",
+      "batch": 9680,
+      "one": 27100,
       "coverage": [
-        "M04"
+        "M01",
+        "M02",
+        "M04",
+        "M06",
+        "M07",
+        "M08"
       ],
       "evidence": "RFQ",
-      "note": "One aluminum profile. The welded frame has no gussets. No quote was run; upload the DXF file to a cutting service for a real price."
-    },
-    {
-      "id": "welding",
-      "name": "56 TIG welded joints by a fabrication shop",
-      "batch": 24367,
-      "one": 84000,
-      "coverage": [
-        "J01"
-      ],
-      "evidence": "RFQ",
-      "note": "No shop has quoted this. Batch: 3.5 minutes a joint on a jig at $70 a shop hour, plus a $15 share of the jig. One frame: 10 minutes a joint at $90 an hour, fit-up included. A real quote replaces all of it."
+      "note": "Six aluminum profiles, three of them cut to the roof and pillar angles of this setup. Includes material, cutting and deburring. No quote was run; upload the DXF files to a cutting service for a real price."
     },
     {
       "id": "wheels",
@@ -420,9 +414,9 @@
     },
     {
       "id": "fasteners",
-      "name": "4 sleeved bolted joints",
-      "batch": 165,
-      "one": 3620,
+      "name": "178 sleeved bolted joints",
+      "batch": 7523,
+      "one": 9162,
       "coverage": [
         "H01",
         "H02",
@@ -479,7 +473,7 @@
       ],
       "evidence": "Observed 2026-11-12, partly from listings",
       "url": "https://www.harborfreight.com/solid-rubber-wheel-chock-96479.html",
-      "note": "Two rubber chocks at $7.49, foam grip tube at $1.95 per 6 inches, two tall leveling mounts at $11.59, rivet nuts at $16.87 per 100, foam strip at $18.99 per 50 ft. Floor screws, the ridge pole and the two windshield stays are allowances."
+      "note": "Two rubber chocks at $7.49, foam grip tube at $1.95 per 6 inches, two tall leveling mounts at $11.59, rivet nuts at $16.87 per 100, foam strip at $18.99 per 50 ft. Floor screws and the ridge pole are allowances."
     },
     {
       "id": "brake",
@@ -496,19 +490,21 @@
     },
     {
       "id": "suspension",
-      "name": "Rear suspension: two coil-over shocks, eight welded tabs, pivot bolts, bushings and eye bolts",
-      "batch": 8708,
-      "one": 10858,
+      "name": "Rear suspension: two coil-over shocks, eight bolt-on mount plates, pivot bolts, bushings and mount bolts",
+      "batch": 9048,
+      "one": 11258,
       "coverage": [
         "M05",
+        "M09",
         "U01",
         "U02",
         "U03",
-        "U04"
+        "U04",
+        "U05"
       ],
       "evidence": "Observed 2026-11-12 + hardware allowances",
       "url": "https://www.amazon.com/LvTu-Bicycle-Absorber-Suspension-Bushing/dp/B0CH6DCCPS",
-      "note": "LvTu 150 mm coil-over at $31.05 each, read on its product page: 30 mm travel, 24 mm wide eyes with an 8 mm bore, springs labeled 150 to 650 lbs. The label is the seller's nominal figure with a rider-weight table, not a measured rate. Bunting EF081008 bronze flanged bearings at $5.29 per pack of three (a listing price) and 1/2-13 x 4 inch grade 5 bolts at $1.64 with $0.41 lock nuts. Tabs are a laser-cut allowance. The pivot crush sleeves, washers and M8 eye bolts are allowances. The swing arms, shock arms and their welds are counted in the tube and welding lines."
+      "note": "LvTu 150 mm coil-over at $31.05 each, read on its product page: 30 mm travel, 24 mm wide eyes with an 8 mm bore, springs labeled 150 to 650 lbs. The label is the seller's nominal figure with a rider-weight table, not a measured rate. Bunting EF081008 bronze flanged bearings at $5.29 per pack of three (a listing price) and 1/2-13 x 4 inch grade 5 bolts at $1.64 with $0.41 lock nuts. The mount plates are a laser-cut allowance. The pivot crush sleeves, washers, M8 eye bolts and long hanger bolts are allowances. The swing arms and spacer tubes are counted in the tube line."
     },
     {
       "id": "prints",
@@ -533,12 +529,12 @@
     },
     {
       "id": "labor",
-      "name": "Cutting, the few drilled holes, deburring and assembly labor",
-      "batch": 6250,
-      "one": 15000,
+      "name": "Cutting, drilling, deburring and assembly labor",
+      "batch": 13750,
+      "one": 37500,
       "coverage": [],
       "evidence": "RFQ",
-      "note": "Batch: 2.5 h at $25/h. One-off: 6 h. Angled cuts on six pieces, about 40 tube-wall holes, then the bolt-on parts. Welding is its own line. Timing assumptions, not observed."
+      "note": "Batch: 5.5 h at $25/h. One-off: 15 h. Roughly 300 tube-wall holes per carrier. Timing assumptions, not observed."
     },
     {
       "id": "qa",
@@ -552,11 +548,11 @@
     {
       "id": "pack",
       "name": "Packaging",
-      "batch": 4500,
-      "one": 6000,
+      "batch": 2500,
+      "one": 3500,
       "coverage": [],
       "evidence": "RFQ",
-      "note": "A welded frame does not pack flat: one carton about the size of the cabin. Outbound freight is separate and for a box this size it is truck freight, not parcel."
+      "note": "Large flat-pack carton set. Outbound freight is separate."
     },
     {
       "id": "freight",

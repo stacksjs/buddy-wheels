@@ -5,7 +5,7 @@ import { roverHardware as h, roverWheels } from './Rover'
 
 /** Bolt clearance in plates, pilot size in guides, and the axle sleeve bore. */
 const BOLT = 6.75; const PILOT = 3.3; const BORE = 19.25
-export type RoverMetalId = 'tee_gusset' | 'corner_gusset' | 'brake_plate' | 'shock_tab' | 'axle_hanger' | 'axle_hanger_mid' | 'axle_hanger_low'
+export type RoverMetalId = 'tee_gusset' | 'corner_gusset' | 'brake_plate' | 'shock_plate' | 'shock_hanger' | 'axle_hanger' | 'axle_hanger_mid' | 'axle_hanger_low'
 
 /** Flat fabrication profiles. The datum (0, 0) is the joint centerline intersection. */
 export function metalProfile(id: RoverMetalId): Region {
@@ -13,8 +13,10 @@ export function metalProfile(id: RoverMetalId): Region {
   if (id === 'corner_gusset') return { outer: roundCorners([[-20, -20], [95, -20], [95, 20], [20, 20], [20, 95], [-20, 95]], 2), holes: [circle(BOLT, 50, 0), circle(BOLT, 80, 0), circle(BOLT, 0, 35), circle(BOLT, 0, 65)] }
   // Hangs on the two brake-arm gusset bolts, 50 and 80 from the post centerline. The clamp holes are drilled from the delivered clamp.
   if (id === 'brake_plate') return { outer: roundCorners([[-55, 18], [55, 18], [55, -150], [-55, -150]], 4), holes: [circle(BOLT, -30, 0), circle(BOLT, 0, 0)] }
-  // Welded on edge to a tube face, which is the straight bottom edge. The eye bolt hole sits 18 above that face.
-  if (id === 'shock_tab') return { outer: roundCorners([[-16, -18], [16, -18], [16, 16], [-16, 16]], 3), holes: [circle(8.2, 0, 0)] }
+  // Datum is the shock eye. Two bolts through the swing arm, plateStep apart on its centerline, tabUp below the eye.
+  if (id === 'shock_plate') return { outer: roundCorners([[-30, -h.tabUp - 14], [30, -h.tabUp - 14], [30, 14], [-30, 14]], 5), holes: [circle(8.2, 0, 0), circle(BOLT, -h.plateStep / 2, -h.tabUp), circle(BOLT, h.plateStep / 2, -h.tabUp)] }
+  // Datum is the shock eye. Two bolts through the spacer tube and the axle post, one above the other.
+  if (id === 'shock_hanger') return { outer: roundCorners([[-18, -14], [18, -14], [18, h.hangerUp + h.plateStep + 15], [-18, h.hangerUp + h.plateStep + 15]], 5), holes: [circle(8.2, 0, 0), circle(BOLT, 0, h.hangerUp), circle(BOLT, 0, h.hangerUp + h.plateStep)] }
   // Bar along the rail, stem up the post. The stem ends 18 mm above the top post bolt.
   const wheel = id === 'axle_hanger' ? roverWheels.run : id === 'axle_hanger_mid' ? roverWheels.trail : roverWheels.path; const top = wheel.posts.at(-1)! + 23
   return { outer: roundCorners([[-50, -20], [50, -20], [50, 20], [22, 20], [22, top], [-22, top], [-22, 20], [-50, 20]], 3), holes: [circle(BOLT, -30, 0), circle(BOLT, 30, 0), ...wheel.posts.map(y => circle(BOLT, 0, y)), circle(BORE, 0, wheel.rise)] }
@@ -63,4 +65,15 @@ export function roverPartMesh(id: RoverPartId): Triangle[] {
   }
 }
 export const roverPartStl = (id: RoverPartId) => binaryStl(roverPartMesh(id), `Buddy Rover r0 ${id}. BENCH ONLY, mm. Not for animal use.`)
+/**
+ * A corner gusset whose legs meet at any angle. Leg A runs along +X with holes at 50 and 80, leg B at the angle with holes at 35 and 65.
+ * shift moves the leg B holes along the leg, so they keep 15 mm from the crossing bolts of the gusset on the next face. At 90 degrees and no shift it is the standard corner gusset.
+ */
+export function angleGusset(angle: number, shift = 0): Region {
+  const c = Math.cos(angle * Math.PI / 180); const s = Math.sin(angle * Math.PI / 180)
+  const along = (d: number, off: number): P2 => [d * c - off * s, d * s + off * c]
+  const k = 20 * (1 + c) / s
+  return { outer: roundCorners([[-k * c - 20 * s, -20], [95, -20], [95, 20], [k * c + 20 * s, 20], along(95, -20), along(95, 20)], 2), holes: [circle(BOLT, 50, 0), circle(BOLT, 80, 0), circle(BOLT, ...along(35 + shift, 0)), circle(BOLT, ...along(65 + shift, 0))] }
+}
+export const angleGussetDxf = (angle: number, shift = 0) => profileDxf([angleGusset(angle, shift)])
 export const roverMetalDxf = (id: RoverMetalId) => profileDxf([metalProfile(id)])

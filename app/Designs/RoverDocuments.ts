@@ -1,6 +1,7 @@
 import type { RoverSetup } from './Rover'
 import { mm, nestRoverStock, referenceCarrier as ref, roverCode, roverDimensions, roverHardware as h, roverParcelStock, roverPartFile, roverParts, roverPlanningDogKg } from './Rover'
 import { roverAllowanceNotes, roverCostLines, roverShock, roverCostModel, roverEconomics, roverParcelPrices, roverPriceDate, roverPriceEvidence, roverTubePrices } from './RoverCost'
+import { angleGussetDxf } from './RoverParts'
 import { roverCover, roverCoverSvg, roverMaterialAlternates, roverMaterials, roverTextileCost, roverTextileDate } from './RoverSoftGoods'
 import { signedMoney as money } from '../Storefront/Catalog'
 
@@ -10,7 +11,7 @@ const WALL = { heavy: '6061-T6 1 x 1 x 1/8 inch square tube', light: '6063-T52 1
 
 export function roverPrintQuantities(s: RoverSetup): Record<string, number> {
   const c = roverDimensions(s).counts
-  return { cap_heavy: c.capHeavy, cap_light: c.capLight, ramp_toe: c.toe, ridge_saddle: c.saddle, fabric_clip: c.fabricClip, cable_clip: c.cableClip, axle_cover: c.axleCover, guide_butt: 1, guide_run: 1, guide_tee: 1, coupon: 1, tee_gusset: c.tee, corner_gusset: c.corner, brake_plate: 2, shock_tab: c.shockTabs, axle_hanger: s.wheel === 'run' ? c.hanger : 0, axle_hanger_mid: s.wheel === 'trail' ? c.hanger : 0, axle_hanger_low: s.wheel === 'path' ? c.hanger : 0 }
+  return { cap_heavy: c.capHeavy, cap_light: c.capLight, ramp_toe: c.toe, ridge_saddle: c.saddle, fabric_clip: c.fabricClip, cable_clip: c.cableClip, axle_cover: c.axleCover, guide_butt: 1, guide_run: 1, guide_tee: 1, coupon: 1, tee_gusset: c.tee, corner_gusset: c.corner, brake_plate: 2, shock_plate: c.shockPlates, shock_hanger: c.shockHangers, axle_hanger: s.wheel === 'run' ? c.hanger : 0, axle_hanger_mid: s.wheel === 'trail' ? c.hanger : 0, axle_hanger_low: s.wheel === 'path' ? c.hanger : 0 }
 }
 export function roverBom(s: RoverSetup): string {
   const d = roverDimensions(s); const c = d.counts; const q = roverPrintQuantities(s); const w = d.wheel
@@ -20,15 +21,18 @@ export function roverBom(s: RoverSetup): string {
     ...(d.welded ? [['J01', c.weldJoints, 'Welded joint', 'TIG, 4043 or 5356 filler at the shop\'s choice, fillet all round unless weld-schedule.csv says otherwise', 'No weld procedure, sample or strength figure exists. The metal beside every weld is softer than the tube it joins']] : [
       ['M01', c.corner, 'Corner gusset', '6061-T6 3.175 mm, metal/corner_gusset.dxf', 'One profile, flipped for the opposite hand. Single outside plate at the eight corner-post joints. Fatigue and bearing review pending'],
       ['M02', c.tee, 'Tee gusset', '6061-T6 3.175 mm, metal/tee_gusset.dxf', 'Single-sided at base cross members and roof bow; paired at the fork'],
+      ...d.angles.map((a, i) => [`M0${6 + i}`, a.qty, a.name, `6061-T6 3.175 mm, metal/${a.file}.dxf, legs at ${a.angle.toFixed(1)} degrees`, `${a.where}. Cut for this setup only: a different rake, taper or height needs new files`]),
     ]),
     ...(c.hanger ? [['M03', c.hanger, 'Axle hanger', `304 stainless 3.175 mm, metal/${w.hanger}.dxf`, 'Paired on every axle post and fork stub. Finish the 19.25 mm bore after drawing review']] : []),
     ['M04', 2, 'Brake clamp plate', '6061-T6 3.175 mm, metal/brake_plate.dxf', d.welded ? 'Bolts to the front face of the brake arm with two bolts. Drill its clamp holes from the delivered clamp' : 'Hangs on the two brake-arm gusset bolts. Drill its clamp holes from the delivered clamp'],
     ...(d.sprung ? [
-      ['M05', c.shockTabs, 'Shock tab', '6061-T6 3.175 mm, metal/shock_tab.dxf', 'Welded on edge in pairs, 25.4 apart, holes in line. Open the 8.2 hole to suit the delivered shock'],
+      ['M05', c.shockPlates, 'Shock plate, swing arm', '6061-T6 3.175 mm, metal/shock_plate.dxf', 'A pair on the two side faces of each swing arm. Check the 8.2 eye hole and the 25.4 gap against the delivered shock'],
+      ['M09', c.shockHangers, 'Shock hanger, axle post', '6061-T6 3.175 mm, metal/shock_hanger.dxf', 'A pair on each axle post, either side of a C23 spacer tube'],
       ['U01', c.shocks, 'Coil-over shock', `${h.shockLength} mm eye to eye, ${h.shockStroke} mm travel, spring labeled ${h.shockRate} lbs, 24 mm wide eyes with an 8 mm bore; LvTu 150 mm candidate`, 'Candidate only. Travel and sag figures assume the seller\'s numbers and treat the spring label as lb/in. Damping, life and corrosion unknown'],
       ['U02', 2, 'Swing arm pivot bolt', `1/2-13 x 4 inch grade 5 hex bolt, lock nut, two washers, a 5/8 inch OD crush sleeve in the rail and a ${h.swingGap} mm spacer`, 'Single bolt through the base rail. Side play here becomes wheel wobble; untested'],
       ['U03', 4, 'Pivot bushing', 'Oil-impregnated bronze flanged sleeve bearing, 1/2 ID x 5/8 OD x 1/2 inch long', 'One pressed into each wall of each swing arm, flange outside'],
-      ['U04', 4, 'Shock eye bolt', 'M8 x 50 hex bolt and nylon-insert lock nut', 'One through each pair of tabs'],
+      ['U04', 4, 'Shock eye bolt', 'M8 x 50 hex bolt and nylon-insert lock nut', 'One through each pair of plates'],
+      ['U05', c.shockBolts, 'Shock hanger bolt', `1/4-20 x 3-1/2 inch grade 5 hex bolt, lock nut, two washers and a ${(h.swingGap - h.plate).toFixed(1)} mm spacer cut from the sleeve tube`, 'Through outer hanger, spacer tube, inner hanger, spacer and axle post. Two per side'],
     ] : []),
     ...(d.seats ? [
       ['S01', 1, 'Seat board', `15/32 inch plywood ${mm(h.seatDepth + h.tube)} x ${s.width} mm, sealed, with a pad`, 'CONCEPT. Not a child seat'],
@@ -65,7 +69,6 @@ export function roverBom(s: RoverSetup): string {
     ['B02', 1, 'Handle grip and wrist tether', `Foam grip for 25.4 tube over ${d.grip} mm; 1.2 m wrist tether`, 'Tether is a secondary link to the caregiver'],
     ['S01', 2, 'Tip-stop foot', '3/8-16 swivel leveling mount, tall version of S&W BSW-1Z, through each base rail behind the axle, nut and washer above and below', 'Catches a rearward tip. Height setting and strength are untested'],
     ['X01', 1, 'Roof ridge pole', `12.7 mm aluminum tube, cut ${d.topRailCut} mm`, 'Rests in three printed saddles'],
-    ...(s.rake > 0 && !d.welded ? [['X02', 2, 'Windshield stay', `12.7 mm aluminum tube, cut ${d.stay} mm`, 'Slides into a sleeve sewn down each front edge of the cover, from the base front corner up to the top front corner. Carries fabric tension only']] : []),
     ...(d.ski ? [
       ['K01', 2, 'Ski', `Junior cross-country or pulk ski, about ${h.skiLength} x ${h.skiWidth} mm, flat mounting zone at least ${h.skiFoot} long`, 'OPEN SELECTION. No ski has been chosen or priced from a supplier page'],
       ['K02', 4, 'Ski bolt', '1/4-20 flat-head bolt up through the ski and the ski foot, washer and lock nut', 'Countersink from the sole and seal. Two per ski, 150 mm each side of the post'],
@@ -145,7 +148,7 @@ export function roverAssembly(s: RoverSetup): string {
 
 ## Rear suspension
 
-Each rear wheel hangs on a trailing swing arm outside the base rail. The arm pivots on one 1/2 inch bolt through the rail, ${h.swingRun} mm ahead of the axle, and a coil-over shock runs from two tabs on the arm up to two tabs under a short stub on the axle post.
+Each rear wheel hangs on a trailing swing arm outside the base rail. The arm pivots on one 1/2 inch bolt through the rail, ${h.swingRun} mm ahead of the axle, and a coil-over shock runs from a pair of plates bolted to the arm up to a pair hung from the axle post around a short spacer tube. Nothing in it is welded, so it fits either frame.
 
 | | |
 | --- | --- |
@@ -167,29 +170,29 @@ These are arithmetic from the drawn geometry and one candidate shock, taking the
 No joint, harness anchor, restraint, roll-over protection, pinch guard or head support is designed. A carrier for children is a children's product. In the United States a pushed one falls under 16 CFR part 1227, the Safety Standard for Carriages and Strollers, which requires ASTM F833-21, and it needs testing by a CPSC-accepted laboratory and a Children's Product Certificate before sale. A towed one has its own standard, ASTM F1975. None of that work has started. For scale, the reference maker's child trailer lists 40 lb per child and 100 lb in total for two, on a 26 inch shoulder width; its pet trailer page says nothing about children.`
   const boltedText = `## Joint patterns
 
-Every joint is a flat gusset with 1/4 inch bolts through steel crush sleeves. Hole centers are measured from the joint centerline, where two tube centerlines cross.
+Every joint is a flat gusset with 1/4 inch bolts through steel crush sleeves. Hole centers are measured from the joint centerline, where two tube centerlines cross. The top rails fall ${s.taper} from rear to front, ${d.roofAngle.toFixed(1)} degrees, and each front pillar leans back ${d.pillarAngle.toFixed(1)} degrees from upright, so three plates are cut to those angles.
 
 | Profile | Qty | Holes from the joint centerline | Where |
 | --- | ---: | --- | --- |
-| Corner gusset | ${c.corner} | Leg A 50 and 80. Leg B 35 and 65 | Corner posts on the outside face only, axle-post tops both faces, rail to cross member, roof corners, handle grip, ramp legs |
-| Tee gusset | ${c.tee} | Bar 30 each side. Stem 35 and 60 | Intermediate base cross members, mid roof bow, fork arms top and bottom |
-| Axle hanger, ${d.wheel.label} wheel | ${c.hanger} | Bar 30 each side. Stem ${d.wheel.posts.join(', ')}. Axle bore at ${d.wheel.rise} | Both faces of each axle post and each fork stub |
-
+| Corner gusset | ${c.corner} | Leg A 50 and 80. Leg B 35 and 65 | Rear post feet on the outside face, rail to cross member, roof corners on top, handle grip, brake arms, ramp legs${d.swivel ? ', nose posts' : ''} |
+${d.angles.map(a => `| ${a.name}, ${a.angle.toFixed(1)} degrees between legs | ${a.qty} | Leg A 50 and 80. Leg B 35 and 65 | ${a.where} |`).join('\n')}
+| Tee gusset | ${c.tee} | Bar 30 each side. Stem 35 and 60 | Intermediate base cross members, mid roof bow${d.sprung ? ', axle post feet on both faces' : ''}${d.swivel ? '' : ', fork arms top and bottom'} |
+${c.hanger ? `| Axle hanger, ${d.wheel.label} wheel | ${c.hanger} | Bar 30 each side. Stem ${d.wheel.posts.join(', ')}. Axle bore at ${d.wheel.rise} | Both faces of each ${d.sprung ? '' : 'axle post and each '}fork stub |\n` : ''}
 Legs A and B alternate where two gussets meet on one tube, so bolts cross 15 mm apart and never share a station. Tube bores are 9.725 for the sleeves, plate holes 6.75, axle sleeve bores 19.25. All are nominal. Use the three printed drill guides for pilot centers and finish with metal tooling.
 
 ## Build order
 
 1. Print the clearance coupon and measure it. Print one cap and one clip before batching.
-2. Cut and deburr every tube. Mark each with its ID.
+2. Cut and deburr every tube. Mark each with its ID. The axle posts, rear posts and pillars have angled ends; see build-guide.md.
 3. Base frame: two side rails, ${d.stations.length} cross members. Corner gussets under each corner, tee gussets under each intermediate member.
-4. Axle posts at X = 0 with paired hangers. The hanger bar bolts to the rail, the stem to the post. Fit the 19.05 axle sleeve through post and both hangers.
-5. Corner posts with one corner gusset on the outside face, leg A up the post, and washers on the inside.
-6. Top rails, three top cross tubes, corner gussets on top, tee gussets at the mid bow.
-${d.swivel ? `7. Nose: the base rails run ${d.nose} past the front cross member. Stand four nose posts on them at X = ${mm(d.casterX - h.casterAlong / 2)} and ${mm(d.casterX + h.casterAlong / 2)}, each with a pair of corner gussets, the rail leg pointing away from the other post. Lay the two caster beams across the post tops and tie each to its posts with one corner gusset on the outside face. Hold the caster plate up under the beams at the centerline, mark its four holes, drill, and bolt it with sleeves.` : `7. Fork: two arms butt against the front cross member at Y = ${d.forkY} each side, tee gussets above and below. Stub posts with paired hangers at the front axle, ${d.wheelbase} ahead of the rear axle.`}
+4. Axle posts at X = 0${d.sprung ? ' with a tee gusset on each side face, bar along the rail, stem up the post.' : ' with paired hangers. The hanger bar bolts to the rail, the stem to the post. Fit the 19.05 axle sleeve through post and both hangers.'}
+5. Rear posts with a corner gusset at the foot. Front pillars with a pillar foot gusset. One plate each, on the outside face, with washers on the inside.
+6. Top rails on a roof gusset at each rear post, a pair at each axle post and a pillar top gusset at each pillar. Three top cross tubes, corner gussets on top, tee gussets at the mid bow.
+${d.swivel ? `7. Nose: the base rails run ${d.nose} past the front cross member. Stand four nose posts on them at X = ${mm(d.casterX - h.casterAlong / 2)} and ${mm(d.casterX + h.casterAlong / 2)}, each with a pair of corner gussets, the rail leg pointing away from the other post. Lay the two caster beams across the post tops and tie each to its posts with one corner gusset on the outside face. Hold the caster plate up under the beams at the centerline, mark its four holes, drill, and bolt it with sleeves.` : `7. Fork: two arms butt against the front cross member at ${d.forkY} each side of center, a tee gusset above and below each. A stub post stands on each arm with a hanger on both faces.`}
 8. Floor panel on bedding tape, fastened to the frame.
-9. Ramp: panel, two curb rails on top, two ribs underneath at 40 mm and mid length, stand legs on the hinge-end rib ${60} mm in from each edge. Hinge leaves on the top faces of floor and ramp.
+9. Ramp: panel, two curb rails on top, two ribs underneath at 40 mm and mid length, stand legs on the hinge-end rib 60 mm in from each edge. Hinge leaves on the top faces of floor and ramp.
 10. Handle arms on the outside of the rear and axle posts at Z = ${s.handle}, one 3 inch bolt per post. Grip tube between the arm ends.
-11. Wheels, washers and cotters. Rear stack between outer washer faces ${d.rearStack}${d.swivel ? '' : `, front ${d.frontStack}`}, with 0.5 total end float.
+11. ${d.sprung ? 'Swing arms on their pivot bolts, shock plates and hangers, shocks, then wheels, washers and cotters.' : 'Wheels, washers and cotters.'} Rear stack between outer washer faces ${d.rearStack}${d.swivel ? '' : `, front ${d.frontStack}`}, with 0.5 total end float.
 12. Tip-stop feet, the two brake arms with their plates and clamps, latches, safety strap. Then the cover.`
   const weldedText = `## Joints
 
@@ -390,8 +393,8 @@ export function roverBasePlan(s: RoverSetup): string {
 export function roverCostMarkdown(s: RoverSetup): string {
   const batch = roverEconomics(s, 100); const one = roverEconomics(s, 1); const lines = roverCostLines(s); const textiles = roverTextileCost(s, 100); const oneTextiles = roverTextileCost(s, 1); const dims = roverDimensions(s)
   const welded = s.build === 'welded'
-  // Like for like: both frames on rigid axles, because the sprung rear exists only on the welded frame.
-  const weldedSetup: RoverSetup = { ...s, build: 'welded', ride: 'rigid' }; const boltedSetup: RoverSetup = { ...s, build: 'bolted', taper: 0, ride: 'rigid' }
+  // Like for like: the same carrier with only the joints changed.
+  const weldedSetup: RoverSetup = { ...s, build: 'welded' }; const boltedSetup: RoverSetup = { ...s, build: 'bolted' }
   const weldedBatch = roverEconomics(weldedSetup, 100); const boltedBatch = roverEconomics(boltedSetup, 100); const weldedOne = roverEconomics(weldedSetup, 1); const boltedOne = roverEconomics(boltedSetup, 1)
   const weldedDims = roverDimensions(weldedSetup); const boltedDims = roverDimensions(boltedSetup)
   const lineBatch = (setup: RoverSetup, id: string) => roverCostLines(setup).find(l => l.id === id)?.batch ?? 0
@@ -411,7 +414,7 @@ For scale, the reference trailer sold for ${money(roverPriceEvidence[9].price)} 
 
 ## Welded against bolted
 
-The same carrier can be built two ways. Both are counted with the same rules, and both columns are on rigid axles so that only the frame differs.
+The same carrier can be built two ways: the same tubes, the same shape and the same running gear, with only the joints changed. Both are counted with the same rules.
 
 | | Welded | Bolted |
 | --- | ---: | ---: |
@@ -419,15 +422,12 @@ The same carrier can be built two ways. Both are counted with the same rules, an
 | Counted cost of one | ${money(weldedOne.cogs)} | ${money(boltedOne.cogs)} |
 | Welded joints | ${weldedDims.counts.weldJoints} | 0 |
 | Bolted joints | ${weldedDims.counts.bolts} | ${boltedDims.counts.bolts + boltedDims.counts.handleBolts} |
-| Plates to cut, hangers included | ${weldedDims.counts.hanger + 2} | ${boltedDims.counts.corner + boltedDims.counts.tee + boltedDims.counts.hanger + 2} |
+| Plates to cut | ${weldedDims.counts.hanger + 2 + weldedDims.counts.shockPlates + weldedDims.counts.shockHangers} | ${boltedDims.counts.corner + boltedDims.counts.angle + boltedDims.counts.tee + boltedDims.counts.hanger + 2 + boltedDims.counts.shockPlates + boltedDims.counts.shockHangers} |
 | Planning mass, kg | ${weldedDims.carrierKg} | ${boltedDims.carrierKg} |
-| Roof | Falls ${weldedSetup.taper} toward the front | Flat |
 | Ships | Assembled, by truck | Flat, in cartons |
-| Who can build it | A shop with a TIG welder | One person with a saw and a drill |
+| Who can build it | A shop with a TIG welder | One person at home with a saw and a drill, plates by mail order |
 
-Welding in a United States shop does not make the carrier cheaper. It trades about ${money(['gussets', 'fasteners', 'labor'].reduce((n, id) => n + lineBatch(boltedSetup, id) - lineBatch(weldedSetup, id), 0))} of plates, bolts, sleeves and drilling time for ${money(lineBatch(weldedSetup, 'welding'))} of welding and ${money(lineBatch(weldedSetup, 'pack') - lineBatch(boltedSetup, 'pack'))} more packaging, and for one carrier the shop's time costs more than the drilling it replaces. What welding buys is about ${(boltedDims.carrierKg - weldedDims.carrierKg).toFixed(1)} kg less mass, a roof and nose that can slope, and joints with no bolt clearance to work loose. The welding figure is arithmetic on an assumed shop rate; no fabricator has quoted it. Outbound freight for an assembled frame is not in either column.${s.ride === 'sprung' ? `
-
-The sprung rear wheels need the welded frame. They add ${money(batch.cogs - weldedBatch.cogs)} per carrier at 100 units, which brings this configuration to ${money(batch.cogs)}: two shocks at an observed $31.05, eight tabs, ten more welds, two swing arms and their pivots, less the four axle hangers they replace.` : ''}
+Welding in a United States shop does not make the carrier cheaper. It trades about ${money(['gussets', 'fasteners', 'labor'].reduce((n, id) => n + lineBatch(boltedSetup, id) - lineBatch(weldedSetup, id), 0))} of plates, bolts, sleeves and drilling time for ${money(lineBatch(weldedSetup, 'welding'))} of welding and ${money(lineBatch(weldedSetup, 'pack') - lineBatch(boltedSetup, 'pack'))} more packaging, and for one carrier the shop's time costs more than the drilling it replaces. What welding buys is about ${(boltedDims.carrierKg - weldedDims.carrierKg).toFixed(1)} kg less mass, a cleaner look with no plates, and joints with no bolt clearance to work loose. What bolting buys is that nothing leaves the house except the plate order. The welding figure is arithmetic on an assumed shop rate; no fabricator has quoted it. Outbound freight for an assembled frame is not in either column.
 
 ## What changed since the first count
 
@@ -533,9 +533,9 @@ export function roverDrilling(s: RoverSetup): DrillRow[] {
   add('C01', 'Base side rail', 2, 'vertical', 'rear end', [half + 50, half + 80], 'Rear cross member gusset, underneath')
   add('C01', 'Base side rail', 2, 'vertical', 'rear end', [fromRear(d.rearX + 117.3)], 'Tip-stop foot stem', '10.0, for a 3/8 inch stem')
   add('C01', 'Base side rail', 2, 'vertical', 'rear end', stations.slice(1, -1).flatMap(x => [x - 30, x + 30]), 'Intermediate cross member tee gussets, underneath')
-  add('C01', 'Base side rail', 2, 'side', 'rear end', [axlePost - 30, axlePost + 30], 'Axle hanger bar')
-  const frontPost = fromRear(d.frontPostX)
-  add('C01', 'Base side rail', 2, 'side', 'rear end', [frontPost - 65, frontPost - 35], `Front post gusset. The front posts stand at ${mm(frontPost)}`)
+  add('C01', 'Base side rail', 2, 'side', 'rear end', [axlePost - 30, axlePost + 30], d.sprung ? 'Axle post tee gussets, both faces' : 'Axle hanger bar')
+  const foot = fromRear(d.pillarFoot[0]); const cosRoof = Math.cos(d.roofAngle * Math.PI / 180)
+  add('C01', 'Base side rail', 2, 'side', 'rear end', [frontCorner - 65, frontCorner - 35], `Pillar foot gusset. The pillar centerline meets the rail at ${Math.round(foot)}`)
   add('C01', 'Base side rail', 2, 'vertical', 'rear end', [frontCorner - 80, frontCorner - 50], 'Front cross member gusset, underneath')
   if (d.swivel) {
     const rearPost = fromRear(d.casterX - h.casterAlong / 2); const frontPost = fromRear(d.casterX + h.casterAlong / 2)
@@ -545,21 +545,24 @@ export function roverDrilling(s: RoverSetup): DrillRow[] {
   if (!d.swivel) add('C02', 'Base end cross member, front one only', 1, 'vertical', 'the middle', [-d.forkY - 30, -d.forkY + 30, d.forkY - 30, d.forkY + 30], 'Fork arm tee gussets, top and bottom')
   add('C14', 'Base intermediate cross member', d.intermediates, 'vertical', 'each end', [35 - half, 60 - half], 'Tee gusset stem, underneath')
   // Posts. The bottom of every post sits on a rail, 12.7 above the rail centerline.
-  add('C03', 'Axle post', 2, 'side', 'bottom', w.posts.map(p => p - half), 'Axle hanger stem')
+  add('C03', 'Axle post', 2, 'side', 'bottom', d.sprung ? [35 - half, 60 - half] : w.posts.map(p => p - half), d.sprung ? 'Tee gusset stems, both faces' : 'Axle hanger stem')
   add('C03', 'Axle post', 2, 'side', 'bottom', [w.rise - half], 'Axle sleeve', '19.25, for the 19.05 axle sleeve')
   add('C03', 'Axle post', 2, 'side', 'bottom', [s.handle - d.railZ - half], 'Handle arm lap bolt')
   add('C03', 'Axle post', 2, 'fore-aft', 'bottom', [d.brakeZ - d.railZ - half + 35, d.brakeZ - d.railZ - half + 65], `Brake arm gussets. The arm centerline is ${mm(d.brakeZ - d.railZ - half)} up the post`)
-  add('C03', 'Axle post', 2, 'side', 'top', [35 - half, 65 - half], 'Top rail gussets')
+  add('C03', 'Axle post', 2, 'side', 'top', [35 - half, 65 - half], 'Roof gussets, both faces. Measure down the middle of the face from the angled end')
   add('C17', 'Brake arm', 2, 'fore-aft', 'the end at the post', [50 - half, 80 - half], 'Axle post gussets, front and rear faces')
-  add('C09', 'Corner post', 4, 'side', 'bottom', [50 - half, 80 - half], 'Base rail gusset, outside face')
-  add('C09', 'Corner post', 4, 'side', 'top', [50 - half, 80 - half], 'Top rail gusset, outside face')
-  add('C09', 'Corner post, the two rear ones only', 2, 'side', 'bottom', [s.handle - d.railZ - half], 'Handle arm lap bolt')
+  add('C09', 'Rear corner post', 2, 'side', 'bottom', [50 - half, 80 - half], 'Base rail gusset, outside face')
+  add('C09', 'Rear corner post', 2, 'side', 'top', [50 - half, 80 - half], 'Roof gusset, outside face. Measure down the middle of the face from the angled end')
+  add('C21', 'Front pillar', 2, 'side', 'foot', [50 - d.pillarFootBack, 80 - d.pillarFootBack], 'Pillar foot gusset, outside face. Measure up the middle of the face')
+  add('C21', 'Front pillar', 2, 'side', 'top', [50 - d.pillarTopBack, 80 - d.pillarTopBack], 'Pillar top gusset, outside face. Measure down the middle of the face')
+  add('C09', 'Rear corner post', 2, 'side', 'bottom', [s.handle - d.railZ - half], 'Handle arm lap bolt')
   // Top frame.
   const topAxle = fromRear(0)
-  add('C10', 'Top side rail', 2, 'side', 'each end', [half + 35, half + 65], 'Corner post gusset')
+  add('C10', 'Top side rail', 2, 'side', 'rear end', [half + 35, half + 65], 'Roof gusset at the rear post')
+  add('C10', 'Top side rail', 2, 'side', 'front end', [half + 35, half + 65], 'Pillar top gusset')
   add('C10', 'Top side rail', 2, 'vertical', 'each end', [half + 50, half + 80], 'Top cross tube gusset, on top')
-  add('C10', 'Top side rail', 2, 'side', 'rear end', [topAxle + 50, topAxle + 80], 'Axle post top gussets')
-  add('C10', 'Top side rail', 2, 'vertical', 'rear end', [topAxle - 30, topAxle + 30], 'Roof bow tee gusset, on top')
+  add('C10', 'Top side rail', 2, 'side', 'rear end', [topAxle / cosRoof + 50, topAxle / cosRoof + 80], 'Roof gussets at the axle post, both faces')
+  add('C10', 'Top side rail', 2, 'vertical', 'rear end', [topAxle / cosRoof - 30, topAxle / cosRoof + 30], 'Roof bow tee gusset, on top')
   add('C11', 'Top cross tube, front and rear', 2, 'vertical', 'each end', [35 - half, 65 - half], 'Corner gusset, on top')
   add('C11', 'Top cross tube, middle bow', 1, 'vertical', 'each end', [35 - half, 60 - half], 'Tee gusset stem, on top')
   // Handle.
@@ -597,9 +600,13 @@ export function roverDrilling(s: RoverSetup): DrillRow[] {
     add('C01', 'Base side rail', 2, 'side', 'rear end', [fromRear(h.swingRun)], 'Swing arm pivot bolt', '16.1, for a 5/8 inch OD crush sleeve on the 1/2 inch bolt')
     add('C22', 'Swing arm', 2, 'side', 'pivot end', [h.swingEnd], 'Pivot bushings, one pressed into each wall', '15.9 (5/8 inch)')
     add('C22', 'Swing arm', 2, 'side', 'pivot end', [mm(h.swingEnd + d.swingLen)], 'Axle sleeve', '19.25, for the 19.05 axle sleeve')
+    add('C22', 'Swing arm', 2, 'side', 'pivot end', [h.swingEnd + h.shockAt - h.plateStep / 2, h.swingEnd + h.shockAt + h.plateStep / 2], 'Shock plate bolts, a plate on each side face')
+    const hangerUp = d.shockUpZ + h.hangerUp - d.railZ - half
+    add('C03', 'Axle post', 2, 'side', 'bottom', [hangerUp, hangerUp + h.plateStep], 'Shock hanger bolts')
+    add('C23', 'Shock spacer tube', 2, 'side', 'either end', [(h.shockSpacer - h.plateStep) / 2, (h.shockSpacer + h.plateStep) / 2], 'Shock hanger bolts')
   }
   // Sprung: the rear axle is in the swing arm, so the rail and post lose their hanger and axle holes.
-  const kept = d.sprung ? rows.filter(r => !((r.id === 'C01' && r.purpose === 'Axle hanger bar') || (r.id === 'C03' && /^Axle (hanger stem|sleeve)$/.test(r.purpose)))) : rows
+  const kept = d.sprung ? rows.filter(r => !(r.id === 'C03' && r.purpose === 'Axle sleeve')) : rows
   if (!d.welded) return kept
   // Welded build: every gusset and lap-bolt hole goes. The brake arm keeps its two holes for the clamp plate.
   return kept.filter(r => r.id === 'C17' || !/gusset|lap bolt/i.test(r.purpose)).map(r => r.id === 'C17' ? { ...r, purpose: 'Brake clamp plate bolts, plate on the front face' } : r)
@@ -623,15 +630,17 @@ export function roverBuildGuide(s: RoverSetup): string {
   const bars = (list: typeof heavyBars) => list.map((b, i) => `| ${i + 1} | ${b.pieces.map(p => `${p.id} ${p.length}`).join(', ')} | ${b.offcut} |`).join('\n')
   const boltedShape = `## 1. How the aluminum base gets its shape
 
-Nothing is bent, cast or welded. The base is a flat ladder: two long side rails with ${d.stations.length} cross members between them. Every piece is a straight length of 1 inch square tube cut square at both ends. The pieces are held together by flat plates called gussets that lie across each joint and are bolted through the tubes. A steel sleeve inside the tube at every bolt stops the bolt from crushing it. See base-plan.svg for the view from above and drawing.svg for the side.
+Nothing is bent, cast or welded. The base is a flat ladder: two long side rails with ${d.stations.length} cross members between them. Every piece is a straight length of 1 inch square tube. The pieces are held together by flat plates called gussets that lie across each joint and are bolted through the tubes. A steel sleeve inside the tube at every bolt stops the bolt from crushing it. The cabin stands on that base: two rear posts, two axle posts and two front pillars that lean back ${s.rake}, under a roof frame that falls ${s.taper} from rear to front. Three of the plates are cut to those angles for this setup, and six tubes have an angled end. See base-plan.svg for the view from above and drawing.svg for the side.
 
 So there are only three things to obtain: straight tube cut to length, flat plates cut to a drawn outline, and bolts. You have three ways to get the tube cut:
 
 1. **Cut it yourself.** Buy stock bars and cut them with a miter saw fitted with a blade for non-ferrous metal, or with a hacksaw and a miter box. This is the cheapest route and the one priced here.
 2. **Have the supplier cut it.** Online Metals says every order is cut to size, and Metals Depot offers a cut to size option. Order each line of cut-list.csv as its own cut length. You pay more per foot and receive a box of finished pieces. Their cut tolerance is looser than yours can be, so check every piece against the list when it arrives.
-3. **Hand the package to a local shop.** A metal supplier with a saw, a fabrication shop or a makerspace can cut and drill the whole frame. Give them cut-list.csv, drilling.csv, base-plan.svg, drawing.svg and the DXF files. If they offer to weld it instead, that is a different frame from this one and needs its own review.
+3. **Hand the package to a local shop.** A metal supplier with a saw, a fabrication shop or a makerspace can cut and drill the whole frame. Give them cut-list.csv, drilling.csv, base-plan.svg, drawing.svg and the DXF files. If they offer to weld it instead, choose the welded frame in the studio and download that kit: it is the same frame with a weld schedule in place of the plates.
 
 The plates are cut by a laser-cutting service from the DXF files in the kit. You do not make those by hand.
+
+One more shortcut exists. OSH Cut lists laser cutting of both tubes used here, 1 x 1 x 1/8 inch 6061-T6 and 1 x 1 x 1/16 inch 6063-T52, up to 235 inches long, which would deliver every tube cut to length with its holes already in it. That service works from a 3D file for each tube. This kit does not include those files yet, and whether it cuts the angled ends was not confirmed.
 
 `
   const weldedShape = d.welded ? `## 1. How the aluminum frame gets its shape
@@ -659,35 +668,65 @@ What to tell the shop:
 Welding softens the aluminum beside each weld. Nothing in this design has been calculated or tested, welded or bolted, so nothing here allows for that loss. That is one reason the release gates at the end ask for an engineer before any load.
 
 ` : ''
+  const axleStep = `Slide each rear axle through its sleeve from inside. From the inside out the order is cotter, washer, ${d.sprung ? 'swing arm' : 'inner hanger, post, outer hanger'}, spacer, wheel, washer, cotter. The stack between washer faces should be ${d.rearStack} with about 0.5 of end float. Spin the wheel. It must not rub the ${d.sprung ? 'arm' : 'hanger'}.`
+  // The suspension bolts on, so these steps are the same for the welded and the bolted frame.
+  const sprungSteps = [
+    `Drill the swing arms, the pivot holes in the base rails and the hanger holes in the axle posts from drilling.csv. Press a flanged bronze bushing into each wall of each arm at the pivot end, flanges outside, and fit a 3/4 inch axle sleeve through the other end.`,
+    `Bolt a shock plate to each side face of each arm with two bolts through the arm, a sleeve in each hole. The ears with the large hole stand above the arm.`,
+    `Hang each arm outside its base rail with the plates on top and the axle end to the rear. From inside: 1/2 inch bolt, washer, the rail with its crush sleeve, the ${h.swingGap} spacer, the arm, washer, lock nut. Tighten until the arm swings freely with no side play, and no tighter.`,
+    `Hang two shock hangers from each axle post, ears down. From outside, each 3-1/2 inch bolt passes through the outer hanger, the C23 spacer tube, the inner hanger, a ${(h.swingGap - h.plate).toFixed(1)} spacer, then the post, with a washer and lock nut inside the cabin. The spacer tube stands upright between the two hangers.`,
+    `Bolt a shock between the plates on the arm and the hangers on the post with M8 bolts and lock nuts. If an eye is narrower than the gap, pack it with washers equally on both sides.`,
+    axleStep,
+    `Stand the frame on its wheels. Empty, it should settle about ${d.sagEmpty}. With the dog's weight in sandbags it should settle about ${d.sag}, out of about ${d.wheelTravel} of wheel travel. Those numbers take the seller's ${h.shockRate} lbs spring label at face value. If it sits much lower, or tops out with no settle at all, the spring is wrong for this load. The same shock is sold with softer and stiffer springs: change the spring, not the geometry.`,
+    `Push down on each rear corner and let go. It should rise once and stop. Rock the top of each wheel in and out by hand: any movement you can see is play at the pivot, and that needs fixing before a load goes in.`,
+  ]
+  const casterSteps = [
+    `The maker lists the caster plate as 4 x 4-1/2 inch with slotted holes, and the drilling schedule puts two holes in each beam, ${h.casterAcross} apart, to land in those slots. Hold the delivered caster up under the beams on the centerline to confirm before drilling 7/16 inch through each beam with a sleeve. Bolt it on with a washer over each slot.`,
+    `Roll the frame. It should steer by pushing the handle end sideways and the caster should swing a full circle without touching the cabin front or the posts. Fit the bolt-on swivel lock as its maker shows and check it holds the wheel straight.`,
+  ]
+  const boltedBase = [
+    `Lay the two C01 rails parallel, ${mm(2 * d.postY)} apart center to center, rear ends level.`,
+    `Set the two C02 end cross members between them, one at the rear end and one with its center ${mm(d.stations.at(-1)! - d.rearX + t)} from the rear end. Slide a corner gusset under each of the four corners, long-hole leg along the rail. Drop bolts down through tube, sleeve and plate with a washer under the head; add washer and lock nut underneath. Leave them finger tight.`,
+    `Set the ${d.intermediates} C14 cross members at ${d.stations.slice(1, -1).map(x => mm(x - d.rearX + t)).join(', ')} from the rear end, each with a tee gusset under each end, the stem along the cross member.`,
+    `Measure both diagonals of the rectangle. Tap the frame until they match within 2 mm. Then tighten every bolt until the lock nut is fully engaged and the plate is clamped. Do not crush the tube; the sleeves set the limit. No torque figure is given because none has been validated.`,
+    d.sprung
+      ? `Stand each C03 axle post on a rail at ${mm(t + s.axle)} from the rear end, angled end up with its long side to the rear. Put a tee gusset on each side face, bar along the rail, stem up the post, and bolt through.`
+      : `Stand each C03 axle post on a rail at ${mm(t + s.axle)} from the rear end, angled end up with its long side to the rear, a hanger on each side face, bar along the rail, stem up the post. Bolt the bar to the rail and the stem to the post. Fit the 3/4 inch axle sleeve through hanger, post and hanger.`,
+  ]
+  const boltedWheels = [
+    ...(d.sprung ? sprungSteps : [axleStep]),
+    ...(d.swivel ? [
+      `Stand the four C15 nose posts on the rail extensions at ${mm(d.casterX - h.casterAlong / 2 - d.rearX + t)} and ${mm(d.casterX + h.casterAlong / 2 - d.rearX + t)} from the rear end. Each gets a corner gusset on both side faces, the rail leg pointing away from the other post.`,
+      `Lay the two C16 caster beams across the post tops, ends flush with the outside of the rails. Tie each beam to its two posts with one corner gusset on the outside face.`,
+      ...casterSteps,
+    ] : [
+      `Butt the two C04 fork arms against the front cross member at ${d.forkY} each side of center, a tee gusset above and below each.`,
+      `Stand a C05 stub post on each arm at the front axle with a hanger on both faces, fit the axle sleeves, and mount the front wheel on its through axle.`,
+    ]),
+  ]
+  const boltedCabin = [
+    `Stand a C09 rear post on the rear end of each rail, angled end up with its long side to the rear, and bolt a corner gusset to the outside face, long-hole leg up the post.`,
+    `Stand each C21 front pillar with its foot on the rail so that the front of its foot is level with the front of the front cross member, ${mm(d.frontX + t - d.rearX + t)} from the rear end, leaning back. Bolt a pillar foot gusset to the outside face, long-hole leg up the pillar. It will not stand on its own yet; prop it or have someone hold it.`,
+    `Lay each C10 top rail on the rear post, the axle post and the pillar top, rear end level with the back of the rear post. It falls ${s.taper} from rear to front. Bolt a roof gusset to the outside face at the rear post, one to each side face at the axle post, and a pillar top gusset to the outside face at the pillar. Leave everything finger tight.`,
+    `Fit the three C11 top cross tubes: over the rear posts and at the pillar tops with a corner gusset on top at each end, and over the axle posts with a tee gusset on top. Turn each tube so its top face lies flat with the top of the sloping rail.`,
+    `Check that both sides lean the same: measure from the rear top corner to the front bottom corner on each side and match them within 3 mm. Then tighten every bolt.`,
+    `Clip the three ridge saddles over the top cross tubes at the centerline and lay the 12.7 mm ridge tube in them. It follows the roof down toward the front.`,
+  ]
   const boltedFrame = `## 8. Assemble the base flat
 
 Work on a flat floor or table.
 
-1. Lay the two C01 rails parallel, ${mm(2 * d.postY)} apart center to center, rear ends level.
-2. Set the two C02 end cross members between them, one at the rear end and one with its center ${mm(d.stations.at(-1)! - d.rearX + t)} from the rear end. Slide a corner gusset under each of the four corners, long-hole leg along the rail. Drop bolts down through tube, sleeve and plate with a washer under the head; add washer and lock nut underneath. Leave them finger tight.
-3. Set the ${d.intermediates} C14 cross members at ${d.stations.slice(1, -1).map(x => mm(x - d.rearX + t)).join(', ')} from the rear end, each with a tee gusset under each end, the stem along the cross member.
-4. Measure both diagonals of the rectangle. Tap the frame until they match within 2 mm. Then tighten every bolt until the lock nut is fully engaged and the plate is clamped. Do not crush the tube; the sleeves set the limit. No torque figure is given because none has been validated.
-5. Stand each C03 axle post on a rail at ${mm(t + s.axle)} from the rear end, a hanger on each side face, bar along the rail, stem up the post. Bolt the bar to the rail and the stem to the post. Fit the 3/4 inch axle sleeve through hanger, post and hanger.
+${stepList(boltedBase)}
 
 The base now stands on its own and has the shape in base-plan.svg.
 
-## 9. Wheels${d.swivel ? ' and nose' : ' and fork'}
+## 9. ${d.sprung ? 'Suspension, wheels' : 'Wheels'}${d.swivel ? ' and nose' : ' and fork'}
 
-1. Slide each rear axle through its sleeve from inside. From the inside out the order is cotter, washer, inner hanger, post, outer hanger, spacer, wheel, washer, cotter. The stack between washer faces should be ${d.rearStack} with about 0.5 of end float. Spin the wheel. It must not rub the hanger.
-${d.swivel ? `2. Stand the four C15 nose posts on the rail extensions at ${mm(d.casterX - h.casterAlong / 2 - d.rearX + t)} and ${mm(d.casterX + h.casterAlong / 2 - d.rearX + t)} from the rear end. Each gets a corner gusset on both side faces, the rail leg pointing away from the other post.
-3. Lay the two C16 caster beams across the post tops, ends flush with the outside of the rails. Tie each beam to its two posts with one corner gusset on the outside face.
-4. The maker lists the caster plate as 4 x 4-1/2 inch with slotted holes, and the drilling schedule puts two holes in each beam, ${h.casterAcross} apart, to land in those slots. Hold the delivered caster up under the beams on the centerline to confirm before drilling 7/16 inch through each beam with a sleeve. Bolt it on with a washer over each slot.
-5. Roll the frame. It should steer by pushing the handle end sideways and the caster should swing a full circle without touching the cabin front or the posts. Fit the bolt-on swivel lock as its maker shows and check it holds the wheel straight.` : `2. Butt the two C04 fork arms against the front cross member at ${d.forkY} each side of center, a tee gusset above and below each.
-3. Stand a C05 stub post on each arm at the front axle with a hanger on both faces, fit the axle sleeves, and mount the front wheel on its through axle.`}
+${stepList(boltedWheels)}
 
 ## 10. Cabin frame
 
-1. Stand the two rear C09 posts on the rear ends of the rails and the two front ones ${mm(d.frontPostX - d.rearX + t)} from the rear end, one corner gusset on the outside face of each, long-hole leg up the post.${s.rake > 0 ? ` The front posts stand ${s.rake} back from the front of the floor, which is what rakes the front wall.` : ''}
-2. Lay the two C10 top rails on the posts. Corner gussets on the outside face at each corner post, a pair at each axle post.
-3. Fit the three C11 top cross tubes: front and rear with a corner gusset on top at each end, the middle one over the axle posts with a tee gusset on top.
-4. Check the frame for square in both directions before the final tightening.
-5. Clip the three ridge saddles over the top cross tubes at the centerline and lay the 12.7 mm ridge tube in them.${s.rake > 0 ? `
-6. The raked front wall is fabric. When the cover goes on, slide a ${d.stay} windshield stay into the sleeve down each front edge so it runs from the base front corner up to the top front corner.` : ''}
+${stepList(boltedCabin)}
 
 `
   const weldSteps = [
@@ -698,27 +737,15 @@ ${d.swivel ? `2. Stand the four C15 nose posts on the rail extensions at ${mm(d.
     d.swivel ? `Nose. Stand the four C15 nose posts on the rail extensions with their centers ${mm(d.casterX - h.casterAlong / 2 - d.rearX + t)} and ${mm(d.casterX + h.casterAlong / 2 - d.rearX + t)} from the rear end. Lay the two C16 caster beams across the post tops, ends flush with the outside of the rails. W09 and W10.` : `Fork. Butt the two C04 fork arms against the front cross member, ${d.forkY} each side of center. Stand a C05 stub post on each arm, centered ${mm(d.wheelbase - d.frontX - t)} from the cabin end of the arm. W09 and W10.`,
     `Handle. Lay each C12 handle arm against the outside faces of a rear post and an axle post, its centerline ${mm(s.handle - d.railZ + t / 2)} above the underside of the base rail, its front end 40 past the axle post. Fit the C13 grip tube between the rear ends of the arms. W12 and W13.`,
     `Brake arms. Butt a C17 arm against the outside face of each axle post, its centerline ${mm(d.brakeZ - d.railZ - t / 2)} up the post from the post's foot, pointing outward over the tire. W11.`,
-    ...(d.sprung ? [`Suspension mounts. Butt a C23 shock arm against the outside face of each axle post, its centerline ${mm(d.shockArmZ - d.railZ - t / 2)} up the post from the post's foot, pointing outward. Weld two shock tabs on edge under it, 25.4 apart, with the middle of the gap ${mm(h.swingGap + t / 2)} out from the post face. Weld two more on top of each C22 swing arm, one flush with each side face, holes ${mm(h.swingEnd + h.shockAt)} from the pivot end. Keep a bolt through each pair of tabs while tacking so the holes stay in line, and check the gap against the eye of the shock you bought. W16, W17 and W18.`] : []),
     `Ramp legs. Weld the two C08 stand legs square to the hinge-end C07 rib, 60 in from each end of the rib. This is a separate small piece. W14.`,
   ]
-  const axleStep = `Slide each rear axle through its sleeve from inside. From the inside out the order is cotter, washer, ${d.sprung ? 'swing arm' : 'inner hanger, post, outer hanger'}, spacer, wheel, washer, cotter. The stack between washer faces should be ${d.rearStack} with about 0.5 of end float. Spin the wheel. It must not rub the ${d.sprung ? 'arm' : 'hanger'}.`
   const wheelSteps = [
-    ...(d.sprung ? [
-      `Drill the swing arms and the pivot holes in the base rails from drilling.csv. Press a flanged bronze bushing into each wall of each arm at the pivot end, flanges outside, and fit a 3/4 inch axle sleeve through the other end.`,
-      `Hang each arm outside its base rail with the tabs on top and the axle end to the rear. From inside: 1/2 inch bolt, washer, the rail with its crush sleeve, the ${h.swingGap} spacer, the arm, washer, lock nut. Tighten until the arm swings freely with no side play, and no tighter.`,
-      `Bolt a shock between the tabs on the arm and the tabs under the shock arm with M8 bolts and lock nuts. If an eye is narrower than the gap, pack it with washers equally on both sides.`,
-      axleStep,
-      `Stand the frame on its wheels. Empty, it should settle about ${d.sagEmpty}. With the dog's weight in sandbags it should settle about ${d.sag}, out of about ${d.wheelTravel} of wheel travel. Those numbers take the seller's ${h.shockRate} lbs spring label at face value. If it sits much lower, or tops out with no settle at all, the spring is wrong for this load. The same shock is sold with softer and stiffer springs: change the spring, not the geometry.`,
-      `Push down on each rear corner and let go. It should rise once and stop. Rock the top of each wheel in and out by hand: any movement you can see is play at the pivot, and that needs fixing before a load goes in.`,
-    ] : [
+    ...(d.sprung ? sprungSteps : [
       `Drill the bolt-on holes now, from drilling.csv. Clamp a hanger to each axle post with its bar along the rail and mark through it, so the holes match the plate you actually have.`,
       `Bolt a hanger to each side face of each axle post, bar to the rail, stem to the post, a sleeve in every hole. Fit the 3/4 inch axle sleeve through hanger, post and hanger.`,
       axleStep,
     ]),
-    ...(d.swivel ? [
-      `The maker lists the caster plate as 4 x 4-1/2 inch with slotted holes, and the drilling schedule puts two holes in each beam, ${h.casterAcross} apart, to land in those slots. Hold the delivered caster up under the beams on the centerline to confirm before drilling 7/16 inch through each beam with a sleeve. Bolt it on with a washer over each slot.`,
-      `Roll the frame. It should steer by pushing the handle end sideways and the caster should swing a full circle without touching the cabin front or the posts. Fit the bolt-on swivel lock as its maker shows and check it holds the wheel straight.`,
-    ] : [`Bolt a hanger to both faces of each C05 stub post, fit the axle sleeves, and mount the front wheel on its through axle.`]),
+    ...(d.swivel ? casterSteps : [`Bolt a hanger to both faces of each C05 stub post, fit the axle sleeves, and mount the front wheel on its through axle.`]),
   ]
   const weldedFrame = `## 8. Weld the frame
 
@@ -765,7 +792,7 @@ Order the wheel and caster first, because two dimensions in the design come from
 | --- | --- | --- | --- | --- |
 | A | Rear wheel | ${s.wheel === 'trail' ? '[Zoro Select 1NWV4](https://www.zoro.com/zoro-select-pneumatic-wheel-15-316dia-435lb-400-8-1nwv4/i/G1932594/), $32.89 each' : s.wheel === 'path' ? '[Harbor Freight 67467](https://www.harborfreight.com/13-inch-x-4-inch-pneumatic-tire-67467.html), $14.99 each' : 'Not selected. No suitable 20 inch wheel has been found'} | ${c.wheels} | When they arrive, measure the hub from bearing face to bearing face. If it is not ${s.hub}, enter the real number in the studio and download the kit again before cutting axles |
 ${d.swivel ? `| A | Front caster | [Service Caster SCC-100S3504-PNB-BSL](https://www.zoro.com/service-caster-10-inch-black-pneumatic-wheel-swivel-caster-with-bolt-swivel-lock-scc-100s3504-pnb-bsl/i/G705434817/), $64.69: 10 inch pneumatic, swivel lock, 350 lb and a 12-3/16 inch mounting height stated | 1 | Measure from the floor to the top of the mounting plate. This guide assumes ${s.caster}. If yours differs, enter it in the studio: it sets the nose post length. A [Harbor Freight 63799](https://www.harborfreight.com/10-in-pneumatic-swivel-caster-63799.html) at $19.99 also fits, with no swivel lock and no stated height |\n` : ''}| A | Parking brake | [POWERTEC 302F push-pull toggle clamp](https://www.zoro.com/powertec-toggle-clamp-300lbs-cap-302f-quick-release-pushpull-clamp-20304n/i/G714915420/), $10.70 each, and a [DE-STA-CO 507208 neoprene-tipped spindle, 5/16-18](https://www.zoro.com/de-sta-co-flat-tip-spindle-516-18-083-3-507208/i/G0295985/), $4.15 each | 2 clamps, 2 spindles | The spindle replaces the plain bolt that comes in the clamp plunger. Eight #10 screws and lock nuts hold the clamps to their plates |
-| B | ${d.welded ? 'Hangers and brake plates' : 'Gussets and hangers'} | A laser-cutting service. [OSH Cut](https://app.oshcut.com/cart) shows a price as soon as you drop the files in, with no account. [SendCutSend](https://sendcutsend.com) lists both materials, has no minimum quantity and ships laser parts in 1 to 3 days, and asks you to sign up first | ${d.welded ? '2 x brake_plate.dxf' : `${c.corner} x corner_gusset.dxf, ${c.tee} x tee_gusset.dxf and 2 x brake_plate.dxf`} in 0.125 inch 6061-T6 aluminum. ${c.hanger} x ${d.wheel.hanger}.dxf in 0.125 inch 304 stainless | Upload the ${d.welded ? 'two' : 'four'} DXF files from the metal folder, pick material and thickness, enter quantities. Add their deburring service or file the edges yourself |
+| B | ${d.welded ? 'Hangers and brake plates' : 'Gussets and hangers'} | A laser-cutting service. [OSH Cut](https://app.oshcut.com/cart) shows a price as soon as you drop the files in, with no account. [SendCutSend](https://sendcutsend.com) lists both materials, has no minimum quantity and ships laser parts in 1 to 3 days, and asks you to sign up first | ${d.welded ? '2 x brake_plate.dxf' : `${c.corner} x corner_gusset.dxf, ${d.angles.map(a => `${a.qty} x ${a.file}.dxf`).join(', ')}, ${c.tee} x tee_gusset.dxf, 2 x brake_plate.dxf`}${d.sprung ? `, ${c.shockPlates} x shock_plate.dxf, ${c.shockHangers} x shock_hanger.dxf` : ''}, all in 0.125 inch 6061-T6 aluminum.${d.welded ? '' : ' The roof and pillar gusset files are cut for this setup only.'}${c.hanger ? '' : ' No hangers are needed with the sprung rear and the swivel caster.'} ${c.hanger ? `${c.hanger} x ${d.wheel.hanger}.dxf in 0.125 inch 304 stainless` : ''} | Upload each of those DXF files from the metal folder, pick material and thickness, enter quantities. Add their deburring service or file the edges yourself |
 | C | Chassis tube, 1 x 1 x 1/8 inch 6061-T6 | [Metals Depot T3118-6061](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 8 ft at $58.08 | ${heavyBars.length} bars | 8 ft is the longest that ships by parcel. Longer bars are cheaper per foot but come by truck |
 | C | Cabin tube, 1 x 1 x 1/16 inch 6063-T52 | [Metals Depot T31116](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 8 ft at $41.60 | ${lightBars.length} bars | Do not swap this softer tube into the chassis positions |
 | D | Bolts, nuts, washers | [Bolt Depot](https://boltdepot.com/Product-Details?product=328): 1/4-20 x 2 inch grade 5 zinc hex bolt 328, lock nut 2624, SAE washer 2976 | ${boxes} box${boxes === 1 ? '' : 'es'} of 100 bolts, ${boxes} of nuts, ${Math.ceil(2 * fasteners / 100)} of washers | You need ${c.bolts} bolts${c.handleBolts ? `, plus ${c.handleBolts} at 3 inch long for the handle` : ''}${d.swivel ? ` and ${c.casterBolts} at 5/16-18 x 2-1/2 inch for the caster` : ''} |
@@ -774,7 +801,7 @@ ${d.swivel ? `| A | Front caster | [Service Caster SCC-100S3504-PNB-BSL](https:/
 | E | Plywood | [Home Depot 15/32 inch ACX sanded pine](https://www.homedepot.com/b/Lumber-Composites-Plywood/15-32/N-5yc1vZbqm7Z1z0mcqq), $52.00 a sheet | ${d.floorLen + s.ramp + 10 <= 2438.4 && s.width + 2 * t <= 1219.2 ? 1 : 2} | Floor ${d.floorLen} x ${mm(s.width + 2 * t)} and ramp ${s.ramp} x ${d.rampWidth}. Plus exterior sealer |
 | F | Ramp hardware | [Zoro Select 2ZFK4 stainless piano hinge, 36 inch](https://www.zoro.com/zoro-select-piano-hinge-stainless-steel-full-surface-mounting-1-in-leaf-w-x-36-in-leaf-h-stainless-steel-2zfk4/i/G1671966/), $18.19. [Southco TL-20-202-52 stainless draw latch](https://www.zoro.com/southco-toggle-style-draw-latch-small-size-concealed-mount-stainless-steel-passivated-tl-20-202-52/i/G115615363/), $11.89 | 1 hinge, 2 latches, ${c.rampBolts} carriage bolts 1/4-20 x 2 inch (Bolt Depot 2754, $0.16) | The hinge is unpunched: cut it to ${Math.floor(d.rampWidth / 10) * 10} and drill it. Check the latch comes with its keeper |
 | F | Handle, floor and parking | [S&W BSW-1Z 3/8-16 swivel leveling mount](https://www.zoro.com/s-w-manufacturing-level-mount-swivel-stud-38-16-1-14-in-bsw-1z/i/G1257593/) in its tall version, $11.59. [Harbor Freight 96479 rubber wheel chock](https://www.harborfreight.com/solid-rubber-wheel-chock-96479.html), $7.49, in store. Hardware store: 1/4-20 rivet nuts, foam grip tube for a 1 inch bar, 1/8 inch foam strip | 2 tall leveling mounts, 2 chocks, ${c.floorScrews} rivet nuts and flat-head screws 1/4-20, about ${Math.ceil((s.width - 60) / 152.4)} foam grips of 6 inch, about 9 m of foam strip, one 12.7 mm aluminum tube ${d.topRailCut} long | A 4 ft store tube is too short for a ${d.topRailCut} ridge. Rivet nut, grip and foam strip prices were seen on listings only |
-${d.sprung ? `| D | Rear suspension | [LvTu 150 mm coil-over shock](${roverShock.url}), $31.05, in the ${h.shockRate} lbs spring. [Bunting EF081008 bronze flanged bearing](https://www.zoro.com/search?q=oil+impregnated+bronze+flanged+sleeve+bearing+1%2F2+x+5%2F8+x+1%2F2), $5.29 per pack of three. [Bolt Depot 399](https://boltdepot.com/Product-Details?product=399) 1/2-13 x 4 inch bolt, $1.64, and lock nut 21807, $0.41. M8 x 50 bolts with lock nuts | 2 shocks, 2 packs of bearings, 2 pivot bolts and nuts, 4 eye bolts, ${c.shockTabs} x shock_tab.dxf in 0.125 inch 6061-T6 | Buy the shocks before the frame is welded and give them to the shop: the tab spacing and the hole size come from the real eyes |
+${d.sprung ? `| D | Rear suspension | [LvTu 150 mm coil-over shock](${roverShock.url}), $31.05, in the ${h.shockRate} lbs spring. [Bunting EF081008 bronze flanged bearing](https://www.zoro.com/search?q=oil+impregnated+bronze+flanged+sleeve+bearing+1%2F2+x+5%2F8+x+1%2F2), $5.29 per pack of three. [Bolt Depot 399](https://boltdepot.com/Product-Details?product=399) 1/2-13 x 4 inch bolt, $1.64, and lock nut 21807, $0.41. M8 x 50 bolts with lock nuts | 2 shocks, 2 packs of bearings, 2 pivot bolts and nuts, 4 eye bolts, ${c.shockBolts} hanger bolts 1/4-20 x 3-1/2 inch | Buy the shocks before ordering the plates. The plate files assume eyes 24 wide with an 8 bore; if yours differ, say so before cutting |
 ` : ''}| G | Cover materials | See buy-list.md for every line with its link | | Cut list in cover-cut-schedule.csv |
 | H | Filament | Any PETG for fit trials, ASA for parts left in the sun | About 1 kg | ${Object.entries(q).filter(([id]) => roverParts.find(p => p.id === id)!.kind !== 'metal').reduce((n, [, v]) => n + v, 0)} printed pieces in all |
 
@@ -820,7 +847,7 @@ ${bars(lightBars)}
 | ID | Member | Qty | Cut |
 | --- | --- | ---: | ---: |
 ${d.cuts.map(x => `| ${x.id} | ${x.name} | ${x.qty} | ${x.length} |`).join('\n')}
-${d.welded ? `
+${s.taper > 0 || s.rake > 0 ? `
 Angled ends. Lengths are along the middle of the tube, so mark the middle of each face and cut through that mark.
 
 | Piece | End | Cut |
@@ -829,7 +856,7 @@ Angled ends. Lengths are along the middle of the tube, so mark the middle of eac
 | C21 front pillar | Foot | ${d.pillarAngle.toFixed(1)} degrees off square, so the pillar leans back |
 | C21 front pillar | Top | ${(d.pillarAngle + d.roofAngle).toFixed(1)} degrees off square, so it sits flat under the top rail |
 
-Cut these a little long and trim to fit against the tacked frame, or leave them to the shop.
+${d.welded ? 'Cut these a little long and trim to fit against the tacked frame, or leave them to the shop.' : 'Set the miter saw to each angle and cut a test piece from an offcut first. A degree either way is taken up by the plate; a gap you can see daylight through is not.'}
 ` : ''}
 Then cut ${c.sleeves} sleeves ${t} long from the 3/8 inch steel tube, ${axleSleeves} axle sleeves ${t} long and 2 wheel spacers ${d.spacer} long from the 3/4 inch tube, and the axles: 2 at ${d.rearShaft}${d.swivel ? '' : ` and 1 at ${d.frontShaft}`}. Square and deburr every one. The linked 3/4 inch x .065 wall tube is 0.620 inch inside, a hair under the 5/8 inch axle: ream it to 5/8 or buy .058 wall instead. A sleeve that is short lets the tube crush; one that is long keeps the plate from seating.
 
@@ -968,7 +995,7 @@ export function roverDocuments(s: RoverSetup): Record<string, string> {
   return {
     'assembly.md': roverAssembly(s), 'bom.csv': roverBom(s), 'materials.md': roverMaterialsMarkdown(s), 'cover-cut-schedule.csv': roverCoverCsv(s), 'cover-panels.svg': roverCoverSvg(s), 'drawing.svg': roverDrawing(s),
     'cut-list.csv': csv([['ID', 'Quantity', 'Member', 'Stock', 'Cut mm'], ...d.cuts.map(c => [c.id, c.qty, c.name, WALL[c.wall as 'heavy' | 'light'], c.length])]),
-    'cost-notes.md': roverCostMarkdown(s), 'buy-list.md': roverBuyList(s), 'build-guide.md': roverBuildGuide(s), 'drilling.csv': roverDrillingCsv(s), ...(d.welded ? { 'weld-schedule.csv': roverWeldCsv(s) } : {}), 'base-plan.svg': roverBasePlan(s), 'cost-model.json': JSON.stringify(roverCostModel(s), null, 2) + '\n',
+    'cost-notes.md': roverCostMarkdown(s), 'buy-list.md': roverBuyList(s), 'build-guide.md': roverBuildGuide(s), 'drilling.csv': roverDrillingCsv(s), ...(d.welded ? { 'weld-schedule.csv': roverWeldCsv(s) } : Object.fromEntries(d.angles.map(a => [`metal/${a.file}.dxf`, angleGussetDxf(a.angle, a.shift)]))), 'base-plan.svg': roverBasePlan(s), 'cost-model.json': JSON.stringify(roverCostModel(s), null, 2) + '\n',
     'setup.json': JSON.stringify({ revision: 'r0', product: 'Buddy Rover', ...s, dimensions: { ...d, rampAngleRad: undefined }, status: 'BENCH_ONLY_NOT_ANIMAL_USE', ownerReportedWeightLb: 140, fitted: false, loadRated: false }, null, 2) + '\n',
   }
 }
