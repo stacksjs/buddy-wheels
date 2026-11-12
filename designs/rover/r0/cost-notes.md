@@ -29,6 +29,19 @@ The same carrier can be built two ways: the same tubes, the same shape and the s
 
 Welding in a United States shop does not make the carrier cheaper. It trades about $239.17 of plates, bolts, sleeves and drilling time for $202.84 of welding and $20.00 more packaging, and for one carrier the shop's time costs more than the drilling it replaces. What welding buys is about 8.0 kg less mass, a cleaner look with no plates, and joints with no bolt clearance to work loose. What bolting buys is that nothing leaves the house except the plate order. The welding figure is arithmetic on an assumed shop rate; no fabricator has quoted it. Outbound freight for an assembled frame is not in either column.
 
+## Cutting it yourself against having it cut
+
+The counted totals assume stock bars sawn and drilled by hand, which is the cheapest way to get the tubes. The kit also carries a 3D file for every tube so a tube laser service can do it.
+
+| For one carrier | Bars, sawn and drilled at home | Tubes from a tube laser |
+| --- | ---: | ---: |
+| Tube cost | $639.68 | $1,405.06 |
+| Saw cuts | 39 | 0 |
+| Tube walls to drill | 451 | A few holes to finish, listed in tube-order.csv |
+| Wait | Parcel delivery of the bars | 8 business days to ship at the standard rate |
+
+The laser figure is OSH Cut's instant quote for the starting setup on 2026-11-12, after all 20 files passed its design check: $1,405.06 before shipping and tax, or $1,896.81 and $2,037.35 for faster lead times. Nothing was ordered. Most of that price is handling: a 60 mm spacer tube with two holes is quoted at about $18, so the cost follows the number of different parts more than their size, and it would fall per carrier in a batch. Ready-cut bolt sleeves are the other paid shortcut, $184.32 for a pack of 250 against about $34.98 of tube and 190 saw cuts.
+
 ## What changed since the first count
 
 | Change | Effect at 100 carriers | Trade-off |
@@ -134,6 +147,8 @@ Material prices are the listed prices in [the materials sheet](../product/rover-
 - [Bunting EF081008 bronze flanged sleeve bearing, 1/2 x 5/8 x 1/2 inch, pack of 3](https://www.zoro.com/search?q=oil+impregnated+bronze+flanged+sleeve+bearing+1%2F2+x+5%2F8+x+1%2F2): **$5.29**, one pack of three. Seen 2026-11-12 on a Zoro listing, not a product page: $5.29 per three. The listing says bronze and does not say oil-impregnated.
 - [Bolt Depot 399, 1/2-13 x 4 inch grade 5 zinc hex bolt, and 21807 lock nut](https://boltdepot.com/Product-Details?product=399): **$1.64**, one bolt. Read in a browser 2026-11-12: bolt $1.64 each or $277.00 per 250; nylon-insert lock nut $0.41 each or $127.00 per 500. Swing arm pivots.
 - [Burley D'Lite X child trailer, reference only](https://burley.com/collections/strollers-skis/products/dlite-x): **$799.95**, one trailer, base price shown. Read 2026-11-12. The page says adjustable suspension without describing the mechanism or travel. Double model: 40 lb per child, 100 lb total, 26 inch shoulder width, 24 inch seated height, and a statement that it is designed and tested to ASTM F1975-09. This is the maker's child product. Its pet trailer page mentions neither suspension nor children.
+- [OSH Cut tube laser, all 39 frame tubes of the starting bolted setup, cut and drilled](https://app.oshcut.com): **$1,405.06**, one set of 39 tubes in 20 different parts, standard lead. Read 2026-11-12 on the instant-quote page after uploading the 20 STEP files from the kit: every file was recognized as a tube and passed the design check, and the two materials were matched automatically. Subtotal $1,405.06 shipping in 8 business days, $1,896.81 in 7, $2,037.35 in 6, before shipping and tax, which the page shows only after sign-in. $788.46 of it is the ten thick-wall parts and $616.60 the ten thin-wall parts. Nothing was ordered.
+- [Mutual Screw FC1198-25-S-12 round spacer, 3/8 OD x 1/4 ID x 1 inch, clear zinc steel, pack of 250](https://mutualscrew.com/products/spacers-3-8-od-x-1-1-4-hole-steel-clear-zinc_fc1198-25-s-12): **$184.32**, one pack of 250. Read in a browser 2026-11-12: $184.32 per 250, $0.74 each. The same size as the bolt sleeves, ready cut. The page gives the hole as 1/4 inch with no tolerance, so check that a 1/4 inch bolt slides through before relying on it.
 
 - Tube for one build: the supplier ships bars over 8 ft by truck, so the one-carrier scenario buys 8 ft bars at $58.08 for the 1/8 inch 6061-T6 and $41.60 for the 1/16 inch 6063-T52, both read on the supplier page. The batch buys 24 ft and 21 ft bars.
 - Run wheels: $60 each is an allowance. No 20 inch pneumatic wheel with a 5/8 inch bore and a suitable rating was found, so the 20 inch wheel remains an open selection.
@@ -145,7 +160,7 @@ Material prices are the listed prices in [the materials sheet](../product/rover-
 - Stainless option: the stainless bolt is an observed $30.75 per 100. Stainless nuts and washers were not priced; the $0.23 per joint upgrade includes a $0.10 allowance for them.
 - Sprung rear: the travel, sag and spring figures are arithmetic from the drawn arm geometry and an assumed spring rate. No shock has been fitted, no ride has been measured, and no comparison with any other product is claimed. The parking brake presses on a tire that now moves with the load, which is unresolved.
 - Axle sleeve fit: the linked 3/4 inch x .065 wall DOM tube is 0.620 inch inside, 0.005 under the 5/8 inch axle. Ream it to 5/8 or buy .058 wall, 0.634 inside, which the drawn numbers assume.
-- Tube laser option: the bolted kit includes a 3D file for every tube so a tube laser service can cut and drill them. That route is not priced. The service prices on upload and nothing was uploaded for this study, so every total here still assumes stock bars cut and drilled by hand.
+- Tube laser route: the bolted kit includes a 3D file for every tube. On 2026-11-12 the 20 files for the starting setup were uploaded to OSH Cut: all passed its design check and the set was quoted at $1,405.06 before shipping and tax. That is a quote for one set on one day, nothing was ordered, and no other setup has been uploaded. Every counted total still assumes stock bars cut and drilled by hand, because that is the cheaper route.
 - Welded build: the welding line is arithmetic on assumed shop rates and minutes per joint. No fabricator has seen the drawings. A welded frame also ships assembled, and outbound truck freight for a carton that size is not in any total here.
 - Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists.
 

@@ -678,6 +678,20 @@
       "unit": "one trailer, base price shown",
       "url": "https://burley.com/collections/strollers-skis/products/dlite-x",
       "note": "Read 2026-11-12. The page says adjustable suspension without describing the mechanism or travel. Double model: 40 lb per child, 100 lb total, 26 inch shoulder width, 24 inch seated height, and a statement that it is designed and tested to ASTM F1975-09. This is the maker's child product. Its pet trailer page mentions neither suspension nor children."
+    },
+    {
+      "name": "OSH Cut tube laser, all 39 frame tubes of the starting bolted setup, cut and drilled",
+      "price": 140506,
+      "unit": "one set of 39 tubes in 20 different parts, standard lead",
+      "url": "https://app.oshcut.com",
+      "note": "Read 2026-11-12 on the instant-quote page after uploading the 20 STEP files from the kit: every file was recognized as a tube and passed the design check, and the two materials were matched automatically. Subtotal $1,405.06 shipping in 8 business days, $1,896.81 in 7, $2,037.35 in 6, before shipping and tax, which the page shows only after sign-in. $788.46 of it is the ten thick-wall parts and $616.60 the ten thin-wall parts. Nothing was ordered."
+    },
+    {
+      "name": "Mutual Screw FC1198-25-S-12 round spacer, 3/8 OD x 1/4 ID x 1 inch, clear zinc steel, pack of 250",
+      "price": 18432,
+      "unit": "one pack of 250",
+      "url": "https://mutualscrew.com/products/spacers-3-8-od-x-1-1-4-hole-steel-clear-zinc_fc1198-25-s-12",
+      "note": "Read in a browser 2026-11-12: $184.32 per 250, $0.74 each. The same size as the bolt sleeves, ready cut. The page gives the hole as 1/4 inch with no tolerance, so check that a 1/4 inch bolt slides through before relying on it."
     }
   ],
   "allowances": [
@@ -691,7 +705,7 @@
     "Stainless option: the stainless bolt is an observed $30.75 per 100. Stainless nuts and washers were not priced; the $0.23 per joint upgrade includes a $0.10 allowance for them.",
     "Sprung rear: the travel, sag and spring figures are arithmetic from the drawn arm geometry and an assumed spring rate. No shock has been fitted, no ride has been measured, and no comparison with any other product is claimed. The parking brake presses on a tire that now moves with the load, which is unresolved.",
     "Axle sleeve fit: the linked 3/4 inch x .065 wall DOM tube is 0.620 inch inside, 0.005 under the 5/8 inch axle. Ream it to 5/8 or buy .058 wall, 0.634 inside, which the drawn numbers assume.",
-    "Tube laser option: the bolted kit includes a 3D file for every tube so a tube laser service can cut and drill them. That route is not priced. The service prices on upload and nothing was uploaded for this study, so every total here still assumes stock bars cut and drilled by hand.",
+    "Tube laser route: the bolted kit includes a 3D file for every tube. On 2026-11-12 the 20 files for the starting setup were uploaded to OSH Cut: all passed its design check and the set was quoted at $1,405.06 before shipping and tax. That is a quote for one set on one day, nothing was ordered, and no other setup has been uploaded. Every counted total still assumes stock bars cut and drilled by hand, because that is the cheaper route.",
     "Welded build: the welding line is arithmetic on assumed shop rates and minutes per joint. No fabricator has seen the drawings. A welded frame also ships assembled, and outbound truck freight for a carton that size is not in any total here.",
     "Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists."
   ]

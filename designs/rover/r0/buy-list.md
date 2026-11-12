@@ -48,6 +48,15 @@ Cut from the bars with cut-list.csv. Send metal/*.dxf to a laser or waterjet sho
 
 Cut from cover-cut-schedule.csv. A 10% allowance for sewing mistakes is not in this subtotal.
 
+## Two shortcuts that cost more and save time
+
+| Shortcut | Cost | Instead of | What it saves |
+| --- | ---: | --- | --- |
+| Every tube cut and drilled by a tube laser, from the tubes folder | $1,405.06, quoted 2026-11-12 before shipping and tax | $639.68 of bars | 39 saw cuts and 451 drilled tube walls |
+| Bolt sleeves ready cut, [Mutual Screw FC1198-25-S-12](https://mutualscrew.com/products/spacers-3-8-od-x-1-1-4-hole-steel-clear-zinc_fc1198-25-s-12) | $184.32 | $34.98 of sleeve tube | 190 saw cuts and their deburring |
+
+Neither is in the total above. With both, what is left is bolting it together, a handful of holes listed in tube-order.csv, the panels and the cover.
+
 ## Before you order
 
 1. Measure the dog and set the cabin size first. Every tube cut and fabric blank follows from it.

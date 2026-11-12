@@ -43,3 +43,6 @@
 "C22","Swing arm","2","side","pivot end","250 / 280","9.8 (letter W), for a 9.525 sleeve","Shock plate bolts, a plate on each side face"
 "C03","Axle post","2","side","bottom","232.002 / 262.002","9.8 (letter W), for a 9.525 sleeve","Shock hanger bolts"
 "C23","Shock spacer tube","2","side","either end","15 / 45","9.8 (letter W), for a 9.525 sleeve","Shock hanger bolts"
+"C01","Base side rail","2","vertical","rear end","112.5667 / 337.7 / 570.4 / 787.9667 / 1013.1 / 1238.2333","9.9 (25/64 inch), top wall only, for a 1/4-20 rivet nut","Floor screw rivet nuts"
+"C02","Base end cross member","2","vertical","the middle","-233.3333 / 0 / 233.3333","9.9 (25/64 inch), top wall only, for a 1/4-20 rivet nut","Floor screw rivet nuts"
+"C14","Base intermediate cross member","3","vertical","the middle","-233.3333 / 0 / 233.3333","9.9 (25/64 inch), top wall only, for a 1/4-20 rivet nut","Floor screw rivet nuts"

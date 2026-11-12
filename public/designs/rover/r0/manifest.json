@@ -4,7 +4,7 @@
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
   "generator": "native Stacks solid kit, no external CAD executable",
   "geometryHash": "77c855e62b909b518ab655607c022b458bb8eb0a1e3f6155e9ace3935b860849",
-  "costHash": "9c0eb41ab721ad36311f7a205511483cc70fb4cfbaefd8c44edfc83c9dd68554",
+  "costHash": "40ba934978f65f21601132d7c0966f622362a2dcd40a116bb59b0cd6291be027",
   "setup": {
     "length": 1300,
     "width": 700,
@@ -528,23 +528,23 @@
     },
     {
       "path": "cost-notes.md",
-      "sha256": "2785a852b866ad440d7ca37ed4d199d043e60c4d9a04f925168ac94e24fbece6",
-      "bytes": 25068
+      "sha256": "7ca2e751d90fb2f88097bb981490f7c41d41d69b8c1830cb9b0f94221cc887f6",
+      "bytes": 27439
     },
     {
       "path": "buy-list.md",
-      "sha256": "202b171f7a810ddbd60aa0c734bc41eb0299a948deec6756b65716861d525094",
-      "bytes": 6223
+      "sha256": "02b194fe7a8d36f323eb00749fa1f6559845d1e80746a62b7e5809176d53da4d",
+      "bytes": 6903
     },
     {
       "path": "build-guide.md",
-      "sha256": "e68a00337354d67c4a780d89cf629faf7bfaaa3a7b9e918c1bb361caf4d2c43c",
-      "bytes": 27093
+      "sha256": "9b31da0262688c41b970502d77eaa651c61f842c4b8f3a44eb2f1633c5b49e0f",
+      "bytes": 28329
     },
     {
       "path": "drilling.csv",
-      "sha256": "482d18b5174be25aa792e2ab9dd04e9bf342acf286f7ab803ebfb5681607a630",
-      "bytes": 6257
+      "sha256": "9b0251879c98d31bb7f2ca12be62859c2dc8b44132d6373039c3b7103ce1a7f7",
+      "bytes": 6793
     },
     {
       "path": "metal/roof-gusset.dxf",
@@ -563,106 +563,106 @@
     },
     {
       "path": "tube-order.csv",
-      "sha256": "ddf51e100e1519a5be58ea189cf7493ae64f9e58864305fef57bd3bfee28bedb",
-      "bytes": 3176
+      "sha256": "d3df0a85040ef9c60223ce07ee4383443e327c18808e7ad5e00ccaa9782b488c",
+      "bytes": 3629
     },
     {
-      "path": "tubes/C01-base-side-rail.step",
-      "sha256": "36c135444305100f35d9c8049f38397aded8943f62462cb3f4d83467e1020659",
-      "bytes": 141840
+      "path": "tubes/6061-T6-0.125-wall/C01-x2-base-side-rail.step",
+      "sha256": "a18e2880c1db69adcc9eb69c264a886d60e7cb5ad834461a02dfb05cb44b23ab",
+      "bytes": 159842
     },
     {
-      "path": "tubes/C02-base-end-cross-member.step",
-      "sha256": "02f6169b780c443cecf405c27bd75eb54228d0e217bdd0de3cafe2e9a465181c",
-      "bytes": 34586
+      "path": "tubes/6061-T6-0.125-wall/C02-x2-base-end-cross-member.step",
+      "sha256": "5a2db59802c8133a67e4ba77ecad3edb92b868ff892cb60e757470494b4ed6bb",
+      "bytes": 43359
     },
     {
-      "path": "tubes/C03-axle-post.step",
+      "path": "tubes/6061-T6-0.125-wall/C03-x2-axle-post.step",
       "sha256": "7f17bb1788bfad4aed1a35acdf665c17a1e381abc74c26955d378a435fc91bc1",
       "bytes": 64399
     },
     {
-      "path": "tubes/C06-ramp-side-curb-rail.step",
+      "path": "tubes/6061-T6-0.125-wall/C06-x2-ramp-side-curb-rail.step",
       "sha256": "eaa822652dfeff97b7cbae5d1ee758403e9ee110c5d6e2081085c5d43d289532",
       "bytes": 46748
     },
     {
-      "path": "tubes/C07-ramp-under-rib-hinge-end-one-only.step",
+      "path": "tubes/6063-T52-0.062-wall/C07-x1-ramp-under-rib-hinge-end-one-only.step",
       "sha256": "c1091a34c1bbdbbf2528b9bf5651f9ef02a8895fd6d0088a219e0a49529ce500",
       "bytes": 46573
     },
     {
-      "path": "tubes/C07-ramp-under-rib.step",
+      "path": "tubes/6063-T52-0.062-wall/C07-x1-ramp-under-rib.step",
       "sha256": "beb9b9fb45507ed6650598bcf31a96e710d5bc44cb50c9ff68d7f512227d31f4",
       "bytes": 23488
     },
     {
-      "path": "tubes/C08-ramp-stand-leg.step",
+      "path": "tubes/6061-T6-0.125-wall/C08-x2-ramp-stand-leg.step",
       "sha256": "7bdf00e771c42c062611768d62d8ba4164f7ce5dacd256888e2ffd6fc3aa59e6",
       "bytes": 23484
     },
     {
-      "path": "tubes/C09-rear-corner-post.step",
+      "path": "tubes/6063-T52-0.062-wall/C09-x2-rear-corner-post.step",
       "sha256": "dce1a22301efb70f76f6da1f98db6d9d36fb656ab0175dbb3addae00709efe9b",
       "bytes": 40623
     },
     {
-      "path": "tubes/C10-top-side-rail.step",
+      "path": "tubes/6063-T52-0.062-wall/C10-x2-top-side-rail.step",
       "sha256": "8d4499c59f20f1f81b942f60a6a87ae50a011b2b1f7560290356006113e56026",
       "bytes": 82683
     },
     {
-      "path": "tubes/C11-top-cross-tube-front-and-rear.step",
+      "path": "tubes/6063-T52-0.062-wall/C11-x2-top-cross-tube-front-and-rear.step",
       "sha256": "8b4e3b34dd09420cbb6be7bf3248b9e0b58f2527ab103ff5ed1e872e7a70d3c9",
       "bytes": 34792
     },
     {
-      "path": "tubes/C11-top-cross-tube-middle-bow.step",
+      "path": "tubes/6063-T52-0.062-wall/C11-x1-top-cross-tube-middle-bow.step",
       "sha256": "6d1a754730883812788e2480b3b7d0254e6c3f6998e3bf5cbc56c661e32d89be",
       "bytes": 34768
     },
     {
-      "path": "tubes/C12-handle-arm.step",
+      "path": "tubes/6063-T52-0.062-wall/C12-x2-handle-arm.step",
       "sha256": "5edfe9f8daa00e460f6b85b66c24af201c0833192eb80b21f6692c8d196fa869",
       "bytes": 34706
     },
     {
-      "path": "tubes/C13-handle-grip-tube.step",
+      "path": "tubes/6063-T52-0.062-wall/C13-x1-handle-grip-tube.step",
       "sha256": "e7bad94f7cddd80f6b6c3dc325a562cf90ea43ff236ffbd761000d5f1bd6f3c8",
       "bytes": 34725
     },
     {
-      "path": "tubes/C14-base-intermediate-cross-member.step",
-      "sha256": "e476fefc2551cd36b8bb14b9f511e1ed5afa2825808d3cc4d9e1115074b0e1d7",
-      "bytes": 34792
+      "path": "tubes/6063-T52-0.062-wall/C14-x3-base-intermediate-cross-member.step",
+      "sha256": "4212c5f46f9917318ea1ff872ed1a08e7852d63b05f7cfe04ccfbe7f5f1ece56",
+      "bytes": 43589
     },
     {
-      "path": "tubes/C15-nose-post.step",
+      "path": "tubes/6061-T6-0.125-wall/C15-x4-nose-post.step",
       "sha256": "bff58ef20ce81ce30f489dcd6f6c2a57c405012a2683d88a2af6f12b8851c478",
       "bytes": 34507
     },
     {
-      "path": "tubes/C16-caster-beam.step",
+      "path": "tubes/6061-T6-0.125-wall/C16-x2-caster-beam.step",
       "sha256": "a8cc004fa9687c9483181d9ac7861c3daad5836c14fa637033f0f87ee3b90f9d",
       "bytes": 34531
     },
     {
-      "path": "tubes/C17-brake-arm.step",
+      "path": "tubes/6061-T6-0.125-wall/C17-x2-brake-arm.step",
       "sha256": "90077df242204c40d66ec18a1e8d7f30dd4de04a81d3f5756508245a355f2495",
       "bytes": 23242
     },
     {
-      "path": "tubes/C21-front-pillar.step",
+      "path": "tubes/6063-T52-0.062-wall/C21-x2-front-pillar.step",
       "sha256": "0fc90b96daa4003cc74093e507a08d8dada3ef470be42e9afab8d55f3ca59b95",
       "bytes": 35358
     },
     {
-      "path": "tubes/C22-swing-arm.step",
-      "sha256": "b3bf9700e635c7fc6e50105ad6a5676fc12d2a69ebb6f955b98445d456dd1dd4",
-      "bytes": 28953
+      "path": "tubes/6061-T6-0.125-wall/C22-x2-swing-arm.step",
+      "sha256": "dff7ffcab315e1d2096b924b95f581334598cdbd7a5fd867bcd2d233e028d026",
+      "bytes": 34666
     },
     {
-      "path": "tubes/C23-shock-spacer-tube.step",
+      "path": "tubes/6061-T6-0.125-wall/C23-x2-shock-spacer-tube.step",
       "sha256": "cba5339d047f6193118b9da8f8362e498e50d712a4097c242b09524bae82d41b",
       "bytes": 23249
     },
@@ -673,8 +673,8 @@
     },
     {
       "path": "cost-model.json",
-      "sha256": "1d1c3ba013a5bd71375b0872d303081ca63caddbb4f283374b2039569e8bdeab",
-      "bytes": 27357
+      "sha256": "b885038abd5aab888394dab9ddab4c369d5419003bf2f5338fd48dd80dac24ca",
+      "bytes": 28765
     },
     {
       "path": "setup.json",

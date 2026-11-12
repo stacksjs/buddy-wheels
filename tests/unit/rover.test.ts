@@ -291,6 +291,10 @@ test('Rover tube files are closed solids that agree with the cut list and the dr
   expect(inspectBrep(tubeBrep({ outer: 25.4, wall: 3.175, length: 300, holes: [] }))).toMatchObject({ vertices: 16, edges: 24, faces: 10, loops: 12, genus: 1, closed: true })
   const drilled = tubeBrep({ outer: 25.4, wall: 3.175, length: 300, tan0: 0.4, tan1: 0.6, holes: [{ axis: 'x', z: 100, diameter: 9.8 }, { axis: 'y', z: 115, diameter: 9.8 }] })
   expect(inspectBrep(drilled)).toMatchObject({ faces: 18, genus: 5, closed: true, problems: [] })
+  // A rivet nut hole stops at one wall: one handle, two more faces.
+  const oneWall = tubeBrep({ outer: 25.4, wall: 3.175, length: 300, holes: [{ axis: 'y', z: 150, diameter: 9.9, wall: 1 }] })
+  expect(inspectBrep(oneWall)).toMatchObject({ faces: 12, genus: 2, closed: true })
+  expect(Math.abs(brepVolume(oneWall) - ((25.4 ** 2 - 19.05 ** 2) * 300 - Math.PI * 4.95 ** 2 * 3.175))).toBeLessThan(0.3)
   // Volume from the faces matches the textbook figure: section area times centerline length, less each hole through each wall.
   const section = 25.4 ** 2 - (25.4 - 2 * 3.175) ** 2; const bite = 2 * Math.PI * 4.9 ** 2 * 3.175
   expect(brepVolume(tubeBrep({ outer: 25.4, wall: 3.175, length: 300, holes: [] }))).toBeCloseTo(section * 300, 4)
@@ -323,8 +327,9 @@ test('Rover tube files are closed solids that agree with the cut list and the dr
     for (const t of tubes) {
       const check = inspectBrep(tubeBrep(t.spec))
       expect(check.problems, t.file).toEqual([])
-      expect(check.genus, t.file).toBe(1 + 2 * t.holes)
-      const wallArea = 25.4 ** 2 - (25.4 - 2 * t.spec.wall) ** 2; const cut = t.spec.holes.reduce((n, hole) => n + 2 * Math.PI * (hole.diameter / 2) ** 2 * t.spec.wall, 0)
+      expect(check.genus, t.file).toBe(1 + t.pierces)
+      expect(t.pierces).toBe(t.spec.holes.reduce((n, hole) => n + (hole.wall ? 1 : 2), 0))
+      const wallArea = 25.4 ** 2 - (25.4 - 2 * t.spec.wall) ** 2; const cut = t.spec.holes.reduce((n, hole) => n + (hole.wall ? 1 : 2) * Math.PI * (hole.diameter / 2) ** 2 * t.spec.wall, 0)
       expect(Math.abs(brepVolume(tubeBrep(t.spec)) - (wallArea * t.length - cut)), t.file).toBeLessThan(0.002 * wallArea * t.length)
       for (const hole of t.spec.holes) { expect(hole.z - hole.diameter / 2).toBeGreaterThan(2); expect(hole.z + hole.diameter / 2).toBeLessThan(t.length - 2); expect(hole.diameter / 2).toBeLessThan(12.7 - t.spec.wall - 0.5) }
     }
@@ -334,13 +339,22 @@ test('Rover tube files are closed solids that agree with the cut list and the dr
   }
   const start = roverTubes(roverStart); const d = roverDimensions(roverStart)
   expect(start.length).toBe(20)
-  expect(start.find(t => t.id === 'C01')).toMatchObject({ holes: 22, hand: [] })
+  expect(start.find(t => t.id === 'C01')).toMatchObject({ holes: 28, pierces: 50, hand: [], file: 'tubes/6061-T6-0.125-wall/C01-x2-base-side-rail.step' })
+  // Files sort into one folder per material and carry their quantity, so an order needs no cross-referencing.
+  for (const t of start) { expect(t.file).toContain(`-x${t.qty}-`); expect(t.file.startsWith(t.wall === 'heavy' ? 'tubes/6061-T6-0.125-wall/' : 'tubes/6063-T52-0.062-wall/'), t.file).toBe(true) }
+  // Floor fasteners are cut too: one-wall holes that match the fastener count and keep clear of every other hole in the rail.
+  const floorRows = roverDrilling(roverStart).filter(r => r.oneWall)
+  expect(floorRows.reduce((n, r) => n + r.qty * r.centers.length, 0)).toBe(d.counts.floorScrews)
+  const railRows = roverDrilling(roverStart).filter(r => r.id === 'C01'); const floorAt = railRows.find(r => r.oneWall)!.centers
+  for (const a of floorAt) for (const b of railRows.filter(r => !r.oneWall).flatMap(r => r.centers)) expect(Math.abs(a - b)).toBeGreaterThanOrEqual(14.99)
+  expect(start.find(t => t.id === 'C01')!.spec.holes.filter(hole => hole.wall).length).toBe(6)
   expect(start.find(t => t.id === 'C21')!.spec.tan0).toBeCloseTo(Math.tan(d.pillarAngle * Math.PI / 180), 6)
   expect(start.find(t => t.id === 'C21')!.spec.tan1).toBeCloseTo(Math.tan((d.pillarAngle + d.roofAngle) * Math.PI / 180), 6)
   expect(start.find(t => t.id === 'C03')!.spec.tan1).toBeCloseTo(Math.tan(d.roofAngle * Math.PI / 180), 6)
-  expect(start.find(t => t.id === 'C22')!.hand.join(' ')).toContain('19.25')
+  expect(start.find(t => t.id === 'C22')!.hand.join(' ')).toContain('Open the 5 mm pilot hole to 19.25 mm')
+  expect(start.find(t => t.id === 'C22')!.spec.holes.some(hole => hole.diameter === 5)).toBe(true)
   expect(start.find(t => t.id === 'C16')!.hand.join(' ')).toContain('Caster plate bolts')
-  expect(start.find(t => t.file === 'tubes/C11-top-cross-tube-middle-bow.step')!.qty).toBe(1)
+  expect(start.find(t => t.file === 'tubes/6063-T52-0.062-wall/C11-x1-top-cross-tube-middle-bow.step')!.qty).toBe(1)
   // An end steeper than the laser head tilts is left square for the saw.
   const steep = roverTubes(parseRoverSetup({ rake: 500, taper: 300, length: 1400, axle: 300, height: 1100 })).find(t => t.id === 'C21')!
   expect(steep.spec.tan1).toBe(0)
@@ -350,7 +364,14 @@ test('Rover tube files are closed solids that agree with the cut list and the dr
   for (const t of start) expect(docs[t.file]!.startsWith('ISO-10303-21;'), t.file).toBe(true)
   expect(docs['tube-order.csv']).toContain('6063-T52 aluminum square tube, 1 x 1 inch, 0.062 inch wall')
   expect(docs['build-guide.md']).toContain('Have a tube laser cut and drill every tube')
-  expect(docs['build-guide.md']).toContain('have not been opened in a CAD program')
+  expect(docs['build-guide.md']).toContain('every one passed its design check and the set was priced at $1,405.06')
+  expect(docs['build-guide.md']).toContain('Or: sleeves ready cut')
+  expect(docs['buy-list.md']).toContain('## Two shortcuts that cost more and save time')
+  expect(docs['cost-notes.md']).toContain('## Cutting it yourself against having it cut')
+  // A size that was never uploaded does not borrow the quote as its own.
+  const otherSize = roverDocuments(parseRoverSetup({ width: 760 }))
+  expect(otherSize['build-guide.md']).toContain('have not been uploaded, so upload one first')
+  expect(otherSize['buy-list.md']).toContain('not quoted for this size')
   const weldedDocs = roverDocuments(weldedStart)
   expect(Object.keys(weldedDocs).some(k => k.startsWith('tubes/') || k === 'tube-order.csv')).toBe(false)
   expect(weldedDocs['build-guide.md']).not.toContain('tube laser')
@@ -455,8 +476,8 @@ test('Rover configured kit matches published geometry and rejects stale or tampe
   const homeFiles = await new Bun.Archive(await (await roverDownload(designRoot, 'kit', home)).arrayBuffer()).files()
   expect([...homeFiles.keys()].filter(f => f.endsWith('.dxf')).length).toBe(11)
   expect([...homeFiles.keys()].filter(f => f.startsWith('tubes/') && f.endsWith('.step')).length).toBe(roverTubes(home).length)
-  expect(await homeFiles.get('tubes/C01-base-side-rail.step')!.text()).toContain('MANIFOLD_SOLID_BREP')
-  expect(await (await roverDownload(designRoot, 'tubeorder', home)).text()).toContain('"tubes/C01-base-side-rail.step","C01","Base side rail","2"')
+  expect(await homeFiles.get('tubes/6061-T6-0.125-wall/C01-x2-base-side-rail.step')!.text()).toContain('MANIFOLD_SOLID_BREP')
+  expect(await (await roverDownload(designRoot, 'tubeorder', home)).text()).toContain('"tubes/6061-T6-0.125-wall/C01-x2-base-side-rail.step","C01","Base side rail","2"')
   expect((await roverDownload(designRoot, 'welds', home)).status).toBe(404)
   expect(await (await roverDownload(designRoot, 'cuts', s)).text()).toContain('"C01","2","Base side rail"')
   const temp = await mkdtemp(join(tmpdir(), 'buddy-rover-'))

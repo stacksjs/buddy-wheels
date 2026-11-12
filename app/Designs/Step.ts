@@ -13,8 +13,8 @@ type Surface = { kind: 'plane', origin: V3, normal: V3 } | { kind: 'cylinder', o
 interface Face { surface: Surface, sameSense: boolean, loops: Use[][] }
 export interface Brep { vertices: V3[], edges: Edge[], faces: Face[] }
 
-/** A hole along the X or Y axis of the section, through both walls, centered on the face, z from end 0 along the tube. */
-export interface TubeHole { axis: 'x' | 'y', z: number, diameter: number }
+/** A hole along the X or Y axis of the section, centered on the face, z from end 0 along the tube. It goes through both walls unless wall names the one wall, on the positive or negative side of the axis, that it stops at. */
+export interface TubeHole { axis: 'x' | 'y', z: number, diameter: number, wall?: 1 | -1 }
 /**
  * The tube runs along Z from 0 to length, measured down its centerline. The section is square about the origin.
  * End planes tilt about X only: end 0 is z = -tan0 * y and end 1 is z = length - tan1 * y.
@@ -59,8 +59,8 @@ export function tubeBrep(spec: TubeSpec): Brep {
     const normal = unit(end ? [0, t1, 1] : [0, -t0, -1])
     faces.push({ surface: { kind: 'plane', origin: [0, 0, end ? L : 0], normal }, sameSense: true, loops: [ring(corner[end]![0]!, normal), ring(corner[end]![1]!, neg(normal))] })
   }
-  // Holes: one round cut through each of the two walls the axis passes through.
-  for (const hole of spec.holes) for (const s of [1, -1]) {
+  // Holes: one round cut through each wall the hole passes through.
+  for (const hole of spec.holes) for (const s of hole.wall ? [hole.wall] : [1, -1]) {
     const out: V3 = hole.axis === 'x' ? [s, 0, 0] : [0, s, 0]; const r = hole.diameter / 2
     const at = (h: number, dz: number): V3 => [out[0] * h, out[1] * h, hole.z + dz]
     const op = vertex(at(H, r)); const om = vertex(at(H, -r)); const ip = vertex(at(Hi, r)); const im = vertex(at(Hi, -r))

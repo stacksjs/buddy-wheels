@@ -1,6 +1,6 @@
 import type { RoverSetup } from './Rover'
-import { mm, nestRoverStock, referenceCarrier as ref, roverCode, roverDimensions, roverHardware as h, roverParcelStock, roverPartFile, roverParts, roverPlanningDogKg } from './Rover'
-import { roverAllowanceNotes, roverCostLines, roverShock, roverCostModel, roverEconomics, roverParcelPrices, roverPriceDate, roverPriceEvidence, roverTubePrices } from './RoverCost'
+import { mm, nestRoverStock, referenceCarrier as ref, roverCode, roverDimensions, roverHardware as h, roverParcelStock, roverPartFile, roverParts, roverPlanningDogKg, roverStart } from './Rover'
+import { roverAllowanceNotes, roverCostLines, roverShock, roverSpacers, roverTubeQuote, roverCostModel, roverEconomics, roverParcelPrices, roverPriceDate, roverPriceEvidence, roverTubePrices } from './RoverCost'
 import type { TubeHole, TubeSpec } from './Step'
 import { angleGussetDxf } from './RoverParts'
 import { stepFile, tubeBrep } from './Step'
@@ -431,7 +431,20 @@ The same carrier can be built two ways: the same tubes, the same shape and the s
 
 Welding in a United States shop does not make the carrier cheaper. It trades about ${money(['gussets', 'fasteners', 'labor'].reduce((n, id) => n + lineBatch(boltedSetup, id) - lineBatch(weldedSetup, id), 0))} of plates, bolts, sleeves and drilling time for ${money(lineBatch(weldedSetup, 'welding'))} of welding and ${money(lineBatch(weldedSetup, 'pack') - lineBatch(boltedSetup, 'pack'))} more packaging, and for one carrier the shop's time costs more than the drilling it replaces. What welding buys is about ${(boltedDims.carrierKg - weldedDims.carrierKg).toFixed(1)} kg less mass, a cleaner look with no plates, and joints with no bolt clearance to work loose. What bolting buys is that nothing leaves the house except the plate order. The welding figure is arithmetic on an assumed shop rate; no fabricator has quoted it. Outbound freight for an assembled frame is not in either column.
 
-## What changed since the first count
+${welded ? '' : `## Cutting it yourself against having it cut
+
+The counted totals assume stock bars sawn and drilled by hand, which is the cheapest way to get the tubes. The kit also carries a 3D file for every tube so a tube laser service can do it.
+
+| For one carrier | Bars, sawn and drilled at home | Tubes from a tube laser |
+| --- | ---: | ---: |
+| Tube cost | ${money(one.tube)} | ${roverCode(s) === roverCode(roverStart) ? money(roverTubeQuote.standard) : 'not quoted for this size'} |
+| Saw cuts | ${roverTubes(s).reduce((n, x) => n + x.qty, 0)} | 0 |
+| Tube walls to drill | ${roverTubes(s).reduce((n, x) => n + x.qty * x.pierces, 0)} | A few holes to finish, listed in tube-order.csv |
+| Wait | Parcel delivery of the bars | ${roverTubeQuote.standardDays} business days to ship at the standard rate |
+
+The laser figure is ${roverTubeService.name}'s instant quote for the starting setup on ${roverTubeQuote.checked}, after all ${roverTubeQuote.files} files passed its design check: ${money(roverTubeQuote.standard)} before shipping and tax, or ${money(roverTubeQuote.expedited)} and ${money(roverTubeQuote.rush)} for faster lead times. Nothing was ordered. Most of that price is handling: a 60 mm spacer tube with two holes is quoted at about $18, so the cost follows the number of different parts more than their size, and it would fall per carrier in a batch. Ready-cut bolt sleeves are the other paid shortcut, ${money(roverSpacers.cents)} for a pack of ${roverSpacers.pack} against about ${money(Math.ceil(dims.counts.sleeves * 26.9 / 1828.8) * 1166)} of tube and ${dims.counts.sleeves} saw cuts.
+
+`}## What changed since the first count
 
 | Change | Effect at 100 carriers | Trade-off |
 | --- | ---: | --- |
@@ -520,7 +533,8 @@ Rebuild with \`./buddy design:rover\`. Inspect at https://buddywheels.org/design
 `
 }
 
-export interface DrillRow { id: string, member: string, qty: number, axis: string, from: string, centers: number[], bore: string, purpose: string }
+/** oneWall marks a hole through the upward-facing wall only, such as a rivet nut hole. Every other hole goes through both walls. */
+export interface DrillRow { id: string, member: string, qty: number, axis: string, from: string, centers: number[], bore: string, purpose: string, oneWall?: boolean }
 /**
  * Every hole in every tube, measured from a named end. Derived from the same joint rules as the gusset profiles:
  * corner gusset leg A at 50 and 80, leg B at 35 and 65, tee bar at 30 each side, tee stem at 35 and 60, all from the joint centerline.
@@ -528,7 +542,7 @@ export interface DrillRow { id: string, member: string, qty: number, axis: strin
 export function roverDrilling(s: RoverSetup): DrillRow[] {
   const d = roverDimensions(s); const t = h.tube; const half = t / 2; const w = d.wheel
   const SLEEVE = '9.8 (letter W), for a 9.525 sleeve'; const rows: DrillRow[] = []
-  const add = (id: string, member: string, qty: number, axis: string, from: string, centers: number[], purpose: string, bore = SLEEVE) => rows.push({ id, member, qty, axis, from, centers: centers.map(mm), bore, purpose })
+  const add = (id: string, member: string, qty: number, axis: string, from: string, centers: number[], purpose: string, bore = SLEEVE, oneWall = false) => rows.push({ id, member, qty, axis, from, centers: centers.map(mm), bore, purpose, ...(oneWall ? { oneWall } : {}) })
   const fromRear = (x: number) => x - (d.rearX - t); const stations = d.stations.map(fromRear); const axlePost = fromRear(0); const frontCorner = fromRear(d.frontX + half)
   // Base side rails. "Side" holes go through the two vertical faces, "vertical" holes through top and bottom.
   add('C01', 'Base side rail', 2, 'side', 'rear end', [half + 35, half + 65], 'Rear corner post gusset')
@@ -607,6 +621,13 @@ export function roverDrilling(s: RoverSetup): DrillRow[] {
     add('C03', 'Axle post', 2, 'side', 'bottom', [hangerUp, hangerUp + h.plateStep], 'Shock hanger bolts')
     add('C23', 'Shock spacer tube', 2, 'side', 'either end', [(h.shockSpacer - h.plateStep) / 2, (h.shockSpacer + h.plateStep) / 2], 'Shock hanger bolts')
   }
+  // Floor: a rivet nut in the top wall of each rail and cross member, kept clear of every post, bolt and crossing sleeve already placed.
+  const RIVNUT = '9.9 (25/64 inch), top wall only, for a 1/4-20 rivet nut'; const perRail = Math.ceil(d.floorLen / 250)
+  const blocked: [number, number][] = [[0, t + 16], [axlePost - half - 16, axlePost + half + 16], [frontCorner - 28, d.floorLen], ...(d.seats ? [[fromRear(h.seatDepth) - half - 16, fromRear(h.seatDepth) + half + 16] as [number, number]] : []), ...rows.filter(r => r.id === 'C01').flatMap(r => r.centers.map(c => [c - 15, c + 15] as [number, number]))]
+  const clearOf = (x: number) => { let p = x; for (let pass = 0; pass < 12; pass++) { const hit = blocked.find(([a, b]) => p > a && p < b); if (!hit) break; p = p - hit[0] <= hit[1] - p ? hit[0] : hit[1] } return p }
+  add('C01', 'Base side rail', 2, 'vertical', 'rear end', Array.from({ length: perRail }, (_, i) => clearOf((i + 0.5) * d.floorLen / perRail)), 'Floor screw rivet nuts', RIVNUT, true)
+  add('C02', 'Base end cross member', 2, 'vertical', 'the middle', [-s.width / 3, 0, s.width / 3], 'Floor screw rivet nuts', RIVNUT, true)
+  if (d.intermediates) add('C14', 'Base intermediate cross member', d.intermediates, 'vertical', 'the middle', [-s.width / 3, 0, s.width / 3], 'Floor screw rivet nuts', RIVNUT, true)
   // Sprung: the rear axle is in the swing arm, so the rail and post lose their hanger and axle holes.
   const kept = d.sprung ? rows.filter(r => !(r.id === 'C03' && r.purpose === 'Axle sleeve')) : rows
   if (!d.welded) return kept
@@ -627,7 +648,10 @@ export function roverBuildGuide(s: RoverSetup): string {
   const heavyBars = nestRoverStock(s, 'heavy', 1, roverParcelStock.mm); const lightBars = nestRoverStock(s, 'light', 1, roverParcelStock.mm)
   const drilling = roverDrilling(s); const fasteners = c.bolts + c.handleBolts; const boxes = Math.ceil(fasteners / 100)
   const axleSleeves = d.swivel ? 2 : 4
-  const tubes = roverTubes(s)
+  const tubes = roverTubes(s); const startingSize = roverCode(s) === roverCode(roverStart)
+  const tubeProof = startingSize
+    ? `On ${roverTubeQuote.checked} these ${roverTubeQuote.files} files were uploaded to ${roverTubeService.name}: every one passed its design check and the set was priced at ${money(roverTubeQuote.standard)} before shipping and tax, shipping in ${roverTubeQuote.standardDays} business days. Bars for the same tubes cost about ${money(heavyBars.length * roverParcelPrices.heavy + lightBars.length * roverParcelPrices.light)}, so the laser costs about ${money(roverTubeQuote.standard - heavyBars.length * roverParcelPrices.heavy - lightBars.length * roverParcelPrices.light)} more and saves the sawing and nearly all the drilling.`
+    : `The files for the starting size were uploaded to ${roverTubeService.name} on ${roverTubeQuote.checked}, all passed its design check and that set was priced at ${money(roverTubeQuote.standard)} before shipping and tax. The files for this size are made the same way but have not been uploaded, so upload one first.`
   const stepList = (steps: string[]) => steps.map((step, i) => `${i + 1}. ${step}`).join('\n')
   const rodMm = Math.ceil(2 * d.rearShaft + (d.swivel ? 0 : d.frontShaft) + 12)
   const bars = (list: typeof heavyBars) => list.map((b, i) => `| ${i + 1} | ${b.pieces.map(p => `${p.id} ${p.length}`).join(', ')} | ${b.offcut} |`).join('\n')
@@ -640,7 +664,12 @@ So there are only three things to obtain: straight tube cut to length, flat plat
 1. **Cut it yourself.** Buy stock bars and cut them with a miter saw fitted with a blade for non-ferrous metal, or with a hacksaw and a miter box. This is the cheapest route and the one priced here.
 2. **Have the supplier cut it.** Online Metals says every order is cut to size, and Metals Depot offers a cut to size option. Order each line of cut-list.csv as its own cut length. You pay more per foot and receive a box of finished pieces. Their cut tolerance is looser than yours can be, so check every piece against the list when it arrives.
 3. **Hand the package to a local shop.** A metal supplier with a saw, a fabrication shop or a makerspace can cut and drill the whole frame. Give them cut-list.csv, drilling.csv, base-plan.svg, drawing.svg and the DXF files. If they offer to weld it instead, choose the welded frame in the studio and download that kit: it is the same frame with a weld schedule in place of the plates.
-4. **Have a tube laser cut and drill every tube.** The kit has a tubes folder with one 3D file for each different tube: ${tubes.length} files for ${tubes.reduce((n, x) => n + x.qty, 0)} pieces, with ${tubes.reduce((n, x) => n + x.qty * x.holes, 0)} holes already in them. tube-order.csv lists the quantity and the material to choose for each file. Upload them at [${roverTubeService.name}](${roverTubeService.url}), which lists both of these tubes, cuts angled ends and shows a price as you upload. The tubes then arrive cut to length and drilled, and sections 6 and 7 shrink to a few holes. Two cautions. No price is known, because nothing was uploaded for this study. And the files are generated by this app: they pass its own solid checks, but they have not been opened in a CAD program or accepted by any service. Upload one file first. If it is refused, cut and drill by hand from cut-list.csv and drilling.csv, which describe the same tubes.
+4. **Have a tube laser cut and drill every tube.** The kit has a tubes folder with one 3D file for each different tube: ${tubes.length} files for ${tubes.reduce((n, x) => n + x.qty, 0)} pieces, with ${tubes.reduce((n, x) => n + x.qty * x.holes, 0)} holes already in them, angled ends and floor fastener holes included. The tubes arrive cut to length and drilled, and sections 6 and 7 shrink to a few holes. ${tubeProof} How to order, in the fewest steps:
+   1. Open [${roverTubeService.name}](${roverTubeService.url}). No account is needed to see a price.
+   2. Drag every file in tubes/${roverTubeService.heavy.folder} onto the page and wait until each shows Passed. Tick the box at the top left of the list to select them all, click the stacked-sheets icon beside it, and pick the one material offered: ${roverTubeService.heavy.material}.
+   3. Drag every file in tubes/${roverTubeService.light.folder} onto the page. Tick only those new rows, click the same icon, and pick the one material offered: ${roverTubeService.light.material}.
+   4. Set each quantity. It is in the file name: x2 means two.
+   5. Check the subtotal on the right, then sign in to see shipping and place the order. That step is yours.
 
 The plates are cut by a laser-cutting service from the DXF files in the kit. You do not make those by hand.
 
@@ -797,9 +826,10 @@ ${d.swivel ? `| A | Front caster | [Service Caster SCC-100S3504-PNB-BSL](https:/
 | B | ${d.welded ? 'Hangers and brake plates' : 'Gussets and hangers'} | A laser-cutting service. [OSH Cut](https://app.oshcut.com/cart) shows a price as soon as you drop the files in, with no account. [SendCutSend](https://sendcutsend.com) lists both materials, has no minimum quantity and ships laser parts in 1 to 3 days, and asks you to sign up first | ${d.welded ? '2 x brake_plate.dxf' : `${c.corner} x corner_gusset.dxf, ${d.angles.map(a => `${a.qty} x ${a.file}.dxf`).join(', ')}, ${c.tee} x tee_gusset.dxf, 2 x brake_plate.dxf`}${d.sprung ? `, ${c.shockPlates} x shock_plate.dxf, ${c.shockHangers} x shock_hanger.dxf` : ''}, all in 0.125 inch 6061-T6 aluminum.${d.welded ? '' : ' The roof and pillar gusset files are cut for this setup only.'}${c.hanger ? '' : ' No hangers are needed with the sprung rear and the swivel caster.'} ${c.hanger ? `${c.hanger} x ${d.wheel.hanger}.dxf in 0.125 inch 304 stainless` : ''} | Upload each of those DXF files from the metal folder, pick material and thickness, enter quantities. Add their deburring service or file the edges yourself |
 | C | Chassis tube, 1 x 1 x 1/8 inch 6061-T6 | [Metals Depot T3118-6061](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 8 ft at $58.08 | ${heavyBars.length} bars | 8 ft is the longest that ships by parcel. Longer bars are cheaper per foot but come by truck |
 | C | Cabin tube, 1 x 1 x 1/16 inch 6063-T52 | [Metals Depot T31116](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 8 ft at $41.60 | ${lightBars.length} bars | Do not swap this softer tube into the chassis positions |${tubes.length ? `
-| C | Or: every tube cut and drilled | [${roverTubeService.name}](${roverTubeService.url}) tube laser, from the files in the tubes folder | ${tubes.length} files, quantities in tube-order.csv | Replaces both tube rows above and most of sections 6 and 7. Unpriced and untried: upload one file first |` : ''}
+| C | Or: every tube cut and drilled | [${roverTubeService.name}](${roverTubeService.url}) tube laser, from the files in the tubes folder | ${tubes.length} files, quantities in tube-order.csv | Replaces both tube rows above and most of sections 6 and 7. ${startingSize ? `Quoted at ${money(roverTubeQuote.standard)} on ${roverTubeQuote.checked}, before shipping and tax` : `The starting size was quoted at ${money(roverTubeQuote.standard)}; this size has not been uploaded`} |` : ''}
 | D | Bolts, nuts, washers | [Bolt Depot](https://boltdepot.com/Product-Details?product=328): 1/4-20 x 2 inch grade 5 zinc hex bolt 328, lock nut 2624, SAE washer 2976 | ${boxes} box${boxes === 1 ? '' : 'es'} of 100 bolts, ${boxes} of nuts, ${Math.ceil(2 * fasteners / 100)} of washers | You need ${c.bolts} bolts${c.handleBolts ? `, plus ${c.handleBolts} at 3 inch long for the handle` : ''}${d.swivel ? ` and ${c.casterBolts} at 5/16-18 x 2-1/2 inch for the caster` : ''} |
 | D | Sleeve tube | [Online Metals DOM steel tube, 3/8 inch OD x .049 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-375-od-x-0-049-wall-x-0-28-id-carbon-steel-round-tube-a513-type-5-dom/pid/7754), $11.66 per 6 ft | ${Math.ceil(c.sleeves * 26.9 / 1828.8)} lengths of 6 ft | Cut into ${c.sleeves} sleeves, each ${t} long |
+| D | Or: sleeves ready cut | [Mutual Screw FC1198-25-S-12](${roverSpacers.url}), 3/8 OD x 1/4 ID x 1 inch steel spacers, ${money(roverSpacers.cents)} per ${roverSpacers.pack} | ${Math.ceil(c.sleeves / roverSpacers.pack)} pack | Replaces the sleeve tube and ${c.sleeves} saw cuts. Check that a 1/4 inch bolt slides through one before trusting the rest |
 | D | Axle parts | [Online Metals DOM tube, 3/4 inch OD x .065 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-75-od-x-0-065-wall-x-0-62-id-carbon-steel-round-tube-a513-type-5-dom/pid/7765), $4.99 per foot. A 5/8 inch x 3 ft plain steel rod from a hardware store, about $20.57. [Bolt Depot](https://boltdepot.com) 5/8 inch SAE washers at $0.15 and 1/8 x 1-1/2 inch cotter pins at $0.07 | 1 ft of tube, 1 rod, ${d.swivel ? 4 : 8} washers, ${d.swivel ? 4 : 6} cotters | You need ${rodMm} of rod. Never use threaded rod as an axle |
 | E | Plywood | [Home Depot 15/32 inch ACX sanded pine](https://www.homedepot.com/b/Lumber-Composites-Plywood/15-32/N-5yc1vZbqm7Z1z0mcqq), $52.00 a sheet | ${d.floorLen + s.ramp + 10 <= 2438.4 && s.width + 2 * t <= 1219.2 ? 1 : 2} | Floor ${d.floorLen} x ${mm(s.width + 2 * t)} and ramp ${s.ramp} x ${d.rampWidth}. Plus exterior sealer |
 | F | Ramp hardware | [Zoro Select 2ZFK4 stainless piano hinge, 36 inch](https://www.zoro.com/zoro-select-piano-hinge-stainless-steel-full-surface-mounting-1-in-leaf-w-x-36-in-leaf-h-stainless-steel-2zfk4/i/G1671966/), $18.19. [Southco TL-20-202-52 stainless draw latch](https://www.zoro.com/southco-toggle-style-draw-latch-small-size-concealed-mount-stainless-steel-passivated-tl-20-202-52/i/G115615363/), $11.89 | 1 hinge, 2 latches, ${c.rampBolts} carriage bolts 1/4-20 x 2 inch (Bolt Depot 2754, $0.16) | The hinge is unpunched: cut it to ${Math.floor(d.rampWidth / 10) * 10} and drill it. Check the latch comes with its keeper |
@@ -886,7 +916,7 @@ ${d.welded ? weldedFrame : boltedFrame}## 11. Floor
 1. Cut the floor panel ${d.floorLen} x ${mm(s.width + 2 * t)}. Notch 44 x 30 at each of the six posts.
 2. Seal every face and edge, including the notches, and let it cure.
 3. Stick bedding tape along the rails and cross members${d.welded ? '' : ' between the plates'}.
-4. Set rivet nuts in the tube tops about every 250 and fasten the floor down with flat-head screws.
+4. Set a rivet nut in each floor hole in the tube tops: ${Math.ceil(d.floorLen / 250)} along each rail and three across each cross member, ${c.floorScrews} in all, placed in drilling.csv. Lay the panel on, mark each hole from underneath or measure from the schedule, drill the panel, and fasten it down with flat-head screws.
 
 ## 12. Ramp and tailgate
 
@@ -984,7 +1014,16 @@ ${cover.map(row).join('\n')}
 
 Cut from cover-cut-schedule.csv. A 10% allowance for sewing mistakes is not in this subtotal.
 
-## Before you order
+${d.welded ? '' : `## Two shortcuts that cost more and save time
+
+| Shortcut | Cost | Instead of | What it saves |
+| --- | ---: | --- | --- |
+| Every tube cut and drilled by a tube laser, from the tubes folder | ${roverCode(s) === roverCode(roverStart) ? `${money(roverTubeQuote.standard)}, quoted ${roverTubeQuote.checked} before shipping and tax` : `not quoted for this size; the starting size was ${money(roverTubeQuote.standard)}`} | ${money(tubeRows.reduce((n, r) => n + r.cents, 0))} of bars | ${roverTubes(s).reduce((n, x) => n + x.qty, 0)} saw cuts and ${roverTubes(s).reduce((n, x) => n + x.qty * x.pierces, 0)} drilled tube walls |
+| Bolt sleeves ready cut, [Mutual Screw FC1198-25-S-12](${roverSpacers.url}) | ${money(Math.ceil(d.counts.sleeves / roverSpacers.pack) * roverSpacers.cents)} | ${money(Math.ceil(d.counts.sleeves * 26.9 / 1828.8) * 1166)} of sleeve tube | ${d.counts.sleeves} saw cuts and their deburring |
+
+Neither is in the total above. With both, what is left is bolting it together, a handful of holes listed in tube-order.csv, the panels and the cover.
+
+`}## Before you order
 
 1. Measure the dog and set the cabin size first. Every tube cut and fabric blank follows from it.
 2. Buy one wheel and measure its hub before cutting an axle or ordering hangers.
@@ -996,11 +1035,12 @@ Cut from cover-cut-schedule.csv. A 10% allowance for sewing mistakes is not in t
 /** Tube stock as the tube laser service lists it. The thin wall is modeled at the listed 0.062 inch so the file matches the catalog profile. */
 export const roverTubeService = {
   name: 'OSH Cut', url: 'https://app.oshcut.com', checked: '2026-11-12',
-  heavy: { material: '6061-T6 aluminum square tube, 1 x 1 inch, 0.125 inch wall', wall: 3.175 },
-  light: { material: '6063-T52 aluminum square tube, 1 x 1 inch, 0.062 inch wall', wall: 1.5748 },
-  maxTilt: 44,
+  heavy: { material: '6061-T6 aluminum square tube, 1 x 1 inch, 0.125 inch wall', wall: 3.175, folder: '6061-T6-0.125-wall' },
+  light: { material: '6063-T52 aluminum square tube, 1 x 1 inch, 0.062 inch wall', wall: 1.5748, folder: '6063-T52-0.062-wall' },
+  maxTilt: 44, pilot: 5,
 } as const
-export interface RoverTube { file: string, id: string, name: string, qty: number, wall: 'heavy' | 'light', length: number, holes: number, hand: string[], spec: TubeSpec }
+/** holes counts drilled positions. pierces counts wall cuts: two for a hole through both walls, one for a rivet nut hole. */
+export interface RoverTube { file: string, id: string, name: string, qty: number, wall: 'heavy' | 'light', length: number, holes: number, pierces: number, hand: string[], spec: TubeSpec }
 /**
  * Every frame tube of the bolted build as a solid with its holes, for a tube laser service that cuts from one 3D file per part.
  * Hole positions come from the drilling schedule, so the two cannot disagree. Holes the laser cannot or should not cut are listed for hand work.
@@ -1026,25 +1066,27 @@ export function roverTubes(s: RoverSetup): RoverTube[] {
       const low = Math.abs(tans[0]!) * half; const high = L - Math.abs(tans[1]!) * half
       const holes: TubeHole[] = []
       for (const row of variant.rows) {
-        const diameter = Number.parseFloat(row.bore); const axis = row.axis === xAxis ? 'x' : 'y'
+        const bore = Number.parseFloat(row.bore); const axis = row.axis === xAxis ? 'x' : 'y'
         if (row.purpose.includes('Mark from the delivered')) { hand.push(`Drill ${row.centers.length} holes for: ${row.purpose}`); continue }
-        // A bore nearly as wide as the tube would break into the side walls, which a tube laser cannot cut cleanly.
-        if (diameter / 2 > inner - 0.5) { hand.push(`Drill ${row.centers.length} hole of ${row.bore.split(',')[0]} mm for: ${row.purpose}`); continue }
+        // A bore nearly as wide as the tube would break into the side walls, which a tube laser cannot cut cleanly. It gets a small pilot hole to open up by hand.
+        const wide = bore / 2 > inner - 0.5; const diameter = wide ? roverTubeService.pilot : bore
+        if (wide) hand.push(`Open the ${roverTubeService.pilot} mm pilot hole to ${row.bore.split(',')[0]} mm with a step bit for: ${row.purpose}`)
         const from = row.from; const at = row.centers.flatMap(c => from === 'each end' ? [c, L - c] : from === 'the middle' ? [L / 2 + c] : from === 'top' || from === 'front end' ? [L - c] : [c])
         for (const z of at) {
           const clear = z - diameter / 2 > low + 2 && z + diameter / 2 < high - 2 && !holes.some(o => o.axis === axis && Math.abs(o.z - z) < (o.diameter + diameter) / 2 + 1.5)
           if (holes.some(o => o.axis === axis && Math.abs(o.z - z) < 0.01)) continue
-          if (clear) holes.push({ axis, z: mm(z), diameter })
+          if (clear) holes.push({ axis, z: mm(z), diameter, ...(row.oneWall ? { wall: 1 as const } : {}) })
           else hand.push(`Drill one ${diameter} mm hole ${mm(z)} from the start end for: ${row.purpose}`)
         }
       }
       const name = variant.label ? `${cut.name}, ${variant.label}` : cut.name
-      return { file: `tubes/${cut.id}-${slug(name)}.step`, id: cut.id, name, qty: variant.qty, wall, length: L, holes: holes.length, hand, spec: { outer: h.tube, wall: roverTubeService[wall].wall, length: L, tan0: tans[0], tan1: tans[1], holes } }
+      // Sorted into one folder per material, with the quantity in the name, so an order is two drags and no cross-referencing.
+      return { file: `tubes/${roverTubeService[wall].folder}/${cut.id}-x${variant.qty}-${slug(name)}.step`, id: cut.id, name, qty: variant.qty, wall, length: L, holes: holes.length, pierces: holes.reduce((n, hole) => n + (hole.wall ? 1 : 2), 0), hand, spec: { outer: h.tube, wall: roverTubeService[wall].wall, length: L, tan0: tans[0], tan1: tans[1], holes } }
     })
   })
 }
 export function roverTubeOrderCsv(s: RoverSetup): string {
-  return csv([['File', 'Tube ID', 'Member', 'Quantity', 'Material to choose', 'Length mm', 'Holes cut, each through both walls', 'Left for hand work'], ...roverTubes(s).map(t => [t.file, t.id, t.name, t.qty, roverTubeService[t.wall].material, t.length, t.holes, t.hand.join('; ') || 'Nothing'])])
+  return csv([['File', 'Tube ID', 'Member', 'Quantity', 'Material to choose', 'Length mm', 'Holes cut', 'Left for hand work'], ...roverTubes(s).map(t => [t.file, t.id, t.name, t.qty, roverTubeService[t.wall].material, t.length, t.holes, t.hand.join('; ') || 'Nothing'])])
 }
 
 export function roverDocuments(s: RoverSetup): Record<string, string> {
