@@ -3,10 +3,10 @@ import { cp, mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { transformModelPoint } from '@stacksjs/browser/model-viewer'
-import { packRoverStock, parseRoverSetup, referenceCarrier, roverDimensions, roverParts, roverPartFile, roverQuery, roverStart } from '../../app/Designs/Rover'
+import { nestRoverStock, packRoverStock, parseRoverSetup, referenceCarrier, roverDimensions, roverParcelStock, roverParts, roverPartFile, roverQuery, roverStart } from '../../app/Designs/Rover'
 import { inspectRoverGeometry, roverGeometry, roverPrintVolumeCm3, roverPublicPath, sha256 } from '../../app/Designs/RoverBuild'
 import { roverCostLines, roverEconomics } from '../../app/Designs/RoverCost'
-import { roverBom, roverDocuments, roverPrintQuantities } from '../../app/Designs/RoverDocuments'
+import { roverBom, roverDocuments, roverDrilling, roverPrintQuantities } from '../../app/Designs/RoverDocuments'
 import { roverDownload } from '../../app/Designs/RoverDownloads'
 import { metalProfile } from '../../app/Designs/RoverParts'
 import { roverScene } from '../../app/Designs/RoverScene'
@@ -24,7 +24,7 @@ test('native solid kit keeps area, rejects crossing outlines and bridges aligned
 test('Rover setup accepts cut-to-fit sizes, rejects unknown or unsafe combinations, and always gives a walk-in incline', () => {
   expect(parseRoverSetup({})).toEqual(roverStart)
   expect(parseRoverSetup(Object.fromEntries(new URLSearchParams(roverQuery(roverStart))))).toEqual(roverStart)
-  for (const invalid of [{ length: 999 }, { width: 705 }, { height: '' }, { ramp: [900] }, { hub: 75.01 }, { length: Infinity }, { capacity: 160 }, { wheel: 'big' }, { hub: 50 }, { __proto__: null, loadRated: true }, { ramp: 1000, height: 900 }, { axle: 650, length: 1000 }, { handle: 1100, height: 800 }]) expect(() => parseRoverSetup(invalid)).toThrow()
+  for (const invalid of [{ length: 999 }, { width: 705 }, { height: '' }, { ramp: [900] }, { hub: 75.01 }, { length: Infinity }, { capacity: 160 }, { wheel: 'big' }, { hub: 50 }, { front: 'tank' }, { caster: 249 }, { caster: 311.5 }, { __proto__: null, loadRated: true }, { ramp: 1000, height: 900 }, { axle: 650, length: 1000 }, { handle: 1100, height: 800 }]) expect(() => parseRoverSetup(invalid)).toThrow()
   for (const length of [1000, 1400]) for (const width of [600, 800]) for (const height of [800, 1100]) for (const ramp of [700, 800]) {
     const d = roverDimensions(parseRoverSetup({ length, width, height, ramp, axle: 400, handle: 800 }))
     expect(d.rampAngle).toBeLessThan(12)
@@ -52,6 +52,13 @@ test('Rover setup accepts cut-to-fit sizes, rejects unknown or unsafe combinatio
     expect(other.tireGap).toBeGreaterThan(10)
   }
   expect(d.wheel.hanger).toBe('axle_hanger_mid')
+  expect(d.swivel).toBe(true)
+  expect(d.nosePost).toBeCloseTo(roverStart.caster - 124 - 12.7, 6)
+  expect(d.casterX - 185).toBeGreaterThan(d.frontX + 25.4 + 15)
+  const fixed = roverDimensions(parseRoverSetup({ front: 'fixed' }))
+  expect(fixed.rail).toBe(d.topRail)
+  expect(fixed.counts).toMatchObject({ corner: 28, hanger: 8, wheels: 3 })
+  expect(d.counts).toMatchObject({ corner: 40, hanger: 4, wheels: 2, casterBolts: 4 })
 })
 
 test('every exported Rover mesh is a closed single printable body and metal copies match their profiles', () => {
@@ -93,17 +100,20 @@ test('Rover cost study charges whole stock, every parts-list line and paid labor
   expect(packRoverStock(roverStart, 'light', 1).bars).toBe(3)
   for (const q of [0, 0.5, Infinity, 1001]) expect(() => packRoverStock(roverStart, 'light', q)).toThrow()
   const base = roverEconomics(); const one = roverEconomics(roverStart, 1)
-  expect(base.cogs).toBe(136553)
-  expect(one.cogs).toBe(258959)
-  expect(base.cogsMill).toBe(118631)
-  expect(roverEconomics(parseRoverSetup({ wheel: 'run', hub: 75 })).cogs).toBe(144919)
-  expect(roverEconomics(parseRoverSetup({ wheel: 'path', hub: 82.55 })).cogs).toBe(130951)
+  expect(base.cogs).toBe(138407)
+  expect(one.cogs).toBe(266398)
+  expect(base.cogsMill).toBe(118817)
+  expect(roverEconomics(parseRoverSetup({ wheel: 'run', hub: 75 })).cogs).toBe(143829)
+  expect(roverEconomics(parseRoverSetup({ wheel: 'path', hub: 82.55 })).cogs).toBe(134827)
+  expect(roverEconomics(parseRoverSetup({ front: 'fixed' })).cogs).toBe(136553)
+  expect(one.heavy.bars).toBe(5)
+  expect(one.light.bars).toBe(7)
   expect(base.cogsMill).toBe(base.cogs - base.tube + base.tubeMill)
-  expect(base.stainlessUpgrade).toBe(3496)
+  expect(base.stainlessUpgrade).toBe(3818)
   expect(base.retail).toBe(39900)
   expect(base.meetsCostGate).toBe(false)
-  expect(base.retailForGate).toBe(195100)
-  expect(base.retailForGateMill).toBe(169500)
+  expect(base.retailForGate).toBe(197800)
+  expect(base.retailForGateMill).toBe(169800)
   expect(base.contribution).toBeLessThan(0)
   expect(() => roverEconomics(roverStart, 2)).toThrow()
   const coverage = roverCostLines().flatMap(line => line.coverage)
@@ -111,6 +121,8 @@ test('Rover cost study charges whole stock, every parts-list line and paid labor
   const ids = roverBom(roverStart).trim().split('\n').slice(1).map(row => row.split('","')[0]!.replace('"', ''))
   for (const id of ids.filter(id => !/^[CT]\d/.test(id))) expect(coverage).toContain(id)
   expect(ids.filter(id => /^C\d/.test(id)).length).toBe(14)
+  expect(ids).toContain('W07')
+  expect(ids).not.toContain('W03')
   const textiles = roverTextileCost(roverStart, 100)
   expect(textiles.rows.map(r => r.id).sort()).toEqual(roverMaterials.map(m => m.id).sort())
   expect(textiles.labor).toBe(10000)
@@ -123,6 +135,24 @@ test('Rover cost study charges whole stock, every parts-list line and paid labor
   expect(roverPrintVolumeCm3() * 0.5 * 1.27 / 1000 * 2500).toBeLessThan(roverCostLines().find(l => l.id === 'prints')!.batch)
 })
 
+test('Rover drilling schedule and stock nesting stay inside every cut piece and account for every tube', () => {
+  for (const setup of [roverStart, parseRoverSetup({ front: 'fixed' }), parseRoverSetup({ length: 1400, width: 800, height: 1100, ramp: 1100, axle: 600, handle: 1000, wheel: 'path', hub: 82.55, caster: 330 })]) {
+    const d = roverDimensions(setup); const rows = roverDrilling(setup)
+    for (const row of rows) {
+      const cut = d.cuts.find(c => c.id === row.id)!
+      expect(cut, row.id).toBeDefined()
+      if (row.from !== 'the middle') for (const center of row.centers) { expect(center, row.member).toBeGreaterThan(8); expect(center, row.member).toBeLessThan(cut.length - 8) }
+    }
+    const rail = rows.filter(r => r.id === 'C01'); const side = rail.filter(r => r.axis === 'side').flatMap(r => r.centers); const vertical = rail.filter(r => r.axis === 'vertical').flatMap(r => r.centers)
+    for (const a of side) for (const b of vertical) expect(Math.abs(a - b), `rail holes ${a} and ${b}`).toBeGreaterThanOrEqual(14.9)
+    for (const wall of ['heavy', 'light'] as const) {
+      const bars = nestRoverStock(setup, wall, 1, roverParcelStock.mm); const pieces = bars.flatMap(b => b.pieces)
+      expect(pieces.length).toBe(d.cuts.filter(c => c.wall === wall).reduce((n, c) => n + c.qty, 0))
+      for (const bar of bars) expect(bar.pieces.reduce((n, p) => n + p.length + 3, 0) + bar.offcut).toBeCloseTo(roverParcelStock.mm, 3)
+    }
+  }
+})
+
 test('Rover documents carry no em-dashes, no capacity claim and the configured numbers', () => {
   const s = parseRoverSetup({ length: 1300, ramp: 800, height: 900, handle: 900 }); const docs = roverDocuments(s)
   for (const [name, text] of Object.entries(docs)) expect(/[–—]/.test(text), name).toBe(false)
@@ -133,9 +163,12 @@ test('Rover documents carry no em-dashes, no capacity claim and the configured n
   expect(docs['drawing.svg']).toContain('ramp 800')
   expect(docs['materials.md']).toContain('no hydrostatic head or UPF number')
   expect(Object.values(roverPrintQuantities(s)).every(n => Number.isInteger(n) && n >= 0)).toBe(true)
-  expect(roverPrintQuantities(s)).toMatchObject({ axle_hanger_mid: 8, axle_hanger_low: 0, axle_hanger: 0 })
+  expect(roverPrintQuantities(s)).toMatchObject({ axle_hanger_mid: 4, axle_hanger_low: 0, axle_hanger: 0 })
   expect(docs['buy-list.md']).toContain('Materials to buy')
   expect(docs['buy-list.md']).toContain('zoro.com')
+  expect(docs['build-guide.md']).toContain('How the aluminum base gets its shape')
+  expect(docs['build-guide.md']).toContain('sendcutsend.com')
+  expect(docs['base-plan.svg']).toContain('C01 base side rail')
   expect(roverDocuments(parseRoverSetup({ wheel: 'run', hub: 75 }))['bom.csv']).toContain('metal/axle_hanger.dxf')
 })
 

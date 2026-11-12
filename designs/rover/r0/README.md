@@ -2,7 +2,7 @@
 
 **BENCH DESIGN. NOT FOR USE WITH AN ANIMAL.** A large low-entry carrier: a cut-to-fit aluminum frame, a tailgate that folds down into a walk-in ramp, a weather cover, and printed service parts. No load rating, structural analysis, physical test, fit approval or sewn sample exists.
 
-Start with assembly.md, drawing.svg and bom.csv. materials.md covers the rain, wind and sun system and its unproven points. cost-notes.md prices the design honestly, including the finding that it does not fit the provisional catalog price.
+Start with build-guide.md: it walks through ordering, cutting, drilling and assembly in order. base-plan.svg shows the base frame from above, drawing.svg the whole carrier, drilling.csv every hole, buy-list.md what to order for one build. assembly.md and bom.csv are the specification. materials.md covers the rain, wind and sun system and its unproven points. cost-notes.md prices the design honestly, including the finding that it does not fit the provisional catalog price.
 
 | Folder | Contents |
 | --- | --- |

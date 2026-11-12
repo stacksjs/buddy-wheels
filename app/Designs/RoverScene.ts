@@ -78,9 +78,9 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
   for (const side of [-1, 1]) {
     const y = side * y0
     tube(`base-rail-${side}`, true, d.rail, [railStart, y, d.railZ], [1, 0, 0])
-    tube(`top-rail-${side}`, false, d.rail, [railStart, y, d.topZ], [1, 0, 0])
-    for (const [end, x] of [[-1, railStart], [1, railStart + d.rail]] as const) {
-      cap(`base-cap-${side}-${end}`, true, [x, y, d.railZ], [end, 0, 0]); cap(`top-cap-${side}-${end}`, false, [x, y, d.topZ], [end, 0, 0])
+    tube(`top-rail-${side}`, false, d.topRail, [railStart, y, d.topZ], [1, 0, 0])
+    for (const end of [-1, 1] as const) {
+      cap(`base-cap-${side}-${end}`, true, [end < 0 ? railStart : railStart + d.rail, y, d.railZ], [end, 0, 0]); cap(`top-cap-${side}-${end}`, false, [end < 0 ? railStart : railStart + d.topRail, y, d.topZ], [end, 0, 0])
     }
     tube(`axle-post-${side}`, true, d.post, [0, y, d.railZ + t / 2], [0, 0, 1])
     for (const [name, cx, inward] of [['rear', d.rearX - t / 2, 1], ['front', d.frontX + t / 2, -1]] as const) {
@@ -94,7 +94,7 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
     for (const face of [-1, 1]) {
       gusset(`axle-top-${side}-${face}`, 'corner_gusset', [0, y, d.topZ], [0, face, 0], [1, 0, 0], [0, 0, -1])
       gusset(`rear-hanger-${side}-${face}`, d.wheel.hanger, [0, y, d.railZ], [0, face, 0], [1, 0, 0], [0, 0, 1])
-      gusset(`front-hanger-${side}-${face}`, d.wheel.hanger, [d.wheelbase, side * d.forkY, d.railZ], [0, face, 0], [1, 0, 0], [0, 0, 1])
+      if (!d.swivel) gusset(`front-hanger-${side}-${face}`, d.wheel.hanger, [d.wheelbase, side * d.forkY, d.railZ], [0, face, 0], [1, 0, 0], [0, 0, 1])
     }
     gusset(`roof-bow-tee-${side}`, 'tee_gusset', [0, y, d.topZ], [0, 0, 1], [1, 0, 0], [0, side, 0])
     d.stations.slice(1, -1).forEach((x, i) => gusset(`base-tee-${i}-${side}`, 'tee_gusset', [x, y, d.railZ], [0, 0, -1], [1, 0, 0], [0, side, 0]))
@@ -102,17 +102,27 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
     const start = y - side * d.inboard
     rod(`rear-axle-${side}`, h.axle / 2, d.rearShaft, [0, start + side * d.rearShaft / 2, d.R], across, '#d5dbd6')
     rod(`rear-spacer-${side}`, h.axleSleeve / 2, d.spacer, [0, side * (outer + h.plate + d.spacer / 2), d.R], across, steel, h.axle / 2)
-    if (d.forkSpacer) rod(`front-spacer-${side}`, h.axleSleeve / 2, d.forkSpacer, [d.wheelbase, side * (s.hub / 2 + h.washer + d.forkSpacer / 2), d.R], across, steel, h.axle / 2)
+    if (d.forkSpacer && !d.swivel) rod(`front-spacer-${side}`, h.axleSleeve / 2, d.forkSpacer, [d.wheelbase, side * (s.hub / 2 + h.washer + d.forkSpacer / 2), d.R], across, steel, h.axle / 2)
     wheel(`rear-wheel-${side}`, [0, side * d.wheelY, d.R])
     add(`rear-axle-cover-${side}`, stl('axle_cover'), accent, place(basis([0, side, 0])[0], basis([0, side, 0])[1], [0, start + side * (d.rearShaft - 6), d.R]))
     rod(`tip-stop-${side}`, 4.7, 100, [d.rearX + 117.3, y, d.railZ - 40], [0, 0, 1], steel)
     rod(`tip-stop-foot-${side}`, 20, 10, [d.rearX + 117.3, y, d.railZ - 90], [0, 0, 1], '#29322d')
-    // Fork arm, stub post and handle arm.
-    const fy = side * d.forkY
-    tube(`fork-arm-${side}`, true, d.forkArm, [d.frontX + t, fy, d.railZ], [1, 0, 0])
-    cap(`fork-cap-${side}`, true, [d.frontX + t + d.forkArm, fy, d.railZ], [1, 0, 0])
-    tube(`fork-stub-${side}`, true, d.stub, [d.wheelbase, fy, d.railZ + t / 2], [0, 0, 1])
-    for (const face of [-1, 1]) gusset(`fork-tee-${side}-${face}`, 'tee_gusset', [d.frontX + t / 2, fy, d.railZ], [0, 0, face], [0, 1, 0], [-1, 0, 0])
+    // Front end: either a fork for a fixed third wheel, or a raised nose for a swivel caster.
+    if (d.swivel) {
+      for (const end of [-1, 1]) {
+        const px = d.casterX + end * h.casterAlong / 2; const beamZ = s.caster + t / 2
+        tube(`nose-post-${side}-${end}`, true, d.nosePost, [px, y, d.railZ + t / 2], [0, 0, 1])
+        for (const face of [-1, 1]) gusset(`nose-base-${side}-${end}-${face}`, 'corner_gusset', [px, y, d.railZ], [0, face, 0], [0, 0, 1], [end, 0, 0])
+        gusset(`nose-top-${side}-${end}`, 'corner_gusset', [px, y, beamZ], [end, 0, 0], [0, -side, 0], [0, 0, -1])
+      }
+    }
+    else {
+      const fy = side * d.forkY
+      tube(`fork-arm-${side}`, true, d.forkArm, [d.frontX + t, fy, d.railZ], [1, 0, 0])
+      cap(`fork-cap-${side}`, true, [d.frontX + t + d.forkArm, fy, d.railZ], [1, 0, 0])
+      tube(`fork-stub-${side}`, true, d.stub, [d.wheelbase, fy, d.railZ + t / 2], [0, 0, 1])
+      for (const face of [-1, 1]) gusset(`fork-tee-${side}-${face}`, 'tee_gusset', [d.frontX + t / 2, fy, d.railZ], [0, 0, face], [0, 1, 0], [-1, 0, 0])
+    }
     const armY = side * (outer + t / 2)
     tube(`handle-arm-${side}`, false, d.handleArm, [d.gripX, armY, s.handle], [1, 0, 0])
     cap(`handle-cap-${side}`, false, [d.gripX + d.handleArm, armY, s.handle], [1, 0, 0])
@@ -123,21 +133,37 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
     tube(`top-cross-${i}`, false, s.width, [x, -s.width / 2, d.topZ], across)
     add(`ridge-saddle-${i}`, stl('ridge_saddle'), accent, place([1, 0, 0], [0, 1, 0], [x, 0, d.topZ + t / 2 - 26]))
   }
-  rod('ridge-pole', h.pole / 2, d.rail, [(d.rearX + d.frontX) / 2, 0, d.topZ + t / 2 + h.ridge + h.pole / 2], [1, 0, 0], '#d5dbd6')
+  rod('ridge-pole', h.pole / 2, d.topRail, [(d.rearX + d.frontX) / 2, 0, d.topZ + t / 2 + h.ridge + h.pole / 2], [1, 0, 0], '#d5dbd6')
   tube('handle-grip', false, d.grip, [d.gripX + t / 2, -outer, s.handle], across)
   rod('handle-foam', 17, s.width - 60, [d.gripX + t / 2, 0, s.handle], across, '#29322d', 12.9)
-  slab('floor-panel', [d.rail, s.width + 2 * t, h.panel], [(d.rearX + d.frontX) / 2, 0, d.deck - h.panel / 2], [1, 0, 0], across, wood)
-  rod('front-axle', h.axle / 2, d.frontShaft, [d.wheelbase, 0, d.R], across, '#d5dbd6')
-  wheel('front-wheel', [d.wheelbase, 0, d.R])
+  slab('floor-panel', [d.topRail, s.width + 2 * t, h.panel], [(d.rearX + d.frontX) / 2, 0, d.deck - h.panel / 2], [1, 0, 0], across, wood)
+  if (d.swivel) {
+    const beamZ = s.caster + t / 2; const r = h.casterWheel / 2; const hubX = d.casterX - h.casterTrail
+    for (const end of [-1, 1]) {
+      const bx = d.casterX + end * h.casterAlong / 2
+      tube(`caster-beam-${end}`, true, d.casterBeam, [bx, -outer, beamZ], across)
+      for (const side of [-1, 1]) cap(`caster-beam-cap-${end}-${side}`, true, [bx, side * outer, beamZ], [0, side, 0])
+    }
+    slab('caster-plate', [115, 100, 6], [d.casterX, 0, s.caster - 3], [1, 0, 0], across, steel)
+    rod('caster-swivel', 30, 22, [d.casterX, 0, s.caster - 17], [0, 0, 1], steel)
+    for (const side of [-1, 1]) slab(`caster-fork-${side}`, [h.casterTrail + 50, 5, s.caster - 28 - r + 30], [d.casterX - h.casterTrail / 2, side * (h.casterTire / 2 + 8), (s.caster - 28 + r - 30) / 2], [1, 0, 0], across, steel)
+    rod('caster-tire', r, h.casterTire, [hubX, 0, r], across, '#29322d', 58)
+    rod('caster-rim', 58, 8, [hubX, 0, r], across, '#8b958e', 14)
+    rod('caster-axle', 6, h.casterTire + 26, [hubX, 0, r], across, steel)
+  }
+  else {
+    rod('front-axle', h.axle / 2, d.frontShaft, [d.wheelbase, 0, d.R], across, '#d5dbd6')
+    wheel('front-wheel', [d.wheelbase, 0, d.R])
+  }
   ramp()
   if (cover) {
     const coverTop = d.topZ + t / 2; const bottom = d.railZ - t / 2; const sill = bottom + 350; const cx = (d.rearX + d.frontX) / 2; const peak = coverTop + h.ridge + h.pole + 2
     for (const side of [-1, 1]) {
       const run = outer + 30; const slope = Math.hypot(run, peak - coverTop + 8); const dir: V = [0, side * run / slope, -(peak - coverTop + 8) / slope]
-      slab(`cover-roof-${side}`, [d.rail + 80, slope, 2], [cx, side * run / 2, (peak + coverTop - 8) / 2], [1, 0, 0], dir, trim)
-      slab(`cover-side-band-${side}`, [d.rail, 2, 350], [cx, side * (outer + 2), (bottom + sill) / 2], [1, 0, 0], across, trim)
-      slab(`cover-side-mesh-${side}`, [d.rail - 160, 1, coverTop - sill - 110], [cx, side * (outer + 2), (sill + coverTop - 110) / 2], [1, 0, 0], across, '#e9e6da')
-      slab(`cover-side-top-${side}`, [d.rail, 2, 110], [cx, side * (outer + 2), coverTop - 55], [1, 0, 0], across, trim)
+      slab(`cover-roof-${side}`, [d.topRail + 80, slope, 2], [cx, side * run / 2, (peak + coverTop - 8) / 2], [1, 0, 0], dir, trim)
+      slab(`cover-side-band-${side}`, [d.topRail, 2, 350], [cx, side * (outer + 2), (bottom + sill) / 2], [1, 0, 0], across, trim)
+      slab(`cover-side-mesh-${side}`, [d.topRail - 160, 1, coverTop - sill - 110], [cx, side * (outer + 2), (sill + coverTop - 110) / 2], [1, 0, 0], across, '#e9e6da')
+      slab(`cover-side-top-${side}`, [d.topRail, 2, 110], [cx, side * (outer + 2), coverTop - 55], [1, 0, 0], across, trim)
     }
     slab('cover-front-band', [2, s.width + 2 * t, 350], [d.frontX + t + 2, 0, (bottom + sill) / 2], [1, 0, 0], across, trim)
     slab('cover-front-mesh', [1, s.width - 60, coverTop - sill - 110], [d.frontX + t + 2, 0, (sill + coverTop - 110) / 2], [1, 0, 0], across, '#e9e6da')

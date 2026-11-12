@@ -8,7 +8,9 @@
     "axle": 520,
     "handle": 980,
     "hub": 101.6,
-    "wheel": "trail"
+    "caster": 311,
+    "wheel": "trail",
+    "front": "swivel"
   },
   "base": {
     "quantity": 100,
@@ -19,12 +21,12 @@
       "stockMm": 1548993.6
     },
     "heavy": {
-      "bars": 120,
-      "netMm": 862854.96,
-      "kerfMm": 4200,
-      "stockMm": 877824
+      "bars": 147,
+      "netMm": 1065064.96,
+      "kerfMm": 4800,
+      "stockMm": 1075334.4
     },
-    "tube": 29846,
+    "tube": 32983,
     "textiles": {
       "quantity": 100,
       "minutes": 200,
@@ -158,41 +160,41 @@
       "total": 37991,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 68716,
-    "cogs": 136553,
+    "other": 67433,
+    "cogs": 138407,
     "retail": 39900,
-    "gross": -96653,
-    "grossPercent": -242.23809523809524,
+    "gross": -98507,
+    "grossPercent": -246.88471177944865,
     "maxCogs": 27930,
-    "headroom": -108623,
+    "headroom": -110477,
     "meetsCostGate": false,
     "fee": 1187,
     "reserve": 1995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -104835,
-    "retailForGate": 195100,
-    "tubeMill": 11924,
-    "cogsMill": 118631,
-    "retailForGateMill": 169500,
-    "stainlessUpgrade": 3496,
+    "contribution": -106689,
+    "retailForGate": 197800,
+    "tubeMill": 13393,
+    "cogsMill": 118817,
+    "retailForGateMill": 169800,
+    "stainlessUpgrade": 3818,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
   "one": {
     "quantity": 1,
     "light": {
-      "bars": 3,
+      "bars": 7,
       "netMm": 14620,
       "kerfMm": 51,
-      "stockMm": 19202.4
+      "stockMm": 17068.8
     },
     "heavy": {
-      "bars": 2,
-      "netMm": 8628.5496,
-      "kerfMm": 42,
-      "stockMm": 14630.4
+      "bars": 5,
+      "netMm": 10650.6496,
+      "kerfMm": 48,
+      "stockMm": 12192
     },
-    "tube": 42951,
+    "tube": 58160,
     "textiles": {
       "quantity": 1,
       "minutes": 540,
@@ -326,32 +328,32 @@
       "total": 81833,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 134175,
-    "cogs": 258959,
+    "other": 126405,
+    "cogs": 266398,
     "retail": 39900,
-    "gross": -219059,
-    "grossPercent": -549.0200501253133,
+    "gross": -226498,
+    "grossPercent": -567.6641604010025,
     "maxCogs": 27930,
-    "headroom": -231029,
+    "headroom": -238468,
     "meetsCostGate": false,
     "fee": 1187,
     "reserve": 1995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -227241,
-    "retailForGate": 370000,
-    "tubeMill": 11924,
-    "cogsMill": 227932,
-    "retailForGateMill": 325700,
-    "stainlessUpgrade": 3496,
+    "contribution": -234680,
+    "retailForGate": 380600,
+    "tubeMill": 13393,
+    "cogsMill": 221631,
+    "retailForGateMill": 316700,
+    "stainlessUpgrade": 3818,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
   "lines": [
     {
       "id": "gussets",
-      "name": "28 corner and 12 tee gussets, laser cut 1/8 inch 6061",
-      "batch": 6400,
-      "one": 18000,
+      "name": "40 corner and 8 tee gussets, laser cut 1/8 inch 6061",
+      "batch": 7680,
+      "one": 21600,
       "coverage": [
         "M01",
         "M02"
@@ -361,9 +363,9 @@
     },
     {
       "id": "hangers",
-      "name": "8 stainless axle hangers",
-      "batch": 3200,
-      "one": 7200,
+      "name": "4 stainless axle hangers",
+      "batch": 1600,
+      "one": 3600,
       "coverage": [
         "M03"
       ],
@@ -372,21 +374,34 @@
     },
     {
       "id": "wheels",
-      "name": "Three 15 inch pneumatic trail wheels, 4.00-8",
-      "batch": 9867,
-      "one": 9867,
+      "name": "2 pneumatic trail wheels, 15 inch 4.00-8",
+      "batch": 6578,
+      "one": 6578,
       "coverage": [
         "W01"
       ],
       "evidence": "Observed 2026-11-12",
       "url": "https://www.zoro.com/zoro-select-pneumatic-wheel-15-316dia-435lb-400-8-1nwv4/i/G1932594/",
-      "note": "3 x $32.89, no bulk discount assumed. Ball bearings, 5/8 inch bore and a 4 inch hub are stated by the supplier."
+      "note": "$32.89 each, no bulk discount assumed. Ball bearings, 5/8 inch bore and a 4 inch hub are stated by the supplier."
+    },
+    {
+      "id": "caster",
+      "name": "Front swivel caster, 10 inch pneumatic, with four bolts",
+      "batch": 2299,
+      "one": 2399,
+      "coverage": [
+        "W07",
+        "H06"
+      ],
+      "evidence": "Observed 2026-11-12 + bolt allowance",
+      "url": "https://www.harborfreight.com/10-in-pneumatic-swivel-caster-63799.html",
+      "note": "Harbor Freight 63799 at $19.99, 300 lb working load stated, no swivel lock. Mounting height not stated by the supplier."
     },
     {
       "id": "axles",
-      "name": "Three stock-shaft axles, sleeves, spacers, washers and cotters",
-      "batch": 1800,
-      "one": 4000,
+      "name": "2 stock-shaft axles, sleeves, spacers, washers and cotters",
+      "batch": 1200,
+      "one": 2700,
       "coverage": [
         "W02",
         "W03",
@@ -399,9 +414,9 @@
     },
     {
       "id": "fasteners",
-      "name": "152 sleeved bolted joints",
-      "batch": 6899,
-      "one": 10208,
+      "name": "166 sleeved bolted joints",
+      "batch": 7526,
+      "one": 10628,
       "coverage": [
         "H01",
         "H02",
@@ -443,7 +458,7 @@
     },
     {
       "id": "controls",
-      "name": "Brake set, grip, tip-stop feet and floor fasteners",
+      "name": "Wheel chocks, grip, tip-stop feet and floor fasteners",
       "batch": 6200,
       "one": 8500,
       "coverage": [
@@ -455,7 +470,7 @@
         "X01"
       ],
       "evidence": "Allowance",
-      "note": "Lever, cable and two wheel brakes are unselected. The allowance is not a brake design."
+      "note": "Two rubber wheel chocks stand in for a parking brake during bench trials. No wheel brake is designed."
     },
     {
       "id": "prints",
@@ -509,10 +524,10 @@
       "id": "freight",
       "name": "Inbound freight allocation",
       "batch": 3000,
-      "one": 15000,
+      "one": 9000,
       "coverage": [],
       "evidence": "RFQ",
-      "note": "Truck freight for 21 ft and 24 ft bars and sheet goods. Unquoted."
+      "note": "Truck freight for long bars in a batch; parcel shipping for one build. Unquoted."
     },
     {
       "id": "machine",
@@ -583,12 +598,14 @@
     }
   ],
   "allowances": [
-    "Tube freight: 21 ft and 24 ft bars ship by truck. The one-carrier scenario carries a $150 inbound freight allowance for that; a builder without a truck dock can buy shorter lengths at a higher price per foot.",
+    "Tube for one build: the supplier ships bars over 8 ft by truck, so the one-carrier scenario buys 8 ft bars at $58.08 for the 1/8 inch 6061-T6 and $41.60 for the 1/16 inch 6063-T52, both read on the supplier page. The batch buys 24 ft and 21 ft bars.",
+    "Front caster: priced as Harbor Freight 63799 at $19.99, whose mounting height the supplier does not state. CasterHQ CB-SPC10 at $79.00 states every dimension the design uses: 12-1/4 inch overall height, 7-1/4 inch swivel radius, a plate slotted to take the same bolt pattern, 350 lb. A Service Caster model with a swivel lock was seen at $64.69 on a search listing with a 12-3/16 inch mounting height.",
+    "Parking: no wheel brake is designed. Two rubber wheel chocks are in the controls allowance for bench trials. Cart floor locks were read at $42.00 to $100.00, but the one that fits under the floor hangs about 11 mm above the ground when retracted, so it is not used.",
+    "Plates: SendCutSend lists .125 inch 6061-T6 and .125 inch 304 stainless for laser cutting, accepts DXF, has no minimum quantity, ships laser parts in 1 to 3 days and ships free in the US over $39. No quote was run, so the gusset and hanger lines stay allowances.",
     "Crush sleeves: $0.21 each in a batch and $0.30 for one build is an allowance, the same as the XL r1 study. Bolts, nuts and washers are observed prices.",
     "Run wheels: $60 each is an allowance. No 20 inch pneumatic wheel with a 5/8 inch bore and a suitable rating was found, so the 20 inch wheel remains an open selection.",
     "Gussets, hangers, axle stock, hinge, latches, brake, leveling feet, grip, rivet nuts, ridge pole and bedding tape are allowances. Search results suggested a heavy 36 inch stainless hinge can cost far more than the allowance; none of those pages was read.",
     "Brake: two wheelchair wheel-lock sets were read in a browser, Quickie push-to-lock at $110.00 a pair and a Medline pediatric set at $31.85 a pair. Both are made for specific wheelchair frames and neither is selected.",
-    "Front wheel: a 10 inch pneumatic swivel caster, Harbor Freight 63799, was read at $19.99 with a 300 lb working load and no swivel lock. A similar caster stands about 12 inches tall, above the deck, so it needs a raised front frame that this revision does not have.",
     "Stainless option: the stainless bolt is an observed $30.75 per 100. Stainless nuts and washers were not priced; the $0.23 per joint upgrade includes a $0.10 allowance for them.",
     "Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists."
   ]

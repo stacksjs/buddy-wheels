@@ -1,27 +1,28 @@
 # Buddy Rover r0 buy list for one carrier
 
-Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub101.6-trail. Checked 2026-11-12, USD, before tax and shipping. This is what one builder buys for one bench carrier, in whole bars, sheets, yards and packs, so it is more than the material the carrier consumes. It is a bench build. Nothing here is rated or approved for carrying an animal.
+Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub101.6-trail-swivel311. Checked 2026-11-12, USD, before tax and shipping. This is what one builder buys for one bench carrier, in whole bars, sheets, yards and packs, so it is more than the material the carrier consumes. It is a bench build. Nothing here is rated or approved for carrying an animal.
 
-**Materials to buy: about $1,615.65.** $1,146.65 of that has a supplier page behind it. The remaining $469.00 is allowance and needs a quote or a shop visit. Your own time is extra: the study assumes about 15 hours of cutting, drilling and assembly and 9 hours of sewing.
+**Materials to buy: about $1,750.04.** $1,294.04 of that has a supplier page behind it. The remaining $456.00 is allowance and needs a quote or a shop visit. Your own time is extra: the study assumes about 15 hours of cutting, drilling and assembly and 9 hours of sewing.
 
 ## Frame, running gear and hardware
 
 | Item | Cost | Basis |
 | --- | ---: | --- |
-| [3 bars of 1 x 1 x 1/16 inch 6063-T52 square tube, 21 ft each](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube) | $197.19 | Observed 2026-11-12 |
-| [2 bars of 1 x 1 x 1/8 inch 6061-T6 square tube, 24 ft each](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube) | $232.32 | Observed 2026-11-12 |
-| 28 corner and 12 tee gussets, laser cut 1/8 inch 6061 | $180.00 | RFQ |
-| 8 stainless axle hangers | $72.00 | RFQ |
-| [Three 15 inch pneumatic trail wheels, 4.00-8](https://www.zoro.com/zoro-select-pneumatic-wheel-15-316dia-435lb-400-8-1nwv4/i/G1932594/) | $98.67 | Observed 2026-11-12 |
-| Three stock-shaft axles, sleeves, spacers, washers and cotters | $40.00 | RFQ |
-| [152 sleeved bolted joints](https://boltdepot.com/Product-Details?product=328) | $102.08 | Observed 2026-11-12 + sleeve allowance |
+| [7 bars of 1 x 1 x 1/16 inch 6063-T52 square tube, 8 ft each](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube) | $291.20 | Observed 2026-11-12 |
+| [5 bars of 1 x 1 x 1/8 inch 6061-T6 square tube, 8 ft each](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube) | $290.40 | Observed 2026-11-12 |
+| 40 corner and 8 tee gussets, laser cut 1/8 inch 6061 | $216.00 | RFQ |
+| 4 stainless axle hangers | $36.00 | RFQ |
+| [2 pneumatic trail wheels, 15 inch 4.00-8](https://www.zoro.com/zoro-select-pneumatic-wheel-15-316dia-435lb-400-8-1nwv4/i/G1932594/) | $65.78 | Observed 2026-11-12 |
+| [Front swivel caster, 10 inch pneumatic, with four bolts](https://www.harborfreight.com/10-in-pneumatic-swivel-caster-63799.html) | $23.99 | Observed 2026-11-12 + bolt allowance |
+| 2 stock-shaft axles, sleeves, spacers, washers and cotters | $27.00 | RFQ |
+| [166 sleeved bolted joints](https://boltdepot.com/Product-Details?product=328) | $106.28 | Observed 2026-11-12 + sleeve allowance |
 | [Floor and ramp panels, sealed 15/32 inch ACX plywood](https://www.homedepot.com/b/Lumber-Composites-Plywood/15-32/N-5yc1vZbqm7Z1z0mcqq) | $77.00 | Observed 2026-11-12 + sealing allowance |
 | Hinge, two latches, safety strap hardware and stand feet | $65.00 | Allowance |
-| Brake set, grip, tip-stop feet and floor fasteners | $85.00 | Allowance |
+| Wheel chocks, grip, tip-stop feet and floor fasteners | $85.00 | Allowance |
 | Printed service parts and fixtures | $27.00 | Computed volume + allowance |
-| **Subtotal** | **$1,176.26** | |
+| **Subtotal** | **$1,310.65** | |
 
-Cut from the bars with cut-list.csv. Send metal/*.dxf to a laser or waterjet shop for the 28 corner gussets, 12 tee gussets and 8 axle hangers. The parts list in bom.csv has every specification.
+Cut from the bars with cut-list.csv. Send metal/*.dxf to a laser or waterjet shop for the 40 corner gussets, 8 tee gussets and 4 axle hangers. The parts list in bom.csv has every specification.
 
 ## Cover, floor and ramp surface
 

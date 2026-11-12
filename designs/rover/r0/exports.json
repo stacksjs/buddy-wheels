@@ -4,7 +4,7 @@
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
   "generator": "native Stacks solid kit, no external CAD executable",
   "geometryHash": "227efe66446a57303ea089dda202cf50bcf7d3196722e89895c3a818b5eba2d1",
-  "costHash": "dd08cb1943556ccd99be8e8a102e4bb432b538bd5301ef969deb857eec2abc4f",
+  "costHash": "e570fa6688bb2b8539a7fd35e2ca7dfd7205edad84abdc0a63ed65c2888c7a62",
   "setup": {
     "length": 1200,
     "width": 700,
@@ -13,7 +13,9 @@
     "axle": 520,
     "handle": 980,
     "hub": 101.6,
-    "wheel": "trail"
+    "caster": 311,
+    "wheel": "trail",
+    "front": "swivel"
   },
   "dimensions": {
     "R": 192.9,
@@ -43,7 +45,8 @@
     "clearance": 108.125,
     "rearX": -520,
     "frontX": 680,
-    "rail": 1250.8,
+    "rail": 1578.65,
+    "topRail": 1250.8,
     "post": 965.2,
     "stations": [
       -532.7,
@@ -53,6 +56,11 @@
       692.7
     ],
     "intermediates": 3,
+    "swivel": true,
+    "casterX": 910.4,
+    "nose": 327.85,
+    "nosePost": 174.3,
+    "casterBeam": 750.8,
     "rearStack": 149.05,
     "rearShaft": 168.75,
     "postY": 362.7,
@@ -64,11 +72,11 @@
     "frontShaft": 190.8,
     "forkArm": 282.9,
     "stub": 140.3,
-    "wheelbase": 928.3,
+    "wheelbase": 853.4,
     "rampAngle": 8.9426,
     "rampWidth": 688,
     "rampRise": 139.9,
-    "legCut": 75.0748,
+    "legCut": 82.0748,
     "hingeX": -551.4,
     "gripX": -925.4,
     "handleArm": 965.4,
@@ -78,7 +86,7 @@
     "roofSlope": 382.3748,
     "overallWidth": 1008.45,
     "tireWidth": 963.55,
-    "overallLength": 2046.6,
+    "overallLength": 2020.8,
     "overallHeight": 1204,
     "cuts": [
       {
@@ -86,7 +94,7 @@
         "name": "Base side rail",
         "wall": "heavy",
         "qty": 2,
-        "length": 1250.8
+        "length": 1578.65
       },
       {
         "id": "C02",
@@ -101,20 +109,6 @@
         "wall": "heavy",
         "qty": 2,
         "length": 965.2
-      },
-      {
-        "id": "C04",
-        "name": "Fork arm",
-        "wall": "heavy",
-        "qty": 2,
-        "length": 282.9
-      },
-      {
-        "id": "C05",
-        "name": "Fork stub post",
-        "wall": "heavy",
-        "qty": 2,
-        "length": 140.3
       },
       {
         "id": "C06",
@@ -135,7 +129,7 @@
         "name": "Ramp stand leg",
         "wall": "heavy",
         "qty": 2,
-        "length": 75.0748
+        "length": 82.0748
       },
       {
         "id": "C09",
@@ -178,15 +172,31 @@
         "wall": "light",
         "qty": 3,
         "length": 700
+      },
+      {
+        "id": "C15",
+        "name": "Nose post",
+        "wall": "heavy",
+        "qty": 4,
+        "length": 174.3
+      },
+      {
+        "id": "C16",
+        "name": "Caster beam",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 750.8
       }
     ],
     "counts": {
-      "corner": 28,
-      "tee": 12,
-      "hanger": 8,
-      "bolts": 148,
+      "corner": 40,
+      "tee": 8,
+      "hanger": 4,
+      "wheels": 2,
+      "bolts": 162,
       "handleBolts": 4,
-      "sleeves": 156,
+      "sleeves": 170,
+      "casterBolts": 4,
       "rampBolts": 16,
       "floorScrews": 27,
       "capHeavy": 12,
@@ -195,28 +205,28 @@
       "saddle": 3,
       "fabricClip": 28,
       "cableClip": 6,
-      "axleCover": 6
+      "axleCover": 4
     },
-    "heavyM": 8.6285,
+    "heavyM": 10.6506,
     "lightM": 14.62,
-    "tubeLb": 27.6,
+    "tubeLb": 31,
     "floorArea": 0.9391,
     "rampArea": 0.6192,
     "mass": {
-      "tube": 12.5,
-      "plates": 4.7,
+      "tube": 14.1,
+      "plates": 4,
       "panels": 10.1,
-      "wheels": 9.6,
-      "hardware": 6.3,
+      "wheels": 10,
+      "hardware": 6.7,
       "softgoods": 4.2
     },
-    "carrierKg": 47.4,
-    "frontShare": 8.6179,
-    "tiltForceN": 102,
+    "carrierKg": 49.1,
+    "frontShare": 9.3743,
+    "tiltForceN": 103,
     "tiltForceLbf": 23,
     "volumeRatio": 2.0082
   },
-  "printVolumeCm3": 1339,
+  "printVolumeCm3": 1322,
   "assets": [
     {
       "path": "parts/cap_heavy.stl",
@@ -325,18 +335,18 @@
     },
     {
       "path": "assembly.md",
-      "sha256": "d576411924d2b5dfcfe533eb2799f98e424da4f69dbf976830400f29571a6e75",
-      "bytes": 10415
+      "sha256": "5a2498ee226a6b24c2fe9bdc6af2a4dbc802e193e2d5582d4ce81d15f316490a",
+      "bytes": 10808
     },
     {
       "path": "bom.csv",
-      "sha256": "1634744e17c7af514d13aaa7277f814c6cf63ab7c0c39e4c618bd317bc1a92d7",
-      "bytes": 7778
+      "sha256": "7319ff69d1f8216c08406c0c563d34b5acfa787f6395fc5bf3f137815f08bc93",
+      "bytes": 8163
     },
     {
       "path": "materials.md",
-      "sha256": "fa5bc5eba8b9e5207aacab65422a3288626537676b616dbc60f609a349b84eb2",
-      "bytes": 11779
+      "sha256": "c07ec536549f6be9a6e7e7897d4de19856eb5ab92156837acd5ce709d0a16104",
+      "bytes": 11789
     },
     {
       "path": "cover-cut-schedule.csv",
@@ -350,38 +360,53 @@
     },
     {
       "path": "drawing.svg",
-      "sha256": "7ed8ee9bb8b6fb8791ad8b20d6757eb4501111c67091f759b0575566fc96e797",
-      "bytes": 5520
+      "sha256": "55c254f2f1a0604bae895e1aa3dcfd764db3ad370008be1ce52edb51505bd295",
+      "bytes": 5754
     },
     {
       "path": "cut-list.csv",
-      "sha256": "c7fddd73ffa119f3c42d13ac980d4ae694ff5b0453e230da3901dad48351375d",
-      "bytes": 1097
+      "sha256": "cd5393c36440c4814b3b86f5146991e191cb38d6807337b306555d715f6c2134",
+      "bytes": 1096
     },
     {
       "path": "cost-notes.md",
-      "sha256": "e907957f74a801b8a3a74ebf41b5bd7cb36ddea2cc4589f66ab5524700514fca",
-      "bytes": 13838
+      "sha256": "e074ebbf44bd1fa557fac9cd8beb2e92084511043ddae831e6c4d6eb1da5d3e9",
+      "bytes": 14875
     },
     {
       "path": "buy-list.md",
-      "sha256": "f3ab7ef49f64d600ae0a1ba57bbb313b27c7fc93f10ccf228f2cdbdaf5d49d00",
-      "bytes": 4971
+      "sha256": "fd45377806fc406feb2b160d1e712e79c0adad677cf689ea50226153978df687",
+      "bytes": 5154
+    },
+    {
+      "path": "build-guide.md",
+      "sha256": "1e6da783c5e8adb9e2dad5eef8b139cb7e294187dbb141c14cbfb9c17f398798",
+      "bytes": 17379
+    },
+    {
+      "path": "drilling.csv",
+      "sha256": "e64b81bd5dca5eefe3ca91d815ea4ac555f5958fdeb08f572a96695676e074ed",
+      "bytes": 4645
+    },
+    {
+      "path": "base-plan.svg",
+      "sha256": "5ad641e1752bcef4bfd934f3ef9645a5e242299919841c875570bb6a556865fa",
+      "bytes": 4994
     },
     {
       "path": "cost-model.json",
-      "sha256": "e9005f5524bc5a2a9c07274318e6416773612126a7cbd3f8b328c813af5a7c1f",
-      "bytes": 18588
+      "sha256": "20461df7c004c2b78c09e4a1e5255d41532209db86c40c4b6acb0dc7f3297d77",
+      "bytes": 19865
     },
     {
       "path": "setup.json",
-      "sha256": "21674e27d628e07ca98987f539a38f7245d105e8f52ff39bd88d83d09f482805",
-      "bytes": 4342
+      "sha256": "c0e7bde04dceafb243c3961da9d17e173318f86ab3c24c65c1f9a223ea4da290",
+      "bytes": 4551
     },
     {
       "path": "README.md",
-      "sha256": "bdc04faf892c43b1f9d3345bf107ad92239c7bf567bd3a396e334729938b11b9",
-      "bytes": 1345
+      "sha256": "8a6fe1aff97abb044eeaf08f02b64d66432b0e40e94ef122e72f5ebb0c890a58",
+      "bytes": 1582
     }
   ],
   "parts": [

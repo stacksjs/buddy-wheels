@@ -14,6 +14,9 @@ const single: Record<string, [string, string, string]> = {
   drawing: ['drawing.svg', 'image/svg+xml', '-drawing.svg'],
   costs: ['cost-notes.md', 'text/markdown; charset=utf-8', '-cost-notes.md'],
   buylist: ['buy-list.md', 'text/markdown; charset=utf-8', '-buy-list.md'],
+  guide: ['build-guide.md', 'text/markdown; charset=utf-8', '-build-guide.md'],
+  drilling: ['drilling.csv', 'text/csv; charset=utf-8', '-drilling.csv'],
+  baseplan: ['base-plan.svg', 'image/svg+xml', '-base-plan.svg'],
 }
 /** Configured documents plus the published geometry, re-proven against freshly generated meshes before delivery. */
 export async function roverDownload(root: string, artifact: string, setup: RoverSetup): Promise<Response> {

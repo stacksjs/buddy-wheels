@@ -27,7 +27,7 @@ Not in this revision: a selected wheel, a brake design, a swivel front wheel, a 
 | Incline limit 12 degrees, start about 9 | The owner asked for a minimal incline. Published ramp guidance for dogs varies, so a strict limit was chosen rather than a cited one | Not validated with any dog. Wet grip unproven |
 | Three matching wheels, 15 inch 4.00-8 trail wheel by default | One wheel, one hanger, one spare. The supplier states bearings, bore, hub length and load, so nothing about the axle is guessed | A utility wheel, not a running wheel. Its weight is not stated. The 13 inch option is cheaper and the 20 inch option has no verified candidate |
 | Bolted gusset frame, no welding | Matches the XL r1 standard-parts approach and can be built with a drill | About 150 sleeved joints. Heavy, slow and expensive. See the cost study |
-| Fixed front wheel | The brief asked for a straight-tracking front assembly for running | Steering effort with a heavy dog. A lockable swivel is likely needed |
+| Swivel front caster on a raised nose, fixed fork kept as an option | A 140 lb dog makes a lift-to-steer front wheel impractical at walking pace | Shimmy at a run with no swivel lock. The priced caster's mounting height is not stated by its supplier, so it is a setup input |
 | Zinc-plated grade 5 fasteners in Run, aluminum gussets | Lower cost and higher strength than 18-8 stainless | Corrosion in salt. Stainless is the Coast upgrade, with galling to manage |
 
 ## Cost-down pass, November 12, 2026
@@ -47,6 +47,12 @@ A second pass the same day made the 13 x 4 inch pneumatic wheel from the XL whee
 A third pass read prices in a real browser on supplier pages that refuse automated reads. It moved the tube to 21 ft and 24 ft stock bars from Metals Depot, with the cabin and secondary members in 1/16 inch 6063-T52 and the chassis in 1/8 inch 6061-T6; made a 15 inch pneumatic wheel with stated bearings, hub length and load the default; and replaced the bolt, nut, washer and plywood allowances with observed prices. Totals are $1,365.53 at 100 units, $2,589.59 for one and $1,186.31 with tube by weight. The thin wall changed from .065 to 1/16 inch, so the cabin tube cap mesh changed; one more hanger profile was added. A one-carrier buy list is generated with the kit.
 
 Looked at and not adopted: a 10 inch swivel caster for the front wheel, which would cut steering effort but stands above the deck and needs a raised front frame; two wheelchair wheel-lock sets for the brake, both made for specific chairs; tent-style hoops instead of the box cabin, which would narrow the headroom that makes the cabin larger than the reference.
+
+A fourth pass designed the swivel front. A 10 inch caster stands about 311 mm tall, above the 152 mm deck, so it cannot go under the floor. The base rails are extended about 330 mm and carry four nose posts and two caster beams, all joined with the existing corner gusset profile; the caster bolts up under the beams with its wheel sweep clear of the cabin front. The caster mounting height is a setup input because the priced caster's supplier does not state it. This replaces the fork, front axle, third wheel and four hangers, for a net of about $19 per carrier.
+
+The same pass added what a builder needs to make one: a build guide in order of work, a plan of the base frame from above, a drilling schedule for every tube measured from a named end, a nesting plan into 8 ft parcel bars, and a buy list. One-carrier costs now assume 8 ft bars, the longest the tube supplier ships by parcel.
+
+Parking is not solved. Cart floor locks were read at $42 to $100; the one that would fit under the floor hangs about 11 mm above the ground when retracted. Wheelchair wheel locks are made for specific chairs. The design specifies wheel chocks for bench trials and leaves a wheel brake open.
 
 What these passes could not do is make the design competitive with the reference trailer's price. That needs a different architecture, most likely a fabric cabin on bent hoops over a welded or riveted base, and quotes rather than listings.
 

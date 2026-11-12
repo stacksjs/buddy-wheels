@@ -1,5 +1,5 @@
 import type { RoverSetup } from './Rover'
-import { packRoverStock, roverDimensions, roverStart } from './Rover'
+import { packRoverStock, roverDimensions, roverParcelStock, roverStart } from './Rover'
 import { roverTextileCost } from './RoverSoftGoods'
 import { roverConfigurations } from '../Storefront/Catalog'
 
@@ -18,12 +18,14 @@ export const roverPriceEvidence = [
 ] as const
 /** Everything not observed on a fetched supplier page. Search-result prices were seen for some lines and are treated as unverified. */
 export const roverAllowanceNotes = [
-  'Tube freight: 21 ft and 24 ft bars ship by truck. The one-carrier scenario carries a $150 inbound freight allowance for that; a builder without a truck dock can buy shorter lengths at a higher price per foot.',
+  'Tube for one build: the supplier ships bars over 8 ft by truck, so the one-carrier scenario buys 8 ft bars at $58.08 for the 1/8 inch 6061-T6 and $41.60 for the 1/16 inch 6063-T52, both read on the supplier page. The batch buys 24 ft and 21 ft bars.',
+  'Front caster: priced as Harbor Freight 63799 at $19.99, whose mounting height the supplier does not state. CasterHQ CB-SPC10 at $79.00 states every dimension the design uses: 12-1/4 inch overall height, 7-1/4 inch swivel radius, a plate slotted to take the same bolt pattern, 350 lb. A Service Caster model with a swivel lock was seen at $64.69 on a search listing with a 12-3/16 inch mounting height.',
+  'Parking: no wheel brake is designed. Two rubber wheel chocks are in the controls allowance for bench trials. Cart floor locks were read at $42.00 to $100.00, but the one that fits under the floor hangs about 11 mm above the ground when retracted, so it is not used.',
+  'Plates: SendCutSend lists .125 inch 6061-T6 and .125 inch 304 stainless for laser cutting, accepts DXF, has no minimum quantity, ships laser parts in 1 to 3 days and ships free in the US over $39. No quote was run, so the gusset and hanger lines stay allowances.',
   'Crush sleeves: $0.21 each in a batch and $0.30 for one build is an allowance, the same as the XL r1 study. Bolts, nuts and washers are observed prices.',
   'Run wheels: $60 each is an allowance. No 20 inch pneumatic wheel with a 5/8 inch bore and a suitable rating was found, so the 20 inch wheel remains an open selection.',
   'Gussets, hangers, axle stock, hinge, latches, brake, leveling feet, grip, rivet nuts, ridge pole and bedding tape are allowances. Search results suggested a heavy 36 inch stainless hinge can cost far more than the allowance; none of those pages was read.',
   'Brake: two wheelchair wheel-lock sets were read in a browser, Quickie push-to-lock at $110.00 a pair and a Medline pediatric set at $31.85 a pair. Both are made for specific wheelchair frames and neither is selected.',
-  'Front wheel: a 10 inch pneumatic swivel caster, Harbor Freight 63799, was read at $19.99 with a 300 lb working load and no swivel lock. A similar caster stands about 12 inches tall, above the deck, so it needs a raised front frame that this revision does not have.',
   'Stainless option: the stainless bolt is an observed $30.75 per 100. Stainless nuts and washers were not priced; the $0.23 per joint upgrade includes a $0.10 allowance for them.',
   'Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists.',
 ] as const
@@ -33,35 +35,40 @@ export const roverTubePrices = {
   light: { cents: 6573, basis: 'Observed 2026-11-12', url: 'https://www.metalsdepot.com/aluminum-products/aluminum-square-tube' as string | undefined },
   heavy: { cents: 11616, basis: 'Observed 2026-11-12', url: 'https://www.metalsdepot.com/aluminum-products/aluminum-square-tube' as string | undefined },
 }
+/** The same two tubes as 8 ft bars, which ship by parcel. Used for the one-carrier scenario and the buy list. */
+export const roverParcelPrices = { light: 4160, heavy: 5808 } as const
 const TUBE_LIGHT = roverTubePrices.light.cents; const TUBE_HEAVY = roverTubePrices.heavy.cents; const MILL_CENTS_PER_LB = 400; const STAINLESS_CENTS_PER_JOINT = 23
 export function roverCostLines(s: RoverSetup = roverStart) {
   const d = roverDimensions(s); const c = d.counts
-  const hundreds = (n: number) => Math.ceil(n / 100); const fasteners = c.bolts + c.handleBolts; const sheets = d.rail + s.ramp + 10 <= 2438.4 && s.width + 50.8 <= 1219.2 ? 1 : 2
+  const hundreds = (n: number) => Math.ceil(n / 100); const fasteners = c.bolts + c.handleBolts; const sheets = d.topRail + s.ramp + 10 <= 2438.4 && s.width + 50.8 <= 1219.2 ? 1 : 2
   return [
     { id: 'gussets', name: `${c.corner} corner and ${c.tee} tee gussets, laser cut 1/8 inch 6061`, batch: (c.corner + c.tee) * 160, one: (c.corner + c.tee) * 450, coverage: ['M01', 'M02'], evidence: 'RFQ', note: 'Two repeated aluminum profiles. Includes material, cutting and deburring.' },
     { id: 'hangers', name: `${c.hanger} stainless axle hangers`, batch: c.hanger * 400, one: c.hanger * 900, coverage: ['M03'], evidence: 'RFQ', note: 'One 304 stainless profile for all three wheels. Bore finishing after drawing review.' },
     s.wheel === 'trail'
-      ? { id: 'wheels', name: 'Three 15 inch pneumatic trail wheels, 4.00-8', batch: 9867, one: 9867, coverage: ['W01'], evidence: 'Observed 2026-11-12', url: 'https://www.zoro.com/zoro-select-pneumatic-wheel-15-316dia-435lb-400-8-1nwv4/i/G1932594/', note: '3 x $32.89, no bulk discount assumed. Ball bearings, 5/8 inch bore and a 4 inch hub are stated by the supplier.' }
+      ? { id: 'wheels', name: `${c.wheels} pneumatic trail wheels, 15 inch 4.00-8`, batch: c.wheels * 3289, one: c.wheels * 3289, coverage: ['W01'], evidence: 'Observed 2026-11-12', url: 'https://www.zoro.com/zoro-select-pneumatic-wheel-15-316dia-435lb-400-8-1nwv4/i/G1932594/', note: '$32.89 each, no bulk discount assumed. Ball bearings, 5/8 inch bore and a 4 inch hub are stated by the supplier.' }
       : s.wheel === 'path'
-      ? { id: 'wheels', name: 'Three 13 x 4 inch pneumatic path wheels', batch: 4497, one: 4497, coverage: ['W01'], evidence: 'Observed 2026-11-12', url: 'https://www.harborfreight.com/13-inch-x-4-inch-pneumatic-tire-67467.html', note: '3 x $14.99, no bulk discount assumed. Hub length and bearing type are not stated by the supplier.' }
-      : { id: 'wheels', name: 'Three matching 20 inch pneumatic wheels', batch: 18000, one: 18000, coverage: ['W01'], evidence: 'Allowance', note: 'No verified wheel candidate yet. See the allowance notes.' },
-    { id: 'axles', name: 'Three stock-shaft axles, sleeves, spacers, washers and cotters', batch: 1800, one: 4000, coverage: ['W02', 'W03', 'W04', 'W05', 'W06'], evidence: 'RFQ', note: 'Plain 5/8 inch shaft cut and cross-drilled. No threaded journals.' },
+      ? { id: 'wheels', name: `${c.wheels} pneumatic path wheels, 13 x 4 inch`, batch: c.wheels * 1499, one: c.wheels * 1499, coverage: ['W01'], evidence: 'Observed 2026-11-12', url: 'https://www.harborfreight.com/13-inch-x-4-inch-pneumatic-tire-67467.html', note: '$14.99 each, no bulk discount assumed. Hub length and bearing type are not stated by the supplier.' }
+      : { id: 'wheels', name: `${c.wheels} matching 20 inch pneumatic wheels`, batch: c.wheels * 6000, one: c.wheels * 6000, coverage: ['W01'], evidence: 'Allowance', note: 'No verified wheel candidate yet. See the allowance notes.' },
+    ...(d.swivel ? [{ id: 'caster', name: 'Front swivel caster, 10 inch pneumatic, with four bolts', batch: 1999 + 300, one: 1999 + 400, coverage: ['W07', 'H06'], evidence: 'Observed 2026-11-12 + bolt allowance', url: 'https://www.harborfreight.com/10-in-pneumatic-swivel-caster-63799.html', note: 'Harbor Freight 63799 at $19.99, 300 lb working load stated, no swivel lock. Mounting height not stated by the supplier.' }] : []),
+    { id: 'axles', name: `${c.wheels} stock-shaft axles, sleeves, spacers, washers and cotters`, batch: c.wheels * 600, one: c.wheels * 1350, coverage: ['W02', 'W03', 'W04', 'W05', 'W06'], evidence: 'RFQ', note: 'Plain 5/8 inch shaft cut and cross-drilled. No threaded journals.' },
     { id: 'fasteners', name: `${fasteners} sleeved bolted joints`, batch: Math.ceil(fasteners * (14.3 + 4.57 + 2 * 2.48)) + c.sleeves * 21, one: hundreds(fasteners) * (1625 + 519) + hundreds(2 * fasteners) * 310 + c.sleeves * 30, coverage: ['H01', 'H02', 'H03', 'H04', 'H05'], evidence: 'Observed 2026-11-12 + sleeve allowance', url: 'https://boltdepot.com/Product-Details?product=328', note: 'Zinc-plated grade 5 bolts, lock nuts and washers at Bolt Depot prices: per 1,000 for the batch, whole boxes of 100 for one build. Cut steel sleeves are an allowance.' },
     { id: 'panels', name: 'Floor and ramp panels, sealed 15/32 inch ACX plywood', batch: sheets * 5200 + 1200, one: sheets * 5200 + 2500, coverage: ['F01', 'R01'], evidence: 'Observed 2026-11-12 + sealing allowance', url: 'https://www.homedepot.com/b/Lumber-Composites-Plywood/15-32/N-5yc1vZbqm7Z1z0mcqq', note: `${sheets} sheet${sheets === 1 ? '' : 's'} at $52.00 plus edge and face sealing. Offcuts are charged.` },
     { id: 'ramp', name: 'Hinge, two latches, safety strap hardware and stand feet', batch: 4600, one: 6500, coverage: ['R02', 'R03', 'R04', 'R05', 'R06'], evidence: 'Allowance', note: 'Stainless continuous hinge, two draw latches, two leveling feet with tube inserts, carriage bolts.' },
-    { id: 'controls', name: 'Brake set, grip, tip-stop feet and floor fasteners', batch: 6200, one: 8500, coverage: ['B01', 'B02', 'S01', 'F02', 'F03', 'X01'], evidence: 'Allowance', note: 'Lever, cable and two wheel brakes are unselected. The allowance is not a brake design.' },
+    { id: 'controls', name: 'Wheel chocks, grip, tip-stop feet and floor fasteners', batch: 6200, one: 8500, coverage: ['B01', 'B02', 'S01', 'F02', 'F03', 'X01'], evidence: 'Allowance', note: 'Two rubber wheel chocks stand in for a parking brake during bench trials. No wheel brake is designed.' },
     { id: 'prints', name: 'Printed service parts and fixtures', batch: 2300, one: 2700, coverage: ['P-cap_heavy', 'P-cap_light', 'P-ramp_toe', 'P-ridge_saddle', 'P-fabric_clip', 'P-cable_clip', 'P-axle_cover', 'P-guide_butt', 'P-guide_run', 'P-guide_tee', 'P-coupon'], evidence: 'Computed volume + allowance', note: 'About 1.3 liters of solid part volume, most of it the three ramp toes. Priced as consumed filament with a reject reserve, not a printer.' },
     { id: 'labor', name: 'Cutting, drilling, deburring and assembly labor', batch: 13750, one: 37500, coverage: [], evidence: 'RFQ', note: 'Batch: 5.5 h at $25/h. One-off: 15 h. Roughly 300 tube-wall holes per carrier. Timing assumptions, not observed.' },
     { id: 'qa', name: 'Per-carrier inspection', batch: 1200, one: 2500, coverage: [], evidence: 'RFQ', note: 'Does not replace engineering qualification.' },
     { id: 'pack', name: 'Packaging', batch: 2500, one: 3500, coverage: [], evidence: 'RFQ', note: 'Large flat-pack carton set. Outbound freight is separate.' },
-    { id: 'freight', name: 'Inbound freight allocation', batch: 3000, one: 15000, coverage: [], evidence: 'RFQ', note: 'Truck freight for 21 ft and 24 ft bars and sheet goods. Unquoted.' },
+    { id: 'freight', name: 'Inbound freight allocation', batch: 3000, one: 9000, coverage: [], evidence: 'RFQ', note: 'Truck freight for long bars in a batch; parcel shipping for one build. Unquoted.' },
     { id: 'machine', name: 'Machine wear and shop consumables', batch: 600, one: 1000, coverage: [], evidence: 'RFQ', note: 'Drill bits, blades, jig wear.' },
   ]
 }
 export function roverEconomics(s: RoverSetup = roverStart, quantity = 100) {
   if (quantity !== 1 && quantity !== 100) throw new Error('Cost scenarios are one carrier or a 100-carrier batch.')
-  const light = packRoverStock(s, 'light', quantity); const heavy = packRoverStock(s, 'heavy', quantity)
-  const tube = Math.ceil((light.bars * TUBE_LIGHT + heavy.bars * TUBE_HEAVY) / quantity)
+  // One carrier is bought as 8 ft parcel bars; the batch as 21 ft and 24 ft truck bars.
+  const parcel = quantity === 1
+  const light = packRoverStock(s, 'light', quantity, parcel ? roverParcelStock.mm : undefined); const heavy = packRoverStock(s, 'heavy', quantity, parcel ? roverParcelStock.mm : undefined)
+  const tube = Math.ceil((light.bars * (parcel ? roverParcelPrices.light : TUBE_LIGHT) + heavy.bars * (parcel ? roverParcelPrices.heavy : TUBE_HEAVY)) / quantity)
   const textiles = roverTextileCost(s, quantity)
   const other = roverCostLines(s).reduce((total, row) => total + row[quantity === 1 ? 'one' : 'batch'], 0)
   const cogs = tube + other + textiles.total
