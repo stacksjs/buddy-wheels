@@ -1,10 +1,10 @@
 # Buddy Rover r0 bench assembly
 
-Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub82.55-path. All dimensions mm. BENCH DESIGN. NOT FOR ANIMAL USE. No payload, speed, distance, slope or surface rating exists. Buddy is owner-reported 140 lb; his measurements and suitability for a carrier are not established.
+Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub101.6-trail. All dimensions mm. BENCH DESIGN. NOT FOR ANIMAL USE. No payload, speed, distance, slope or surface rating exists. Buddy is owner-reported 140 lb; his measurements and suitability for a carrier are not established.
 
 ## What this revision is
 
-A large cut-to-fit carrier built from two wall thicknesses of 1 inch 6061-T6 square tube, three repeated flat metal profiles, plywood panels and printed service parts. The tailgate is the ramp: it folds down to a 8.9 degree walk-in with no step, and stands on its own two feet so the dog's weight on the threshold goes to the ground instead of tipping the carrier. Three matching wheels, here the 13 x 4 inch path wheel. Push handle with a fixed front wheel.
+A large cut-to-fit carrier built from 1 inch square aluminum tube, 1/8 inch wall 6061-T6 for the chassis and 1/16 inch wall 6063-T52 for the cabin, three repeated flat metal profiles, plywood panels and printed service parts. The tailgate is the ramp: it folds down to a 8.9 degree walk-in with no step, and stands on its own two feet so the dog's weight on the threshold goes to the ground instead of tipping the carrier. Three matching wheels, here the 15 inch trail wheel, 4.00-8. Push handle with a fixed front wheel.
 
 Coordinates: X forward, Y across, Z up. Origin on the ground under the rear axle.
 
@@ -19,13 +19,13 @@ Coordinates: X forward, Y across, Z up. Origin on the ground under the rear axle
 | Ramp length and width | 900 x 688 |
 | Ramp rise and incline | 139.9 rise, 8.9 degrees |
 | Rear axle ahead of the tailgate plane | 520 |
-| Wheelbase | 900.5 |
+| Wheelbase | 928.3 |
 | Handle height | 980 (38.6 in) |
-| Overall length, width over axle ends, height | 1991 x 995.75 x 1204 |
+| Overall length, width over axle ends, height | 2046.6 x 1008.45 x 1204 |
 | Ground clearance under the base gussets | 108.125 |
-| Wheel | 13 x 4 inch path wheel |
-| Assumed wheel hub through-length | 82.55 |
-| Estimated empty mass, arithmetic only | 44.4 kg (98 lb) |
+| Wheel | 15 inch trail wheel, 4.00-8 |
+| Assumed wheel hub through-length | 101.6 |
+| Estimated empty mass, arithmetic only | 47.4 kg (104 lb) |
 
 ## Stated geometry beside the reference trailer
 
@@ -38,35 +38,35 @@ Burley Bark Ranger XL figures are the maker's published numbers, read 2026-11-11
 | Interior height | 29.9 in | 37.4 in |
 | Interior volume ratio | 1.0 | 2.01 |
 | Entry | 9 in step-up at a tailgate | 8.9 degree ramp, no step |
-| Weight | 33 lb | about 98 lb estimated |
+| Weight | 33 lb | about 104 lb estimated |
 | Capacity | 100 lb stated by its maker | none. Untested bench design |
 
 Rover is much larger and much heavier. The mass is the price of a bolted frame and plywood panels and is the first thing a second revision should reduce.
 
 ## Planning statics, not test results
 
-With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 80 mm ahead of the rear axle. The front wheel then carries about 9% of that mass, and lifting the front wheel to steer takes roughly 99 N (22 lbf) down on the handle. A dog that stands at the tailgate moves the center behind the axle. The two tip-stop feet exist for that case and their setting and strength are unproven. A swiveling, lockable front wheel may be the right answer for walking pace and is not designed here.
+With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 80 mm ahead of the rear axle. The front wheel then carries about 9% of that mass, and lifting the front wheel to steer takes roughly 102 N (23 lbf) down on the handle. A dog that stands at the tailgate moves the center behind the axle. The two tip-stop feet exist for that case and their setting and strength are unproven. A swiveling, lockable front wheel may be the right answer for walking pace and is not designed here.
 
 ## Cut list
 
 | ID | Qty | Member | Stock | Cut |
 | --- | ---: | --- | --- | ---: |
-| C01 | 2 | Base side rail | .125 wall | 1250.8 |
-| C02 | 2 | Base end cross member | .125 wall | 700 |
-| C03 | 2 | Axle post | .125 wall | 965.2 |
-| C04 | 2 | Fork arm | .125 wall | 255.1 |
-| C05 | 2 | Fork stub post | .125 wall | 110.3 |
-| C06 | 2 | Ramp side curb rail | .125 wall | 900 |
-| C07 | 2 | Ramp under rib | .065 wall | 688 |
-| C08 | 2 | Ramp stand leg | .125 wall | 75.0748 |
-| C09 | 4 | Corner post | .065 wall | 965.2 |
-| C10 | 2 | Top side rail | .065 wall | 1250.8 |
-| C11 | 3 | Top cross tube | .065 wall | 700 |
-| C12 | 2 | Handle arm | .065 wall | 965.4 |
-| C13 | 1 | Handle grip tube | .065 wall | 750.8 |
-| C14 | 3 | Base intermediate cross member | .065 wall | 700 |
+| C01 | 2 | Base side rail | 1/8 wall 6061-T6 | 1250.8 |
+| C02 | 2 | Base end cross member | 1/8 wall 6061-T6 | 700 |
+| C03 | 2 | Axle post | 1/8 wall 6061-T6 | 965.2 |
+| C04 | 2 | Fork arm | 1/8 wall 6061-T6 | 282.9 |
+| C05 | 2 | Fork stub post | 1/8 wall 6061-T6 | 140.3 |
+| C06 | 2 | Ramp side curb rail | 1/8 wall 6061-T6 | 900 |
+| C07 | 2 | Ramp under rib | 1/16 wall 6063-T52 | 688 |
+| C08 | 2 | Ramp stand leg | 1/8 wall 6061-T6 | 75.0748 |
+| C09 | 4 | Corner post | 1/16 wall 6063-T52 | 965.2 |
+| C10 | 2 | Top side rail | 1/16 wall 6063-T52 | 1250.8 |
+| C11 | 3 | Top cross tube | 1/16 wall 6063-T52 | 700 |
+| C12 | 2 | Handle arm | 1/16 wall 6063-T52 | 965.4 |
+| C13 | 1 | Handle grip tube | 1/16 wall 6063-T52 | 750.8 |
+| C14 | 3 | Base intermediate cross member | 1/16 wall 6063-T52 | 700 |
 
-Total 8.51 m of .125 wall and 14.62 m of .065 wall. Base cross members sit at X = -532.7, -226.35, 95, 386.35, 692.7.
+Total 8.63 m of 1/8 inch wall 6061-T6 and 14.62 m of 1/16 inch wall 6063-T52. Base cross members sit at X = -532.7, -226.35, 95, 386.35, 692.7.
 
 ## Joint patterns
 
@@ -76,7 +76,7 @@ Every joint is a flat gusset with 1/4 inch bolts through steel crush sleeves. Ho
 | --- | ---: | --- | --- |
 | Corner gusset | 28 | Leg A 50 and 80. Leg B 35 and 65 | Corner posts on the outside face only, axle-post tops both faces, rail to cross member, roof corners, handle grip, ramp legs |
 | Tee gusset | 12 | Bar 30 each side. Stem 35 and 60 | Intermediate base cross members, mid roof bow, fork arms top and bottom |
-| Axle hanger, 13 x 4 inch path wheel | 8 | Bar 30 each side. Stem 75, 105. Axle bore at 41.1 | Both faces of each axle post and each fork stub |
+| Axle hanger, 15 inch trail wheel, 4.00-8 | 8 | Bar 30 each side. Stem 105, 135. Axle bore at 68.9 | Both faces of each axle post and each fork stub |
 
 Legs A and B alternate where two gussets meet on one tube, so bolts cross 15 mm apart and never share a station. Tube bores are 9.725 for the sleeves, plate holes 6.75, axle sleeve bores 19.25. All are nominal. Use the three printed drill guides for pilot centers and finish with metal tooling.
 
@@ -88,11 +88,11 @@ Legs A and B alternate where two gussets meet on one tube, so bolts cross 15 mm 
 4. Axle posts at X = 0 with paired hangers. The hanger bar bolts to the rail, the stem to the post. Fit the 19.05 axle sleeve through post and both hangers.
 5. Corner posts with one corner gusset on the outside face, leg A up the post, and washers on the inside.
 6. Top rails, three top cross tubes, corner gussets on top, tee gussets at the mid bow.
-7. Fork: two arms butt against the front cross member at Y = 84.05 each side, tee gussets above and below. Stub posts with paired hangers at the front axle, 900.5 ahead of the rear axle.
+7. Fork: two arms butt against the front cross member at Y = 68.175 each side, tee gussets above and below. Stub posts with paired hangers at the front axle, 928.3 ahead of the rear axle.
 8. Floor panel on bedding tape, fastened to the frame.
 9. Ramp: panel, two curb rails on top, two ribs underneath at 40 mm and mid length, stand legs on the hinge-end rib 60 mm in from each edge. Hinge leaves on the top faces of floor and ramp.
 10. Handle arms on the outside of the rear and axle posts at Z = 980, one 3 inch bolt per post. Grip tube between the arm ends.
-11. Wheels, washers and cotters. Rear stack between outer washer faces 142.7, front 202.85, each with 0.5 total end float.
+11. Wheels, washers and cotters. Rear stack between outer washer faces 149.05, front 171.1, each with 0.5 total end float.
 12. Tip-stop feet, brake, latches, safety strap. Then the cover.
 
 ## The ramp
@@ -101,7 +101,7 @@ Lowered, the panel runs from the deck at 151.9 down to the ground over 900. The 
 
 Raised, the ramp is the tailgate. Two draw latches hold it to the rear posts and the safety strap is a second, independent hold. The stand legs then point backward about 110 mm at shin height. The handle reaches 380 mm behind the tailgate. Stride clearance has to be checked by a runner before this layout is accepted.
 
-Each rear axle end stands 14.525 mm into the cabin, about 13 mm above the deck. Cover it and review it for fur, paws and hips.
+Each rear axle end stands 14.525 mm into the cabin, about 41 mm above the deck. Cover it and review it for fur, paws and hips.
 
 ## Printing
 

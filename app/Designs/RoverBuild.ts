@@ -9,7 +9,7 @@ import { roverMetalDxf, roverPartStl } from './RoverParts'
 
 export const roverSourcePath = 'designs/rover/r0'
 export const roverPublicPath = 'public/designs/rover/r0'
-export const roverMetalIds = ['tee_gusset', 'corner_gusset', 'axle_hanger_low', 'axle_hanger'] as const
+export const roverMetalIds = ['tee_gusset', 'corner_gusset', 'axle_hanger_mid', 'axle_hanger_low', 'axle_hanger'] as const
 export const roverEnvelope = [220, 220, 100] as const
 export const sha256 = (bytes: string | ArrayBuffer | Uint8Array) => new Bun.CryptoHasher('sha256').update(bytes).digest('hex')
 
@@ -40,8 +40,8 @@ Start with assembly.md, drawing.svg and bom.csv. materials.md covers the rain, w
 
 | Folder | Contents |
 | --- | --- |
-| parts/ | Eleven printable types at 1:1 mm in print orientation, plus four FIT_CHECK_ONLY plastic copies of the metal profiles |
-| metal/ | Four flat DXF profiles: corner gusset, tee gusset and one axle hanger for each wheel choice |
+| parts/ | Eleven printable types at 1:1 mm in print orientation, plus five FIT_CHECK_ONLY plastic copies of the metal profiles |
+| metal/ | Five flat DXF profiles: corner gusset, tee gusset and one axle hanger for each wheel choice |
 | cover-cut-schedule.csv, cover-panels.svg | Every fabric blank with seam allowance |
 
 Geometry is generated natively by the Stacks app in app/Designs/Rover*.ts and app/Designs/Solid.ts. There is no SCAD or STEP file for this design, and no OpenSCAD run was involved. Every mesh is checked for a closed, consistently wound, single body of positive volume inside a 220 x 220 x 100 mm print envelope. Those are digital checks only.

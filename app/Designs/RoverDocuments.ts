@@ -1,16 +1,16 @@
 import type { RoverSetup } from './Rover'
-import { referenceCarrier as ref, roverCode, roverDimensions, roverHardware as h, roverPartFile, roverParts, roverPlanningDogKg } from './Rover'
-import { roverAllowanceNotes, roverCostLines, roverCostModel, roverEconomics, roverPriceDate, roverPriceEvidence } from './RoverCost'
+import { referenceCarrier as ref, roverCode, roverDimensions, roverHardware as h, roverPartFile, roverParts, roverPlanningDogKg, roverTubeStock } from './Rover'
+import { roverAllowanceNotes, roverCostLines, roverCostModel, roverEconomics, roverPriceDate, roverPriceEvidence, roverTubePrices } from './RoverCost'
 import { roverCover, roverCoverSvg, roverMaterialAlternates, roverMaterials, roverTextileCost, roverTextileDate } from './RoverSoftGoods'
 import { signedMoney as money } from '../Storefront/Catalog'
 
 const csv = (rows: (string | number)[][]) => rows.map(row => row.map(v => `"${String(v).replaceAll('"', '""')}"`).join(',')).join('\n') + '\n'
 const inch = (n: number) => (n / 25.4).toFixed(1)
-const WALL = { heavy: '6061-T6 1 x 1 x .125 inch square tube', light: '6061-T6 1 x 1 x .065 inch square tube' } as const
+const WALL = { heavy: '6061-T6 1 x 1 x 1/8 inch square tube', light: '6063-T52 1 x 1 x 1/16 inch square tube' } as const
 
 export function roverPrintQuantities(s: RoverSetup): Record<string, number> {
   const c = roverDimensions(s).counts
-  return { cap_heavy: c.capHeavy, cap_light: c.capLight, ramp_toe: c.toe, ridge_saddle: c.saddle, fabric_clip: c.fabricClip, cable_clip: c.cableClip, axle_cover: c.axleCover, guide_butt: 1, guide_run: 1, guide_tee: 1, coupon: 1, tee_gusset: c.tee, corner_gusset: c.corner, axle_hanger: s.wheel === 'run' ? c.hanger : 0, axle_hanger_low: s.wheel === 'path' ? c.hanger : 0 }
+  return { cap_heavy: c.capHeavy, cap_light: c.capLight, ramp_toe: c.toe, ridge_saddle: c.saddle, fabric_clip: c.fabricClip, cable_clip: c.cableClip, axle_cover: c.axleCover, guide_butt: 1, guide_run: 1, guide_tee: 1, coupon: 1, tee_gusset: c.tee, corner_gusset: c.corner, axle_hanger: s.wheel === 'run' ? c.hanger : 0, axle_hanger_mid: s.wheel === 'trail' ? c.hanger : 0, axle_hanger_low: s.wheel === 'path' ? c.hanger : 0 }
 }
 export function roverBom(s: RoverSetup): string {
   const d = roverDimensions(s); const c = d.counts; const q = roverPrintQuantities(s); const w = d.wheel
@@ -20,7 +20,9 @@ export function roverBom(s: RoverSetup): string {
     ['M01', c.corner, 'Corner gusset', '6061-T6 3.175 mm, metal/corner_gusset.dxf', 'One profile, flipped for the opposite hand. Single outside plate at the eight corner-post joints. Fatigue and bearing review pending'],
     ['M02', c.tee, 'Tee gusset', '6061-T6 3.175 mm, metal/tee_gusset.dxf', 'Single-sided at base cross members and roof bow; paired at the fork'],
     ['M03', c.hanger, 'Axle hanger', `304 stainless 3.175 mm, metal/${w.hanger}.dxf`, 'Paired on every axle post and fork stub. Finish the 19.25 mm bore after drawing review'],
-    s.wheel === 'path'
+    s.wheel === 'trail'
+      ? ['W01', 3, 'Pneumatic wheel candidate, 15 inch 4.00-8', `Zoro Select 1NWV4; 15 3/16 inch OD, 3 1/8 inch wide, 5/8 inch bore, ball bearings, hub length stated 4 inch; configured ${s.hub} mm`, 'Supplier states a 435 lb wheel load. That does not rate the carrier. Measure the delivered hub before cutting an axle']
+      : s.wheel === 'path'
       ? ['W01', 3, 'Pneumatic wheel candidate, 13 x 4 inch', `HAUL-MASTER 67467; 330.2 OD, 101.6 wide, 15.875 bore; hub through-length assumed ${s.hub} mm`, 'Same candidate as the XL wheelchair. Hub length is not confirmed by the supplier. A garden-cart wheel for walking pace; its supplier rating is not a carrier rating']
       : ['W01', 3, 'Pneumatic wheel, 20 inch', `508 OD, about ${w.tire} wide, 15.875 bore; hub through-length assumed ${s.hub} mm`, 'OPEN SELECTION. No verified wheel with this bore and a suitable rating has been found'],
     ['W02', 2, 'Rear stub axle', `Plain 15.875 steel shaft; cut ${d.rearShaft} mm; two 3.2 cross-holes 8 mm from each end`, 'Unkeyed precision shaft. Never a threaded journal'],
@@ -120,7 +122,7 @@ Configuration ${roverCode(s)}. All dimensions mm. BENCH DESIGN. NOT FOR ANIMAL U
 
 ## What this revision is
 
-A large cut-to-fit carrier built from two wall thicknesses of 1 inch 6061-T6 square tube, three repeated flat metal profiles, plywood panels and printed service parts. The tailgate is the ramp: it folds down to a ${d.rampAngle.toFixed(1)} degree walk-in with no step, and stands on its own two feet so the dog's weight on the threshold goes to the ground instead of tipping the carrier. Three matching wheels, here the ${d.wheel.label}. Push handle with a fixed front wheel.
+A large cut-to-fit carrier built from 1 inch square aluminum tube, 1/8 inch wall 6061-T6 for the chassis and 1/16 inch wall 6063-T52 for the cabin, three repeated flat metal profiles, plywood panels and printed service parts. The tailgate is the ramp: it folds down to a ${d.rampAngle.toFixed(1)} degree walk-in with no step, and stands on its own two feet so the dog's weight on the threshold goes to the ground instead of tipping the carrier. Three matching wheels, here the ${d.wheel.label}. Push handle with a fixed front wheel.
 
 Coordinates: X forward, Y across, Z up. Origin on the ground under the rear axle.
 
@@ -167,9 +169,9 @@ With a ${roverPlanningDogKg} kg (160 lb) planning mass centered in the cabin, it
 
 | ID | Qty | Member | Stock | Cut |
 | --- | ---: | --- | --- | ---: |
-${d.cuts.map(cut => `| ${cut.id} | ${cut.qty} | ${cut.name} | ${cut.wall === 'heavy' ? '.125 wall' : '.065 wall'} | ${cut.length} |`).join('\n')}
+${d.cuts.map(cut => `| ${cut.id} | ${cut.qty} | ${cut.name} | ${cut.wall === 'heavy' ? '1/8 wall 6061-T6' : '1/16 wall 6063-T52'} | ${cut.length} |`).join('\n')}
 
-Total ${d.heavyM.toFixed(2)} m of .125 wall and ${d.lightM.toFixed(2)} m of .065 wall. Base cross members sit at X = ${d.stations.join(', ')}.
+Total ${d.heavyM.toFixed(2)} m of 1/8 inch wall 6061-T6 and ${d.lightM.toFixed(2)} m of 1/16 inch wall 6063-T52. Base cross members sit at X = ${d.stations.join(', ')}.
 
 ## Joint patterns
 
@@ -282,13 +284,13 @@ Checked ${roverPriceDate}, USD, integer cents, native Bun arithmetic. Configurat
 
 ## Result
 
-At 100 carriers the modeled landed manufacturing cost is **${money(batch.cogs)} each** at listed prices. A single build at retail quantities is **${money(one.cogs)}**. The first count of this design, on November 11, was $2,037.93 and $3,254.89, with 20 inch wheels and the original cover.
+At 100 carriers the modeled landed manufacturing cost is **${money(batch.cogs)} each** at listed prices. A single build at retail quantities is **${money(one.cogs)}**. The first count of this design, on November 11, was $2,037.93 and $3,254.89, with 20 inch wheels, the original cover and most prices as allowances.
 
 The catalog's provisional Run price is ${money(batch.retail)}, so the 30% gross-margin gate allows ${money(batch.maxCogs)} and this design ${batch.meetsCostGate ? 'meets it' : `still misses it by ${money(-batch.headroom)}`}. To pass the same gate at this cost the price would have to be about ${money(batch.retailForGate)}. The catalog price is unchanged pending the owner's decision.
 
-If the tube is bought by weight, the picture changes. ${money(batch.tube)} of the total is ${dims.tubeLb} lb of aluminum tube priced as cut-to-order retail bars, close to five dollars a foot. A 100-carrier batch is about ${Math.round(dims.tubeLb * 100 / 100) * 100 >= 1000 ? (dims.tubeLb * 100 / 2000).toFixed(1) + ' tons' : Math.round(dims.tubeLb * 100) + ' lb'} of one extrusion and would be bought from a mill or distributor. At an assumed $4.00 per pound with 8% scrap the tube line falls to ${money(batch.tubeMill)} and the total to **${money(batch.cogsMill)}**, which a price near ${money(batch.retailForGateMill)} would carry. That rate is an assumption with no quote behind it. Getting that quote is the single most valuable next step on cost.
+If the tube is bought by weight, it drops again. ${money(batch.tube)} of the total is ${dims.tubeLb} lb of aluminum tube priced as 21 ft and 24 ft stock bars at $3.13 and $4.84 per foot. A 100-carrier batch is about ${(dims.tubeLb * 100 / 2000).toFixed(1)} tons of two extrusions and would be bought from a mill or distributor. At an assumed $4.00 per pound with 8% scrap the tube line falls to ${money(batch.tubeMill)} and the total to **${money(batch.cogsMill)}**, which a price near ${money(batch.retailForGateMill)} would carry. That rate is an assumption with no quote behind it.
 
-For scale, the reference trailer sold for ${money(roverPriceEvidence[2].price)} at one retailer on the check date, with a 100 lb stated capacity and a 36.2 x 22.4 x 29.9 inch interior. Rover's cabin is about twice that volume. Rover does not reach that price in either scenario.
+For scale, the reference trailer sold for ${money(roverPriceEvidence[6].price)} at one retailer on the check date, with a 100 lb stated capacity and a 36.2 x 22.4 x 29.9 inch interior. Rover's cabin is about twice that volume. Rover does not reach that price in either scenario.
 
 ## What changed since the first count
 
@@ -298,25 +300,26 @@ For scale, the reference trailer sold for ${money(roverPriceEvidence[2].price)} 
 | Hook and loop instead of six zippers; roof liner made optional; corner seams lapped, not taped | about -$55 | Storm panels are slower to close; less sun insulation unless the liner is added |
 | Listed quantity tiers used where the batch reaches them: wall fabric, liner, clear panel rolls | about -$20 | None. They are published prices |
 | Sewing time 240 to 200 minutes | -$20.00 | An assumption either way |
-| Zinc-plated grade 5 hardware for Run; stainless becomes the salt-use upgrade | about -$50 | Add ${money(batch.stainlessUpgrade)} for stainless before beach use |
-| Exterior BC plywood instead of marine | -$80.00 | Marine plywood returns for salt use. Price is from an unverified search result |
+| Zinc-plated grade 5 hardware for Run, at prices read on the supplier page; stainless becomes the salt-use upgrade | about -$81 | Add ${money(batch.stainlessUpgrade)} for stainless before beach use. Cut sleeves are still an allowance |
+| Exterior ACX plywood at an observed $52.00 a sheet instead of marine | -$73.00 | Marine plywood returns for salt use |
 | Intermediate cross members and ramp ribs in thin-wall tube | about -$40 | Members checked by hand arithmetic only |
 | One gusset instead of two at the eight corner-post joints | -$12.80 | Corner posts carry the cover, not the dog |
 | Assembly time 6 to 5.5 hours | -$12.50 | An assumption either way |
-| 13 x 4 inch path wheels at an observed $14.99 instead of a $60 allowance for 20 inch wheels | -$135.03 | A garden-cart wheel for walking pace, heavier to push at a run. The 20 inch wheel stays as an option |
+| A 15 inch pneumatic wheel at an observed $32.89, with ball bearings, a stated hub length and a 435 lb supplier load figure, instead of a $60 allowance for a 20 inch wheel nobody has found | -$81.33 | Smaller than a running wheel. The 13 inch path wheel at $14.99 saves a further $53.70; the 20 inch wheel stays as an option |
+| Tube bought as 21 ft and 24 ft stock bars at prices read on the supplier page, with the cabin and secondary members in 1/16 inch 6063-T52 | about -$136 | 6063-T52 is softer than 6061-T6, so it is kept out of the chassis. Long bars ship by truck |
 
 ## Where the money goes
 
 | Line | One carrier | 100-carrier allocation | Evidence |
 | --- | ---: | ---: | --- |
-| Aluminum tube, whole 12-foot bars with kerf | ${money(one.tube)} | ${money(batch.tube)} | .065 wall observed, .125 wall allowance |
+| Aluminum tube, whole stock bars with kerf | ${money(one.tube)} | ${money(batch.tube)} | Observed 2026-11-12 |
 ${lines.map(l => `| ${l.name} | ${money(l.one)} | ${money(l.batch)} | ${l.evidence} |`).join('\n')}
 | Weather cover, floor set and ramp surface | ${money(one.textiles.total)} | ${money(batch.textiles.total)} | Listed materials + assumed sewing |
 | **Landed manufacturing** | **${money(one.cogs)}** | **${money(batch.cogs)}** | Mostly unquoted |
 
 ${lines.map(l => `- **${l.name}:** ${l.note}`).join('\n')}
 
-Tube packing at 100 carriers: ${batch.light.bars} bars of .065 wall and ${batch.heavy.bars} bars of .125 wall. One carrier needs ${one.light.bars} and ${one.heavy.bars} whole bars.
+Tube packing at 100 carriers: ${batch.light.bars} bars of 1/16 inch wall, 21 ft each, and ${batch.heavy.bars} bars of 1/8 inch wall, 24 ft each. One carrier needs ${one.light.bars} and ${one.heavy.bars} whole bars.
 
 ## Cover and soft goods detail
 
@@ -338,9 +341,9 @@ ${roverAllowanceNotes.map(n => `- ${n}`).join('\n')}
 
 ## What would bring it down further
 
-1. A tube quote. See the mill-quantity paragraph above. Nothing else moves the total as much.
+1. A tube quote. See the mill-quantity paragraph above.
 2. Joints. ${roverCostLines(s).find(l => l.id === 'fasteners')!.name} and the labor to drill for them come to about ${money(roverCostLines(s).find(l => l.id === 'fasteners')!.batch + roverCostLines(s).find(l => l.id === 'labor')!.batch)}. Welded or riveted sub-frames, or purpose-made corner fittings, remove most of both and several kilograms. That needs a fabricator's quote.
-3. Wheels and brake. The path wheel is an observed $14.99 each. The 20 inch run wheel remains an unverified $60 allowance and adds ${money(roverCostLines({ ...s, wheel: 'run' }).find(l => l.id === 'wheels')!.batch - roverCostLines({ ...s, wheel: 'path' }).find(l => l.id === 'wheels')!.batch)}. No brake is selected.
+3. Brake and front wheel. No brake is selected; the two wheelchair wheel-lock sets that were read cost $31.85 and $110.00 a pair and are made for specific chairs. A 10 inch swivel caster at $19.99 would make steering far lighter, but it stands above the deck and needs a raised front frame.
 4. The cover is now ${money(batch.textiles.total)}. The ramp surface, floor pad and mesh are the largest material lines left; sewing is ${money(batch.textiles.labor)}.
 
 Selling-cost lines for the provisional price, per carrier at 100: payment fee ${money(batch.fee)}, returns reserve ${money(batch.reserve)}, support ${money(batch.support)}, acquisition ${money(batch.acquisition)}. Contribution before fixed overhead: ${money(batch.contribution)}.
@@ -349,12 +352,59 @@ Rebuild with \`./buddy design:rover\`. Inspect at https://buddywheels.org/design
 `
 }
 
+/** What one builder would actually buy for one carrier: whole purchasing units, where from, and how sure the price is. */
+export function roverBuyList(s: RoverSetup): string {
+  const one = roverEconomics(s, 1); const d = roverDimensions(s); const textiles = roverTextileCost(s, 1)
+  const skip = new Set(['labor', 'qa', 'pack', 'freight', 'machine'])
+  const lines = roverCostLines(s).filter(l => !skip.has(l.id))
+  const tubeRows = [
+    { name: `${one.light.bars} bars of 1 x 1 x 1/16 inch 6063-T52 square tube, ${roverTubeStock.light.label} each`, cents: one.light.bars * roverTubePrices.light.cents, basis: roverTubePrices.light.basis, url: roverTubePrices.light.url },
+    { name: `${one.heavy.bars} bars of 1 x 1 x 1/8 inch 6061-T6 square tube, ${roverTubeStock.heavy.label} each`, cents: one.heavy.bars * roverTubePrices.heavy.cents, basis: roverTubePrices.heavy.basis, url: roverTubePrices.heavy.url },
+  ]
+  const parts = [...tubeRows, ...lines.map(l => ({ name: l.name, cents: l.one, basis: l.evidence, url: (l as { url?: string }).url }))]
+  const cover = textiles.rows.map(r => ({ name: `${r.name}: ${r.units} ${r.unit}`, cents: r.purchase, basis: 'Listed price', url: roverMaterials.find(m => m.id === r.id)!.url }))
+  const sum = (rows: { cents: number }[]) => rows.reduce((n, r) => n + r.cents, 0)
+  const firm = sum([...parts, ...cover].filter(r => r.url)); const total = sum(parts) + sum(cover)
+  const row = (r: { name: string, cents: number, basis: string, url?: string }) => `| ${r.url ? `[${r.name}](${r.url})` : r.name} | ${money(r.cents)} | ${r.basis} |`
+  return `# Buddy Rover r0 buy list for one carrier
+
+Configuration ${roverCode(s)}. Checked ${roverPriceDate}, USD, before tax and shipping. This is what one builder buys for one bench carrier, in whole bars, sheets, yards and packs, so it is more than the material the carrier consumes. It is a bench build. Nothing here is rated or approved for carrying an animal.
+
+**Materials to buy: about ${money(total)}.** ${money(firm)} of that has a supplier page behind it. The remaining ${money(total - firm)} is allowance and needs a quote or a shop visit. Your own time is extra: the study assumes about 15 hours of cutting, drilling and assembly and ${Math.round(textiles.minutes / 60)} hours of sewing.
+
+## Frame, running gear and hardware
+
+| Item | Cost | Basis |
+| --- | ---: | --- |
+${parts.map(row).join('\n')}
+| **Subtotal** | **${money(sum(parts))}** | |
+
+Cut from the bars with cut-list.csv. Send metal/*.dxf to a laser or waterjet shop for the ${d.counts.corner} corner gussets, ${d.counts.tee} tee gussets and ${d.counts.hanger} axle hangers. The parts list in bom.csv has every specification.
+
+## Cover, floor and ramp surface
+
+| Item | Cost | Basis |
+| --- | ---: | --- |
+${cover.map(row).join('\n')}
+| **Subtotal** | **${money(sum(cover))}** | |
+
+Cut from cover-cut-schedule.csv. A 10% allowance for sewing mistakes is not in this subtotal.
+
+## Before you order
+
+1. Measure the dog and set the cabin size first. Every tube cut and fabric blank follows from it.
+2. Buy one wheel and measure its hub before cutting an axle or ordering hangers.
+3. Print the clearance coupon and one cap, then the rest.
+4. Read the release gates in assembly.md. This list builds a bench carrier for fit and handling trials with ballast, not a finished product.
+`
+}
+
 export function roverDocuments(s: RoverSetup): Record<string, string> {
   const d = roverDimensions(s)
   return {
     'assembly.md': roverAssembly(s), 'bom.csv': roverBom(s), 'materials.md': roverMaterialsMarkdown(s), 'cover-cut-schedule.csv': roverCoverCsv(s), 'cover-panels.svg': roverCoverSvg(s), 'drawing.svg': roverDrawing(s),
     'cut-list.csv': csv([['ID', 'Quantity', 'Member', 'Stock', 'Cut mm'], ...d.cuts.map(c => [c.id, c.qty, c.name, WALL[c.wall as 'heavy' | 'light'], c.length])]),
-    'cost-notes.md': roverCostMarkdown(s), 'cost-model.json': JSON.stringify(roverCostModel(s), null, 2) + '\n',
+    'cost-notes.md': roverCostMarkdown(s), 'buy-list.md': roverBuyList(s), 'cost-model.json': JSON.stringify(roverCostModel(s), null, 2) + '\n',
     'setup.json': JSON.stringify({ revision: 'r0', product: 'Buddy Rover', ...s, dimensions: { ...d, rampAngleRad: undefined }, status: 'BENCH_ONLY_NOT_ANIMAL_USE', ownerReportedWeightLb: 140, fitted: false, loadRated: false }, null, 2) + '\n',
   }
 }

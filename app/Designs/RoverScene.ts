@@ -32,13 +32,13 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
   const rod = (id: string, radius: number, length: number, center: V, dir: V, color: string, innerRadius = 0) => { const [u, v] = basis(dir); add(id, { kind: 'cylinder', radius, innerRadius, length }, color, place(u, v, center)) }
   const slab = (id: string, size: V, center: V, u: V, v: V, color: string) => add(id, { kind: 'box', size }, color, place(u, v, center))
   /** A flat profile on the tube face that looks toward `out`. Local +x goes to a, local +y to b. */
-  const gusset = (id: string, part: 'corner_gusset' | 'tee_gusset' | 'axle_hanger' | 'axle_hanger_low', datum: V, out: V, a: V, b: V) => {
+  const gusset = (id: string, part: 'corner_gusset' | 'tee_gusset' | 'axle_hanger' | 'axle_hanger_mid' | 'axle_hanger_low', datum: V, out: V, a: V, b: V) => {
     const n = crossV(a, b); const face = add3(datum, scale(out, t / 2))
     add(id, stl(part), part.startsWith('axle_hanger') ? steel : frame, place(a, b, dot(n, out) > 0 ? face : add3(face, scale(out, h.plate))))
   }
   const cap = (id: string, heavy: boolean, end: V, out: V) => { const n = scale(out, -1); const [u, v] = basis(n); add(id, stl(heavy ? 'cap_heavy' : 'cap_light'), accent, place(u, v, add3(end, scale(out, 3)))) }
   const wheel = (id: string, center: V) => {
-    const rim = d.R - (s.wheel === 'path' ? 62 : 42)
+    const rim = d.wheel.rim
     rod(id + '-tire', d.R, d.tire, center, [0, 1, 0], '#29322d', rim)
     rod(id + '-rim', rim, 6, center, [0, 1, 0], '#8b958e', 20)
     rod(id + '-hub', 20, s.hub, center, [0, 1, 0], steel, h.axle / 2)

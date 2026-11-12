@@ -51,3 +51,4 @@ The catalog's weight and height bands are planning inputs, not proven load ratin
 - [Rover materials and weather system: rain, wind, sun, sand and snow](product/rover-materials.md)
 - [Rover r0 cost study and the $399 finding](business/rover-r0-costs.md)
 - [Rover r0 design files](../designs/rover/r0/README.md)
+- [Rover r0 buy list for one carrier, with supplier links](../designs/rover/r0/buy-list.md)

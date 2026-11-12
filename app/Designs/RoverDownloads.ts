@@ -13,6 +13,7 @@ const single: Record<string, [string, string, string]> = {
   cuts: ['cut-list.csv', 'text/csv; charset=utf-8', '-cut-list.csv'],
   drawing: ['drawing.svg', 'image/svg+xml', '-drawing.svg'],
   costs: ['cost-notes.md', 'text/markdown; charset=utf-8', '-cost-notes.md'],
+  buylist: ['buy-list.md', 'text/markdown; charset=utf-8', '-buy-list.md'],
 }
 /** Configured documents plus the published geometry, re-proven against freshly generated meshes before delivery. */
 export async function roverDownload(root: string, artifact: string, setup: RoverSetup): Promise<Response> {
