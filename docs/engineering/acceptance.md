@@ -173,6 +173,8 @@ Production verification completed November 12, 2026 (UTC). Native `buddy deploy 
 
 The sixth pass was deployed natively at commit `baeff07` on November 12, 2026 (UTC), GitHub deployment `7743471602`, after CI passed on that commit. On the public site the studio, product page and shop returned 200, configured kits for both front options returned 200, the build guide, buy list and drilling schedule downloads returned 200, an out-of-range setup returned 422 and the checkout gate returned 409. The published cost study read $1,481.08, the served build guide named the no-account quote route and the new spindle and no longer mentioned a threaded insert, and all 38 published Rover assets matched their manifest hashes and the committed files. The studio was checked in a local browser for this release, not in a browser against production.
 
+- The Rover catalog prices changed on November 12, 2026 at the owner's instruction: Run $999, Coast $1,049, Snow $1,099, All-season $1,199. The starting cabin grew to 1300 x 700 x 1000 mm with a 1000 mm ramp at about 8 degrees. The counted cost at that size is $1,538.35 per carrier at 100 units, so every configuration sells below its counted cost; the unit economics table, the cost study and the studio state this, and orders stay closed.
+
 ## Physical product gate
 
 No production CAD/STL/3MF, qualified print specification, structural test report, veterinary fitting study, certified load rating, production inventory, supplier quotes, insurance, final return/warranty terms, live payment provider or customer order exists. Follow docs/product/validation.md before enabling sales or using a prototype on an animal.

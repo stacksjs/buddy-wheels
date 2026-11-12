@@ -70,9 +70,9 @@ try {
   assert.equal(badRedirect.status, 422)
   await route('/rover?mode=snow')
   assert.equal(await cdp.evaluate("document.querySelector('meta[property=\"og:image\"]').content"), 'https://buddywheels.org/images/buddy-rover.webp')
-  await waitFor(async () => (await text('[data-rover-price]')).includes('$499.00'))
+  await waitFor(async () => (await text('[data-rover-price]')).includes('$1,099.00'))
   assert.equal(await cdp.evaluate("document.querySelector('.rover-photo img').getAttribute('src')"), '/images/buddy-rover-snow.webp')
-  for (const [mode, price] of [['run', '$399.00'], ['coast', '$449.00'], ['all-season', '$599.00'], ['snow', '$499.00'], ['coast', '$449.00']]) {
+  for (const [mode, price] of [['run', '$999.00'], ['coast', '$1,049.00'], ['all-season', '$1,199.00'], ['snow', '$1,099.00'], ['coast', '$1,049.00']]) {
     await click(cdp, `[data-mode="${mode}"]`)
     await waitFor(async () => (await text('[data-rover-price]')).includes(price))
   }

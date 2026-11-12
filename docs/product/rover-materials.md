@@ -1,6 +1,6 @@
 # Buddy Rover r0 materials and weather system
 
-Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub101.6-trail-swivel310. Supplier pages read 2026-11-11 unless a row says otherwise. These are costing candidates and a design intent. No fabric has been bought, sewn, soaked, sun-aged or tested, and nothing here is a waterproof, UPF or temperature claim.
+Configuration rover-r0-l1300-w700-h1000-r1000-a560-g1000-hub101.6-trail-swivel310. Supplier pages read 2026-11-11 unless a row says otherwise. These are costing candidates and a design intent. No fabric has been bought, sewn, soaked, sun-aged or tested, and nothing here is a waterproof, UPF or temperature claim.
 
 ## How the cabin handles weather
 
@@ -12,7 +12,7 @@ Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub101.6-trail-swivel310. 
 | Heat | Three large mesh windows plus a high rear vent that stays open under the roof overhang even with storm panels down. | Airflow and temperature limits. A closed cabin is not safe in heat until measured. |
 | Cold and snow | Clear panel with a stated -20 F cold-crack rating, EVA floor pad under the liner. | Panel handling with gloves, hook and loop packed with snow, icing, condensation. |
 | Sand and salt | Aluminum frame and gussets, stainless hangers and rings, rinse-out liner. The Run hardware is zinc-plated steel and the panels exterior plywood; salt use needs the stainless fastener and marine plywood upgrades. | Fastener, sleeve and axle corrosion, sand in bearings and hook tape. |
-| Wet paws on the ramp | 5 mm diamond EVA surface between two 25 mm curb rails, printed threshold toes at the ground edge. | Grip when wet at 8.9 degrees, claw wear. |
+| Wet paws on the ramp | 5 mm diamond EVA surface between two 25 mm curb rails, printed threshold toes at the ground edge. | Grip when wet at 8.0 degrees, claw wear. |
 
 ## Layers and candidates
 
@@ -44,23 +44,23 @@ Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub101.6-trail-swivel310. 
 
 ## Cut schedule for this configuration
 
-Cover height 1016 mm, window sill 350 mm above the base rail, window height 556 mm, rear header 150 mm. All blanks are rectangles with 15 mm seam allowance included. See cover-cut-schedule.csv and cover-panels.svg.
+Cover height 1066 mm, window sill 350 mm above the base rail, window height 606 mm, rear header 150 mm. All blanks are rectangles with 15 mm seam allowance included. See cover-cut-schedule.csv and cover-panels.svg.
 
 | ID | Qty | Piece | Material | Width | Length |
 | --- | ---: | --- | --- | ---: | ---: |
-| P01 | 1 | Roof, one piece over the ridge | roof | 885 | 1331 |
-| P02 | 2 | Side wall | wall | 1046 | 1281 |
-| P03 | 1 | Front wall | wall | 1046 | 781 |
+| P01 | 1 | Roof, one piece over the ridge | roof | 885 | 1431 |
+| P02 | 2 | Side wall | wall | 1096 | 1381 |
+| P03 | 1 | Front wall | wall | 1096 | 781 |
 | P04 | 1 | Rear header above the tailgate | wall | 210 | 781 |
-| P05 | 2 | Tailgate wind gusset | wall | 200 | 930 |
-| M01 | 2 | Side window mesh | mesh | 586 | 1121 |
-| M02 | 1 | Front window mesh | mesh | 586 | 670 |
+| P05 | 2 | Tailgate wind gusset | wall | 200 | 1030 |
+| M01 | 2 | Side window mesh | mesh | 636 | 1221 |
+| M02 | 1 | Front window mesh | mesh | 636 | 670 |
 | M03 | 1 | Rear header mesh | mesh | 120 | 670 |
-| V01 | 2 | Side storm panel | clear | 616 | 1151 |
-| V02 | 1 | Front storm panel | clear | 616 | 700 |
-| L01 | 1 | Floor tub liner | liner | 860 | 1360 |
+| V01 | 2 | Side storm panel | clear | 666 | 1251 |
+| V02 | 1 | Front storm panel | clear | 666 | 700 |
+| L01 | 1 | Floor tub liner | liner | 860 | 1460 |
 | L02 | 1 | Threshold flap | liner | 200 | 688 |
-| F01 | 2 | Floor pad half | pad | 700 | 600 |
+| F01 | 2 | Floor pad half | pad | 700 | 650 |
 
 ## Sewing and sealing notes
 

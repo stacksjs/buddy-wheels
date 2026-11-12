@@ -1,6 +1,6 @@
 # Buddy Rover r0 build guide
 
-Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub101.6-trail-swivel310. All dimensions mm unless marked. Read this once to the end before ordering anything.
+Configuration rover-r0-l1300-w700-h1000-r1000-a560-g1000-hub101.6-trail-swivel310. All dimensions mm unless marked. Read this once to the end before ordering anything.
 
 **What this builds.** A bench carrier for checking fit, handling and the ramp with sandbags. It has no load rating, an untested parking brake, no brake for slowing while moving, and no test behind it. Do not put a dog in it until the release gates at the end are met.
 
@@ -20,7 +20,7 @@ The plates are cut by a laser-cutting service from the DXF files in the kit. You
 
 1. Measure the dog lying stretched out, sitting, and across the shoulders. Add room to shift position.
 2. Open https://buddywheels.org/design-studio-rover, set clear length, width and height, and download the kit. Every cut length, hole position and fabric blank below changes with those three numbers.
-3. This guide is for 1200 x 700 x 950 clear, a 900 ramp at 8.9 degrees, 15 inch trail (4.00-8) wheels and a swivel front caster.
+3. This guide is for 1300 x 700 x 1000 clear, a 1000 ramp at 8.0 degrees, 15 inch trail (4.00-8) wheels and a swivel front caster.
 
 ## 3. Order in this sequence
 
@@ -37,13 +37,13 @@ Order the wheel and caster first, because two dimensions in the design come from
 | D | Bolts, nuts, washers | [Bolt Depot](https://boltdepot.com/Product-Details?product=328): 1/4-20 x 2 inch grade 5 zinc hex bolt 328, lock nut 2624, SAE washer 2976 | 2 boxes of 100 bolts, 2 of nuts, 4 of washers | You need 170 bolts, plus 4 at 3 inch long for the handle and 4 at 5/16-18 x 2-1/2 inch for the caster |
 | D | Sleeve tube | [Online Metals DOM steel tube, 3/8 inch OD x .049 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-375-od-x-0-049-wall-x-0-28-id-carbon-steel-round-tube-a513-type-5-dom/pid/7754), $11.66 per 6 ft | 3 lengths of 6 ft | Cut into 178 sleeves, each 25.4 long |
 | D | Axle parts | [Online Metals DOM tube, 3/4 inch OD x .065 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-75-od-x-0-065-wall-x-0-62-id-carbon-steel-round-tube-a513-type-5-dom/pid/7765), $4.99 per foot. A 5/8 inch x 3 ft plain steel rod from a hardware store, about $20.57. [Bolt Depot](https://boltdepot.com) 5/8 inch SAE washers at $0.15 and 1/8 x 1-1/2 inch cotter pins at $0.07 | 1 ft of tube, 1 rod, 4 washers, 4 cotters | You need 350 of rod. Never use threaded rod as an axle |
-| E | Plywood | [Home Depot 15/32 inch ACX sanded pine](https://www.homedepot.com/b/Lumber-Composites-Plywood/15-32/N-5yc1vZbqm7Z1z0mcqq), $52.00 a sheet | 1 | Floor 1250.8 x 750.8 and ramp 900 x 688. Plus exterior sealer |
-| F | Ramp hardware | [Zoro Select 2ZFK4 stainless piano hinge, 36 inch](https://www.zoro.com/zoro-select-piano-hinge-stainless-steel-full-surface-mounting-1-in-leaf-w-x-36-in-leaf-h-stainless-steel-2zfk4/i/G1671966/), $18.19. [Southco TL-20-202-52 stainless draw latch](https://www.zoro.com/southco-toggle-style-draw-latch-small-size-concealed-mount-stainless-steel-passivated-tl-20-202-52/i/G115615363/), $11.89 | 1 hinge, 2 latches, 16 carriage bolts 1/4-20 x 2 inch (Bolt Depot 2754, $0.16) | The hinge is unpunched: cut it to 680 and drill it. Check the latch comes with its keeper |
-| F | Handle, floor and parking | [S&W BSW-1Z 3/8-16 swivel leveling mount](https://www.zoro.com/s-w-manufacturing-level-mount-swivel-stud-38-16-1-14-in-bsw-1z/i/G1257593/) in its tall version, $11.59. [Harbor Freight 96479 rubber wheel chock](https://www.harborfreight.com/solid-rubber-wheel-chock-96479.html), $7.49, in store. Hardware store: 1/4-20 rivet nuts, foam grip tube for a 1 inch bar, 1/8 inch foam strip | 2 tall leveling mounts, 2 chocks, 27 rivet nuts and flat-head screws 1/4-20, about 5 foam grips of 6 inch, about 9 m of foam strip, one 12.7 mm aluminum tube 1250.8 long | A 4 ft store tube is too short for a 1250.8 ridge. Rivet nut, grip and foam strip prices were seen on listings only |
+| E | Plywood | [Home Depot 15/32 inch ACX sanded pine](https://www.homedepot.com/b/Lumber-Composites-Plywood/15-32/N-5yc1vZbqm7Z1z0mcqq), $52.00 a sheet | 1 | Floor 1350.8 x 750.8 and ramp 1000 x 688. Plus exterior sealer |
+| F | Ramp hardware | [Zoro Select 2ZFK4 stainless piano hinge, 36 inch](https://www.zoro.com/zoro-select-piano-hinge-stainless-steel-full-surface-mounting-1-in-leaf-w-x-36-in-leaf-h-stainless-steel-2zfk4/i/G1671966/), $18.19. [Southco TL-20-202-52 stainless draw latch](https://www.zoro.com/southco-toggle-style-draw-latch-small-size-concealed-mount-stainless-steel-passivated-tl-20-202-52/i/G115615363/), $11.89 | 1 hinge, 2 latches, 18 carriage bolts 1/4-20 x 2 inch (Bolt Depot 2754, $0.16) | The hinge is unpunched: cut it to 680 and drill it. Check the latch comes with its keeper |
+| F | Handle, floor and parking | [S&W BSW-1Z 3/8-16 swivel leveling mount](https://www.zoro.com/s-w-manufacturing-level-mount-swivel-stud-38-16-1-14-in-bsw-1z/i/G1257593/) in its tall version, $11.59. [Harbor Freight 96479 rubber wheel chock](https://www.harborfreight.com/solid-rubber-wheel-chock-96479.html), $7.49, in store. Hardware store: 1/4-20 rivet nuts, foam grip tube for a 1 inch bar, 1/8 inch foam strip | 2 tall leveling mounts, 2 chocks, 27 rivet nuts and flat-head screws 1/4-20, about 5 foam grips of 6 inch, about 9 m of foam strip, one 12.7 mm aluminum tube 1350.8 long | A 4 ft store tube is too short for a 1350.8 ridge. Rivet nut, grip and foam strip prices were seen on listings only |
 | G | Cover materials | See buy-list.md for every line with its link | | Cut list in cover-cut-schedule.csv |
 | H | Filament | Any PETG for fit trials, ASA for parts left in the sun | About 1 kg | 76 printed pieces in all |
 
-Materials for one build come to about $1,835.60 before tax and shipping. buy-list.md splits that into prices read on a supplier page and allowances.
+Materials for one build come to about $1,874.83 before tax and shipping. buy-list.md splits that into prices read on a supplier page and allowances.
 
 ## 4. Tools
 
@@ -74,36 +74,36 @@ Chassis tube, 1/8 inch wall, from 5 bars of 8 ft:
 
 | Bar | Pieces, ID and length | Offcut |
 | --- | --- | ---: |
-| 1 | C01 1578.65, C16 750.8 | 102.95 |
-| 2 | C01 1578.65, C16 750.8 | 102.95 |
-| 3 | C03 965.2, C03 965.2, C15 173.3, C15 173.3, C17 140 | 6.4 |
-| 4 | C06 900, C06 900, C15 173.3, C15 173.3, C17 140, C08 107.0748 | 26.7252 |
-| 5 | C02 700, C02 700, C08 107.0748 | 922.3252 |
+| 1 | C01 1678.65, C16 750.8 | 2.95 |
+| 2 | C01 1678.65, C16 750.8 | 2.95 |
+| 3 | C03 1015.2, C03 1015.2, C15 173.3, C15 173.3 | 49.4 |
+| 4 | C06 1000, C06 1000, C15 173.3, C15 173.3 | 79.8 |
+| 5 | C02 700, C02 700, C17 140, C17 140, C08 107.3571, C08 107.3571 | 525.6858 |
 
 Cabin tube, 1/16 inch wall, from 7 bars of 8 ft:
 
 | Bar | Pieces, ID and length | Offcut |
 | --- | --- | ---: |
-| 1 | C10 1250.8, C12 965.4 | 216.2 |
-| 2 | C10 1250.8, C12 965.4 | 216.2 |
-| 3 | C09 965.2, C09 965.2 | 502 |
-| 4 | C09 965.2, C09 965.2 | 502 |
+| 1 | C10 1350.8, C09 1015.2 | 66.4 |
+| 2 | C10 1350.8, C09 1015.2 | 66.4 |
+| 3 | C09 1015.2, C09 1015.2 | 402 |
+| 4 | C12 1005.4, C12 1005.4 | 421.6 |
 | 5 | C13 750.8, C11 700, C11 700 | 278.6 |
 | 6 | C11 700, C14 700, C14 700 | 329.4 |
 | 7 | C14 700, C07 688, C07 688 | 353.4 |
 
 | ID | Member | Qty | Cut |
 | --- | --- | ---: | ---: |
-| C01 | Base side rail | 2 | 1578.65 |
+| C01 | Base side rail | 2 | 1678.65 |
 | C02 | Base end cross member | 2 | 700 |
-| C03 | Axle post | 2 | 965.2 |
-| C06 | Ramp side curb rail | 2 | 900 |
+| C03 | Axle post | 2 | 1015.2 |
+| C06 | Ramp side curb rail | 2 | 1000 |
 | C07 | Ramp under rib | 2 | 688 |
-| C08 | Ramp stand leg | 2 | 107.0748 |
-| C09 | Corner post | 4 | 965.2 |
-| C10 | Top side rail | 2 | 1250.8 |
+| C08 | Ramp stand leg | 2 | 107.3571 |
+| C09 | Corner post | 4 | 1015.2 |
+| C10 | Top side rail | 2 | 1350.8 |
 | C11 | Top cross tube | 3 | 700 |
-| C12 | Handle arm | 2 | 965.4 |
+| C12 | Handle arm | 2 | 1005.4 |
 | C13 | Handle grip tube | 1 | 750.8 |
 | C14 | Base intermediate cross member | 3 | 700 |
 | C15 | Nose post | 4 | 173.3 |
@@ -129,11 +129,11 @@ The base rails carry the most holes. For this configuration, from the rear end o
 | side | 47.7, 77.7 | Rear corner post gusset |
 | vertical | 62.7, 92.7 | Rear cross member gusset, underneath |
 | vertical | 142.7 | Tip-stop foot stem |
-| vertical | 289.05, 349.05, 610.4, 670.4, 901.75, 961.75 | Intermediate cross member tee gussets, underneath |
-| side | 515.4, 575.4 | Axle hanger bar |
-| side | 1173.1, 1203.1 | Front corner post gusset |
-| vertical | 1158.1, 1188.1 | Front cross member gusset, underneath |
-| side | 1347.95, 1377.95, 1533.65, 1563.65 | Nose post gussets. Posts stand at 1412.95 and 1498.65 |
+| vertical | 314.05, 374.05, 650.4, 710.4, 976.75, 1036.75 | Intermediate cross member tee gussets, underneath |
+| side | 555.4, 615.4 | Axle hanger bar |
+| side | 1273.1, 1303.1 | Front corner post gusset |
+| vertical | 1258.1, 1288.1 | Front cross member gusset, underneath |
+| side | 1447.95, 1477.95, 1633.65, 1663.65 | Nose post gussets. Posts stand at 1512.95 and 1598.65 |
 
 Wait to drill the axle sleeve holes in the axle posts until a hanger plate is in your hand: clamp the hanger to the post, mark through its large hole, and drill to that mark.
 
@@ -142,17 +142,17 @@ Wait to drill the axle sleeve holes in the axle posts until a hanger plate is in
 Work on a flat floor or table.
 
 1. Lay the two C01 rails parallel, 725.4 apart center to center, rear ends level.
-2. Set the two C02 end cross members between them, one at the rear end and one with its center 1238.1 from the rear end. Slide a corner gusset under each of the four corners, long-hole leg along the rail. Drop bolts down through tube, sleeve and plate with a washer under the head; add washer and lock nut underneath. Leave them finger tight.
-3. Set the 3 C14 cross members at 319.05, 640.4, 931.75 from the rear end, each with a tee gusset under each end, the stem along the cross member.
+2. Set the two C02 end cross members between them, one at the rear end and one with its center 1338.1 from the rear end. Slide a corner gusset under each of the four corners, long-hole leg along the rail. Drop bolts down through tube, sleeve and plate with a washer under the head; add washer and lock nut underneath. Leave them finger tight.
+3. Set the 3 C14 cross members at 344.05, 680.4, 1006.75 from the rear end, each with a tee gusset under each end, the stem along the cross member.
 4. Measure both diagonals of the rectangle. Tap the frame until they match within 2 mm. Then tighten every bolt until the lock nut is fully engaged and the plate is clamped. Do not crush the tube; the sleeves set the limit. No torque figure is given because none has been validated.
-5. Stand each C03 axle post on a rail at 545.4 from the rear end, a hanger on each side face, bar along the rail, stem up the post. Bolt the bar to the rail and the stem to the post. Fit the 3/4 inch axle sleeve through hanger, post and hanger.
+5. Stand each C03 axle post on a rail at 585.4 from the rear end, a hanger on each side face, bar along the rail, stem up the post. Bolt the bar to the rail and the stem to the post. Fit the 3/4 inch axle sleeve through hanger, post and hanger.
 
 The base now stands on its own and has the shape in base-plan.svg.
 
 ## 9. Wheels and nose
 
 1. Slide each rear axle through its sleeve from inside. From the inside out the order is cotter, washer, inner hanger, post, outer hanger, spacer, wheel, washer, cotter. The stack between washer faces should be 149.05 with about 0.5 of end float. Spin the wheel. It must not rub the hanger.
-2. Stand the four C15 nose posts on the rail extensions at 1412.95 and 1498.65 from the rear end. Each gets a corner gusset on both side faces, the rail leg pointing away from the other post.
+2. Stand the four C15 nose posts on the rail extensions at 1512.95 and 1598.65 from the rear end. Each gets a corner gusset on both side faces, the rail leg pointing away from the other post.
 3. Lay the two C16 caster beams across the post tops, ends flush with the outside of the rails. Tie each beam to its two posts with one corner gusset on the outside face.
 4. The maker lists the caster plate as 4 x 4-1/2 inch with slotted holes, and the drilling schedule puts two holes in each beam, 70 apart, to land in those slots. Hold the delivered caster up under the beams on the centerline to confirm before drilling 7/16 inch through each beam with a sleeve. Bolt it on with a washer over each slot.
 5. Roll the frame. It should steer by pushing the handle end sideways and the caster should swing a full circle without touching the cabin front or the posts. Fit the bolt-on swivel lock as its maker shows and check it holds the wheel straight.
@@ -167,25 +167,25 @@ The base now stands on its own and has the shape in base-plan.svg.
 
 ## 11. Floor
 
-1. Cut the floor panel 1250.8 x 750.8. Notch 44 x 30 at each of the six posts.
+1. Cut the floor panel 1350.8 x 750.8. Notch 44 x 30 at each of the six posts.
 2. Seal every face and edge, including the notches, and let it cure.
 3. Stick bedding tape along the rails and cross members between the plates.
 4. Set rivet nuts in the tube tops about every 250 and fasten the floor down with flat-head screws.
 
 ## 12. Ramp and tailgate
 
-1. Cut the ramp panel 900 x 688 and seal it.
+1. Cut the ramp panel 1000 x 688 and seal it.
 2. Bolt the two C06 curb rails on top along the long edges with carriage bolts, smooth heads underneath.
 3. Bolt the two C07 ribs underneath, one 40 from the hinge edge and one at mid length.
 4. Fit the two C08 stand legs under the hinge-end rib, 60 in from each end, a corner gusset on both faces of the rib. Press a printed chassis cap into the bottom of each leg. The cap is the foot.
 5. Screw the hinge to the top face of the floor edge and the top face of the ramp, with a 6 gap between the panels.
-6. Lower the ramp on level ground. Both capped legs should touch at the same time as the toe edge. If a leg floats or lifts the toe, trim or shim that leg; the cut length is 107.0748.
+6. Lower the ramp on level ground. Both capped legs should touch at the same time as the toe edge. If a leg floats or lifts the toe, trim or shim that leg; the cut length is 107.3571.
 7. Stick the traction sheet between the curbs, stopping 18 short of the ground edge, and slide the three printed toes onto that edge with a bead of sealant.
 8. Raise the ramp. Fit the two draw latches to the rear posts and the safety strap as a separate, second hold.
 
 ## 13. Handle, tip-stops and parking brake
 
-1. Bolt each C12 handle arm to the outside of a rear corner post and an axle post with one 3 inch bolt per post, 980 above the ground.
+1. Bolt each C12 handle arm to the outside of a rear corner post and an axle post with one 3 inch bolt per post, 1000 above the ground.
 2. Fit the C13 grip tube between the arm ends with a corner gusset above and below each end. Slide on the foam grip.
 3. Screw a tall leveling mount up through each base rail at 142.7 from the rear end, a nut and washer above and below. Set the pads about 40 above the ground.
 4. Brake arms. Butt a C17 arm against the outside face of each axle post, 419.1 up the post, pointing outward over the tire. Put a corner gusset on the front and rear faces, long-hole leg along the arm, and bolt through. On the front, hang a brake clamp plate on the same two arm bolts, outside the gusset.

@@ -322,7 +322,7 @@ Checked ${roverPriceDate}, USD, integer cents, native Bun arithmetic. Configurat
 
 At 100 carriers the modeled landed manufacturing cost is **${money(batch.cogs)} each** at listed prices. A single build at retail quantities is **${money(one.cogs)}**. The first count of this design, on November 11, was $2,037.93 and $3,254.89, with 20 inch wheels, the original cover and most prices as allowances.
 
-The catalog's provisional Run price is ${money(batch.retail)}, so the 30% gross-margin gate allows ${money(batch.maxCogs)} and this design ${batch.meetsCostGate ? 'meets it' : `still misses it by ${money(-batch.headroom)}`}. To pass the same gate at this cost the price would have to be about ${money(batch.retailForGate)}. The catalog price is unchanged pending the owner's decision.
+The owner set the Run price to ${money(batch.retail)} on November 12, 2026. ${batch.gross < 0 ? `At the counted cost that is ${money(-batch.gross)} below cost on every carrier, before card fees, returns, support or freight.` : `That leaves ${money(batch.gross)} of gross profit per carrier.`} A 30% gross margin at that price needs the cost at ${money(batch.maxCogs)} or less, so ${batch.meetsCostGate ? 'the design meets it' : `${money(-batch.headroom)} has to come out`}. At today's cost the price that would carry a 30% margin is about ${money(batch.retailForGate)}.
 
 If the tube is bought by weight, it drops again. ${money(batch.tube)} of the total is ${dims.tubeLb} lb of aluminum tube priced as 21 ft and 24 ft stock bars at $3.13 and $4.84 per foot. A 100-carrier batch is about ${(dims.tubeLb * 100 / 2000).toFixed(1)} tons of two extrusions and would be bought from a mill or distributor. At an assumed $4.00 per pound with 8% scrap the tube line falls to ${money(batch.tubeMill)} and the total to **${money(batch.cogsMill)}**, which a price near ${money(batch.retailForGateMill)} would carry. That rate is an assumption with no quote behind it.
 
@@ -378,6 +378,33 @@ ${roverPriceEvidence.map(e => `- [${e.name}](${e.url}): **${money(e.price)}**, $
 
 ${roverAllowanceNotes.map(n => `- ${n}`).join('\n')}
 
+## How others sell near $800, and what it would take here
+
+This section is reasoning from general practice in consumer goods. None of its numbers is a quote or something read on a supplier page, and each is marked as an estimate.
+
+A trailer that retails near $730 is typically built for a small fraction of that. The retailer and the brand each take a margin, so a common rule of thumb puts factory cost at a quarter to a third of the shelf price. Makers reach that with:
+
+- **Volume and a contract factory.** Thousands of units a run, made where assembly labor costs a few dollars an hour, shipped flat in containers.
+- **A frame that is bent and welded on jigs.** A handful of tubes, bent once and welded, with almost no fasteners. This design has about 170 bolted joints and 54 plates.
+- **Fabric as the body.** The cabin walls and often the floor are sewn fabric hung on that frame, sewn at the same low labor rate from fabric bought by the roll.
+- **Tooling spread over many units.** Molded hubs, joints and wheels cost cents each once the mold is paid for.
+- **Material bought by the ton.** Aluminum extrusion at mill prices by weight, not cut bars at $3 to $5 a foot.
+
+Rover r0 is the opposite on every point: one-off architecture, retail material prices, United States labor rates and a rigid box cabin twice the size.
+
+What each lever would do to the ${money(batch.cogs)} counted cost, as estimates:
+
+| Lever | Estimated effect | What it needs |
+| --- | ---: | --- |
+| Tube bought by weight from a mill or distributor | about -${money(batch.tube - batch.tubeMill)} | A quote. The study assumes $4.00 per pound |
+| Weld the base and the cabin sub-frames instead of bolting them | about -$140 | A fabricator's quote and a redrawn frame. Removes most gussets, most fasteners and most drilling |
+| Have the cover cut and sewn by a contract shop from roll goods | about -$135 | A sewing quote on a sample |
+| Front caster without a swivel lock, from its maker at $41.38 | -$23.31 | Accepting walking pace only |
+| 13 inch wheels at $14.99 | -$35.80 | Accepting a rougher roll |
+| **All of the above** | **about ${money(batch.cogs - (batch.tube - batch.tubeMill) - 14000 - 13500 - 2331 - 3580)}** | |
+
+That is about the ${money(batch.retail)} price with no margin left. Getting to ${money(batch.maxCogs)}, a 30% margin, takes about another ${money(batch.cogs - (batch.tube - batch.tubeMill) - 14000 - 13500 - 2331 - 3580 - batch.maxCogs)} out. On this architecture there is no obvious place to find it. The realistic route is the one the cheaper products take: a welded folding frame with fabric sides, made by a contract factory, keeping the two things that make Rover different, the size and the walk-in ramp. That is a new design and needs factory quotes, not a revision of this one.
+
 ## What would bring it down further
 
 1. A tube quote. See the mill-quantity paragraph above.
@@ -385,7 +412,7 @@ ${roverAllowanceNotes.map(n => `- ${n}`).join('\n')}
 3. Plates. ${roverCostLines(s).find(l => l.id === 'gussets')!.name} and the hangers are the largest allowance left, about ${money(roverCostLines(s).find(l => l.id === 'gussets')!.batch + roverCostLines(s).find(l => l.id === 'hangers')!.batch)}. Uploading the DXF files to a cutting service turns that into a real number in minutes.
 4. The cover is now ${money(batch.textiles.total)}. The ramp surface, floor pad and mesh are the largest material lines left; sewing is ${money(batch.textiles.labor)}.
 
-Selling-cost lines for the provisional price, per carrier at 100: payment fee ${money(batch.fee)}, returns reserve ${money(batch.reserve)}, support ${money(batch.support)}, acquisition ${money(batch.acquisition)}. Contribution before fixed overhead: ${money(batch.contribution)}.
+Selling-cost lines at the current price, per carrier at 100: payment fee ${money(batch.fee)}, returns reserve ${money(batch.reserve)}, support ${money(batch.support)}, acquisition ${money(batch.acquisition)}. Contribution before fixed overhead: ${money(batch.contribution)}.
 
 Rebuild with \`./buddy design:rover\`. Inspect at https://buddywheels.org/design-studio-rover.
 `

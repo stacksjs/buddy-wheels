@@ -6,7 +6,7 @@ export type RoverWheel = 'trail' | 'path' | 'run'
 export type RoverFront = 'swivel' | 'fixed'
 /** caster is the mounting height of the front swivel caster, floor to the top of its plate. It is ignored with a fixed front wheel. */
 export interface RoverSetup { length: number, width: number, height: number, ramp: number, axle: number, handle: number, hub: number, caster: number, wheel: RoverWheel, front: RoverFront }
-export const roverStart: RoverSetup = { length: 1200, width: 700, height: 950, ramp: 900, axle: 520, handle: 980, hub: 101.6, caster: 310, wheel: 'trail', front: 'swivel' }
+export const roverStart: RoverSetup = { length: 1300, width: 700, height: 1000, ramp: 1000, axle: 560, handle: 1000, hub: 101.6, caster: 310, wheel: 'trail', front: 'swivel' }
 export const roverFronts = { swivel: '10 inch swivel caster on a raised nose', fixed: 'Fixed third wheel on a fork' } as const
 /**
  * Two wheel choices on the same 124 mm base-rail height, so the deck and ramp do not change.

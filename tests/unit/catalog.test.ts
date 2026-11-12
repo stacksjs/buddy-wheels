@@ -5,7 +5,7 @@ import { roverUnitEconomics } from '../../scripts/rover-finance'
 
 describe('planning catalog boundaries', () => {
   test('offers distinct Rover configurations without putting carrier options into wheelchair sizing', () => {
-    expect(roverConfigurations.map(item => item.price)).toEqual([39900, 44900, 49900, 59900])
+    expect(roverConfigurations.map(item => item.price)).toEqual([99900, 104900, 109900, 119900])
     expect(new Set(storeProducts.map(item => item.slug)).size).toBe(9)
     expect(storeProducts.find(item => item.slug === 'buddy-rover-coast')?.href).toBe('/rover?mode=coast')
     expect(storeProducts.filter(item => item.family === 'wheelchair').length).toBe(5)
@@ -41,8 +41,8 @@ describe('planning catalog boundaries', () => {
 
 describe('financial planning model', () => {
   test('accounts for Rover shipping and support separately from COGS', () => {
-    expect(roverUnitEconomics('run').contribution).toBe(7218)
-    expect(roverUnitEconomics('run', 1.2).contribution).toBe(3018)
+    expect(roverUnitEconomics('run').contribution).toBe(-70357)
+    expect(roverUnitEconomics('run', 1.2).contribution).toBe(-101124)
     expect(() => roverUnitEconomics('unknown')).toThrow()
   })
   test('keeps a worked large-kit contribution and exact scenario allocation', () => {

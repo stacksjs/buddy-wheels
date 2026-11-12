@@ -1,12 +1,12 @@
 {
   "checked": "2026-11-12",
   "setup": {
-    "length": 1200,
+    "length": 1300,
     "width": 700,
-    "height": 950,
-    "ramp": 900,
-    "axle": 520,
-    "handle": 980,
+    "height": 1000,
+    "ramp": 1000,
+    "axle": 560,
+    "handle": 1000,
     "hub": 101.6,
     "caster": 310,
     "wheel": "trail",
@@ -15,18 +15,18 @@
   "base": {
     "quantity": 100,
     "light": {
-      "bars": 242,
-      "netMm": 1462000,
+      "bars": 246,
+      "netMm": 1510000,
       "kerfMm": 5100,
-      "stockMm": 1548993.6
+      "stockMm": 1574596.8
     },
     "heavy": {
-      "bars": 152,
-      "netMm": 1097664.96,
+      "bars": 159,
+      "netMm": 1147721.42,
       "kerfMm": 5400,
-      "stockMm": 1111910.4
+      "stockMm": 1163116.8
     },
-    "tube": 33563,
+    "tube": 34640,
     "textiles": {
       "quantity": 100,
       "minutes": 200,
@@ -35,50 +35,50 @@
         {
           "id": "roof",
           "name": "Roof shell, one piece",
-          "purchase": 224616,
-          "units": 147,
+          "purchase": 241424,
+          "units": 158,
           "unit": "whole linear yards",
-          "allocation": 2247
+          "allocation": 2415
         },
         {
           "id": "wall",
           "name": "Wall shell: sides, front, header and gussets",
-          "purchase": 162656,
-          "units": 368,
+          "purchase": 172380,
+          "units": 390,
           "unit": "whole linear yards",
-          "allocation": 1627
+          "allocation": 1724
         },
         {
           "id": "mesh",
           "name": "Mesh: three windows and the rear vent",
-          "purchase": 288995,
-          "units": 161,
+          "purchase": 321305,
+          "units": 179,
           "unit": "whole linear yards",
-          "allocation": 2890
+          "allocation": 3214
         },
         {
           "id": "clear",
           "name": "Clear storm panels",
-          "purchase": 133475,
-          "units": 170,
+          "purchase": 142410,
+          "units": 180,
           "unit": "yards, bought as 60-yard and 10-yard rolls",
-          "allocation": 1335
+          "allocation": 1425
         },
         {
           "id": "liner",
           "name": "Floor tub liner and threshold flap",
-          "purchase": 116550,
-          "units": 150,
+          "purchase": 125097,
+          "units": 161,
           "unit": "whole linear yards",
-          "allocation": 1166
+          "allocation": 1251
         },
         {
           "id": "pad",
           "name": "Two floor pad halves",
-          "purchase": 315000,
-          "units": 100,
+          "purchase": 630000,
+          "units": 200,
           "unit": "39 x 51 inch sheets",
-          "allocation": 3150
+          "allocation": 6300
         },
         {
           "id": "traction",
@@ -91,42 +91,42 @@
         {
           "id": "hook",
           "name": "Hook tape",
-          "purchase": 165584,
-          "units": 1048,
+          "purchase": 174274,
+          "units": 1103,
           "unit": "yards",
-          "allocation": 1656
+          "allocation": 1743
         },
         {
           "id": "loop",
           "name": "Loop tape",
-          "purchase": 165584,
-          "units": 1048,
+          "purchase": 174274,
+          "units": 1103,
           "unit": "yards",
-          "allocation": 1656
+          "allocation": 1743
         },
         {
           "id": "seam",
           "name": "Roof seam tape",
-          "purchase": 115889,
-          "units": 401,
+          "purchase": 121669,
+          "units": 421,
           "unit": "meters",
-          "allocation": 1159
+          "allocation": 1217
         },
         {
           "id": "reflective",
           "name": "Reflective trim",
-          "purchase": 59000,
-          "units": 200,
+          "purchase": 61655,
+          "units": 209,
           "unit": "2.2-yard packs",
-          "allocation": 590
+          "allocation": 617
         },
         {
           "id": "cord",
           "name": "Roof hem shock cord",
-          "purchase": 50440,
-          "units": 485,
+          "purchase": 52728,
+          "units": 507,
           "unit": "yards",
-          "allocation": 505
+          "allocation": 528
         },
         {
           "id": "dring",
@@ -153,30 +153,30 @@
           "allocation": 240
         }
       ],
-      "materials": 24628,
-      "rejects": 2463,
+      "materials": 28824,
+      "rejects": 2883,
       "labor": 10000,
       "freight": 900,
-      "total": 37991,
+      "total": 42607,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 76554,
-    "cogs": 148108,
-    "retail": 39900,
-    "gross": -108208,
-    "grossPercent": -271.1979949874687,
-    "maxCogs": 27930,
-    "headroom": -120178,
+    "other": 76588,
+    "cogs": 153835,
+    "retail": 99900,
+    "gross": -53935,
+    "grossPercent": -53.988988988988986,
+    "maxCogs": 69930,
+    "headroom": -83905,
     "meetsCostGate": false,
-    "fee": 1187,
-    "reserve": 1995,
+    "fee": 2927,
+    "reserve": 4995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -116390,
-    "retailForGate": 211600,
-    "tubeMill": 13652,
-    "cogsMill": 128197,
-    "retailForGateMill": 183200,
+    "contribution": -66857,
+    "retailForGate": 219800,
+    "tubeMill": 14213,
+    "cogsMill": 133408,
+    "retailForGateMill": 190600,
     "stainlessUpgrade": 4002,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
@@ -184,13 +184,13 @@
     "quantity": 1,
     "light": {
       "bars": 7,
-      "netMm": 14620,
+      "netMm": 15100,
       "kerfMm": 51,
       "stockMm": 17068.8
     },
     "heavy": {
       "bars": 5,
-      "netMm": 10976.6496,
+      "netMm": 11477.2142,
       "kerfMm": 54,
       "stockMm": 12192
     },
@@ -243,10 +243,10 @@
         {
           "id": "pad",
           "name": "Two floor pad halves",
-          "purchase": 3150,
-          "units": 1,
+          "purchase": 6300,
+          "units": 2,
           "unit": "39 x 51 inch sheets",
-          "allocation": 3150
+          "allocation": 6300
         },
         {
           "id": "traction",
@@ -259,18 +259,18 @@
         {
           "id": "hook",
           "name": "Hook tape",
-          "purchase": 1738,
-          "units": 11,
+          "purchase": 1896,
+          "units": 12,
           "unit": "yards",
-          "allocation": 1738
+          "allocation": 1896
         },
         {
           "id": "loop",
           "name": "Loop tape",
-          "purchase": 1738,
-          "units": 11,
+          "purchase": 1896,
+          "units": 12,
           "unit": "yards",
-          "allocation": 1738
+          "allocation": 1896
         },
         {
           "id": "seam",
@@ -283,18 +283,18 @@
         {
           "id": "reflective",
           "name": "Reflective trim",
-          "purchase": 590,
-          "units": 2,
+          "purchase": 885,
+          "units": 3,
           "unit": "2.2-yard packs",
-          "allocation": 590
+          "allocation": 885
         },
         {
           "id": "cord",
           "name": "Roof hem shock cord",
-          "purchase": 520,
-          "units": 5,
+          "purchase": 624,
+          "units": 6,
           "unit": "yards",
-          "allocation": 520
+          "allocation": 624
         },
         {
           "id": "dring",
@@ -321,30 +321,30 @@
           "allocation": 1595
         }
       ],
-      "materials": 43939,
-      "rejects": 4394,
+      "materials": 47804,
+      "rejects": 4781,
       "labor": 27000,
       "freight": 6500,
-      "total": 81833,
+      "total": 86085,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 134961,
-    "cogs": 274954,
-    "retail": 39900,
-    "gross": -235054,
-    "grossPercent": -589.1077694235589,
-    "maxCogs": 27930,
-    "headroom": -247024,
+    "other": 135019,
+    "cogs": 279264,
+    "retail": 99900,
+    "gross": -179364,
+    "grossPercent": -179.54354354354354,
+    "maxCogs": 69930,
+    "headroom": -209334,
     "meetsCostGate": false,
-    "fee": 1187,
-    "reserve": 1995,
+    "fee": 2927,
+    "reserve": 4995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -243236,
-    "retailForGate": 392800,
-    "tubeMill": 13652,
-    "cogsMill": 230446,
-    "retailForGateMill": 329300,
+    "contribution": -192286,
+    "retailForGate": 399000,
+    "tubeMill": 14213,
+    "cogsMill": 235317,
+    "retailForGateMill": 336200,
     "stainlessUpgrade": 4002,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
@@ -446,8 +446,8 @@
     {
       "id": "ramp",
       "name": "Hinge, two latches, carriage bolts and strap hardware",
-      "batch": 4865,
-      "one": 5061,
+      "batch": 4899,
+      "one": 5119,
       "coverage": [
         "R02",
         "R03",

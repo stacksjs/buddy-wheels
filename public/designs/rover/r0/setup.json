@@ -1,12 +1,12 @@
 {
   "revision": "r0",
   "product": "Buddy Rover",
-  "length": 1200,
+  "length": 1300,
   "width": 700,
-  "height": 950,
-  "ramp": 900,
-  "axle": 520,
-  "handle": 980,
+  "height": 1000,
+  "ramp": 1000,
+  "axle": 560,
+  "handle": 1000,
   "hub": 101.6,
   "caster": 310,
   "wheel": "trail",
@@ -35,23 +35,23 @@
     "tireGap": 23.8,
     "railZ": 124,
     "deck": 151.9,
-    "topZ": 1114.6,
+    "topZ": 1164.6,
     "clearance": 108.125,
-    "rearX": -520,
-    "frontX": 680,
-    "rail": 1578.65,
-    "topRail": 1250.8,
-    "post": 965.2,
+    "rearX": -560,
+    "frontX": 740,
+    "rail": 1678.65,
+    "topRail": 1350.8,
+    "post": 1015.2,
     "stations": [
-      -532.7,
-      -226.35,
+      -572.7,
+      -241.35,
       95,
-      386.35,
-      692.7
+      421.35,
+      752.7
     ],
     "intermediates": 3,
     "swivel": true,
-    "casterX": 910.4,
+    "casterX": 970.4,
     "nose": 327.85,
     "nosePost": 173.3,
     "casterBeam": 750.8,
@@ -67,29 +67,29 @@
     "frontShaft": 190.8,
     "forkArm": 282.9,
     "stub": 140.3,
-    "wheelbase": 853.4,
-    "rampAngle": 8.9426,
+    "wheelbase": 913.4,
+    "rampAngle": 8.0421,
     "rampWidth": 688,
     "rampRise": 139.9,
-    "legCut": 107.0748,
-    "hingeX": -551.4,
-    "gripX": -925.4,
-    "handleArm": 965.4,
+    "legCut": 107.3571,
+    "hingeX": -591.4,
+    "gripX": -965.4,
+    "handleArm": 1005.4,
     "grip": 750.8,
-    "handleMax": 990,
-    "centerAhead": 80,
+    "handleMax": 1040,
+    "centerAhead": 90,
     "roofSlope": 382.3748,
     "overallWidth": 1008.45,
     "tireWidth": 963.55,
-    "overallLength": 2020.8,
-    "overallHeight": 1204,
+    "overallLength": 2120.8,
+    "overallHeight": 1254,
     "cuts": [
       {
         "id": "C01",
         "name": "Base side rail",
         "wall": "heavy",
         "qty": 2,
-        "length": 1578.65
+        "length": 1678.65
       },
       {
         "id": "C02",
@@ -103,14 +103,14 @@
         "name": "Axle post",
         "wall": "heavy",
         "qty": 2,
-        "length": 965.2
+        "length": 1015.2
       },
       {
         "id": "C06",
         "name": "Ramp side curb rail",
         "wall": "heavy",
         "qty": 2,
-        "length": 900
+        "length": 1000
       },
       {
         "id": "C07",
@@ -124,21 +124,21 @@
         "name": "Ramp stand leg",
         "wall": "heavy",
         "qty": 2,
-        "length": 107.0748
+        "length": 107.3571
       },
       {
         "id": "C09",
         "name": "Corner post",
         "wall": "light",
         "qty": 4,
-        "length": 965.2
+        "length": 1015.2
       },
       {
         "id": "C10",
         "name": "Top side rail",
         "wall": "light",
         "qty": 2,
-        "length": 1250.8
+        "length": 1350.8
       },
       {
         "id": "C11",
@@ -152,7 +152,7 @@
         "name": "Handle arm",
         "wall": "light",
         "qty": 2,
-        "length": 965.4
+        "length": 1005.4
       },
       {
         "id": "C13",
@@ -200,7 +200,7 @@
       "sleeves": 178,
       "casterBolts": 4,
       "brakeClamps": 2,
-      "rampBolts": 16,
+      "rampBolts": 18,
       "floorScrews": 27,
       "capHeavy": 16,
       "capLight": 12,
@@ -210,24 +210,24 @@
       "cableClip": 6,
       "axleCover": 4
     },
-    "heavyM": 10.9766,
-    "lightM": 14.62,
-    "tubeLb": 31.6,
-    "floorArea": 0.9391,
-    "rampArea": 0.6192,
+    "heavyM": 11.4772,
+    "lightM": 15.1,
+    "tubeLb": 32.9,
+    "floorArea": 1.0142,
+    "rampArea": 0.688,
     "mass": {
-      "tube": 14.3,
+      "tube": 14.9,
       "plates": 4.2,
-      "panels": 10.1,
+      "panels": 11.1,
       "wheels": 10,
       "hardware": 6.9,
       "softgoods": 4.2
     },
-    "carrierKg": 49.8,
-    "frontShare": 9.3743,
-    "tiltForceN": 104,
-    "tiltForceLbf": 23,
-    "volumeRatio": 2.0082
+    "carrierKg": 51.3,
+    "frontShare": 9.8533,
+    "tiltForceN": 113,
+    "tiltForceLbf": 25,
+    "volumeRatio": 2.2901
   },
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
   "ownerReportedWeightLb": 140,

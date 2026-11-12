@@ -1,14 +1,14 @@
 # Buddy Rover r0 cost study
 
-Checked 2026-11-12, USD, integer cents, native Bun arithmetic. Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub101.6-trail-swivel310. This prices the r0 bench architecture. It is not a supplier quote, a production cost or a selling price, and nothing has been bought.
+Checked 2026-11-12, USD, integer cents, native Bun arithmetic. Configuration rover-r0-l1300-w700-h1000-r1000-a560-g1000-hub101.6-trail-swivel310. This prices the r0 bench architecture. It is not a supplier quote, a production cost or a selling price, and nothing has been bought.
 
 ## Result
 
-At 100 carriers the modeled landed manufacturing cost is **$1,481.08 each** at listed prices. A single build at retail quantities is **$2,749.54**. The first count of this design, on November 11, was $2,037.93 and $3,254.89, with 20 inch wheels, the original cover and most prices as allowances.
+At 100 carriers the modeled landed manufacturing cost is **$1,538.35 each** at listed prices. A single build at retail quantities is **$2,792.64**. The first count of this design, on November 11, was $2,037.93 and $3,254.89, with 20 inch wheels, the original cover and most prices as allowances.
 
-The catalog's provisional Run price is $399.00, so the 30% gross-margin gate allows $279.30 and this design still misses it by $1,201.78. To pass the same gate at this cost the price would have to be about $2,116.00. The catalog price is unchanged pending the owner's decision.
+The owner set the Run price to $999.00 on November 12, 2026. At the counted cost that is $539.35 below cost on every carrier, before card fees, returns, support or freight. A 30% gross margin at that price needs the cost at $699.30 or less, so $839.05 has to come out. At today's cost the price that would carry a 30% margin is about $2,198.00.
 
-If the tube is bought by weight, it drops again. $335.63 of the total is 31.6 lb of aluminum tube priced as 21 ft and 24 ft stock bars at $3.13 and $4.84 per foot. A 100-carrier batch is about 1.6 tons of two extrusions and would be bought from a mill or distributor. At an assumed $4.00 per pound with 8% scrap the tube line falls to $136.52 and the total to **$1,281.97**, which a price near $1,832.00 would carry. That rate is an assumption with no quote behind it.
+If the tube is bought by weight, it drops again. $346.40 of the total is 32.9 lb of aluminum tube priced as 21 ft and 24 ft stock bars at $3.13 and $4.84 per foot. A 100-carrier batch is about 1.6 tons of two extrusions and would be bought from a mill or distributor. At an assumed $4.00 per pound with 8% scrap the tube line falls to $142.13 and the total to **$1,334.08**, which a price near $1,906.00 would carry. That rate is an assumption with no quote behind it.
 
 For scale, the reference trailer sold for $729.95 at one retailer on the check date, with a 100 lb stated capacity and a 36.2 x 22.4 x 29.9 inch interior. Rover's cabin is about twice that volume. Rover does not reach that price in either scenario.
 
@@ -35,7 +35,7 @@ For scale, the reference trailer sold for $729.95 at one retailer on the check d
 
 | Line | One carrier | 100-carrier allocation | Evidence |
 | --- | ---: | ---: | --- |
-| Aluminum tube, whole stock bars with kerf | $581.60 | $335.63 | Observed 2026-11-12 |
+| Aluminum tube, whole stock bars with kerf | $581.60 | $346.40 | Observed 2026-11-12 |
 | 44 corner gussets, 8 tee gussets and 2 brake plates, laser cut 1/8 inch 6061 | $243.00 | $86.40 | RFQ |
 | 4 stainless axle hangers | $36.00 | $16.00 | RFQ |
 | 2 pneumatic trail wheels, 15 inch 4.00-8 | $65.78 | $65.78 | Observed 2026-11-12 |
@@ -43,7 +43,7 @@ For scale, the reference trailer sold for $729.95 at one retailer on the check d
 | 2 stock-shaft axles, sleeves, spacers, washers and cotters | $26.44 | $10.75 | Observed 2026-11-12, rod from a listing |
 | 174 sleeved bolted joints | $91.62 | $72.22 | Observed 2026-11-12 |
 | Floor and ramp panels, sealed 15/32 inch ACX plywood | $77.00 | $64.00 | Observed 2026-11-12 + sealing allowance |
-| Hinge, two latches, carriage bolts and strap hardware | $50.61 | $48.65 | Observed 2026-11-12 + strap allowance |
+| Hinge, two latches, carriage bolts and strap hardware | $51.19 | $48.99 | Observed 2026-11-12 + strap allowance |
 | Wheel chocks, grip, tip-stop feet, floor fasteners, bedding tape and ridge pole | $97.77 | $75.77 | Observed 2026-11-12, partly from listings |
 | Parking brake: two push-pull toggle clamps with neoprene-tipped spindles | $31.70 | $25.58 | Observed 2026-11-12 + screw allowance |
 | Printed service parts and fixtures | $27.00 | $23.00 | Computed volume + allowance |
@@ -52,8 +52,8 @@ For scale, the reference trailer sold for $729.95 at one retailer on the check d
 | Packaging | $35.00 | $25.00 | RFQ |
 | Inbound freight allocation | $90.00 | $30.00 | RFQ |
 | Machine wear and shop consumables | $10.00 | $6.00 | RFQ |
-| Weather cover, floor set and ramp surface | $818.33 | $379.91 | Listed materials + assumed sewing |
-| **Landed manufacturing** | **$2,749.54** | **$1,481.08** | Mostly unquoted |
+| Weather cover, floor set and ramp surface | $860.85 | $426.07 | Listed materials + assumed sewing |
+| **Landed manufacturing** | **$2,792.64** | **$1,538.35** | Mostly unquoted |
 
 - **44 corner gussets, 8 tee gussets and 2 brake plates, laser cut 1/8 inch 6061:** Three aluminum profiles. Includes material, cutting and deburring. No quote was run; upload the DXF files to a cutting service for a real price.
 - **4 stainless axle hangers:** One 304 stainless profile for all three wheels. Bore finishing after drawing review.
@@ -72,31 +72,31 @@ For scale, the reference trailer sold for $729.95 at one retailer on the check d
 - **Inbound freight allocation:** Truck freight for long bars in a batch; parcel shipping for one build. Unquoted.
 - **Machine wear and shop consumables:** Drill bits, blades, jig wear.
 
-Tube packing at 100 carriers: 242 bars of 1/16 inch wall, 21 ft each, and 152 bars of 1/8 inch wall, 24 ft each. One carrier needs 7 and 5 whole bars.
+Tube packing at 100 carriers: 246 bars of 1/16 inch wall, 21 ft each, and 159 bars of 1/8 inch wall, 24 ft each. One carrier needs 7 and 5 whole bars.
 
 ## Cover and soft goods detail
 
 | Material line | One carrier | 100-carrier allocation | Purchased for 100 |
 | --- | ---: | ---: | --- |
-| Roof shell, one piece | $30.56 | $22.47 | 147 whole linear yards |
-| Wall shell: sides, front, header and gussets | $26.00 | $16.27 | 368 whole linear yards |
-| Mesh: three windows and the rear vent | $53.85 | $28.90 | 161 whole linear yards |
-| Clear storm panels | $89.35 | $13.35 | 170 yards, bought as 60-yard and 10-yard rolls |
-| Floor tub liner and threshold flap | $19.92 | $11.66 | 150 whole linear yards |
-| Two floor pad halves | $31.50 | $31.50 | 100 39 x 51 inch sheets |
+| Roof shell, one piece | $30.56 | $24.15 | 158 whole linear yards |
+| Wall shell: sides, front, header and gussets | $26.00 | $17.24 | 390 whole linear yards |
+| Mesh: three windows and the rear vent | $53.85 | $32.14 | 179 whole linear yards |
+| Clear storm panels | $89.35 | $14.25 | 180 yards, bought as 60-yard and 10-yard rolls |
+| Floor tub liner and threshold flap | $19.92 | $12.51 | 161 whole linear yards |
+| Two floor pad halves | $63.00 | $63.00 | 200 39 x 51 inch sheets |
 | Ramp traction surface | $90.95 | $45.48 | 50 27 x 94 inch sheets |
-| Hook tape | $17.38 | $16.56 | 1048 yards |
-| Loop tape | $17.38 | $16.56 | 1048 yards |
-| Roof seam tape | $14.45 | $11.59 | 401 meters |
-| Reflective trim | $5.90 | $5.90 | 200 2.2-yard packs |
-| Roof hem shock cord | $5.20 | $5.05 | 485 yards |
+| Hook tape | $18.96 | $17.43 | 1103 yards |
+| Loop tape | $18.96 | $17.43 | 1103 yards |
+| Roof seam tape | $14.45 | $12.17 | 421 meters |
+| Reflective trim | $8.85 | $6.17 | 209 2.2-yard packs |
+| Roof hem shock cord | $6.24 | $5.28 | 507 yards |
 | Four stainless D-rings | $6.20 | $6.20 | 400 each |
 | Tether, grab loop, ties and wrist strap | $14.80 | $12.39 | 16 120-foot rolls |
 | Thread allowance | $15.95 | $2.40 | 15 cones |
-| Reject reserve, 10% | $43.94 | $24.63 | |
+| Reject reserve, 10% | $47.81 | $28.83 | |
 | Sewing labor at $30/h | $270.00 | $100.00 | 540 min one-off, 200 min batch, assumed |
 | Textile freight | $65.00 | $9.00 | Unquoted |
-| **Total** | **$818.33** | **$379.91** | |
+| **Total** | **$860.85** | **$426.07** | |
 
 Material prices are the listed prices in [the materials sheet](../product/rover-materials.md). A listed quantity tier is used only where the 100-carrier purchase actually reaches it; no unlisted discount is assumed.
 
@@ -124,13 +124,40 @@ Material prices are the listed prices in [the materials sheet](../product/rover-
 - Stainless option: the stainless bolt is an observed $30.75 per 100. Stainless nuts and washers were not priced; the $0.23 per joint upgrade includes a $0.10 allowance for them.
 - Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists.
 
+## How others sell near $800, and what it would take here
+
+This section is reasoning from general practice in consumer goods. None of its numbers is a quote or something read on a supplier page, and each is marked as an estimate.
+
+A trailer that retails near $730 is typically built for a small fraction of that. The retailer and the brand each take a margin, so a common rule of thumb puts factory cost at a quarter to a third of the shelf price. Makers reach that with:
+
+- **Volume and a contract factory.** Thousands of units a run, made where assembly labor costs a few dollars an hour, shipped flat in containers.
+- **A frame that is bent and welded on jigs.** A handful of tubes, bent once and welded, with almost no fasteners. This design has about 170 bolted joints and 54 plates.
+- **Fabric as the body.** The cabin walls and often the floor are sewn fabric hung on that frame, sewn at the same low labor rate from fabric bought by the roll.
+- **Tooling spread over many units.** Molded hubs, joints and wheels cost cents each once the mold is paid for.
+- **Material bought by the ton.** Aluminum extrusion at mill prices by weight, not cut bars at $3 to $5 a foot.
+
+Rover r0 is the opposite on every point: one-off architecture, retail material prices, United States labor rates and a rigid box cabin twice the size.
+
+What each lever would do to the $1,538.35 counted cost, as estimates:
+
+| Lever | Estimated effect | What it needs |
+| --- | ---: | --- |
+| Tube bought by weight from a mill or distributor | about -$204.27 | A quote. The study assumes $4.00 per pound |
+| Weld the base and the cabin sub-frames instead of bolting them | about -$140 | A fabricator's quote and a redrawn frame. Removes most gussets, most fasteners and most drilling |
+| Have the cover cut and sewn by a contract shop from roll goods | about -$135 | A sewing quote on a sample |
+| Front caster without a swivel lock, from its maker at $41.38 | -$23.31 | Accepting walking pace only |
+| 13 inch wheels at $14.99 | -$35.80 | Accepting a rougher roll |
+| **All of the above** | **about $999.97** | |
+
+That is about the $999.00 price with no margin left. Getting to $699.30, a 30% margin, takes about another $300.67 out. On this architecture there is no obvious place to find it. The realistic route is the one the cheaper products take: a welded folding frame with fabric sides, made by a contract factory, keeping the two things that make Rover different, the size and the walk-in ramp. That is a new design and needs factory quotes, not a revision of this one.
+
 ## What would bring it down further
 
 1. A tube quote. See the mill-quantity paragraph above.
 2. Joints. 174 sleeved bolted joints and the labor to drill for them come to about $209.72. Welded or riveted sub-frames, or purpose-made corner fittings, remove most of both and several kilograms. That needs a fabricator's quote.
 3. Plates. 44 corner gussets, 8 tee gussets and 2 brake plates, laser cut 1/8 inch 6061 and the hangers are the largest allowance left, about $102.40. Uploading the DXF files to a cutting service turns that into a real number in minutes.
-4. The cover is now $379.91. The ramp surface, floor pad and mesh are the largest material lines left; sewing is $100.00.
+4. The cover is now $426.07. The ramp surface, floor pad and mesh are the largest material lines left; sewing is $100.00.
 
-Selling-cost lines for the provisional price, per carrier at 100: payment fee $11.87, returns reserve $19.95, support $15.00, acquisition $35.00. Contribution before fixed overhead: -$1,163.90.
+Selling-cost lines at the current price, per carrier at 100: payment fee $29.27, returns reserve $49.95, support $15.00, acquisition $35.00. Contribution before fixed overhead: -$668.57.
 
 Rebuild with `./buddy design:rover`. Inspect at https://buddywheels.org/design-studio-rover.
