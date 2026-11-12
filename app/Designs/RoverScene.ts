@@ -33,6 +33,7 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
   const slab = (id: string, size: V, center: V, u: V, v: V, color: string) => add(id, { kind: 'box', size }, color, place(u, v, center))
   /** A flat profile on the tube face that looks toward `out`. Local +x goes to a, local +y to b. */
   const gusset = (id: string, part: 'corner_gusset' | 'tee_gusset' | 'axle_hanger' | 'axle_hanger_mid' | 'axle_hanger_low', datum: V, out: V, a: V, b: V) => {
+    if (d.welded && !part.startsWith('axle_hanger')) return
     const n = crossV(a, b); const face = add3(datum, scale(out, t / 2))
     add(id, stl(part), part.startsWith('axle_hanger') ? steel : frame, place(a, b, dot(n, out) > 0 ? face : add3(face, scale(out, h.plate))))
   }
@@ -74,18 +75,23 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
   }
 
   const y0 = d.postY; const outer = s.width / 2 + t; const railStart = d.rearX - t
+  // Welded build: the top rail centerline drops by the taper over its run. Bolted: taper is zero and this is flat.
+  const zTop = (x: number) => d.topZ - s.taper * (x - railStart) / d.topRail
+  const roofDir: V = [d.topRail / d.topRailCut, 0, -s.taper / d.topRailCut]
   for (const side of [-1, 1]) {
     const y = side * y0
     tube(`base-rail-${side}`, true, d.rail, [railStart, y, d.railZ], [1, 0, 0])
-    tube(`top-rail-${side}`, false, d.topRail, [railStart, y, d.topZ], [1, 0, 0])
+    tube(`top-rail-${side}`, false, d.topRailCut, [railStart, y, d.topZ], roofDir)
     for (const end of [-1, 1] as const) {
-      cap(`base-cap-${side}-${end}`, true, [end < 0 ? railStart : railStart + d.rail, y, d.railZ], [end, 0, 0]); cap(`top-cap-${side}-${end}`, false, [end < 0 ? railStart : railStart + d.topRail, y, d.topZ], [end, 0, 0])
+      cap(`base-cap-${side}-${end}`, true, [end < 0 ? railStart : railStart + d.rail, y, d.railZ], [end, 0, 0]); cap(`top-cap-${side}-${end}`, false, end < 0 ? [railStart, y, d.topZ] : [railStart + d.topRail, y, d.topZ - s.taper], scale(roofDir, end))
     }
-    tube(`axle-post-${side}`, true, d.post, [0, y, d.railZ + t / 2], [0, 0, 1])
+    tube(`axle-post-${side}`, true, d.axlePost, [0, y, d.railZ + t / 2], [0, 0, 1])
     for (const [name, cx, inward] of [['rear', d.rearX - t / 2, 1], ['front', d.frontX + t / 2, -1]] as const) {
       // The front posts stand back by the rake; the base corner itself keeps its cross member gusset.
       const px = name === 'front' ? d.frontPostX : cx
-      tube(`corner-post-${name}-${side}`, false, d.post, [px, y, d.railZ + t / 2], [0, 0, 1])
+      // Welded: one raked pillar from the base front corner to the front of the top rail replaces the front post and stay.
+      if (name === 'front' && d.welded) tube(`front-pillar-${side}`, false, d.pillar, [cx, y, d.railZ + t / 2], [-s.rake / d.pillar, 0, (d.post - s.taper) / d.pillar])
+      else tube(`corner-post-${name}-${side}`, false, d.post, [px, y, d.railZ + t / 2], [0, 0, 1])
       // Corner posts carry the cover, not the dog: one gusset on the outside face only.
       gusset(`base-corner-${name}-${side}`, 'corner_gusset', [px, y, d.railZ], [0, side, 0], [0, 0, 1], [inward, 0, 0])
       gusset(`top-corner-${name}-${side}`, 'corner_gusset', [px, y, d.topZ], [0, side, 0], [0, 0, -1], [inward, 0, 0])
@@ -122,8 +128,8 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
     cap(`brake-arm-cap-${side}`, true, [0, side * (outer + h.brakeArm), d.brakeZ], [0, side, 0])
     for (const face of [-1, 1]) gusset(`brake-gusset-${side}-${face}`, 'corner_gusset', [0, y, d.brakeZ], [face, 0, 0], [0, side, 0], [0, 0, 1])
     // The clamp plate stacks on the front gusset and shares its two arm bolts; the clamp hangs below the arm over the tread.
-    add(`brake-plate-${side}`, stl('brake_plate'), frame, place([0, side, 0], [0, 0, 1], [t / 2 + h.plate + (side > 0 ? 0 : h.plate), y + side * 80, d.brakeZ]))
-    const padY = side * d.wheelY; const front = t / 2 + 2 * h.plate
+    add(`brake-plate-${side}`, stl('brake_plate'), frame, place([0, side, 0], [0, 0, 1], [t / 2 + (d.welded ? 0 : h.plate) + (side > 0 ? 0 : h.plate), y + side * 80, d.brakeZ]))
+    const padY = side * d.wheelY; const front = t / 2 + (d.welded ? 1 : 2) * h.plate
     slab(`brake-clamp-${side}`, [22, 56, 89], [front + 11, padY, d.brakeZ - 75], [1, 0, 0], across, steel)
     rod(`brake-plunger-${side}`, 4, 46, [front + 11, padY, d.brakeZ - 142], [0, 0, 1], '#d5dbd6')
     rod(`brake-pad-${side}`, 14, 16, [front + 11, padY, 2 * d.R + 10], [0, 0, 1], '#29322d')
@@ -152,14 +158,14 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
   }
   d.stations.forEach((x, i) => tube(`base-cross-${i}`, i === 0 || i === d.stations.length - 1, s.width, [x, -s.width / 2, d.railZ], across))
   for (const [i, x] of [d.rearX - t / 2, 0, d.frontPostX].entries()) {
-    tube(`top-cross-${i}`, false, s.width, [x, -s.width / 2, d.topZ], across)
-    add(`ridge-saddle-${i}`, stl('ridge_saddle'), accent, place([1, 0, 0], [0, 1, 0], [x, 0, d.topZ + t / 2 - 26]))
+    tube(`top-cross-${i}`, false, s.width, [x, -s.width / 2, zTop(x)], across)
+    add(`ridge-saddle-${i}`, stl('ridge_saddle'), accent, place([1, 0, 0], [0, 1, 0], [x, 0, zTop(x) + t / 2 - 26]))
   }
   const topMid = d.rearX - t + d.topRail / 2
-  rod('ridge-pole', h.pole / 2, d.topRail, [topMid, 0, d.topZ + t / 2 + h.ridge + h.pole / 2], [1, 0, 0], '#d5dbd6')
+  rod('ridge-pole', h.pole / 2, d.topRailCut, [topMid, 0, zTop(topMid) + t / 2 + h.ridge + h.pole / 2], roofDir, '#d5dbd6')
   // Windshield stays run up the raked front edges. They hold fabric, nothing else.
   const lean: V = [-s.rake / d.windshield, 0, (d.post + t) / d.windshield]
-  if (s.rake > 0) for (const side of [-1, 1]) rod(`windshield-stay-${side}`, h.pole / 2, d.windshield, [d.frontX + t / 2 - s.rake / 2, side * y0, d.railZ + (d.post + t) / 2], lean, '#d5dbd6')
+  if (s.rake > 0 && !d.welded) for (const side of [-1, 1]) rod(`windshield-stay-${side}`, h.pole / 2, d.windshield, [d.frontX + t / 2 - s.rake / 2, side * y0, d.railZ + (d.post + t) / 2], lean, '#d5dbd6')
   tube('handle-grip', false, d.grip, [d.gripX + t / 2, -outer, s.handle], across)
   rod('handle-foam', 17, s.width - 60, [d.gripX + t / 2, 0, s.handle], across, '#29322d', 12.9)
   slab('floor-panel', [d.floorLen, s.width + 2 * t, h.panel], [(d.rearX + d.frontX) / 2, 0, d.deck - h.panel / 2], [1, 0, 0], across, wood)
@@ -183,22 +189,30 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
   }
   ramp()
   if (cover) {
-    const coverTop = d.topZ + t / 2; const bottom = d.railZ - t / 2; const sill = bottom + 350; const peak = coverTop + h.ridge + h.pole + 2
-    const frontEdge = d.frontX + t; const topFront = frontEdge - s.rake
+    const coverTop = d.topZ + t / 2; const bottom = d.railZ - t / 2; const sill = bottom + 350; const rise = h.ridge + h.pole + 2
+    const frontEdge = d.frontX + t; const topFront = frontEdge - s.rake; const frontTop = coverTop - s.taper
+    // Roof line and front wall line in the side view. Bolted: a flat roof. Welded: it falls by the taper toward the front.
+    const roofZ = (x: number) => coverTop - s.taper * (x - railStart) / (topFront - railStart)
+    const at = (z: number) => frontEdge - s.rake * (z - bottom) / (frontTop - bottom)
+    // Where the front wall meets a line that runs `drop` below the roof.
+    const meet = (drop: number) => { const k = s.taper / (topFront - railStart); const g = s.rake / (frontTop - bottom); const x = (frontEdge - g * (coverTop - drop + k * railStart - bottom)) / (1 - g * k); return [x, roofZ(x) - drop] as [number, number] }
+    const mesh = (id: string, vertices: V[], triangles: [number, number, number][], color: string) => add(id, { kind: 'mesh', vertices, triangles }, color, place([1, 0, 0], [0, 1, 0], [0, 0, 0]))
     // Thin panel in the XZ plane from a list of corners, used for the raked side walls.
-    const sheet = (id: string, y: number, corners: [number, number][], color: string) => add(id, { kind: 'mesh', vertices: [...corners.map(([x, z]) => [x, y - 1, z] as V), ...corners.map(([x, z]) => [x, y + 1, z] as V)], triangles: corners.slice(1, -1).flatMap((_, i) => [[0, i + 1, i + 2], [corners.length, corners.length + i + 2, corners.length + i + 1]] as [number, number, number][]) }, color, place([1, 0, 0], [0, 1, 0], [0, 0, 0]))
-    const at = (z: number) => frontEdge - s.rake * (z - bottom) / (coverTop - bottom)
+    const sheet = (id: string, y: number, corners: [number, number][], color: string) => mesh(id, [...corners.map(([x, z]) => [x, y - 1, z] as V), ...corners.map(([x, z]) => [x, y + 1, z] as V)], corners.slice(1, -1).flatMap((_, i) => [[0, i + 1, i + 2], [corners.length, corners.length + i + 2, corners.length + i + 1]] as [number, number, number][]), color)
+    // A quad drawn on both faces.
+    const quad = (id: string, p: [V, V, V, V], color: string) => mesh(id, p, [[0, 1, 2], [0, 2, 3], [0, 2, 1], [0, 3, 2]], color)
+    const [topX, topBandZ] = meet(110)
     for (const side of [-1, 1]) {
-      const run = outer + 30; const slope = Math.hypot(run, peak - coverTop + 8); const dir: V = [0, side * run / slope, -(peak - coverTop + 8) / slope]; const wallY = side * (outer + 2)
-      slab(`cover-roof-${side}`, [d.topRail + 80, slope, 2], [topMid, side * run / 2, (peak + coverTop - 8) / 2], [1, 0, 0], dir, trim)
+      const eave = side * (outer + 30); const wallY = side * (outer + 2)
+      quad(`cover-roof-${side}`, [[railStart - 40, 0, roofZ(railStart - 40) + rise], [topFront + 40, 0, roofZ(topFront + 40) + rise], [topFront + 40, eave, roofZ(topFront + 40) - 8], [railStart - 40, eave, roofZ(railStart - 40) - 8]], trim)
       sheet(`cover-side-band-${side}`, wallY, [[railStart, bottom], [frontEdge, bottom], [at(sill), sill], [railStart, sill]], trim)
-      sheet(`cover-side-mesh-${side}`, wallY, [[railStart + 80, sill], [at(sill) - 80, sill], [at(coverTop - 110) - 80, coverTop - 110], [railStart + 80, coverTop - 110]], '#e9e6da')
-      sheet(`cover-side-top-${side}`, wallY, [[railStart, coverTop - 110], [at(coverTop - 110), coverTop - 110], [topFront, coverTop], [railStart, coverTop]], trim)
-      sheet(`cover-side-rear-${side}`, wallY, [[railStart, sill], [railStart + 80, sill], [railStart + 80, coverTop - 110], [railStart, coverTop - 110]], trim)
-      sheet(`cover-side-front-${side}`, wallY, [[at(sill) - 80, sill], [at(sill), sill], [at(coverTop - 110), coverTop - 110], [at(coverTop - 110) - 80, coverTop - 110]], trim)
+      sheet(`cover-side-mesh-${side}`, wallY, [[railStart + 80, sill], [at(sill) - 80, sill], [topX - 80, roofZ(topX - 80) - 110], [railStart + 80, roofZ(railStart + 80) - 110]], '#e9e6da')
+      sheet(`cover-side-top-${side}`, wallY, [[railStart, coverTop - 110], [topX, topBandZ], [topFront, frontTop], [railStart, coverTop]], trim)
+      sheet(`cover-side-rear-${side}`, wallY, [[railStart, sill], [railStart + 80, sill], [railStart + 80, roofZ(railStart + 80) - 110], [railStart, coverTop - 110]], trim)
+      sheet(`cover-side-front-${side}`, wallY, [[at(sill) - 80, sill], [at(sill), sill], [topX, topBandZ], [topX - 80, roofZ(topX - 80) - 110]], trim)
     }
     // Front wall: three bands along the slope from the base front corner to the top front cross tube.
-    const frontDir: V = [-s.rake / Math.hypot(s.rake, coverTop - bottom), 0, (coverTop - bottom) / Math.hypot(s.rake, coverTop - bottom)]; const slopeLen = Math.hypot(s.rake, coverTop - bottom)
+    const slopeLen = Math.hypot(s.rake, frontTop - bottom); const frontDir: V = [-s.rake / slopeLen, 0, (frontTop - bottom) / slopeLen]
     const band = (id: string, from: number, to: number, w: number, color: string) => slab(id, [2, w, to - from], add3([frontEdge + 2, 0, bottom], scale(frontDir, (from + to) / 2)), crossV(across, frontDir), across, color)
     band('cover-front-band', 0, 350, s.width + 2 * t, trim)
     band('cover-front-mesh', 350, slopeLen - 110, s.width - 60, '#e9e6da')

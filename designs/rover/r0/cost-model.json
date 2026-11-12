@@ -10,25 +10,27 @@
     "hub": 101.6,
     "caster": 310,
     "rake": 350,
+    "taper": 180,
     "wheel": "trail",
     "front": "swivel",
-    "kit": "wheels"
+    "kit": "wheels",
+    "build": "welded"
   },
   "base": {
     "quantity": 100,
     "light": {
-      "bars": 235,
-      "netMm": 1440000,
+      "bars": 230,
+      "netMm": 1421285.86,
       "kerfMm": 5100,
-      "stockMm": 1504188
+      "stockMm": 1472184
     },
     "heavy": {
-      "bars": 159,
-      "netMm": 1147721.42,
+      "bars": 156,
+      "netMm": 1126663.86,
       "kerfMm": 5400,
-      "stockMm": 1163116.8
+      "stockMm": 1141171.2
     },
-    "tube": 33916,
+    "tube": 33239,
     "textiles": {
       "quantity": 100,
       "minutes": 200,
@@ -37,10 +39,10 @@
         {
           "id": "roof",
           "name": "Roof shell, one piece",
-          "purchase": 181832,
-          "units": 119,
+          "purchase": 184888,
+          "units": 121,
           "unit": "whole linear yards",
-          "allocation": 1819
+          "allocation": 1849
         },
         {
           "id": "wall",
@@ -53,18 +55,18 @@
         {
           "id": "mesh",
           "name": "Mesh: three windows and the rear vent",
-          "purchase": 253095,
-          "units": 141,
+          "purchase": 238735,
+          "units": 133,
           "unit": "whole linear yards",
-          "allocation": 2531
+          "allocation": 2388
         },
         {
           "id": "clear",
           "name": "Clear storm panels",
-          "purchase": 142410,
-          "units": 180,
+          "purchase": 106670,
+          "units": 140,
           "unit": "yards, bought as 60-yard and 10-yard rolls",
-          "allocation": 1425
+          "allocation": 1067
         },
         {
           "id": "liner",
@@ -155,44 +157,44 @@
           "allocation": 240
         }
       ],
-      "materials": 26922,
-      "rejects": 2693,
+      "materials": 26451,
+      "rejects": 2646,
       "labor": 10000,
       "freight": 900,
-      "total": 40515,
+      "total": 39997,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 77388,
-    "cogs": 151819,
+    "other": 77205,
+    "cogs": 150441,
     "retail": 99900,
-    "gross": -51919,
-    "grossPercent": -51.970970970970974,
+    "gross": -50541,
+    "grossPercent": -50.59159159159159,
     "maxCogs": 69930,
-    "headroom": -81889,
+    "headroom": -80511,
     "meetsCostGate": false,
     "fee": 2927,
     "reserve": 4995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -64841,
-    "retailForGate": 216900,
-    "tubeMill": 13911,
-    "cogsMill": 131814,
-    "retailForGateMill": 188400,
-    "stainlessUpgrade": 4002,
+    "contribution": -63463,
+    "retailForGate": 215000,
+    "tubeMill": 13695,
+    "cogsMill": 130897,
+    "retailForGateMill": 187000,
+    "stainlessUpgrade": 322,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
   "one": {
     "quantity": 1,
     "light": {
       "bars": 7,
-      "netMm": 14400,
+      "netMm": 14212.8586,
       "kerfMm": 51,
       "stockMm": 17068.8
     },
     "heavy": {
       "bars": 5,
-      "netMm": 11477.2142,
+      "netMm": 11266.6386,
       "kerfMm": 54,
       "stockMm": 12192
     },
@@ -330,39 +332,48 @@
       "total": 83006,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 135819,
-    "cogs": 276985,
+    "other": 155877,
+    "cogs": 297043,
     "retail": 99900,
-    "gross": -177085,
-    "grossPercent": -177.26226226226228,
+    "gross": -197143,
+    "grossPercent": -197.34034034034033,
     "maxCogs": 69930,
-    "headroom": -207055,
+    "headroom": -227113,
     "meetsCostGate": false,
     "fee": 2927,
     "reserve": 4995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -190007,
-    "retailForGate": 395700,
-    "tubeMill": 13911,
-    "cogsMill": 232736,
-    "retailForGateMill": 332500,
-    "stainlessUpgrade": 4002,
+    "contribution": -210065,
+    "retailForGate": 424400,
+    "tubeMill": 13695,
+    "cogsMill": 252578,
+    "retailForGateMill": 360900,
+    "stainlessUpgrade": 322,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
   "lines": [
     {
       "id": "gussets",
-      "name": "44 corner gussets, 8 tee gussets and 2 brake plates, laser cut 1/8 inch 6061",
-      "batch": 8640,
-      "one": 24300,
+      "name": "2 brake clamp plates, laser cut 1/8 inch 6061",
+      "batch": 320,
+      "one": 900,
       "coverage": [
-        "M01",
-        "M02",
         "M04"
       ],
       "evidence": "RFQ",
-      "note": "Three aluminum profiles. Includes material, cutting and deburring. No quote was run; upload the DXF files to a cutting service for a real price."
+      "note": "One aluminum profile. The welded frame has no gussets. No quote was run; upload the DXF file to a cutting service for a real price."
+    },
+    {
+      "id": "welding",
+      "name": "46 TIG welded joints by a fabrication shop",
+      "batch": 20284,
+      "one": 69000,
+      "coverage": [
+        "J01"
+      ],
+      "evidence": "RFQ",
+      "note": "No shop has quoted this. Batch: 3.5 minutes a joint on a jig at $70 a shop hour, plus a $15 share of the jig. One frame: 10 minutes a joint at $90 an hour, fit-up included. A real quote replaces all of it."
     },
     {
       "id": "hangers",
@@ -418,9 +429,9 @@
     },
     {
       "id": "fasteners",
-      "name": "174 sleeved bolted joints",
-      "batch": 7222,
-      "one": 9162,
+      "name": "14 sleeved bolted joints",
+      "batch": 575,
+      "one": 3620,
       "coverage": [
         "H01",
         "H02",
@@ -515,12 +526,12 @@
     },
     {
       "id": "labor",
-      "name": "Cutting, drilling, deburring and assembly labor",
-      "batch": 13750,
-      "one": 37500,
+      "name": "Cutting, the few drilled holes, deburring and assembly labor",
+      "batch": 6250,
+      "one": 15000,
       "coverage": [],
       "evidence": "RFQ",
-      "note": "Batch: 5.5 h at $25/h. One-off: 15 h. Roughly 300 tube-wall holes per carrier. Timing assumptions, not observed."
+      "note": "Batch: 2.5 h at $25/h. One-off: 6 h. Angled cuts on six pieces, about 40 tube-wall holes, then the bolt-on parts. Welding is its own line. Timing assumptions, not observed."
     },
     {
       "id": "qa",
@@ -534,11 +545,11 @@
     {
       "id": "pack",
       "name": "Packaging",
-      "batch": 2500,
-      "one": 3500,
+      "batch": 4500,
+      "one": 6000,
       "coverage": [],
       "evidence": "RFQ",
-      "note": "Large flat-pack carton set. Outbound freight is separate."
+      "note": "A welded frame does not pack flat: one carton about the size of the cabin. Outbound freight is separate and for a box this size it is truck freight, not parcel."
     },
     {
       "id": "freight",
@@ -647,6 +658,7 @@
     "Still allowances: the tailgate strap hook, floor screws, the ridge pole (the 4 ft store length is too short for the starting cabin), clamp screws, and caster nuts and sleeves.",
     "Listing prices, read on a search or category page and not a product page: 5/8 inch steel rod $20.57, rivet nuts $16.87 per 100, foam grip $1.95 per 6 inches, foam strip $18.99 per 50 ft.",
     "Stainless option: the stainless bolt is an observed $30.75 per 100. Stainless nuts and washers were not priced; the $0.23 per joint upgrade includes a $0.10 allowance for them.",
+    "Welded build: the welding line is arithmetic on assumed shop rates and minutes per joint. No fabricator has seen the drawings. A welded frame also ships assembled, and outbound truck freight for a carton that size is not in any total here.",
     "Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists."
   ]
 }

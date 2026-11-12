@@ -177,7 +177,11 @@ The sixth pass was deployed natively at commit `baeff07` on November 12, 2026 (U
 
 The price and size change was deployed natively at commit `3a0691a` on November 12, 2026 (UTC), GitHub deployment `7744606710`, after CI passed. On the public site the Rover page served $999.00, $1,049.00, $1,099.00 and $1,199.00, the studio and a default kit returned 200, an out-of-range setup returned 422, the checkout gate returned 409, the served setup was 1300 x 700 x 1000 with a 1000 ramp, and all 38 published Rover assets matched their manifest hashes and the committed files.
 
-- A later pass raked the cabin front 350 mm on two fabric stays, added Walk, Run, Coast and Snow setups to the studio and a concept ski conversion kit. Totals for the starting setup are $1,518.19 at 100 units and $2,769.85 for one. The ski kit has no selected ski and no supplier price. Verified locally only at the time of writing.
+- A later pass raked the cabin front 350 mm on two fabric stays, added Walk, Run, Coast and Snow setups to the studio and a concept ski conversion kit. Totals for the starting setup are $1,518.19 at 100 units and $2,769.85 for one. The ski kit has no selected ski and no supplier price.
+
+That pass was deployed natively at commit `930d16e` on November 12, 2026 (UTC), GitHub deployment `7745304382`. On the public site the studio returned 200 and served four activity choices, configured kits for the wheeled, ski and fixed-front setups returned 200, a rake of 50 returned 422, the checkout gate returned 409, and all 38 published Rover assets matched their manifest hashes.
+
+- A welded pass made a welded frame the starting design and kept the bolted frame as an option: a roof that falls 180 mm toward the front, raked front pillars, 46 welded joints, no gussets, a weld schedule and a build guide written for briefing a fabrication shop. Totals for the welded starting setup are $1,504.41 at 100 units and $2,970.43 for one, against $1,518.19 and $2,769.85 bolted, so welding does not lower the cost. The welding line is arithmetic on an assumed shop rate with no quote behind it, no weld procedure or sample exists, and outbound freight for an assembled frame is not counted. Verified locally only at the time of writing.
 
 ## Physical product gate
 

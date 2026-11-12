@@ -10,9 +10,11 @@
   "hub": 101.6,
   "caster": 310,
   "rake": 350,
+  "taper": 180,
   "wheel": "trail",
   "front": "swivel",
   "kit": "wheels",
+  "build": "welded",
   "dimensions": {
     "R": 192.9,
     "wheel": {
@@ -41,12 +43,105 @@
     "clearance": 108.125,
     "rearX": -560,
     "frontX": 740,
+    "welded": true,
+    "welds": [
+      {
+        "id": "W01",
+        "joint": "Base cross member to base side rail",
+        "qty": 10,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W02",
+        "joint": "Rear corner post to base side rail",
+        "qty": 2,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W03",
+        "joint": "Rear corner post to top side rail",
+        "qty": 2,
+        "type": "Tee, post top cut 10.2 degrees off square, fillet all round"
+      },
+      {
+        "id": "W04",
+        "joint": "Front pillar to base side rail",
+        "qty": 2,
+        "type": "Tee, foot cut 22.7 degrees off square so the pillar leans back, fillet all round"
+      },
+      {
+        "id": "W05",
+        "joint": "Front pillar to top side rail",
+        "qty": 2,
+        "type": "Pillar under the front end of the rail, top cut 32.9 degrees off square, fillet all round"
+      },
+      {
+        "id": "W06",
+        "joint": "Axle post to base side rail",
+        "qty": 2,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W07",
+        "joint": "Axle post to top side rail",
+        "qty": 2,
+        "type": "Tee, post top cut 10.2 degrees off square, fillet all round"
+      },
+      {
+        "id": "W08",
+        "joint": "Top cross tube to top side rail",
+        "qty": 6,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W09",
+        "joint": "Nose post to base side rail",
+        "qty": 4,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W10",
+        "joint": "Caster beam to nose post",
+        "qty": 4,
+        "type": "Beam across the post top, fillet all round"
+      },
+      {
+        "id": "W11",
+        "joint": "Brake arm to axle post",
+        "qty": 2,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W12",
+        "joint": "Handle arm to rear corner post and to axle post",
+        "qty": 4,
+        "type": "Lap, fillet both long edges"
+      },
+      {
+        "id": "W13",
+        "joint": "Handle grip tube to handle arm",
+        "qty": 2,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W14",
+        "joint": "Ramp leg to ramp rib",
+        "qty": 2,
+        "type": "Square tee, fillet all round"
+      }
+    ],
+    "roofAngle": 10.196,
+    "pillarAngle": 22.7367,
+    "topRailCut": 1016.8582,
+    "axlePost": 909.9122,
+    "pillar": 905.5711,
+    "taperAtAxle": 105.2878,
     "rail": 1678.65,
     "topRail": 1000.8,
     "floorLen": 1350.8,
     "frontPostX": 402.7,
-    "windshield": 1097.8836,
-    "stay": 1127.8836,
+    "windshield": 929.0492,
+    "stay": 959.0492,
     "post": 1015.2,
     "stations": [
       -572.7,
@@ -85,7 +180,7 @@
     "gripX": -965.4,
     "handleArm": 1005.4,
     "grip": 750.8,
-    "handleMax": 1040,
+    "handleMax": 1010,
     "centerAhead": 90,
     "roofSlope": 382.3748,
     "overallWidth": 1008.45,
@@ -112,7 +207,7 @@
         "name": "Axle post",
         "wall": "heavy",
         "qty": 2,
-        "length": 1015.2
+        "length": 909.9122
       },
       {
         "id": "C06",
@@ -137,9 +232,9 @@
       },
       {
         "id": "C09",
-        "name": "Corner post",
+        "name": "Rear corner post",
         "wall": "light",
-        "qty": 4,
+        "qty": 2,
         "length": 1015.2
       },
       {
@@ -147,7 +242,7 @@
         "name": "Top side rail",
         "wall": "light",
         "qty": 2,
-        "length": 1000.8
+        "length": 1016.8582
       },
       {
         "id": "C11",
@@ -197,16 +292,24 @@
         "wall": "heavy",
         "qty": 2,
         "length": 140
+      },
+      {
+        "id": "C21",
+        "name": "Front pillar",
+        "wall": "light",
+        "qty": 2,
+        "length": 905.5711
       }
     ],
     "counts": {
-      "corner": 44,
-      "tee": 8,
+      "corner": 0,
+      "tee": 0,
       "hanger": 4,
       "wheels": 2,
-      "bolts": 170,
-      "handleBolts": 4,
-      "sleeves": 178,
+      "weldJoints": 46,
+      "bolts": 14,
+      "handleBolts": 0,
+      "sleeves": 14,
       "casterBolts": 4,
       "brakeClamps": 2,
       "rampBolts": 18,
@@ -219,23 +322,23 @@
       "cableClip": 6,
       "axleCover": 4
     },
-    "heavyM": 11.4772,
-    "lightM": 14.4,
-    "tubeLb": 32.2,
+    "heavyM": 11.2666,
+    "lightM": 14.2129,
+    "tubeLb": 31.7,
     "floorArea": 1.0142,
     "rampArea": 0.688,
     "mass": {
-      "tube": 14.6,
-      "plates": 4.2,
+      "tube": 14.4,
+      "plates": 1.4,
       "panels": 11.1,
       "wheels": 10,
-      "hardware": 6.9,
+      "hardware": 2.6,
       "softgoods": 4.2
     },
-    "carrierKg": 51,
+    "carrierKg": 43.6,
     "frontShare": 9.8533,
-    "tiltForceN": 113,
-    "tiltForceLbf": 25,
+    "tiltForceN": 106,
+    "tiltForceLbf": 24,
     "volumeRatio": 2.2901
   },
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",

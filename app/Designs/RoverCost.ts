@@ -29,6 +29,7 @@ export const roverAllowanceNotes = [
   'Still allowances: the tailgate strap hook, floor screws, the ridge pole (the 4 ft store length is too short for the starting cabin), clamp screws, and caster nuts and sleeves.',
   'Listing prices, read on a search or category page and not a product page: 5/8 inch steel rod $20.57, rivet nuts $16.87 per 100, foam grip $1.95 per 6 inches, foam strip $18.99 per 50 ft.',
   'Stainless option: the stainless bolt is an observed $30.75 per 100. Stainless nuts and washers were not priced; the $0.23 per joint upgrade includes a $0.10 allowance for them.',
+  'Welded build: the welding line is arithmetic on assumed shop rates and minutes per joint. No fabricator has seen the drawings. A welded frame also ships assembled, and outbound truck freight for a carton that size is not in any total here.',
   'Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists.',
 ] as const
 
@@ -45,9 +46,13 @@ export function roverCostLines(s: RoverSetup = roverStart) {
   const hundreds = (n: number) => Math.ceil(n / 100); const fasteners = c.bolts + c.handleBolts
   // Sleeve stock in 6 ft bars, and the axle parts that scale with the number of plain wheels.
   const sleeveBars = c.sleeves * 26.9 / 1828.8; const shaftMm = 2 * d.rearShaft + (d.swivel ? 0 : d.frontShaft) + 6; const axleWashers = d.swivel ? 4 : 8; const axleCotters = d.swivel ? 4 : 6
+  const w = d.welded
   const sheets = d.floorLen + s.ramp + 10 <= 2438.4 && s.width + 50.8 <= 1219.2 ? 1 : 2
   return [
-    { id: 'gussets', name: `${c.corner} corner gussets, ${c.tee} tee gussets and 2 brake plates, laser cut 1/8 inch 6061`, batch: (c.corner + c.tee + 2) * 160, one: (c.corner + c.tee + 2) * 450, coverage: ['M01', 'M02', 'M04'], evidence: 'RFQ', note: 'Three aluminum profiles. Includes material, cutting and deburring. No quote was run; upload the DXF files to a cutting service for a real price.' },
+    w
+      ? { id: 'gussets', name: '2 brake clamp plates, laser cut 1/8 inch 6061', batch: 2 * 160, one: 2 * 450, coverage: ['M04'], evidence: 'RFQ', note: 'One aluminum profile. The welded frame has no gussets. No quote was run; upload the DXF file to a cutting service for a real price.' }
+      : { id: 'gussets', name: `${c.corner} corner gussets, ${c.tee} tee gussets and 2 brake plates, laser cut 1/8 inch 6061`, batch: (c.corner + c.tee + 2) * 160, one: (c.corner + c.tee + 2) * 450, coverage: ['M01', 'M02', 'M04'], evidence: 'RFQ', note: 'Three aluminum profiles. Includes material, cutting and deburring. No quote was run; upload the DXF files to a cutting service for a real price.' },
+    ...(w ? [{ id: 'welding', name: `${c.weldJoints} TIG welded joints by a fabrication shop`, batch: Math.ceil(c.weldJoints * 3.5 * 7000 / 60) + 1500, one: c.weldJoints * 1500, coverage: ['J01'], evidence: 'RFQ', note: 'No shop has quoted this. Batch: 3.5 minutes a joint on a jig at $70 a shop hour, plus a $15 share of the jig. One frame: 10 minutes a joint at $90 an hour, fit-up included. A real quote replaces all of it.' }] : []),
     { id: 'hangers', name: `${c.hanger} stainless axle hangers`, batch: c.hanger * 400, one: c.hanger * 900, coverage: ['M03'], evidence: 'RFQ', note: 'One 304 stainless profile for all three wheels. Bore finishing after drawing review.' },
     s.wheel === 'trail'
       ? { id: 'wheels', name: `${c.wheels} pneumatic trail wheels, 15 inch 4.00-8`, batch: c.wheels * 3289, one: c.wheels * 3289, coverage: ['W01'], evidence: 'Observed 2026-11-12', url: 'https://www.zoro.com/zoro-select-pneumatic-wheel-15-316dia-435lb-400-8-1nwv4/i/G1932594/', note: '$32.89 each, no bulk discount assumed. Ball bearings, 5/8 inch bore and a 4 inch hub are stated by the supplier.' }
@@ -63,9 +68,13 @@ export function roverCostLines(s: RoverSetup = roverStart) {
     { id: 'brake', name: 'Parking brake: two push-pull toggle clamps with neoprene-tipped spindles', batch: 2 * 764 + 2 * 415 + 200, one: 2 * 1070 + 2 * 415 + 200, coverage: ['B03', 'B04'], evidence: 'Observed 2026-11-12 + screw allowance', url: 'https://www.zoro.com/powertec-toggle-clamp-300lbs-cap-302f-quick-release-pushpull-clamp-20304n/i/G714915420/', note: 'POWERTEC 302F at $10.70 each, $7.64 in a six-pack, 300 lb holding capacity and a 5/16-18 plunger thread stated. DE-STA-CO 507208 neoprene-tipped spindle, 5/16-18, at $4.15 each.' },
     ...(d.ski ? [{ id: 'snow', name: 'Snow kit: two skis, pins, spacers, hip belt and links', batch: 13000, one: 15000, coverage: ['K01', 'K02', 'K03', 'K04', 'K05'], evidence: 'Allowance', note: 'Nothing in the snow kit has a supplier page behind it. Its posts, feet, tow shafts, gussets and bolts are counted in the tube, plate and fastener lines.' }] : []),
     { id: 'prints', name: 'Printed service parts and fixtures', batch: 2300, one: 2700, coverage: ['P-cap_heavy', 'P-cap_light', 'P-ramp_toe', 'P-ridge_saddle', 'P-fabric_clip', 'P-cable_clip', 'P-axle_cover', 'P-guide_butt', 'P-guide_run', 'P-guide_tee', 'P-coupon'], evidence: 'Computed volume + allowance', note: 'About 1.3 liters of solid part volume, most of it the three ramp toes. Priced as consumed filament with a reject reserve, not a printer.' },
-    { id: 'labor', name: 'Cutting, drilling, deburring and assembly labor', batch: 13750, one: 37500, coverage: [], evidence: 'RFQ', note: 'Batch: 5.5 h at $25/h. One-off: 15 h. Roughly 300 tube-wall holes per carrier. Timing assumptions, not observed.' },
+    w
+      ? { id: 'labor', name: 'Cutting, the few drilled holes, deburring and assembly labor', batch: 6250, one: 15000, coverage: [], evidence: 'RFQ', note: 'Batch: 2.5 h at $25/h. One-off: 6 h. Angled cuts on six pieces, about 40 tube-wall holes, then the bolt-on parts. Welding is its own line. Timing assumptions, not observed.' }
+      : { id: 'labor', name: 'Cutting, drilling, deburring and assembly labor', batch: 13750, one: 37500, coverage: [], evidence: 'RFQ', note: 'Batch: 5.5 h at $25/h. One-off: 15 h. Roughly 300 tube-wall holes per carrier. Timing assumptions, not observed.' },
     { id: 'qa', name: 'Per-carrier inspection', batch: 1200, one: 2500, coverage: [], evidence: 'RFQ', note: 'Does not replace engineering qualification.' },
-    { id: 'pack', name: 'Packaging', batch: 2500, one: 3500, coverage: [], evidence: 'RFQ', note: 'Large flat-pack carton set. Outbound freight is separate.' },
+    w
+      ? { id: 'pack', name: 'Packaging', batch: 4500, one: 6000, coverage: [], evidence: 'RFQ', note: 'A welded frame does not pack flat: one carton about the size of the cabin. Outbound freight is separate and for a box this size it is truck freight, not parcel.' }
+      : { id: 'pack', name: 'Packaging', batch: 2500, one: 3500, coverage: [], evidence: 'RFQ', note: 'Large flat-pack carton set. Outbound freight is separate.' },
     { id: 'freight', name: 'Inbound freight allocation', batch: 3000, one: 9000, coverage: [], evidence: 'RFQ', note: 'Truck freight for long bars in a batch; parcel shipping for one build. Unquoted.' },
     { id: 'machine', name: 'Machine wear and shop consumables', batch: 600, one: 1000, coverage: [], evidence: 'RFQ', note: 'Drill bits, blades, jig wear.' },
   ]

@@ -26,7 +26,7 @@ Not in this revision: a selected wheel, a brake design, a swivel front wheel, a 
 | Deck fixed at 151.9 mm for every wheel choice | The base rail stays 124 mm up; each wheel has a hanger profile with the axle at its own fixed rise, 41, 69 or 130 mm | Only 108 mm ground clearance. Coast and Snow may need more |
 | Incline limit 12 degrees, start about 9 | The owner asked for a minimal incline. Published ramp guidance for dogs varies, so a strict limit was chosen rather than a cited one | Not validated with any dog. Wet grip unproven |
 | Three matching wheels, 15 inch 4.00-8 trail wheel by default | One wheel, one hanger, one spare. The supplier states bearings, bore, hub length and load, so nothing about the axle is guessed | A utility wheel, not a running wheel. Its weight is not stated. The 13 inch option is cheaper and the 20 inch option has no verified candidate |
-| Bolted gusset frame, no welding | Matches the XL r1 standard-parts approach and can be built with a drill | About 150 sleeved joints. Heavy, slow and expensive. See the cost study |
+| Welded frame as the starting build, bolted gusset frame kept as an option | Welding removes 52 plates and 160 bolts, saves about 7.7 kg on paper and lets the roof and nose slope. Bolting matches the XL r1 standard-parts approach and can be built with a drill | No weld procedure, sample joint or fabricator quote. Welding softens the tube beside each joint and nothing allows for it. The bolted frame has about 170 sleeved joints. Neither is cheaper; see the cost study |
 | Swivel front caster with a swivel lock on a raised nose, fixed fork kept as an option | A 140 lb dog makes a lift-to-steer front wheel impractical at walking pace; the lock holds it straight for running | The priced caster states its height but not its plate or bolt pattern, so the beams are drilled from the delivered plate |
 | Parking brake from a push-pull toggle clamp over each rear tire | Standard parts, positive over-center lock, no new mechanism to machine | Untested. Holding force on a pneumatic tire depends on adjustment and pressure. No brake for slowing |
 | Zinc-plated grade 5 fasteners in Run, aluminum gussets | Lower cost and higher strength than 18-8 stainless | Corrosion in salt. Stainless is the Coast upgrade, with galling to manage |
@@ -65,7 +65,9 @@ The owner also asked for the smoothest ride available and for a conversion to ca
 
 A further pass answered two requests about shape and options. The front wall is raked: the front posts and top frame stand 350 mm back and the wall is fabric on two 12.7 mm stays in sewn sleeves, so nothing is bent and no new plate is needed. Cross members are re-spaced automatically to keep their bolts clear of the moved posts. Four activity setups were added to the studio. Walk, Run and Coast are combinations of options that already existed. Snow adds a conversion kit drawn from the same tube and tee gussets: a post that swings on each rear axle, a tube foot bolted to a purchased ski, and two tow shafts pinned to the front. No ski, pin or belt has been selected or priced, the skier carries the front of the carrier, and there is no brake on snow. Totals for the starting Walk setup are $1,518.19 at 100 units, $2,769.85 for one and $1,318.14 with tube by weight; the Snow setup adds about $213 on allowances.
 
-Not closed: no plate quote was run. OSH Cut prices uploaded DXF files without an account, but uploading files to an outside service was not permitted in this session, so it is left to the owner. The caster's swivel radius and the spindle's tip diameter are unconfirmed. Nothing has been built or loaded.
+A welded pass followed at the owner's request. The frame gained a build setting. Welded is now the starting design: the top rails fall 180 mm from rear to front, a raked pillar on each side replaces the front post and the fabric stay, and every gusset is gone. A weld schedule lists the 46 joints, the cut list carries the angled ends, the drilling schedule shrinks to the hangers, brake plates, caster, tip-stops and ramp, and the build guide becomes a guide to briefing a fabrication shop and checking the frame it returns. The bolted frame is unchanged and still selectable; its roof cannot taper. The cost model gained a welding line on assumed shop rates: $202.84 a carrier at 100 units and $690 for one. Totals for the welded starting setup are $1,504.41 at 100 units, $2,970.43 for one and $1,308.97 with tube by weight, against $1,518.19 and $2,769.85 bolted. Welding therefore does not lower the cost; it lowers the mass estimate from 51.3 to 43.6 kg and gives the shape. A welded frame ships assembled, and that freight is not counted.
+
+Not closed: no fabricator has seen the drawings, and no plate quote was run. OSH Cut prices uploaded DXF files without an account, but uploading files to an outside service was not permitted in this session, so it is left to the owner. The caster's swivel radius and the spindle's tip diameter are unconfirmed. Nothing has been built or loaded.
 
 What these passes could not do is make the design competitive with the reference trailer's price. That needs a different architecture, most likely a fabric cabin on bent hoops over a welded or riveted base, and quotes rather than listings.
 
@@ -79,7 +81,7 @@ There is no SCAD or STEP file for Rover. The TypeScript generator is the editabl
 
 ## What was verified
 
-- Seven native tests cover the solid kit, setup validation across the range corners, all fourteen meshes, scene and cut-list agreement, gusset counts, the cost arithmetic, document content and the configured kit with stale and tampered asset rejection.
+- Eight native tests cover the solid kit, setup validation across the range corners, all fourteen meshes, scene and cut-list agreement for both the welded and the bolted build, gusset and weld counts, the cost arithmetic, document content and the configured kit with stale and tampered asset rejection.
 - The studio page was loaded in a browser: the 3D model reached its ready state with no console errors, the ramp, side view and weather cover were inspected, and the configured downloads resolved.
 - Supplier prices for the cover materials were read from supplier pages on November 11, 2026. Most hardware prices could not be read from a supplier page that day and are labeled as allowances.
 
@@ -91,6 +93,6 @@ Everything physical. Strength, stiffness, fatigue, tip stability, braking, ramp 
 
 1. Measure Buddy. Lying length and standing height decide the cabin.
 2. Choose the wheel and brake, then correct the hub length, axle and hanger bore.
-3. Replace bolted joints with welded or riveted sub-frames, and the plywood deck with something lighter. Recount cost and mass.
+3. Get a fabricator's quote and one welded sample joint for the welded frame. Replace the plywood deck with something lighter. Recount cost and mass.
 4. Design a lockable swivel front wheel and decide on anti-tip geometry.
 5. Sew one roof and one wall panel and run the spray, seam and temperature tests.

@@ -4,7 +4,7 @@
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
   "generator": "native Stacks solid kit, no external CAD executable",
   "geometryHash": "92a14b78fbca3bbfed190d0d4a5e4999936f656eb1757085ddefa9e3bace8645",
-  "costHash": "5046a701495781dd0e317372201596076abdb69b569ddbeaceecd72b12feb46f",
+  "costHash": "319cd62adc4d7543f85d2ab06c2ec15f078d7d1f8851a60ccfb2f4131d3309ab",
   "setup": {
     "length": 1300,
     "width": 700,
@@ -15,9 +15,11 @@
     "hub": 101.6,
     "caster": 310,
     "rake": 350,
+    "taper": 180,
     "wheel": "trail",
     "front": "swivel",
-    "kit": "wheels"
+    "kit": "wheels",
+    "build": "welded"
   },
   "dimensions": {
     "R": 192.9,
@@ -47,12 +49,105 @@
     "clearance": 108.125,
     "rearX": -560,
     "frontX": 740,
+    "welded": true,
+    "welds": [
+      {
+        "id": "W01",
+        "joint": "Base cross member to base side rail",
+        "qty": 10,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W02",
+        "joint": "Rear corner post to base side rail",
+        "qty": 2,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W03",
+        "joint": "Rear corner post to top side rail",
+        "qty": 2,
+        "type": "Tee, post top cut 10.2 degrees off square, fillet all round"
+      },
+      {
+        "id": "W04",
+        "joint": "Front pillar to base side rail",
+        "qty": 2,
+        "type": "Tee, foot cut 22.7 degrees off square so the pillar leans back, fillet all round"
+      },
+      {
+        "id": "W05",
+        "joint": "Front pillar to top side rail",
+        "qty": 2,
+        "type": "Pillar under the front end of the rail, top cut 32.9 degrees off square, fillet all round"
+      },
+      {
+        "id": "W06",
+        "joint": "Axle post to base side rail",
+        "qty": 2,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W07",
+        "joint": "Axle post to top side rail",
+        "qty": 2,
+        "type": "Tee, post top cut 10.2 degrees off square, fillet all round"
+      },
+      {
+        "id": "W08",
+        "joint": "Top cross tube to top side rail",
+        "qty": 6,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W09",
+        "joint": "Nose post to base side rail",
+        "qty": 4,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W10",
+        "joint": "Caster beam to nose post",
+        "qty": 4,
+        "type": "Beam across the post top, fillet all round"
+      },
+      {
+        "id": "W11",
+        "joint": "Brake arm to axle post",
+        "qty": 2,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W12",
+        "joint": "Handle arm to rear corner post and to axle post",
+        "qty": 4,
+        "type": "Lap, fillet both long edges"
+      },
+      {
+        "id": "W13",
+        "joint": "Handle grip tube to handle arm",
+        "qty": 2,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W14",
+        "joint": "Ramp leg to ramp rib",
+        "qty": 2,
+        "type": "Square tee, fillet all round"
+      }
+    ],
+    "roofAngle": 10.196,
+    "pillarAngle": 22.7367,
+    "topRailCut": 1016.8582,
+    "axlePost": 909.9122,
+    "pillar": 905.5711,
+    "taperAtAxle": 105.2878,
     "rail": 1678.65,
     "topRail": 1000.8,
     "floorLen": 1350.8,
     "frontPostX": 402.7,
-    "windshield": 1097.8836,
-    "stay": 1127.8836,
+    "windshield": 929.0492,
+    "stay": 959.0492,
     "post": 1015.2,
     "stations": [
       -572.7,
@@ -91,7 +186,7 @@
     "gripX": -965.4,
     "handleArm": 1005.4,
     "grip": 750.8,
-    "handleMax": 1040,
+    "handleMax": 1010,
     "centerAhead": 90,
     "roofSlope": 382.3748,
     "overallWidth": 1008.45,
@@ -118,7 +213,7 @@
         "name": "Axle post",
         "wall": "heavy",
         "qty": 2,
-        "length": 1015.2
+        "length": 909.9122
       },
       {
         "id": "C06",
@@ -143,9 +238,9 @@
       },
       {
         "id": "C09",
-        "name": "Corner post",
+        "name": "Rear corner post",
         "wall": "light",
-        "qty": 4,
+        "qty": 2,
         "length": 1015.2
       },
       {
@@ -153,7 +248,7 @@
         "name": "Top side rail",
         "wall": "light",
         "qty": 2,
-        "length": 1000.8
+        "length": 1016.8582
       },
       {
         "id": "C11",
@@ -203,16 +298,24 @@
         "wall": "heavy",
         "qty": 2,
         "length": 140
+      },
+      {
+        "id": "C21",
+        "name": "Front pillar",
+        "wall": "light",
+        "qty": 2,
+        "length": 905.5711
       }
     ],
     "counts": {
-      "corner": 44,
-      "tee": 8,
+      "corner": 0,
+      "tee": 0,
       "hanger": 4,
       "wheels": 2,
-      "bolts": 170,
-      "handleBolts": 4,
-      "sleeves": 178,
+      "weldJoints": 46,
+      "bolts": 14,
+      "handleBolts": 0,
+      "sleeves": 14,
       "casterBolts": 4,
       "brakeClamps": 2,
       "rampBolts": 18,
@@ -225,23 +328,23 @@
       "cableClip": 6,
       "axleCover": 4
     },
-    "heavyM": 11.4772,
-    "lightM": 14.4,
-    "tubeLb": 32.2,
+    "heavyM": 11.2666,
+    "lightM": 14.2129,
+    "tubeLb": 31.7,
     "floorArea": 1.0142,
     "rampArea": 0.688,
     "mass": {
-      "tube": 14.6,
-      "plates": 4.2,
+      "tube": 14.4,
+      "plates": 1.4,
       "panels": 11.1,
       "wheels": 10,
-      "hardware": 6.9,
+      "hardware": 2.6,
       "softgoods": 4.2
     },
-    "carrierKg": 51,
+    "carrierKg": 43.6,
     "frontShare": 9.8533,
-    "tiltForceN": 113,
-    "tiltForceLbf": 25,
+    "tiltForceN": 106,
+    "tiltForceLbf": 24,
     "volumeRatio": 2.2901
   },
   "printVolumeCm3": 1339,
@@ -363,78 +466,83 @@
     },
     {
       "path": "assembly.md",
-      "sha256": "68da596b0e9284a4f23c49c83d7c09ca6378e4806b4e8ed4d6e4ae52327a7d69",
-      "bytes": 11101
+      "sha256": "4a3f73ae47696616ff92f33d969bd1121324e406a2854e7d1e738e9b3910c593",
+      "bytes": 11955
     },
     {
       "path": "bom.csv",
-      "sha256": "0cd131f6344ce6776e75eb02395396e8a1796434242c47715f469e63ed995742",
-      "bytes": 9509
+      "sha256": "e9e713eb814a293d073843863eab31c9a57e21c3e2cf32b8db3b5eced8dc33d3",
+      "bytes": 9233
     },
     {
       "path": "materials.md",
-      "sha256": "cf6e61b1bd3594cd896ee19336ed011bce2eb4dc25ee773f46f587534a44e7fb",
-      "bytes": 11851
+      "sha256": "907efa29fec1f2b3cd938f5e25689e3350d6f817328e1526ee7f54628bb70c9f",
+      "bytes": 11862
     },
     {
       "path": "cover-cut-schedule.csv",
-      "sha256": "f4786f948e416fbebe85dea9be176db709b4c313e16cb2107641310c683fcdf2",
-      "bytes": 2660
+      "sha256": "f0a2b328308a34e9d4f6a48d8f8dbbfef647d56a2982e7821d69cd3d40953fe2",
+      "bytes": 2733
     },
     {
       "path": "cover-panels.svg",
-      "sha256": "6d270ef583eb072e67ff2a061ffa5b232374c30750ba56052df831c667d4f04a",
-      "bytes": 4440
+      "sha256": "135ba4e6834a6d6bf928537676aaff16a80bdd0309bc442c113bfed6b2e8cb23",
+      "bytes": 4438
     },
     {
       "path": "drawing.svg",
-      "sha256": "bb2a0ece6c430ca3e1639ee884691e39e35fdc252a405ee55583e7164215db9c",
-      "bytes": 5851
+      "sha256": "3af765fff2ee28869ef1c94f086a8c951faef44582b90467555d4615521ddb67",
+      "bytes": 5754
     },
     {
       "path": "cut-list.csv",
-      "sha256": "b2835119b046064e881eb437adec40643f30297a18616406b4daf3d0bd55486a",
-      "bytes": 1168
+      "sha256": "2372cd1e2dc116836b53fe926868894e9975a70e7f8f284486ab00fa23e69aed",
+      "bytes": 1255
     },
     {
       "path": "cost-notes.md",
-      "sha256": "d41dbfbd877d684a1536eb69ef155795e251a73b1a541740c345719c05e26ca2",
-      "bytes": 20503
+      "sha256": "470ef4b2de9a4ac77441d0c4fd773f4990b6a6d32fcf497523c60d957ebc8c63",
+      "bytes": 22115
     },
     {
       "path": "buy-list.md",
-      "sha256": "237636446f01063bfc50f18fff33f34476a0ccf314090fb67e0b2e20a2069db5",
-      "bytes": 5964
+      "sha256": "4d2f74f5158d4f66147aaee3a8cb905c82c463ccf521eed8409f2c185188e3c1",
+      "bytes": 6135
     },
     {
       "path": "build-guide.md",
-      "sha256": "f8c3c0c8339959a6257aed38250a623039d890e8b9fc04262c0ff3881f98d730",
-      "bytes": 20879
+      "sha256": "0f7de9f9b34d12207ca5e2e74c6f9255d0ea91d6f3af0816fc213c0becd15b3b",
+      "bytes": 23025
     },
     {
       "path": "drilling.csv",
-      "sha256": "3c406e8c0bf284e6b83ecf3c7fc6b1eb82abe6d2b8d8789b5b80af57754d45a4",
-      "bytes": 4995
+      "sha256": "7d42a83db25ab194038f6f671799e019e558fe45d26fa65d2c3bf168f8a9657b",
+      "bytes": 1180
+    },
+    {
+      "path": "weld-schedule.csv",
+      "sha256": "deed9d4867a5a5dc6136388cd9c2b8aea18c66c5fe136d2b139273ec8d790c7a",
+      "bytes": 1255
     },
     {
       "path": "base-plan.svg",
-      "sha256": "ccbd56c51f1bd87fc42dd07ebd48bc05608aff1e9caee3846900c65de85e4584",
-      "bytes": 4995
+      "sha256": "07db10f3eba9851d9270ea6cdc14056b7a6f86e637e5b23e4c917ef77ab9cbe8",
+      "bytes": 4999
     },
     {
       "path": "cost-model.json",
-      "sha256": "8ffb62d42e59289697c271bbd53e48f0cbfe4403ec63df6d0dcfa8f2657f1e39",
-      "bytes": 23343
+      "sha256": "431b0e1e5b9d5c49d3950182a4951b06995f1ff8c2048f6f9dc983874284144a",
+      "bytes": 24160
     },
     {
       "path": "setup.json",
-      "sha256": "5e989eb1d81221cb97df70fbaf7d1d7722b2b33076dc8863b0044ce4254fd53f",
-      "bytes": 4932
+      "sha256": "73fe6d5c3c737f643e77d75cf0e6a0f6c3121be6ce1a6dceeeea93c832cad6a6",
+      "bytes": 7685
     },
     {
       "path": "README.md",
-      "sha256": "c72b9dd68f5af5555952391407b5e27bb9099029c8e61e05fec4e7994c19f7ce",
-      "bytes": 1599
+      "sha256": "b3423de8dede367193a6de63cff51ade424ec17a9845c25dc5272246f9113aab",
+      "bytes": 1829
     }
   ],
   "parts": [

@@ -17,13 +17,18 @@ const single: Record<string, [string, string, string]> = {
   guide: ['build-guide.md', 'text/markdown; charset=utf-8', '-build-guide.md'],
   drilling: ['drilling.csv', 'text/csv; charset=utf-8', '-drilling.csv'],
   baseplan: ['base-plan.svg', 'image/svg+xml', '-base-plan.svg'],
+  welds: ['weld-schedule.csv', 'text/csv; charset=utf-8', '-weld-schedule.csv'],
 }
 /** Configured documents plus the published geometry, re-proven against freshly generated meshes before delivery. */
 export async function roverDownload(root: string, artifact: string, setup: RoverSetup): Promise<Response> {
   const docs = roverDocuments(setup)
   const headers = { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' }
   const attachment = (body: BodyInit, type: string, suffix: string) => new Response(body, { headers: { ...headers, 'Content-Type': type, 'Content-Disposition': `attachment; filename="buddy-${roverCode(setup)}${suffix}"` } })
-  if (Object.hasOwn(single, artifact)) { const [file, type, suffix] = single[artifact]!; return attachment(docs[file]!, type, suffix) }
+  if (Object.hasOwn(single, artifact)) {
+    const [file, type, suffix] = single[artifact]!
+    // The weld schedule only exists for the welded build.
+    return docs[file] === undefined ? new Response('File not found.', { status: 404 }) : attachment(docs[file], type, suffix)
+  }
   if (artifact !== 'kit') return new Response('File not found.', { status: 404 })
   const pub = join(root, roverPublicPath)
   const manifest = await Bun.file(join(pub, 'manifest.json')).json() as { geometryHash: string, assets: { path: string, sha256: string }[] }

@@ -6,10 +6,13 @@ export type RoverWheel = 'trail' | 'path' | 'run'
 export type RoverFront = 'swivel' | 'fixed'
 /** ski adds the snow conversion: the wheels and the front wheel come off, skis go on the rear axles and two tow shafts pin to the front. */
 export type RoverKit = 'wheels' | 'ski'
+/** welded is a frame for a fabrication shop: mitred, welded joints, a real raked front pillar and a roof that tapers toward the front. bolted is the drill-and-gusset version one person can build. */
+export type RoverBuild = 'welded' | 'bolted'
 /** caster is the mounting height of the front swivel caster, floor to the top of its plate. It is ignored with a fixed front wheel. */
-/** rake is how far the top of the front wall leans back from the bottom. Zero gives a square box. */
-export interface RoverSetup { length: number, width: number, height: number, ramp: number, axle: number, handle: number, hub: number, caster: number, rake: number, wheel: RoverWheel, front: RoverFront, kit: RoverKit }
-export const roverStart: RoverSetup = { length: 1300, width: 700, height: 1000, ramp: 1000, axle: 560, handle: 1000, hub: 101.6, caster: 310, rake: 350, wheel: 'trail', front: 'swivel', kit: 'wheels' }
+/** rake is how far the top of the front wall leans back from the bottom. taper is how far the roof drops from rear to front, welded build only. Zero for both gives a square box. */
+export interface RoverSetup { length: number, width: number, height: number, ramp: number, axle: number, handle: number, hub: number, caster: number, rake: number, taper: number, wheel: RoverWheel, front: RoverFront, kit: RoverKit, build: RoverBuild }
+export const roverStart: RoverSetup = { length: 1300, width: 700, height: 1000, ramp: 1000, axle: 560, handle: 1000, hub: 101.6, caster: 310, rake: 350, taper: 180, wheel: 'trail', front: 'swivel', kit: 'wheels', build: 'welded' }
+export const roverBuilds = { welded: 'Welded frame, made by a fabrication shop', bolted: 'Bolted frame, built with a drill' } as const
 export const roverKits = { wheels: 'On wheels', ski: 'Snow conversion on skis' } as const
 /** One-tap combinations for the studio and the product page. Each is only a choice of wheel, front end and kit. */
 export const roverActivities = {
@@ -32,7 +35,7 @@ export const roverWheels = {
 export const roverTubeStock = { heavy: { mm: 7315.2, label: '24 ft', alloy: '6061-T6', wall: '1/8 inch' }, light: { mm: 6400.8, label: '21 ft', alloy: '6063-T52', wall: '1/16 inch' } } as const
 /** Parcel bars for a single build: 8 ft is the longest length the priced supplier ships without a truck. */
 export const roverParcelStock = { mm: 2438.4, label: '8 ft' } as const
-export const roverLimits = { length: [1000, 1400], width: [600, 800], height: [800, 1100], ramp: [700, 1100], axle: [300, 650], handle: [800, 1100], hub: [50, 110], caster: [250, 340], rake: [0, 500] } as const
+export const roverLimits = { length: [1000, 1400], width: [600, 800], height: [800, 1100], ramp: [700, 1100], axle: [300, 650], handle: [800, 1100], hub: [50, 110], caster: [250, 340], rake: [0, 500], taper: [0, 300] } as const
 export const roverHardware = {
   tube: 25.4, heavy: 3.175, light: 1.5875, plate: 3.175, panel: 12, bedding: 3.2, mat: 5,
   axle: 15.875, sleeve: 9.525, sleeveWall: 1.2446, axleSleeve: 19.05, axleSleeveWall: 1.4732,
@@ -90,7 +93,12 @@ export function parseRoverSetup(input: Record<string, unknown>): RoverSetup {
   const kit = input.kit ?? roverStart.kit
   if (typeof kit !== 'string' || !Object.hasOwn(roverKits, kit)) throw new Error('Choose wheels or the ski kit.')
   setup.kit = kit as RoverKit
-  for (const key of (Object.keys(setup) as (keyof RoverSetup)[]).filter((k): k is Exclude<keyof RoverSetup, 'wheel' | 'front' | 'kit'> => k !== 'wheel' && k !== 'front' && k !== 'kit')) {
+  const build = input.build ?? roverStart.build
+  if (typeof build !== 'string' || !Object.hasOwn(roverBuilds, build)) throw new Error('Choose the welded or the bolted build.')
+  setup.build = build as RoverBuild
+  // A bolted frame has only square joints, so its roof cannot taper. An unstated taper falls back to zero there.
+  if (setup.build === 'bolted' && input.taper === undefined) setup.taper = 0
+  for (const key of (Object.keys(setup) as (keyof RoverSetup)[]).filter((k): k is Exclude<keyof RoverSetup, 'wheel' | 'front' | 'kit' | 'build'> => k !== 'wheel' && k !== 'front' && k !== 'kit' && k !== 'build')) {
     const value = input[key] ?? setup[key]
     if ((typeof value !== 'number' && (typeof value !== 'string' || !/^\d+(?:\.\d+)?$/.test(value))) || !Number.isFinite(Number(value))) throw new Error(`Enter a positive number for ${key}.`)
     const n = Number(value); const [min, max] = roverLimits[key]; const step = key === 'hub' ? 0.05 : key === 'caster' ? 1 : 10
@@ -98,6 +106,7 @@ export function parseRoverSetup(input: Record<string, unknown>): RoverSetup {
     setup[key] = n
   }
   const d = roverDimensions(setup)
+  if (setup.build === 'bolted' && setup.taper !== 0) throw new Error('The roof can only taper on the welded build. Set taper to 0 for the bolted frame.')
   if (setup.rake !== 0 && setup.rake < 100) throw new Error('Front rake is either 0 for a square front or at least 100 mm.')
   if (setup.length - setup.axle - setup.rake < 200) throw new Error('Too much front rake for this axle position. The front posts must stand at least 200 mm ahead of the axle.')
   if (d.tireGap < 5) throw new Error('That hub is too short for this tire. The tire would rub the axle hanger.')
@@ -109,7 +118,7 @@ export function parseRoverSetup(input: Record<string, unknown>): RoverSetup {
   return setup
 }
 export const roverQuery = (s: RoverSetup) => new URLSearchParams(Object.fromEntries(Object.entries(s).map(([k, v]) => [k, String(v)]))).toString()
-export const roverCode = (s: RoverSetup) => `rover-r0-l${s.length}-w${s.width}-h${s.height}-r${s.ramp}-a${s.axle}-g${s.handle}-hub${s.hub}-${s.wheel}-${s.front === 'swivel' ? 'swivel' + s.caster : 'fixed'}-k${s.rake}${s.kit === 'ski' ? '-ski' : ''}`
+export const roverCode = (s: RoverSetup) => `rover-r0-l${s.length}-w${s.width}-h${s.height}-r${s.ramp}-a${s.axle}-g${s.handle}-hub${s.hub}-${s.wheel}-${s.front === 'swivel' ? 'swivel' + s.caster : 'fixed'}-k${s.rake}-t${s.taper}-${s.build}${s.kit === 'ski' ? '-ski' : ''}`
 
 /** Base cross members: rear sill, front, and intermediates no more than 400 mm apart, kept clear of the axle hangers. */
 export function crossStations(s: RoverSetup): number[] {
@@ -134,7 +143,11 @@ export function roverDimensions(s: RoverSetup) {
   const nosePost = s.caster - railZ - t / 2; const casterBeam = s.width + 2 * t
   const floorLen = s.length + 2 * t; const rail = floorLen + nose; const topRail = floorLen - s.rake; const post = s.height + h.panel + h.bedding
   // Raked front: the front posts and the top frame stand back by the rake, and the front wall is fabric on two stays.
-  const frontPostX = frontX + t / 2 - s.rake; const windshield = Math.hypot(s.rake, post + t)
+  const welded = s.build === 'welded'
+  // Welded build: the top rails slope down to the front by the taper and a raked pillar replaces each front post and stay.
+  const frontPostX = frontX + t / 2 - s.rake; const windshield = Math.hypot(s.rake, post + t - s.taper)
+  const topRailCut = Math.hypot(topRail, s.taper); const taperAtAxle = s.taper * (s.axle + t) / topRail
+  const axlePost = post - taperAtAxle; const pillar = Math.hypot(s.rake, post - s.taper)
   const stations = crossStations(s); const intermediates = stations.length - 2
   const end = 8 + h.cotter / 2
   const rearStack = t + 2 * h.plate + w.spacer + s.hub + 2 * h.washer; const rearShaft = rearStack + 0.5 + 2 * end
@@ -150,20 +163,20 @@ export function roverDimensions(s: RoverSetup) {
   const legCut = (deck - 40 * Math.sin(rampAngleRad)) / Math.cos(rampAngleRad) - h.panel - t - h.foot
   const hingeX = rearX - t - h.hingeGap; const gripX = rearX - t - h.reach
   const handleArm = 40 + s.axle + t + h.reach; const grip = s.width + 2 * t
-  const handleMax = Math.floor((deck + s.height - 110) / 10) * 10
+  const handleMax = Math.floor((deck + s.height - taperAtAxle - (welded ? 30 : 110)) / 10) * 10
   const centerAhead = s.length / 2 - s.axle
   const roofSlope = Math.hypot(s.width / 2 + t, h.ridge + h.pole)
   const cuts = [
     { id: 'C01', name: 'Base side rail', wall: 'heavy', qty: 2, length: rail },
     { id: 'C02', name: 'Base end cross member', wall: 'heavy', qty: 2, length: s.width },
-    { id: 'C03', name: 'Axle post', wall: 'heavy', qty: 2, length: post },
+    { id: 'C03', name: 'Axle post', wall: 'heavy', qty: 2, length: axlePost },
     { id: 'C04', name: 'Fork arm', wall: 'heavy', qty: swivel ? 0 : 2, length: forkArm },
     { id: 'C05', name: 'Fork stub post', wall: 'heavy', qty: swivel ? 0 : 2, length: stub },
     { id: 'C06', name: 'Ramp side curb rail', wall: 'heavy', qty: 2, length: s.ramp },
     { id: 'C07', name: 'Ramp under rib', wall: 'light', qty: 2, length: rampWidth },
     { id: 'C08', name: 'Ramp stand leg', wall: 'heavy', qty: 2, length: legCut },
-    { id: 'C09', name: 'Corner post', wall: 'light', qty: 4, length: post },
-    { id: 'C10', name: 'Top side rail', wall: 'light', qty: 2, length: topRail },
+    { id: 'C09', name: welded ? 'Rear corner post' : 'Corner post', wall: 'light', qty: welded ? 2 : 4, length: post },
+    { id: 'C10', name: 'Top side rail', wall: 'light', qty: 2, length: topRailCut },
     { id: 'C11', name: 'Top cross tube', wall: 'light', qty: 3, length: s.width },
     { id: 'C12', name: 'Handle arm', wall: 'light', qty: 2, length: handleArm },
     { id: 'C13', name: 'Handle grip tube', wall: 'light', qty: 1, length: grip },
@@ -174,13 +187,36 @@ export function roverDimensions(s: RoverSetup) {
     { id: 'C18', name: 'Ski post', wall: 'heavy', qty: ski ? 2 : 0, length: skiPost },
     { id: 'C19', name: 'Ski foot', wall: 'heavy', qty: ski ? 2 : 0, length: h.skiFoot },
     { id: 'C20', name: 'Tow shaft', wall: 'light', qty: ski ? 2 : 0, length: h.towShaft },
+    { id: 'C21', name: 'Front pillar', wall: 'light', qty: welded ? 2 : 0, length: pillar },
   ].filter(c => c.qty > 0).map(c => ({ ...c, length: mm(c.length) }))
+  // Welded build: no gussets. Only the axle hangers and the two brake plates still bolt on.
+  const roofAngle = degrees(Math.atan2(s.taper, topRail)); const pillarAngle = degrees(Math.atan2(s.rake, post - s.taper))
+  const square = 'Square tee, fillet all round'; const lap = 'Lap, fillet both long edges'
+  const welds = (!welded ? [] : [
+    { id: 'W01', joint: 'Base cross member to base side rail', qty: 2 * stations.length, type: square },
+    { id: 'W02', joint: 'Rear corner post to base side rail', qty: 2, type: square },
+    { id: 'W03', joint: 'Rear corner post to top side rail', qty: 2, type: `Tee, post top cut ${roofAngle.toFixed(1)} degrees off square, fillet all round` },
+    { id: 'W04', joint: 'Front pillar to base side rail', qty: 2, type: `Tee, foot cut ${pillarAngle.toFixed(1)} degrees off square so the pillar leans back, fillet all round` },
+    { id: 'W05', joint: 'Front pillar to top side rail', qty: 2, type: `Pillar under the front end of the rail, top cut ${(pillarAngle + roofAngle).toFixed(1)} degrees off square, fillet all round` },
+    { id: 'W06', joint: 'Axle post to base side rail', qty: 2, type: square },
+    { id: 'W07', joint: 'Axle post to top side rail', qty: 2, type: `Tee, post top cut ${roofAngle.toFixed(1)} degrees off square, fillet all round` },
+    { id: 'W08', joint: 'Top cross tube to top side rail', qty: 6, type: square },
+    ...(swivel
+      ? [{ id: 'W09', joint: 'Nose post to base side rail', qty: 4, type: square }, { id: 'W10', joint: 'Caster beam to nose post', qty: 4, type: 'Beam across the post top, fillet all round' }]
+      : [{ id: 'W09', joint: 'Fork arm to front cross member', qty: 2, type: square }, { id: 'W10', joint: 'Fork stub to fork arm', qty: 2, type: square }]),
+    { id: 'W11', joint: 'Brake arm to axle post', qty: 2, type: square },
+    { id: 'W12', joint: 'Handle arm to rear corner post and to axle post', qty: 4, type: lap },
+    { id: 'W13', joint: 'Handle grip tube to handle arm', qty: 2, type: square },
+    { id: 'W14', joint: 'Ramp leg to ramp rib', qty: 2, type: square },
+    ...(ski ? [{ id: 'W15', joint: 'Ski foot to ski post', qty: 2, type: square }] : []),
+  ])
+  const weldJoints = welds.reduce((n, row) => n + row.qty, 0)
+  const frameBolts = welded ? (swivel ? 10 : 20) + 4 : 132 + 8 * intermediates + (swivel ? 14 : 0) + (ski ? 8 : 0)
   const counts = {
-    // Swivel front: twelve more corner gussets and 32 bolts for the nose, less the fork's four tees, four hangers and 18 bolts.
-    // Each brake arm adds a pair of corner gussets and four bolts.
-    // The ski kit adds a pair of tee gussets and four bolts at each ski.
-    corner: (swivel ? 40 : 28) + 4, tee: 2 * intermediates + (swivel ? 2 : 6) + (ski ? 4 : 0), hanger: swivel ? 4 : 8, wheels: swivel ? 2 : 3,
-    bolts: 132 + 8 * intermediates + (swivel ? 14 : 0) + (ski ? 8 : 0), handleBolts: 4, sleeves: 132 + 8 * intermediates + 8 + (swivel ? 14 : 0) + (ski ? 8 : 0), casterBolts: swivel ? 4 : 0, brakeClamps: 2,
+    // Bolted, swivel front: twelve more corner gussets and 32 bolts for the nose, less the fork's four tees, four hangers and 18 bolts.
+    // Each brake arm adds a pair of corner gussets and four bolts. The ski kit adds a pair of tee gussets and four bolts at each ski.
+    corner: welded ? 0 : (swivel ? 40 : 28) + 4, tee: welded ? 0 : 2 * intermediates + (swivel ? 2 : 6) + (ski ? 4 : 0), hanger: swivel ? 4 : 8, wheels: swivel ? 2 : 3, weldJoints,
+    bolts: frameBolts, handleBolts: welded ? 0 : 4, sleeves: frameBolts + (welded ? 0 : 8), casterBolts: swivel ? 4 : 0, brakeClamps: 2,
     rampBolts: 2 * (Math.floor(s.ramp / 200) + 1) + 6, floorScrews: 2 * Math.ceil(floorLen / 250) + stations.length * 3,
     // Two of the chassis caps are the ramp leg feet.
     capHeavy: 16 + (ski ? 6 : 0), capLight: 12 + (ski ? 4 : 0), toe: Math.floor(rampWidth / 200), saddle: 3, fabricClip: 28, cableClip: 6, axleCover: swivel ? 4 : 6,
@@ -191,7 +227,7 @@ export function roverDimensions(s: RoverSetup) {
   // Planning arithmetic from nominal densities. Nothing has been weighed.
   const mass = {
     tube: heavyM * 0.762 + lightM * 0.408,
-    plates: (counts.corner * 6900 + counts.tee * 8000) * h.plate * 2.7e-6 + counts.hanger * 10950 * h.plate * 7.9e-6,
+    plates: (counts.corner * 6900 + counts.tee * 8000 + 2 * 18000) * h.plate * 2.7e-6 + counts.hanger * 10950 * h.plate * 7.9e-6,
     // 15/32 inch exterior pine plywood, nominal.
     panels: (floorArea + rampArea) * 6.5,
     wheels: counts.wheels * w.kg + (swivel ? h.casterKg : 0),
@@ -202,7 +238,8 @@ export function roverDimensions(s: RoverSetup) {
   const lever = (s.axle + t + h.reach) / 1000
   const tiltForceN = (roverPlanningDogKg + carrierKg) * 9.81 * (centerAhead / 1000) / lever
   return {
-    R, wheel: w, tire: w.tire, spacer: w.spacer, forkSpacer: w.forkSpacer, tireGap: mm(w.spacer + s.hub / 2 - w.tire / 2), railZ: mm(railZ), deck: mm(deck), topZ: mm(topZ), clearance: mm(railZ - t / 2 - h.plate), rearX, frontX, rail: mm(rail), topRail: mm(topRail), floorLen: mm(floorLen), frontPostX: mm(frontPostX), windshield: mm(windshield), stay: mm(windshield + 30), post: mm(post), stations, intermediates,
+    R, wheel: w, tire: w.tire, spacer: w.spacer, forkSpacer: w.forkSpacer, tireGap: mm(w.spacer + s.hub / 2 - w.tire / 2), railZ: mm(railZ), deck: mm(deck), topZ: mm(topZ), clearance: mm(railZ - t / 2 - h.plate), rearX, frontX, welded, welds, roofAngle: mm(roofAngle), pillarAngle: mm(pillarAngle), topRailCut: mm(topRailCut), axlePost: mm(axlePost), pillar: mm(pillar), taperAtAxle: mm(taperAtAxle),
+    rail: mm(rail), topRail: mm(topRail), floorLen: mm(floorLen), frontPostX: mm(frontPostX), windshield: mm(windshield), stay: mm(windshield + 30), post: mm(post), stations, intermediates,
     swivel, casterX: mm(casterX), nose: mm(nose), nosePost: mm(nosePost), casterBeam: mm(casterBeam),
     rearStack: mm(rearStack), rearShaft: mm(rearShaft), postY: mm(postY), inboard: mm(inboard), wheelY: mm(wheelY), cabinIntrusion: mm(inboard - t / 2),
     ski, skiPost: mm(skiPost), towPinX: mm(towPinX), brakeZ: mm(brakeZ), forkY: mm(forkY), frontStack: mm(frontStack), frontShaft: mm(frontShaft), forkArm: mm(forkArm), stub: mm(stub), wheelbase: mm(wheelbase),
