@@ -9,7 +9,7 @@ The owner asked for printable Rover designs, a cabin much larger than the Burley
 Delivered in this revision:
 
 - A parametric frame, ramp, running-gear layout and cover, in `app/Designs/Rover*.ts`.
-- Eleven printable service and fixture types and three fit-check copies of the metal profiles, as STL. Three metal profiles as DXF.
+- Eleven printable service and fixture types and four fit-check copies of the metal profiles, as STL. Four metal profiles as DXF.
 - A dimensioned side and top drawing, cut list, parts list, joint pattern table and build order.
 - A weather system with a named, priced candidate for every layer and a cover cut schedule.
 - A cost study from the counted parts list.
@@ -23,9 +23,9 @@ Not in this revision: a selected wheel, a brake design, a swivel front wheel, a 
 | --- | --- | --- |
 | Tailgate is the ramp, top-hinged leaves, 6 mm gap | One part does two jobs, and the dog walks on a continuous surface from ground to deck | Hinge pinch point, latch and strap retention |
 | Ramp stands on its own two feet | A 140 lb dog on the threshold would otherwise tip the carrier backward about its rear axle | Leg and gusset strength, foot setting on uneven ground |
-| Deck fixed at 151.9 mm with 20 inch wheels | Lets one stainless hanger profile carry all three axles at a fixed 130 mm rise above the base rail | Only 108 mm ground clearance. Coast and Snow may need more |
+| Deck fixed at 151.9 mm for both wheel choices | The base rail stays 124 mm up; each wheel has a hanger profile with the axle at its own fixed rise, 41 mm or 130 mm | Only 108 mm ground clearance. Coast and Snow may need more |
 | Incline limit 12 degrees, start about 9 | The owner asked for a minimal incline. Published ramp guidance for dogs varies, so a strict limit was chosen rather than a cited one | Not validated with any dog. Wet grip unproven |
-| Three matching 20 inch wheels | One wheel, one hanger, one spare | No verified wheel with a 5/8 inch bore and a suitable rating was found |
+| Three matching wheels, 13 x 4 inch path wheel by default | One wheel, one hanger, one spare, shared with the XL wheelchair, at an observed price | A garden-cart wheel for walking pace. Hub length unconfirmed. The 20 inch run option has no verified candidate |
 | Bolted gusset frame, no welding | Matches the XL r1 standard-parts approach and can be built with a drill | About 150 sleeved joints. Heavy, slow and expensive. See the cost study |
 | Fixed front wheel | The brief asked for a straight-tracking front assembly for running | Steering effort with a heavy dog. A lockable swivel is likely needed |
 | Zinc-plated grade 5 fasteners in Run, aluminum gussets | Lower cost and higher strength than 18-8 stainless | Corrosion in salt. Stainless is the Coast upgrade, with galling to manage |
@@ -42,7 +42,9 @@ The owner asked for the price to come down. The same r0 design was revised befor
 
 Result: $1,668.26 per carrier at 100 units and $2,809.28 for one, from $2,037.93 and $3,254.89. Tube and wheel prices could not be verified lower; supplier pages refused automated reads on both days. The study therefore also reports a second total with tube bought by weight at an assumed $4.00 per pound, $1,296.72, and labels it as an assumption.
 
-What this pass could not do is make the design competitive with the reference trailer's price. That needs a different architecture, most likely a fabric cabin on bent hoops over a welded or riveted base, and quotes rather than listings.
+A second pass the same day made the 13 x 4 inch pneumatic wheel from the XL wheelchair the default, with a low axle hanger profile and spacers so its wide tire clears the fork. Its $14.99 price was observed on November 8; the supplier page refused a recheck on November 12. That took the totals to $1,527.23 and $2,674.25, and $1,159.53 with tube by weight. The 20 inch wheel remains a studio option at its $60 allowance. This pass added one metal profile; the other fourteen meshes and three profiles are unchanged.
+
+What these passes could not do is make the design competitive with the reference trailer's price. That needs a different architecture, most likely a fabric cabin on bent hoops over a welded or riveted base, and quotes rather than listings.
 
 ## Native geometry
 

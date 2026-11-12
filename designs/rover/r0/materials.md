@@ -1,6 +1,6 @@
 # Buddy Rover r0 materials and weather system
 
-Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub75. Supplier pages read 2026-11-11 unless a row says otherwise. These are costing candidates and a design intent. No fabric has been bought, sewn, soaked, sun-aged or tested, and nothing here is a waterproof, UPF or temperature claim.
+Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub82.55-path. Supplier pages read 2026-11-11 unless a row says otherwise. These are costing candidates and a design intent. No fabric has been bought, sewn, soaked, sun-aged or tested, and nothing here is a waterproof, UPF or temperature claim.
 
 ## How the cabin handles weather
 

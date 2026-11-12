@@ -1,17 +1,19 @@
 import type { Layer, P2, Region, Triangle } from './Solid'
 import type { RoverPartId } from './Rover'
 import { binaryStl, circle, profileDxf, rect, roundCorners, roundedRect, stack, turn } from './Solid'
-import { roverHardware as h } from './Rover'
+import { roverHardware as h, roverWheels } from './Rover'
 
 /** Bolt clearance in plates, pilot size in guides, and the axle sleeve bore. */
 const BOLT = 6.75; const PILOT = 3.3; const BORE = 19.25
-export const gussetHoles = { legA: [50, 80], legB: [35, 65], tee: [-30, 30], stem: [35, 60], hangerPost: [60, 105, 155], hangerAxle: h.rise } as const
+export type RoverMetalId = 'tee_gusset' | 'corner_gusset' | 'axle_hanger' | 'axle_hanger_low'
 
 /** Flat fabrication profiles. The datum (0, 0) is the joint centerline intersection. */
-export function metalProfile(id: 'tee_gusset' | 'corner_gusset' | 'axle_hanger'): Region {
+export function metalProfile(id: RoverMetalId): Region {
   if (id === 'tee_gusset') return { outer: roundCorners([[-50, 20], [50, 20], [50, -20], [20, -20], [20, -75], [-20, -75], [-20, -20], [-50, -20]], 2), holes: [circle(BOLT, -30, 0), circle(BOLT, 30, 0), circle(BOLT, 0, -35), circle(BOLT, 0, -60)] }
   if (id === 'corner_gusset') return { outer: roundCorners([[-20, -20], [95, -20], [95, 20], [20, 20], [20, 95], [-20, 95]], 2), holes: [circle(BOLT, 50, 0), circle(BOLT, 80, 0), circle(BOLT, 0, 35), circle(BOLT, 0, 65)] }
-  return { outer: roundCorners([[-50, -20], [50, -20], [50, 20], [22, 20], [22, 178], [-22, 178], [-22, 20], [-50, 20]], 3), holes: [circle(BOLT, -30, 0), circle(BOLT, 30, 0), circle(BOLT, 0, 60), circle(BOLT, 0, 105), circle(BOLT, 0, 155), circle(BORE, 0, h.rise)] }
+  // Bar along the rail, stem up the post. The stem ends 18 mm above the top post bolt.
+  const wheel = id === 'axle_hanger' ? roverWheels.run : roverWheels.path; const top = wheel.posts.at(-1)! + 23
+  return { outer: roundCorners([[-50, -20], [50, -20], [50, 20], [22, 20], [22, top], [-22, top], [-22, 20], [-50, 20]], 3), holes: [circle(BOLT, -30, 0), circle(BOLT, 30, 0), ...wheel.posts.map(y => circle(BOLT, 0, y)), circle(BORE, 0, wheel.rise)] }
 }
 
 function cap(wall: number): Layer[] {
@@ -57,4 +59,4 @@ export function roverPartMesh(id: RoverPartId): Triangle[] {
   }
 }
 export const roverPartStl = (id: RoverPartId) => binaryStl(roverPartMesh(id), `Buddy Rover r0 ${id}. BENCH ONLY, mm. Not for animal use.`)
-export const roverMetalDxf = (id: 'tee_gusset' | 'corner_gusset' | 'axle_hanger') => profileDxf([metalProfile(id)])
+export const roverMetalDxf = (id: RoverMetalId) => profileDxf([metalProfile(id)])

@@ -156,7 +156,10 @@ On the public HTTPS site the Rover studio, Rover product page, shop and XL studi
 - The counted cost fell from $2,037.93 to $1,668.26 per carrier at 100 units and from $3,254.89 to $2,809.28 for one, through a cheaper verified wall fabric, hook and loop in place of zippers, listed quantity tiers, zinc-plated hardware, exterior plywood, thin-wall secondary tubes and eight fewer gussets. Each change carries a stated trade-off in the cost study. Estimated mass is about 45 kg.
 - A second, clearly labeled total prices the tube by weight at an assumed $4.00 per pound: $1,296.72. No tube or wheel price could be verified lower from a supplier page.
 - Neither figure fits the provisional $399 price or reaches the reference trailer's retail price. The studio, cost study and Rover brief say so. The catalog price is unchanged.
-- No part geometry changed. All fourteen meshes and three profiles are byte-identical to the first release.
+- No existing part geometry changed. The fourteen meshes and three profiles of the first release are byte-identical.
+- A second pass made the 13 x 4 inch pneumatic wheel from the XL wheelchair the default, at its observed $14.99, with a new low axle hanger profile and fork spacers. Totals are $1,527.23 at 100 units, $2,674.25 for one and $1,159.53 with tube by weight. The 20 inch wheel is a studio option and still costs $1,668.26. The package now has fifteen meshes and four profiles.
+
+The first cost-down pass was deployed natively at commit `dd57a1a` on November 12, 2026 (UTC), GitHub deployment `7731443503`. On the public site the studio and product page returned 200, the published cost study read $1,668.26, the materials list showed the new roof and wall fabrics, a configured kit returned 200, an out-of-range setup returned 422, the checkout gate returned 409 and all 28 published Rover assets matched their manifest hashes and the committed files. The second pass, with the path wheel, is committed and verified locally with 57 passing tests, clean lint and type checks, and a browser check of the wheel switch, both kits and the parts list; its production deployment is recorded separately once done.
 
 ## Physical product gate
 

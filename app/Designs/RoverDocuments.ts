@@ -10,21 +10,23 @@ const WALL = { heavy: '6061-T6 1 x 1 x .125 inch square tube', light: '6061-T6 1
 
 export function roverPrintQuantities(s: RoverSetup): Record<string, number> {
   const c = roverDimensions(s).counts
-  return { cap_heavy: c.capHeavy, cap_light: c.capLight, ramp_toe: c.toe, ridge_saddle: c.saddle, fabric_clip: c.fabricClip, cable_clip: c.cableClip, axle_cover: c.axleCover, guide_butt: 1, guide_run: 1, guide_tee: 1, coupon: 1, tee_gusset: c.tee, corner_gusset: c.corner, axle_hanger: c.hanger }
+  return { cap_heavy: c.capHeavy, cap_light: c.capLight, ramp_toe: c.toe, ridge_saddle: c.saddle, fabric_clip: c.fabricClip, cable_clip: c.cableClip, axle_cover: c.axleCover, guide_butt: 1, guide_run: 1, guide_tee: 1, coupon: 1, tee_gusset: c.tee, corner_gusset: c.corner, axle_hanger: s.wheel === 'run' ? c.hanger : 0, axle_hanger_low: s.wheel === 'path' ? c.hanger : 0 }
 }
 export function roverBom(s: RoverSetup): string {
-  const d = roverDimensions(s); const c = d.counts; const q = roverPrintQuantities(s)
+  const d = roverDimensions(s); const c = d.counts; const q = roverPrintQuantities(s); const w = d.wheel
   return csv([
     ['ID', 'Quantity', 'Part', 'Specification', 'Status'],
     ...d.cuts.map(cut => [cut.id, cut.qty, cut.name, `${WALL[cut.wall as 'heavy' | 'light']}; cut ${cut.length} mm`, 'Cut to fit. Not telescoping']),
     ['M01', c.corner, 'Corner gusset', '6061-T6 3.175 mm, metal/corner_gusset.dxf', 'One profile, flipped for the opposite hand. Single outside plate at the eight corner-post joints. Fatigue and bearing review pending'],
     ['M02', c.tee, 'Tee gusset', '6061-T6 3.175 mm, metal/tee_gusset.dxf', 'Single-sided at base cross members and roof bow; paired at the fork'],
-    ['M03', c.hanger, 'Axle hanger', '304 stainless 3.175 mm, metal/axle_hanger.dxf', 'Paired on every axle post and fork stub. Finish the 19.25 mm bore after drawing review'],
-    ['W01', 3, 'Pneumatic wheel, 20 inch', `508 OD, about ${h.tire} wide, 15.875 bore; hub through-length assumed ${s.hub} mm`, 'OPEN SELECTION. No verified wheel with this bore and a suitable rating has been found'],
+    ['M03', c.hanger, 'Axle hanger', `304 stainless 3.175 mm, metal/${w.hanger}.dxf`, 'Paired on every axle post and fork stub. Finish the 19.25 mm bore after drawing review'],
+    s.wheel === 'path'
+      ? ['W01', 3, 'Pneumatic wheel candidate, 13 x 4 inch', `HAUL-MASTER 67467; 330.2 OD, 101.6 wide, 15.875 bore; hub through-length assumed ${s.hub} mm`, 'Same candidate as the XL wheelchair. Hub length is not confirmed by the supplier. A garden-cart wheel for walking pace; its supplier rating is not a carrier rating']
+      : ['W01', 3, 'Pneumatic wheel, 20 inch', `508 OD, about ${w.tire} wide, 15.875 bore; hub through-length assumed ${s.hub} mm`, 'OPEN SELECTION. No verified wheel with this bore and a suitable rating has been found'],
     ['W02', 2, 'Rear stub axle', `Plain 15.875 steel shaft; cut ${d.rearShaft} mm; two 3.2 cross-holes 8 mm from each end`, 'Unkeyed precision shaft. Never a threaded journal'],
     ['W03', 1, 'Front through axle', `Plain 15.875 steel shaft; cut ${d.frontShaft} mm; two 3.2 cross-holes 8 mm from each end`, 'Carried in both fork stubs'],
     ['W04', 4, 'Axle sleeve', '4130 tube 19.05 OD x 1.4732 wall; cut 25.4 mm', 'Through each axle post and fork stub. Steel, not printed'],
-    ['W05', 2, 'Rear wheel spacer', '4130 tube 19.05 OD x 1.4732 wall; cut 12.7 mm', 'Check actual hub and bearing face contact'],
+    ['W05', w.forkSpacer ? 4 : 2, 'Wheel spacer', `4130 tube 19.05 OD x 1.4732 wall; cut ${w.spacer} mm`, w.forkSpacer ? 'Two at the rear wheels, two beside the front hub so the wide tire clears the fork. Check actual hub and bearing face contact' : 'Rear wheels only. Check actual hub and bearing face contact'],
     ['W06', 8, 'Thrust washer and split cotter set', '5/8 inch bore washer 1.5 mm; 3.2 mm stainless cotter', 'Rear: 2 washers and 2 cotters per side. Front: 4 washers and 2 cotters'],
     ['H01', c.bolts, 'Joint bolt', '1/4-20 x 2 inch SAE J429 grade 5 zinc hex bolt', 'Partially threaded shank required at sleeves. Torque procedure pending. 18-8 stainless is the salt-use upgrade'],
     ['H02', c.handleBolts, 'Handle lap bolt', '1/4-20 x 3 inch grade 5 zinc hex bolt', 'Through one handle arm and one post'],
@@ -118,7 +120,7 @@ Configuration ${roverCode(s)}. All dimensions mm. BENCH DESIGN. NOT FOR ANIMAL U
 
 ## What this revision is
 
-A large cut-to-fit carrier built from two wall thicknesses of 1 inch 6061-T6 square tube, three repeated flat metal profiles, plywood panels and printed service parts. The tailgate is the ramp: it folds down to a ${d.rampAngle.toFixed(1)} degree walk-in with no step, and stands on its own two feet so the dog's weight on the threshold goes to the ground instead of tipping the carrier. Three matching 20 inch wheels. Push handle with a fixed front wheel.
+A large cut-to-fit carrier built from two wall thicknesses of 1 inch 6061-T6 square tube, three repeated flat metal profiles, plywood panels and printed service parts. The tailgate is the ramp: it folds down to a ${d.rampAngle.toFixed(1)} degree walk-in with no step, and stands on its own two feet so the dog's weight on the threshold goes to the ground instead of tipping the carrier. Three matching wheels, here the ${d.wheel.label}. Push handle with a fixed front wheel.
 
 Coordinates: X forward, Y across, Z up. Origin on the ground under the rear axle.
 
@@ -137,6 +139,7 @@ Coordinates: X forward, Y across, Z up. Origin on the ground under the rear axle
 | Handle height | ${s.handle} (${inch(s.handle)} in) |
 | Overall length, width over axle ends, height | ${d.overallLength} x ${d.overallWidth} x ${d.overallHeight} |
 | Ground clearance under the base gussets | ${d.clearance} |
+| Wheel | ${d.wheel.label} |
 | Assumed wheel hub through-length | ${s.hub} |
 | Estimated empty mass, arithmetic only | ${d.carrierKg} kg (${(d.carrierKg * 2.2046).toFixed(0)} lb) |
 
@@ -176,7 +179,7 @@ Every joint is a flat gusset with 1/4 inch bolts through steel crush sleeves. Ho
 | --- | ---: | --- | --- |
 | Corner gusset | ${c.corner} | Leg A 50 and 80. Leg B 35 and 65 | Corner posts on the outside face only, axle-post tops both faces, rail to cross member, roof corners, handle grip, ramp legs |
 | Tee gusset | ${c.tee} | Bar 30 each side. Stem 35 and 60 | Intermediate base cross members, mid roof bow, fork arms top and bottom |
-| Axle hanger | ${c.hanger} | Bar 30 each side. Stem 60, 105, 155. Axle bore at ${h.rise} | Both faces of each axle post and each fork stub |
+| Axle hanger, ${d.wheel.label} | ${c.hanger} | Bar 30 each side. Stem ${d.wheel.posts.join(', ')}. Axle bore at ${d.wheel.rise} | Both faces of each axle post and each fork stub |
 
 Legs A and B alternate where two gussets meet on one tube, so bolts cross 15 mm apart and never share a station. Tube bores are 9.725 for the sleeves, plate holes 6.75, axle sleeve bores 19.25. All are nominal. Use the three printed drill guides for pilot centers and finish with metal tooling.
 
@@ -215,7 +218,7 @@ Files prefixed FIT_CHECK_ONLY are plastic copies of metal parts for checking hol
 
 1. Buddy's measurements, lying length and standing height first, and a veterinary view on whether riding suits him.
 2. Engineering review of the frame, the axle hangers, the ramp and its stand, the handle and the tip-stops, including steel-to-aluminum corrosion.
-3. A real wheel with a known bore, hub length and rating, then the brake. Until both exist the running gear is a placeholder.
+3. A measured wheel: actual hub length, bearing fit and a rating that suits the carrier, then the brake. The 13 inch candidate is a garden-cart wheel for walking pace; a running wheel is still an open selection. Until wheel and brake are proven the running gear is a placeholder.
 4. Ballast tests to an approved plan: static proof, ramp load at mid span and at the threshold, tip in every direction, curb and brake events, fatigue.
 5. Cover tests listed in materials.md.
 6. Only then a supervised, consented fit and handling study with stop rules.
@@ -261,7 +264,7 @@ export function roverDrawing(s: RoverSetup): string {
     plan(d.rearX - t, s.width / 2, d.rail, t), plan(d.rearX - t, -outer, d.rail, t),
     ...d.stations.map(x => plan(x - t / 2, -s.width / 2, t, s.width, '#dfe6e1')),
     plan(toeX, -rampY, d.hingeX - toeX, 2 * rampY, '#d8b98a'), plan(toeX, rampY - t, d.hingeX - toeX, t), plan(toeX, -rampY, d.hingeX - toeX, t),
-    ...[1, -1].map(side => plan(-d.R, side * d.wheelY - h.tire / 2, h.wheel, h.tire, '#29322d')), plan(d.wheelbase - d.R, -h.tire / 2, h.wheel, h.tire, '#29322d'),
+    ...[1, -1].map(side => plan(-d.R, side * d.wheelY - d.tire / 2, 2 * d.R, d.tire, '#29322d')), plan(d.wheelbase - d.R, -d.tire / 2, 2 * d.R, d.tire, '#29322d'),
     ...[1, -1].map(side => plan(d.frontX + t, side * d.forkY - t / 2, d.forkArm, t)),
     ...[1, -1].map(side => plan(d.gripX, side * (outer + t / 2) - t / 2, d.handleArm, t, '#dfe6e1')), plan(d.gripX, -outer, t, 2 * outer, '#dfe6e1'),
     `<text x="${X((d.rearX + d.frontX) / 2)}" y="${Y(0)}" font-size="9" text-anchor="middle" fill="#14201a">clear width ${s.width}</text>`,
@@ -279,13 +282,13 @@ Checked ${roverPriceDate}, USD, integer cents, native Bun arithmetic. Configurat
 
 ## Result
 
-At 100 carriers the modeled landed manufacturing cost is **${money(batch.cogs)} each** at listed prices. A single build at retail quantities is **${money(one.cogs)}**. The first count of this design, on November 11, was $2,037.93 and $3,254.89.
+At 100 carriers the modeled landed manufacturing cost is **${money(batch.cogs)} each** at listed prices. A single build at retail quantities is **${money(one.cogs)}**. The first count of this design, on November 11, was $2,037.93 and $3,254.89, with 20 inch wheels and the original cover.
 
 The catalog's provisional Run price is ${money(batch.retail)}, so the 30% gross-margin gate allows ${money(batch.maxCogs)} and this design ${batch.meetsCostGate ? 'meets it' : `still misses it by ${money(-batch.headroom)}`}. To pass the same gate at this cost the price would have to be about ${money(batch.retailForGate)}. The catalog price is unchanged pending the owner's decision.
 
-**If tube is bought by weight.** ${money(batch.tube)} of the total is ${dims.tubeLb} lb of aluminum tube priced as cut-to-order retail bars, close to five dollars a foot. A 100-carrier batch is about ${Math.round(dims.tubeLb * 100 / 100) * 100 >= 1000 ? (dims.tubeLb * 100 / 2000).toFixed(1) + ' tons' : Math.round(dims.tubeLb * 100) + ' lb'} of one extrusion and would be bought from a mill or distributor. At an assumed $4.00 per pound with 8% scrap the tube line falls to ${money(batch.tubeMill)} and the total to **${money(batch.cogsMill)}**, which a price near ${money(batch.retailForGateMill)} would carry. That rate is an assumption with no quote behind it. Getting that quote is the single most valuable next step on cost.
+If the tube is bought by weight, the picture changes. ${money(batch.tube)} of the total is ${dims.tubeLb} lb of aluminum tube priced as cut-to-order retail bars, close to five dollars a foot. A 100-carrier batch is about ${Math.round(dims.tubeLb * 100 / 100) * 100 >= 1000 ? (dims.tubeLb * 100 / 2000).toFixed(1) + ' tons' : Math.round(dims.tubeLb * 100) + ' lb'} of one extrusion and would be bought from a mill or distributor. At an assumed $4.00 per pound with 8% scrap the tube line falls to ${money(batch.tubeMill)} and the total to **${money(batch.cogsMill)}**, which a price near ${money(batch.retailForGateMill)} would carry. That rate is an assumption with no quote behind it. Getting that quote is the single most valuable next step on cost.
 
-For scale, the reference trailer sold for ${money(roverPriceEvidence[1].price)} at one retailer on the check date, with a 100 lb stated capacity and a 36.2 x 22.4 x 29.9 inch interior. Rover's cabin is about twice that volume. Rover does not reach that price in either scenario.
+For scale, the reference trailer sold for ${money(roverPriceEvidence[2].price)} at one retailer on the check date, with a 100 lb stated capacity and a 36.2 x 22.4 x 29.9 inch interior. Rover's cabin is about twice that volume. Rover does not reach that price in either scenario.
 
 ## What changed since the first count
 
@@ -300,6 +303,7 @@ For scale, the reference trailer sold for ${money(roverPriceEvidence[1].price)} 
 | Intermediate cross members and ramp ribs in thin-wall tube | about -$40 | Members checked by hand arithmetic only |
 | One gusset instead of two at the eight corner-post joints | -$12.80 | Corner posts carry the cover, not the dog |
 | Assembly time 6 to 5.5 hours | -$12.50 | An assumption either way |
+| 13 x 4 inch path wheels at an observed $14.99 instead of a $60 allowance for 20 inch wheels | -$135.03 | A garden-cart wheel for walking pace, heavier to push at a run. The 20 inch wheel stays as an option |
 
 ## Where the money goes
 
@@ -336,7 +340,7 @@ ${roverAllowanceNotes.map(n => `- ${n}`).join('\n')}
 
 1. A tube quote. See the mill-quantity paragraph above. Nothing else moves the total as much.
 2. Joints. ${roverCostLines(s).find(l => l.id === 'fasteners')!.name} and the labor to drill for them come to about ${money(roverCostLines(s).find(l => l.id === 'fasteners')!.batch + roverCostLines(s).find(l => l.id === 'labor')!.batch)}. Welded or riveted sub-frames, or purpose-made corner fittings, remove most of both and several kilograms. That needs a fabricator's quote.
-3. Wheels and brake. Three wheels at an allowance of $60 each is the largest single parts line and has no verified candidate. A real wheel could cost more or less.
+3. Wheels and brake. The path wheel is an observed $14.99 each. The 20 inch run wheel remains an unverified $60 allowance and adds ${money(roverCostLines({ ...s, wheel: 'run' }).find(l => l.id === 'wheels')!.batch - roverCostLines({ ...s, wheel: 'path' }).find(l => l.id === 'wheels')!.batch)}. No brake is selected.
 4. The cover is now ${money(batch.textiles.total)}. The ramp surface, floor pad and mesh are the largest material lines left; sewing is ${money(batch.textiles.labor)}.
 
 Selling-cost lines for the provisional price, per carrier at 100: payment fee ${money(batch.fee)}, returns reserve ${money(batch.reserve)}, support ${money(batch.support)}, acquisition ${money(batch.acquisition)}. Contribution before fixed overhead: ${money(batch.contribution)}.

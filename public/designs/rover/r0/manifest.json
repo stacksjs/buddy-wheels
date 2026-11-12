@@ -3,8 +3,8 @@
   "product": "Buddy Rover",
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
   "generator": "native Stacks solid kit, no external CAD executable",
-  "geometryHash": "472d9fea60e619628f8090eaa4da4d81f566440f7ac3dd6a1294970d6e210ac7",
-  "costHash": "1c4e476b4601f7ea1a2afef54d4b93e19ad2d9049d30a75c3fb46f8242bb6124",
+  "geometryHash": "aeb5a00d8a8f103ce74d443039a978eb6cfa680a65b690ddebf24bf0af287ee4",
+  "costHash": "10bf6cb94542664a5e199d7ef7c6059d8110669374cde1cd3ad6279b8d2af315",
   "setup": {
     "length": 1200,
     "width": 700,
@@ -12,10 +12,30 @@
     "ramp": 900,
     "axle": 520,
     "handle": 980,
-    "hub": 75
+    "hub": 82.55,
+    "wheel": "path"
   },
   "dimensions": {
-    "R": 254,
+    "R": 165.1,
+    "wheel": {
+      "label": "13 x 4 inch path wheel",
+      "od": 330.2,
+      "tire": 101.6,
+      "rise": 41.1,
+      "posts": [
+        75,
+        105
+      ],
+      "hanger": "axle_hanger_low",
+      "spacer": 25.4,
+      "forkSpacer": 25.4,
+      "kg": 2.13,
+      "hub": 82.55
+    },
+    "tire": 101.6,
+    "spacer": 25.4,
+    "forkSpacer": 25.4,
+    "tireGap": 15.875,
     "railZ": 124,
     "deck": 151.9,
     "topZ": 1114.6,
@@ -32,18 +52,18 @@
       692.7
     ],
     "intermediates": 3,
-    "rearStack": 122.45,
-    "rearShaft": 142.15,
+    "rearStack": 142.7,
+    "rearShaft": 162.4,
     "postY": 362.7,
     "inboard": 27.225,
-    "wheelY": 428.775,
+    "wheelY": 445.25,
     "cabinIntrusion": 14.525,
-    "forkY": 54.875,
-    "frontStack": 144.5,
-    "frontShaft": 164.2,
-    "forkArm": 344,
-    "stub": 167.3,
-    "wheelbase": 989.4,
+    "forkY": 84.05,
+    "frontStack": 202.85,
+    "frontShaft": 222.55,
+    "forkArm": 255.1,
+    "stub": 110.3,
+    "wheelbase": 900.5,
     "rampAngle": 8.9426,
     "rampWidth": 688,
     "rampRise": 139.9,
@@ -55,9 +75,9 @@
     "handleMax": 990,
     "centerAhead": 80,
     "roofSlope": 382.3748,
-    "overallWidth": 955.25,
-    "tireWidth": 911.55,
-    "overallLength": 2168.8,
+    "overallWidth": 995.75,
+    "tireWidth": 992.1,
+    "overallLength": 1991,
     "overallHeight": 1204,
     "cuts": [
       {
@@ -86,14 +106,14 @@
         "name": "Fork arm",
         "wall": "heavy",
         "qty": 2,
-        "length": 344
+        "length": 255.1
       },
       {
         "id": "C05",
         "name": "Fork stub post",
         "wall": "heavy",
         "qty": 2,
-        "length": 167.3
+        "length": 110.3
       },
       {
         "id": "C06",
@@ -176,22 +196,22 @@
       "cableClip": 6,
       "axleCover": 6
     },
-    "heavyM": 8.8047,
+    "heavyM": 8.5129,
     "lightM": 14.62,
-    "tubeLb": 28.7,
+    "tubeLb": 28.2,
     "floorArea": 0.9391,
     "rampArea": 0.6192,
     "mass": {
-      "tube": 12.9,
+      "tube": 12.7,
       "plates": 4.7,
       "panels": 10.1,
-      "wheels": 6.9,
+      "wheels": 6.4,
       "hardware": 6.3,
       "softgoods": 4.2
     },
-    "carrierKg": 45.1,
-    "frontShare": 8.0857,
-    "tiltForceN": 100,
+    "carrierKg": 44.4,
+    "frontShare": 8.884,
+    "tiltForceN": 99,
     "tiltForceLbf": 22,
     "volumeRatio": 2.0082
   },
@@ -263,6 +283,11 @@
       "bytes": 46284
     },
     {
+      "path": "parts/FIT_CHECK_ONLY_axle_hanger_low.stl",
+      "sha256": "21e6446594a571bf8a7ffbb102c3cba14846ba7c63b27faf6be3b5d8901ae1f1",
+      "bytes": 58484
+    },
+    {
       "path": "parts/FIT_CHECK_ONLY_axle_hanger.stl",
       "sha256": "8b02f08c0ae539355495e08a00287c23c4129de8813d79050a3882cd5435f671",
       "bytes": 68284
@@ -278,24 +303,29 @@
       "bytes": 8785
     },
     {
+      "path": "metal/axle_hanger_low.dxf",
+      "sha256": "634894eaedbc5d42c5e5140adda08b7c872e9f6567d105375ba501e695e354cb",
+      "bytes": 11174
+    },
+    {
       "path": "metal/axle_hanger.dxf",
       "sha256": "67d882851994e2fd07406d0dbbdc7355baf27643ca9220adadf78fef14deb0b6",
       "bytes": 13111
     },
     {
       "path": "assembly.md",
-      "sha256": "1b0afd1e55249a187b8d19d69fe4592c7b0a53b3856753d35818bd5ace580804",
-      "bytes": 9953
+      "sha256": "50fe5855f77f15933f07a82a606b21708737c91f252e658aa19873c15e2e6230",
+      "bytes": 10195
     },
     {
       "path": "bom.csv",
-      "sha256": "d920e3758c81fc2fe84fc5ddaf21f5258c08fab804a651f823ff4209ea71c5f7",
-      "bytes": 7650
+      "sha256": "d0644ff6cf83bd62c511424bdd08996355ff5b91336f9f6034fd47fa4d0affb8",
+      "bytes": 7847
     },
     {
       "path": "materials.md",
-      "sha256": "72b3f1c854920ef5cdf145b760546c5576291dafd1b73089c4c60b601ca32aa5",
-      "bytes": 11770
+      "sha256": "2b28c76499a29f7b20a96c711f97b5c3c919731f0597e0d0e7811dbd39ba050d",
+      "bytes": 11778
     },
     {
       "path": "cover-cut-schedule.csv",
@@ -309,33 +339,33 @@
     },
     {
       "path": "drawing.svg",
-      "sha256": "950983ecb26f359e01ffb7d8aa7ab25a9674d1484e9966a80f40374a9f47c2c8",
-      "bytes": 5513
+      "sha256": "c7e1bce30b4b0ca4a4dfd783a15f64af3564bb99d0597e2eb39225c490ff3414",
+      "bytes": 5516
     },
     {
       "path": "cut-list.csv",
-      "sha256": "2e3446ecd15d0e847620368ee0d3428f9de630029e7f84ed67684aae96ac58ad",
-      "bytes": 1095
+      "sha256": "ec470a8dff51026c28dd3a9e285494c7d5e83ec779c9a3c5b0d0007d93bbc771",
+      "bytes": 1097
     },
     {
       "path": "cost-notes.md",
-      "sha256": "128070becde39429961c721038246c8b270c3bbbfc2e493556e53204c91ebe44",
-      "bytes": 10701
+      "sha256": "b8b9ae7ee56ae64eec559bb58bc12a4528318b6d7accadb0bac50d84bff69056",
+      "bytes": 11434
     },
     {
       "path": "cost-model.json",
-      "sha256": "bbab088358323cb84d761c58a24d6c7a2fb54fe5826d2d54a82fc1c790bf8344",
-      "bytes": 15513
+      "sha256": "20c12f182e1f7d201505ab7e4b1fce70284c7f14345c04ef8f0922e254e72097",
+      "bytes": 16071
     },
     {
       "path": "setup.json",
-      "sha256": "5401e5271e6c8469f606be6c319fa90ff84f9e4d64d86fea79cee396c7ea046a",
-      "bytes": 3920
+      "sha256": "725c4599e789f7f30ccb0f9daeeb829bb2f254c3996cebfd7f28231f1a64c524",
+      "bytes": 4320
     },
     {
       "path": "README.md",
-      "sha256": "3b6e4928e8010da72677109f4dc047ffc00555514c70229f102d0192e029c923",
-      "bytes": 1318
+      "sha256": "adafd0233f5aedb59c8442e07c295024a7b302f3e49be99cd0087c8d3bdbedeb",
+      "bytes": 1345
     }
   ],
   "parts": [
@@ -418,10 +448,16 @@
       "note": "1/8 inch 6061-T6 aluminum, one profile used in both hands. STL is an unloaded fit-check copy."
     },
     {
-      "id": "axle_hanger",
-      "name": "Axle hanger",
+      "id": "axle_hanger_low",
+      "name": "Axle hanger, path wheel",
       "kind": "metal",
-      "note": "1/8 inch 304 stainless steel. Carries a wheel axle. STL is an unloaded fit-check copy."
+      "note": "1/8 inch 304 stainless steel. Carries a 13 inch wheel axle 41 mm above the base rail. STL is an unloaded fit-check copy."
+    },
+    {
+      "id": "axle_hanger",
+      "name": "Axle hanger, run wheel",
+      "kind": "metal",
+      "note": "1/8 inch 304 stainless steel. Carries a 20 inch wheel axle 130 mm above the base rail. STL is an unloaded fit-check copy."
     }
   ]
 }

@@ -2,13 +2,22 @@
  * Buddy Rover r0: a large low-entry carrier bench design. No load rating, fit approval or animal-use release exists.
  * X forward, Y across, Z up. Origin is on the ground under the rear axle, on the centerline. Millimeters.
  */
-export interface RoverSetup { length: number, width: number, height: number, ramp: number, axle: number, handle: number, hub: number }
-export const roverStart: RoverSetup = { length: 1200, width: 700, height: 950, ramp: 900, axle: 520, handle: 980, hub: 75 }
+export type RoverWheel = 'path' | 'run'
+export interface RoverSetup { length: number, width: number, height: number, ramp: number, axle: number, handle: number, hub: number, wheel: RoverWheel }
+export const roverStart: RoverSetup = { length: 1200, width: 700, height: 950, ramp: 900, axle: 520, handle: 980, hub: 82.55, wheel: 'path' }
+/**
+ * Two wheel choices on the same 124 mm base-rail height, so the deck and ramp do not change.
+ * rise is the axle height above the base-rail centerline; posts are the hanger bolt heights on the post.
+ */
+export const roverWheels = {
+  path: { label: '13 x 4 inch path wheel', od: 330.2, tire: 101.6, rise: 41.1, posts: [75, 105], hanger: 'axle_hanger_low', spacer: 25.4, forkSpacer: 25.4, kg: 2.13, hub: 82.55 },
+  run: { label: '20 inch run wheel', od: 508, tire: 54, rise: 130, posts: [60, 105, 155], hanger: 'axle_hanger', spacer: 12.7, forkSpacer: 0, kg: 2.3, hub: 75 },
+} as const
 export const roverLimits = { length: [1000, 1400], width: [600, 800], height: [800, 1100], ramp: [700, 1100], axle: [300, 650], handle: [800, 1100], hub: [50, 110] } as const
 export const roverHardware = {
   tube: 25.4, heavy: 3.175, light: 1.651, plate: 3.175, panel: 12, bedding: 3.2, mat: 5,
-  wheel: 508, tire: 54, axle: 15.875, sleeve: 9.525, sleeveWall: 1.2446, axleSleeve: 19.05, axleSleeveWall: 1.4732,
-  spacer: 12.7, washer: 1.5, cotter: 3.2, rise: 130, reach: 380, hingeGap: 6, foot: 35, ridge: 60, pole: 12.7, forkGap: 30, forkTail: 60,
+  axle: 15.875, sleeve: 9.525, sleeveWall: 1.2446, axleSleeve: 19.05, axleSleeveWall: 1.4732,
+  washer: 1.5, cotter: 3.2, reach: 380, hingeGap: 6, foot: 35, ridge: 60, pole: 12.7, forkGap: 30, forkTail: 60,
 } as const
 /** Planning payload used for arithmetic only. It is not a rating. Buddy is owner-reported 140 lb. */
 export const roverPlanningDogKg = 72.6
@@ -29,7 +38,8 @@ export const roverParts = [
   { id: 'coupon', name: 'Clearance coupon', kind: 'fixture', note: 'Calibrates the actual printer before any fit is trusted. Not part of the carrier.' },
   { id: 'tee_gusset', name: 'Tee gusset', kind: 'metal', note: '1/8 inch 6061-T6 aluminum. STL is an unloaded fit-check copy.' },
   { id: 'corner_gusset', name: 'Corner gusset', kind: 'metal', note: '1/8 inch 6061-T6 aluminum, one profile used in both hands. STL is an unloaded fit-check copy.' },
-  { id: 'axle_hanger', name: 'Axle hanger', kind: 'metal', note: '1/8 inch 304 stainless steel. Carries a wheel axle. STL is an unloaded fit-check copy.' },
+  { id: 'axle_hanger_low', name: 'Axle hanger, path wheel', kind: 'metal', note: '1/8 inch 304 stainless steel. Carries a 13 inch wheel axle 41 mm above the base rail. STL is an unloaded fit-check copy.' },
+  { id: 'axle_hanger', name: 'Axle hanger, run wheel', kind: 'metal', note: '1/8 inch 304 stainless steel. Carries a 20 inch wheel axle 130 mm above the base rail. STL is an unloaded fit-check copy.' },
 ] as const
 export type RoverPartId = typeof roverParts[number]['id']
 export function roverPartFile(id: string): string {
@@ -44,7 +54,10 @@ const degrees = (radians: number) => radians * 180 / Math.PI
 export function parseRoverSetup(input: Record<string, unknown>): RoverSetup {
   for (const key of Object.keys(input)) if (!Object.hasOwn(roverStart, key)) throw new Error(`Unknown Rover setup field: ${key}`)
   const setup = { ...roverStart }
-  for (const key of Object.keys(setup) as (keyof RoverSetup)[]) {
+  const wheel = input.wheel ?? roverStart.wheel
+  if (typeof wheel !== 'string' || !Object.hasOwn(roverWheels, wheel)) throw new Error('Choose the path wheel or the run wheel.')
+  setup.wheel = wheel as RoverWheel
+  for (const key of (Object.keys(setup) as (keyof RoverSetup)[]).filter((k): k is Exclude<keyof RoverSetup, 'wheel'> => k !== 'wheel')) {
     const value = input[key] ?? setup[key]
     if ((typeof value !== 'number' && (typeof value !== 'string' || !/^\d+(?:\.\d+)?$/.test(value))) || !Number.isFinite(Number(value))) throw new Error(`Enter a positive number for ${key}.`)
     const n = Number(value); const [min, max] = roverLimits[key]; const step = key === 'hub' ? 0.05 : 10
@@ -52,6 +65,7 @@ export function parseRoverSetup(input: Record<string, unknown>): RoverSetup {
     setup[key] = n
   }
   const d = roverDimensions(setup)
+  if (d.tireGap < 5) throw new Error('That hub is too short for this tire. The tire would rub the axle hanger.')
   if (setup.ramp > setup.height) throw new Error('The ramp stows upright as the tailgate, so it cannot be longer than the cabin height.')
   if (d.rampAngle > 12) throw new Error('Ramp incline is over 12 degrees. Choose a longer ramp.')
   if (d.centerAhead < 40) throw new Error('Move the axle back toward the tailgate. A centered dog must sit at least 40 mm ahead of the rear axle.')
@@ -59,7 +73,7 @@ export function parseRoverSetup(input: Record<string, unknown>): RoverSetup {
   return setup
 }
 export const roverQuery = (s: RoverSetup) => new URLSearchParams(Object.fromEntries(Object.entries(s).map(([k, v]) => [k, String(v)]))).toString()
-export const roverCode = (s: RoverSetup) => `rover-r0-l${s.length}-w${s.width}-h${s.height}-r${s.ramp}-a${s.axle}-g${s.handle}-hub${s.hub}`
+export const roverCode = (s: RoverSetup) => `rover-r0-l${s.length}-w${s.width}-h${s.height}-r${s.ramp}-a${s.axle}-g${s.handle}-hub${s.hub}-${s.wheel}`
 
 /** Base cross members: rear sill, front, and intermediates no more than 400 mm apart, kept clear of the axle hangers. */
 export function crossStations(s: RoverSetup): number[] {
@@ -70,19 +84,19 @@ export function crossStations(s: RoverSetup): number[] {
 }
 
 export function roverDimensions(s: RoverSetup) {
-  const h = roverHardware; const t = h.tube; const R = h.wheel / 2
-  const railZ = R - h.rise; const deck = railZ + t / 2 + h.bedding + h.panel; const topZ = deck + s.height + t / 2
+  const h = roverHardware; const t = h.tube; const w = roverWheels[s.wheel]; const R = w.od / 2
+  const railZ = R - w.rise; const deck = railZ + t / 2 + h.bedding + h.panel; const topZ = deck + s.height + t / 2
   const rearX = -s.axle; const frontX = s.length - s.axle
   const rail = s.length + 2 * t; const post = s.height + h.panel + h.bedding
   const stations = crossStations(s); const intermediates = stations.length - 2
   const end = 8 + h.cotter / 2
-  const rearStack = t + 2 * h.plate + h.spacer + s.hub + 2 * h.washer; const rearShaft = rearStack + 0.5 + 2 * end
+  const rearStack = t + 2 * h.plate + w.spacer + s.hub + 2 * h.washer; const rearShaft = rearStack + 0.5 + 2 * end
   const postY = s.width / 2 + t / 2; const inboard = t / 2 + h.plate + h.washer + end + 0.25
-  const wheelY = s.width / 2 + t + h.plate + h.spacer + s.hub / 2
-  const forkY = s.hub / 2 + h.washer + h.plate + t / 2
-  const frontStack = s.hub + 4 * h.washer + 4 * h.plate + 2 * t; const frontShaft = frontStack + 0.5 + 2 * end
+  const wheelY = s.width / 2 + t + h.plate + w.spacer + s.hub / 2
+  const forkY = s.hub / 2 + h.washer + w.forkSpacer + h.plate + t / 2
+  const frontStack = s.hub + 4 * h.washer + 4 * h.plate + 2 * t + 2 * w.forkSpacer; const frontShaft = frontStack + 0.5 + 2 * end
   const forkArm = h.forkGap + R + h.forkTail; const wheelbase = frontX + t + h.forkGap + R
-  const stub = h.rise - t / 2 + 50
+  const stub = w.posts.at(-1)! + 18 - t / 2
   const rampAngleRad = Math.asin((deck - h.panel) / s.ramp); const rampWidth = s.width - 12
   const legCut = (deck - 40 * Math.sin(rampAngleRad)) / Math.cos(rampAngleRad) - h.panel - t - h.foot
   const hingeX = rearX - t - h.hingeGap; const gripX = rearX - t - h.reach
@@ -121,7 +135,7 @@ export function roverDimensions(s: RoverSetup) {
     plates: (counts.corner * 6900 + counts.tee * 8000) * h.plate * 2.7e-6 + counts.hanger * 10950 * h.plate * 7.9e-6,
     // 15/32 inch exterior pine plywood, nominal.
     panels: (floorArea + rampArea) * 6.5,
-    wheels: 3 * 2.3,
+    wheels: 3 * w.kg,
     hardware: (counts.bolts + counts.handleBolts) * 0.027 + 2.2,
     softgoods: 4.2,
   }
@@ -129,12 +143,12 @@ export function roverDimensions(s: RoverSetup) {
   const lever = (s.axle + t + h.reach) / 1000
   const tiltForceN = (roverPlanningDogKg + carrierKg) * 9.81 * (centerAhead / 1000) / lever
   return {
-    R, railZ: mm(railZ), deck: mm(deck), topZ: mm(topZ), clearance: mm(railZ - t / 2 - h.plate), rearX, frontX, rail: mm(rail), post: mm(post), stations, intermediates,
+    R, wheel: w, tire: w.tire, spacer: w.spacer, forkSpacer: w.forkSpacer, tireGap: mm(w.spacer + s.hub / 2 - w.tire / 2), railZ: mm(railZ), deck: mm(deck), topZ: mm(topZ), clearance: mm(railZ - t / 2 - h.plate), rearX, frontX, rail: mm(rail), post: mm(post), stations, intermediates,
     rearStack: mm(rearStack), rearShaft: mm(rearShaft), postY: mm(postY), inboard: mm(inboard), wheelY: mm(wheelY), cabinIntrusion: mm(inboard - t / 2),
     forkY: mm(forkY), frontStack: mm(frontStack), frontShaft: mm(frontShaft), forkArm: mm(forkArm), stub: mm(stub), wheelbase: mm(wheelbase),
     rampAngle: mm(degrees(rampAngleRad)), rampAngleRad, rampWidth: mm(rampWidth), rampRise: mm(deck - h.panel), legCut: mm(legCut), hingeX: mm(hingeX), gripX: mm(gripX),
     handleArm: mm(handleArm), grip: mm(grip), handleMax, centerAhead: mm(centerAhead), roofSlope: mm(roofSlope),
-    overallWidth: mm(2 * (postY - inboard + rearShaft)), tireWidth: mm(2 * wheelY + h.tire), overallLength: mm(wheelbase + R - gripX), overallHeight: mm(topZ + t / 2 + h.ridge + h.pole + 4),
+    overallWidth: mm(2 * (postY - inboard + rearShaft)), tireWidth: mm(2 * wheelY + w.tire), overallLength: mm(wheelbase + R - gripX), overallHeight: mm(topZ + t / 2 + h.ridge + h.pole + 4),
     cuts, counts, heavyM: mm(heavyM), lightM: mm(lightM), tubeLb: Math.round((heavyM * 0.774 + lightM * 0.423) * 2.2046 * 10) / 10, floorArea: mm(floorArea), rampArea: mm(rampArea),
     mass: Object.fromEntries(Object.entries(mass).map(([k, v]) => [k, Math.round(v * 10) / 10])) as Record<keyof typeof mass, number>, carrierKg: Math.round(carrierKg * 10) / 10,
     frontShare: mm(centerAhead / wheelbase * 100), tiltForceN: Math.round(tiltForceN), tiltForceLbf: Math.round(tiltForceN / 4.448),

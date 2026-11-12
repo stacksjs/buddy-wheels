@@ -1,5 +1,5 @@
 {
-  "geometryHash": "472d9fea60e619628f8090eaa4da4d81f566440f7ac3dd6a1294970d6e210ac7",
+  "geometryHash": "aeb5a00d8a8f103ce74d443039a978eb6cfa680a65b690ddebf24bf0af287ee4",
   "status": "DIGITAL_GEOMETRY_ONLY",
   "envelopeMm": [
     220,
@@ -366,6 +366,34 @@
           "size": [
             115,
             115,
+            3.174999952316284
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/FIT_CHECK_ONLY_axle_hanger_low.stl",
+      "inspection": {
+        "triangles": 1168,
+        "vertices": 576,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 26392.444064320593,
+        "boundsMm": {
+          "min": [
+            -50,
+            -20,
+            0
+          ],
+          "max": [
+            50,
+            128,
+            3.174999952316284
+          ],
+          "size": [
+            100,
+            148,
             3.174999952316284
           ]
         }

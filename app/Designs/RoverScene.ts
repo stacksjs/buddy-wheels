@@ -32,14 +32,15 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
   const rod = (id: string, radius: number, length: number, center: V, dir: V, color: string, innerRadius = 0) => { const [u, v] = basis(dir); add(id, { kind: 'cylinder', radius, innerRadius, length }, color, place(u, v, center)) }
   const slab = (id: string, size: V, center: V, u: V, v: V, color: string) => add(id, { kind: 'box', size }, color, place(u, v, center))
   /** A flat profile on the tube face that looks toward `out`. Local +x goes to a, local +y to b. */
-  const gusset = (id: string, part: 'corner_gusset' | 'tee_gusset' | 'axle_hanger', datum: V, out: V, a: V, b: V) => {
+  const gusset = (id: string, part: 'corner_gusset' | 'tee_gusset' | 'axle_hanger' | 'axle_hanger_low', datum: V, out: V, a: V, b: V) => {
     const n = crossV(a, b); const face = add3(datum, scale(out, t / 2))
-    add(id, stl(part), part === 'axle_hanger' ? steel : frame, place(a, b, dot(n, out) > 0 ? face : add3(face, scale(out, h.plate))))
+    add(id, stl(part), part.startsWith('axle_hanger') ? steel : frame, place(a, b, dot(n, out) > 0 ? face : add3(face, scale(out, h.plate))))
   }
   const cap = (id: string, heavy: boolean, end: V, out: V) => { const n = scale(out, -1); const [u, v] = basis(n); add(id, stl(heavy ? 'cap_heavy' : 'cap_light'), accent, place(u, v, add3(end, scale(out, 3)))) }
   const wheel = (id: string, center: V) => {
-    rod(id + '-tire', d.R, h.tire, center, [0, 1, 0], '#29322d', d.R - 42)
-    rod(id + '-rim', d.R - 42, 6, center, [0, 1, 0], '#8b958e', 20)
+    const rim = d.R - (s.wheel === 'path' ? 62 : 42)
+    rod(id + '-tire', d.R, d.tire, center, [0, 1, 0], '#29322d', rim)
+    rod(id + '-rim', rim, 6, center, [0, 1, 0], '#8b958e', 20)
     rod(id + '-hub', 20, s.hub, center, [0, 1, 0], steel, h.axle / 2)
   }
 
@@ -92,15 +93,16 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
     }
     for (const face of [-1, 1]) {
       gusset(`axle-top-${side}-${face}`, 'corner_gusset', [0, y, d.topZ], [0, face, 0], [1, 0, 0], [0, 0, -1])
-      gusset(`rear-hanger-${side}-${face}`, 'axle_hanger', [0, y, d.railZ], [0, face, 0], [1, 0, 0], [0, 0, 1])
-      gusset(`front-hanger-${side}-${face}`, 'axle_hanger', [d.wheelbase, side * d.forkY, d.railZ], [0, face, 0], [1, 0, 0], [0, 0, 1])
+      gusset(`rear-hanger-${side}-${face}`, d.wheel.hanger, [0, y, d.railZ], [0, face, 0], [1, 0, 0], [0, 0, 1])
+      gusset(`front-hanger-${side}-${face}`, d.wheel.hanger, [d.wheelbase, side * d.forkY, d.railZ], [0, face, 0], [1, 0, 0], [0, 0, 1])
     }
     gusset(`roof-bow-tee-${side}`, 'tee_gusset', [0, y, d.topZ], [0, 0, 1], [1, 0, 0], [0, side, 0])
     d.stations.slice(1, -1).forEach((x, i) => gusset(`base-tee-${i}-${side}`, 'tee_gusset', [x, y, d.railZ], [0, 0, -1], [1, 0, 0], [0, side, 0]))
     // Rear wheel on a stub axle: cotter, washer, hanger, post, hanger, spacer, hub, washer, cotter.
     const start = y - side * d.inboard
     rod(`rear-axle-${side}`, h.axle / 2, d.rearShaft, [0, start + side * d.rearShaft / 2, d.R], across, '#d5dbd6')
-    rod(`rear-spacer-${side}`, h.axleSleeve / 2, h.spacer, [0, side * (outer + h.plate + h.spacer / 2), d.R], across, steel, h.axle / 2)
+    rod(`rear-spacer-${side}`, h.axleSleeve / 2, d.spacer, [0, side * (outer + h.plate + d.spacer / 2), d.R], across, steel, h.axle / 2)
+    if (d.forkSpacer) rod(`front-spacer-${side}`, h.axleSleeve / 2, d.forkSpacer, [d.wheelbase, side * (s.hub / 2 + h.washer + d.forkSpacer / 2), d.R], across, steel, h.axle / 2)
     wheel(`rear-wheel-${side}`, [0, side * d.wheelY, d.R])
     add(`rear-axle-cover-${side}`, stl('axle_cover'), accent, place(basis([0, side, 0])[0], basis([0, side, 0])[1], [0, start + side * (d.rearShaft - 6), d.R]))
     rod(`tip-stop-${side}`, 4.7, 100, [d.rearX + 117.3, y, d.railZ - 40], [0, 0, 1], steel)

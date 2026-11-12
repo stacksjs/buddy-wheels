@@ -7,7 +7,8 @@
     "ramp": 900,
     "axle": 520,
     "handle": 980,
-    "hub": 75
+    "hub": 82.55,
+    "wheel": "path"
   },
   "base": {
     "quantity": 100,
@@ -18,12 +19,12 @@
       "stockMm": 1532534.4
     },
     "heavy": {
-      "bars": 244,
-      "netMm": 880474.96,
+      "bars": 238,
+      "netMm": 851294.96,
       "kerfMm": 4200,
-      "stockMm": 892454.4
+      "stockMm": 870508.8
     },
-    "tube": 49553,
+    "tube": 48953,
     "textiles": {
       "quantity": 100,
       "minutes": 200,
@@ -157,23 +158,23 @@
       "total": 37991,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 79282,
-    "cogs": 166826,
+    "other": 65779,
+    "cogs": 152723,
     "retail": 39900,
-    "gross": -126926,
-    "grossPercent": -318.1102756892231,
+    "gross": -112823,
+    "grossPercent": -282.76441102756894,
     "maxCogs": 27930,
-    "headroom": -138896,
+    "headroom": -124793,
     "meetsCostGate": false,
     "fee": 1187,
     "reserve": 1995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -135108,
-    "retailForGate": 238400,
-    "tubeMill": 12399,
-    "cogsMill": 129672,
-    "retailForGateMill": 185300,
+    "contribution": -121005,
+    "retailForGate": 218200,
+    "tubeMill": 12183,
+    "cogsMill": 115953,
+    "retailForGateMill": 165700,
     "stainlessUpgrade": 5016,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
@@ -187,7 +188,7 @@
     },
     "heavy": {
       "bars": 3,
-      "netMm": 8804.7496,
+      "netMm": 8512.9496,
       "kerfMm": 42,
       "stockMm": 10972.8
     },
@@ -325,23 +326,23 @@
       "total": 81833,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 139080,
-    "cogs": 280928,
+    "other": 125577,
+    "cogs": 267425,
     "retail": 39900,
-    "gross": -241028,
-    "grossPercent": -604.0802005012531,
+    "gross": -227525,
+    "grossPercent": -570.2380952380953,
     "maxCogs": 27930,
-    "headroom": -252998,
+    "headroom": -239495,
     "meetsCostGate": false,
     "fee": 1187,
     "reserve": 1995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -249210,
-    "retailForGate": 401400,
-    "tubeMill": 12399,
-    "cogsMill": 233312,
-    "retailForGateMill": 333400,
+    "contribution": -235707,
+    "retailForGate": 382100,
+    "tubeMill": 12183,
+    "cogsMill": 219593,
+    "retailForGateMill": 313800,
     "stainlessUpgrade": 5016,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
@@ -371,14 +372,14 @@
     },
     {
       "id": "wheels",
-      "name": "Three matching 20 inch pneumatic wheels",
-      "batch": 18000,
-      "one": 18000,
+      "name": "Three 13 x 4 inch pneumatic path wheels",
+      "batch": 4497,
+      "one": 4497,
       "coverage": [
         "W01"
       ],
-      "evidence": "Allowance",
-      "note": "No verified wheel candidate yet. See the allowance notes."
+      "evidence": "Observed 2026-11-08",
+      "note": "3 x $14.99, no bulk discount assumed. Hub length, bearing fit and suitability are unverified."
     },
     {
       "id": "axles",
@@ -529,6 +530,13 @@
       "note": "Observed 2026-11-08 at $60.03. The page blocked a recheck on 2026-11-11. Cabin tubes only."
     },
     {
+      "name": "HAUL-MASTER 67467 pneumatic wheel, 13 x 4 inch",
+      "price": 1499,
+      "unit": "one complete wheel",
+      "url": "https://www.harborfreight.com/13-inch-x-4-inch-pneumatic-tire-67467.html",
+      "note": "Observed 2026-11-08 at $14.99; the page refused a recheck on 2026-11-12. 5/8 inch bore, 4.7 lb each, supplier wheel rating 300 lb. That rating does not rate the carrier, and the hub length is unconfirmed."
+    },
+    {
       "name": "Burley Bark Ranger XL at Tree Fort Bikes",
       "price": 72995,
       "unit": "one complete trailer, reference only",
@@ -545,7 +553,7 @@
   ],
   "allowances": [
     "Chassis tube, 1 x 1 x .125 inch 6061-T6: $100 per 144 inch bar is an allowance scaled from the observed .065 wall bar by metal mass. No fetched price.",
-    "Wheels: $60 each is an allowance. Search results showed 20 inch spoked cart wheels at $54.95 to $62.99 with 3/4 inch bores and an 88 lb tire rating. No 5/8 inch bore 20 inch pneumatic wheel with a suitable rating was found, so the wheel is an open selection, not a candidate.",
+    "Run wheels: $60 each is an allowance. Search results showed 20 inch spoked cart wheels at $54.95 to $62.99 with 3/4 inch bores and an 88 lb tire rating. No 5/8 inch bore 20 inch pneumatic wheel with a suitable rating was found, so the 20 inch wheel is an open selection. The 13 x 4 inch path wheel is the priced default.",
     "Plywood: $45 per 4 x 8 ft sheet of 15/32 inch BC sanded exterior pine is an allowance from an unverified search result near $40.35. Marine plywood results ran $125 to $278 and are the Coast upgrade.",
     "Hardware: $0.66 per sleeved joint in a batch covers a zinc-plated grade 5 bolt, locknut, two washers and a cut steel sleeve, the same allowance the XL r1 study uses. 18-8 stainless for salt use adds about $0.33 per joint from unverified search results.",
     "Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists.",

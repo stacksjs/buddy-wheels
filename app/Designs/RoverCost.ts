@@ -8,13 +8,14 @@ export const roverPriceDate = '2026-11-11'
 export const roverRetail = roverConfigurations.find(item => item.code === 'run')!.price
 export const roverPriceEvidence = [
   { name: '6061-T6 square tube 20737, 1 x .065 inch', price: 6003, unit: 'one 144 inch bar', url: 'https://www.onlinemetals.com/en/buy/aluminum/1-x-0-065-aluminum-square-tube-6061-t6-extruded/pid/20737', note: 'Observed 2026-11-08 at $60.03. The page blocked a recheck on 2026-11-11. Cabin tubes only.' },
+  { name: 'HAUL-MASTER 67467 pneumatic wheel, 13 x 4 inch', price: 1499, unit: 'one complete wheel', url: 'https://www.harborfreight.com/13-inch-x-4-inch-pneumatic-tire-67467.html', note: 'Observed 2026-11-08 at $14.99; the page refused a recheck on 2026-11-12. 5/8 inch bore, 4.7 lb each, supplier wheel rating 300 lb. That rating does not rate the carrier, and the hub length is unconfirmed.' },
   { name: 'Burley Bark Ranger XL at Tree Fort Bikes', price: 72995, unit: 'one complete trailer, reference only', url: 'https://www.treefortbikes.com/Burley-Bark-Ranger-XL-Pet-Bike-Trailer', note: 'Observed $729.95. A bike trailer with a stroller kit, 100 lb stated capacity. A market reference, never a Rover cost input.' },
   { name: 'Burley Bark Ranger XL Ski Bundle', price: 90091, unit: 'one bundle, reference only', url: 'https://burley.com/products/bark-ranger-xl-ski-bundle', note: 'Observed $900.91 sale price. Source of the stated 36.2 x 22.4 x 29.9 inch interior, 33 lb weight and 9 inch step-up.' },
 ] as const
 /** Everything not observed on a fetched supplier page. Search-result prices were seen for some lines and are treated as unverified. */
 export const roverAllowanceNotes = [
   'Chassis tube, 1 x 1 x .125 inch 6061-T6: $100 per 144 inch bar is an allowance scaled from the observed .065 wall bar by metal mass. No fetched price.',
-  'Wheels: $60 each is an allowance. Search results showed 20 inch spoked cart wheels at $54.95 to $62.99 with 3/4 inch bores and an 88 lb tire rating. No 5/8 inch bore 20 inch pneumatic wheel with a suitable rating was found, so the wheel is an open selection, not a candidate.',
+  'Run wheels: $60 each is an allowance. Search results showed 20 inch spoked cart wheels at $54.95 to $62.99 with 3/4 inch bores and an 88 lb tire rating. No 5/8 inch bore 20 inch pneumatic wheel with a suitable rating was found, so the 20 inch wheel is an open selection. The 13 x 4 inch path wheel is the priced default.',
   'Plywood: $45 per 4 x 8 ft sheet of 15/32 inch BC sanded exterior pine is an allowance from an unverified search result near $40.35. Marine plywood results ran $125 to $278 and are the Coast upgrade.',
   'Hardware: $0.66 per sleeved joint in a batch covers a zinc-plated grade 5 bolt, locknut, two washers and a cut steel sleeve, the same allowance the XL r1 study uses. 18-8 stainless for salt use adds about $0.33 per joint from unverified search results.',
   'Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists.',
@@ -28,7 +29,9 @@ export function roverCostLines(s: RoverSetup = roverStart) {
   return [
     { id: 'gussets', name: `${c.corner} corner and ${c.tee} tee gussets, laser cut 1/8 inch 6061`, batch: (c.corner + c.tee) * 160, one: (c.corner + c.tee) * 450, coverage: ['M01', 'M02'], evidence: 'RFQ', note: 'Two repeated aluminum profiles. Includes material, cutting and deburring.' },
     { id: 'hangers', name: `${c.hanger} stainless axle hangers`, batch: c.hanger * 400, one: c.hanger * 900, coverage: ['M03'], evidence: 'RFQ', note: 'One 304 stainless profile for all three wheels. Bore finishing after drawing review.' },
-    { id: 'wheels', name: 'Three matching 20 inch pneumatic wheels', batch: 18000, one: 18000, coverage: ['W01'], evidence: 'Allowance', note: 'No verified wheel candidate yet. See the allowance notes.' },
+    s.wheel === 'path'
+      ? { id: 'wheels', name: 'Three 13 x 4 inch pneumatic path wheels', batch: 4497, one: 4497, coverage: ['W01'], evidence: 'Observed 2026-11-08', note: '3 x $14.99, no bulk discount assumed. Hub length, bearing fit and suitability are unverified.' }
+      : { id: 'wheels', name: 'Three matching 20 inch pneumatic wheels', batch: 18000, one: 18000, coverage: ['W01'], evidence: 'Allowance', note: 'No verified wheel candidate yet. See the allowance notes.' },
     { id: 'axles', name: 'Three stock-shaft axles, sleeves, spacers, washers and cotters', batch: 1800, one: 4000, coverage: ['W02', 'W03', 'W04', 'W05', 'W06'], evidence: 'RFQ', note: 'Plain 5/8 inch shaft cut and cross-drilled. No threaded journals.' },
     { id: 'fasteners', name: `${fasteners} sleeved bolted joints`, batch: fasteners * 66, one: fasteners * 90, coverage: ['H01', 'H02', 'H03', 'H04', 'H05'], evidence: 'Allowance', note: 'Zinc-plated grade 5 for the Run configuration. It follows directly from a bolted frame with no welding.' },
     { id: 'panels', name: 'Floor and ramp panels, sealed 15/32 inch exterior plywood', batch: sheets * 4500 + 1200, one: sheets * 4500 + 2500, coverage: ['F01', 'R01'], evidence: 'Allowance', note: `${sheets} sheet${sheets === 1 ? '' : 's'} per carrier plus edge sealing. Offcuts are charged.` },
