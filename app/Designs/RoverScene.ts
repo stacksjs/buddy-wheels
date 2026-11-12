@@ -61,7 +61,7 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
       rod(`ramp-foot-stem-${side}`, 4.7, h.foot - 10, add3(rib, scale(up, -t / 2 - d.legCut - (h.foot - 10) / 2)), up, steel)
       for (const sign of [-1, 1]) gusset(`ramp-leg-gusset-${side}-${sign}`, 'corner_gusset', rib, scale(r, sign), [0, -side, 0], scale(up, -1))
     }
-    for (const [i, along] of [40, s.ramp / 2].entries()) tube(`ramp-rib-${i}`, true, d.rampWidth, at(along, -h.panel - t / 2, -half), across)
+    for (const [i, along] of [40, s.ramp / 2].entries()) tube(`ramp-rib-${i}`, false, d.rampWidth, at(along, -h.panel - t / 2, -half), across)
     const toes = d.counts.toe
     for (let i = 0; i < toes; i++) add(`ramp-toe-${i}`, stl('ramp_toe'), accent, place(r, crossV(up, r), at(s.ramp, -h.panel - 2.4, 200 * i - toes * 100)))
     rod('ramp-hinge', 3.5, d.rampWidth, at(-h.hingeGap / 2, 1.5), across, steel)
@@ -84,10 +84,9 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
     tube(`axle-post-${side}`, true, d.post, [0, y, d.railZ + t / 2], [0, 0, 1])
     for (const [name, cx, inward] of [['rear', d.rearX - t / 2, 1], ['front', d.frontX + t / 2, -1]] as const) {
       tube(`corner-post-${name}-${side}`, false, d.post, [cx, y, d.railZ + t / 2], [0, 0, 1])
-      for (const face of [-1, 1]) {
-        gusset(`base-corner-${name}-${side}-${face}`, 'corner_gusset', [cx, y, d.railZ], [0, face, 0], [0, 0, 1], [inward, 0, 0])
-        gusset(`top-corner-${name}-${side}-${face}`, 'corner_gusset', [cx, y, d.topZ], [0, face, 0], [0, 0, -1], [inward, 0, 0])
-      }
+      // Corner posts carry the cover, not the dog: one gusset on the outside face only.
+      gusset(`base-corner-${name}-${side}`, 'corner_gusset', [cx, y, d.railZ], [0, side, 0], [0, 0, 1], [inward, 0, 0])
+      gusset(`top-corner-${name}-${side}`, 'corner_gusset', [cx, y, d.topZ], [0, side, 0], [0, 0, -1], [inward, 0, 0])
       gusset(`base-under-${name}-${side}`, 'corner_gusset', [cx, y, d.railZ], [0, 0, -1], [inward, 0, 0], [0, -side, 0])
       gusset(`top-over-${name}-${side}`, 'corner_gusset', [cx, y, d.topZ], [0, 0, 1], [inward, 0, 0], [0, -side, 0])
     }
@@ -117,7 +116,7 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
     cap(`handle-cap-${side}`, false, [d.gripX + d.handleArm, armY, s.handle], [1, 0, 0])
     for (const face of [-1, 1]) gusset(`grip-gusset-${side}-${face}`, 'corner_gusset', [d.gripX + t / 2, armY, s.handle], [0, 0, face], [1, 0, 0], [0, -side, 0])
   }
-  d.stations.forEach((x, i) => tube(`base-cross-${i}`, true, s.width, [x, -s.width / 2, d.railZ], across))
+  d.stations.forEach((x, i) => tube(`base-cross-${i}`, i === 0 || i === d.stations.length - 1, s.width, [x, -s.width / 2, d.railZ], across))
   for (const [i, x] of [d.rearX - t / 2, 0, d.frontX + t / 2].entries()) {
     tube(`top-cross-${i}`, false, s.width, [x, -s.width / 2, d.topZ], across)
     add(`ridge-saddle-${i}`, stl('ridge_saddle'), accent, place([1, 0, 0], [0, 1, 0], [x, 0, d.topZ + t / 2 - 26]))

@@ -151,6 +151,13 @@ Production verification completed November 12, 2026 (UTC). Native `buddy deploy 
 
 On the public HTTPS site the Rover studio, Rover product page, shop and XL studio returned 200. The Rover studio reached its 3D ready state in desktop Chrome with a 8.9 degree ramp, a 2.0x volume readout, $2,037.93 modeled cost and fourteen part cards; the only console error came from a browser extension. A configured kit returned 200, an out-of-range setup returned 422 and the checkout gate still returned 409. All 28 published Rover assets matched their manifest hashes and the committed files byte for byte. The full real-browser QA scripts were not rerun against production for this release. No payments or orders were created.
 
+## Buddy Rover r0 cost-down pass, November 12, 2026
+
+- The counted cost fell from $2,037.93 to $1,668.26 per carrier at 100 units and from $3,254.89 to $2,809.28 for one, through a cheaper verified wall fabric, hook and loop in place of zippers, listed quantity tiers, zinc-plated hardware, exterior plywood, thin-wall secondary tubes and eight fewer gussets. Each change carries a stated trade-off in the cost study. Estimated mass is about 45 kg.
+- A second, clearly labeled total prices the tube by weight at an assumed $4.00 per pound: $1,296.72. No tube or wheel price could be verified lower from a supplier page.
+- Neither figure fits the provisional $399 price or reaches the reference trailer's retail price. The studio, cost study and Rover brief say so. The catalog price is unchanged.
+- No part geometry changed. All fourteen meshes and three profiles are byte-identical to the first release.
+
 ## Physical product gate
 
 No production CAD/STL/3MF, qualified print specification, structural test report, veterinary fitting study, certified load rating, production inventory, supplier quotes, insurance, final return/warranty terms, live payment provider or customer order exists. Follow docs/product/validation.md before enabling sales or using a prototype on an animal.

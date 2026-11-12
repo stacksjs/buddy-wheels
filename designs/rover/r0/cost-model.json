@@ -12,30 +12,38 @@
   "base": {
     "quantity": 100,
     "light": {
-      "bars": 319,
-      "netMm": 1114400,
-      "kerfMm": 3600,
-      "stockMm": 1166774.4
+      "bars": 419,
+      "netMm": 1462000,
+      "kerfMm": 5100,
+      "stockMm": 1532534.4
     },
     "heavy": {
-      "bars": 341,
-      "netMm": 1228074.96,
-      "kerfMm": 5700,
-      "stockMm": 1247241.6
+      "bars": 244,
+      "netMm": 880474.96,
+      "kerfMm": 4200,
+      "stockMm": 892454.4
     },
-    "tube": 53250,
+    "tube": 49553,
     "textiles": {
       "quantity": 100,
-      "minutes": 240,
+      "minutes": 200,
       "hourlyCents": 3000,
       "rows": [
         {
-          "id": "shell",
-          "name": "Shell: roof, walls, header and gussets",
-          "purchase": 1231030,
-          "units": 514,
+          "id": "roof",
+          "name": "Roof shell, one piece",
+          "purchase": 224616,
+          "units": 147,
           "unit": "whole linear yards",
-          "allocation": 12311
+          "allocation": 2247
+        },
+        {
+          "id": "wall",
+          "name": "Wall shell: sides, front, header and gussets",
+          "purchase": 162656,
+          "units": 368,
+          "unit": "whole linear yards",
+          "allocation": 1627
         },
         {
           "id": "mesh",
@@ -48,26 +56,18 @@
         {
           "id": "clear",
           "name": "Clear storm panels",
-          "purchase": 151895,
-          "units": 17,
-          "unit": "10-yard rolls",
-          "allocation": 1519
+          "purchase": 133475,
+          "units": 170,
+          "unit": "yards, bought as 60-yard and 10-yard rolls",
+          "allocation": 1335
         },
         {
           "id": "liner",
           "name": "Floor tub liner and threshold flap",
-          "purchase": 149400,
+          "purchase": 116550,
           "units": 150,
           "unit": "whole linear yards",
-          "allocation": 1494
-        },
-        {
-          "id": "roofLiner",
-          "name": "Reflective roof liner",
-          "purchase": 127650,
-          "units": 138,
-          "unit": "whole linear yards",
-          "allocation": 1277
+          "allocation": 1166
         },
         {
           "id": "pad",
@@ -86,44 +86,28 @@
           "allocation": 4548
         },
         {
-          "id": "zipper",
-          "name": "Six storm-panel zippers",
-          "purchase": 180000,
-          "units": 300,
-          "unit": "5-foot chain pieces",
-          "allocation": 1800
-        },
-        {
-          "id": "slider",
-          "name": "Six locking sliders",
-          "purchase": 135000,
-          "units": 120,
-          "unit": "packs of 5",
-          "allocation": 1350
-        },
-        {
           "id": "hook",
           "name": "Hook tape",
-          "purchase": 151200,
-          "units": 216,
-          "unit": "10-foot pieces",
-          "allocation": 1512
+          "purchase": 165584,
+          "units": 1048,
+          "unit": "yards",
+          "allocation": 1656
         },
         {
           "id": "loop",
           "name": "Loop tape",
-          "purchase": 151200,
-          "units": 216,
-          "unit": "10-foot pieces",
-          "allocation": 1512
+          "purchase": 165584,
+          "units": 1048,
+          "unit": "yards",
+          "allocation": 1656
         },
         {
           "id": "seam",
-          "name": "Seam tape",
-          "purchase": 233223,
-          "units": 807,
+          "name": "Roof seam tape",
+          "purchase": 115889,
+          "units": 401,
           "unit": "meters",
-          "allocation": 2333
+          "allocation": 1159
         },
         {
           "id": "reflective",
@@ -160,62 +144,74 @@
         {
           "id": "thread",
           "name": "Thread allowance",
-          "purchase": 27115,
-          "units": 17,
+          "purchase": 23925,
+          "units": 15,
           "unit": "cones",
-          "allocation": 272
+          "allocation": 240
         }
       ],
-      "materials": 38922,
-      "rejects": 3893,
-      "labor": 12000,
+      "materials": 24628,
+      "rejects": 2463,
+      "labor": 10000,
       "freight": 900,
-      "total": 55715,
+      "total": 37991,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 94828,
-    "cogs": 203793,
+    "other": 79282,
+    "cogs": 166826,
     "retail": 39900,
-    "gross": -163893,
-    "grossPercent": -410.75939849624064,
+    "gross": -126926,
+    "grossPercent": -318.1102756892231,
     "maxCogs": 27930,
-    "headroom": -175863,
+    "headroom": -138896,
     "meetsCostGate": false,
     "fee": 1187,
     "reserve": 1995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -172075,
-    "retailForGate": 291200,
+    "contribution": -135108,
+    "retailForGate": 238400,
+    "tubeMill": 12399,
+    "cogsMill": 129672,
+    "retailForGateMill": 185300,
+    "stainlessUpgrade": 5016,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
   "one": {
     "quantity": 1,
     "light": {
-      "bars": 4,
-      "netMm": 11144,
-      "kerfMm": 36,
-      "stockMm": 14630.4
+      "bars": 5,
+      "netMm": 14620,
+      "kerfMm": 51,
+      "stockMm": 18288
     },
     "heavy": {
-      "bars": 4,
-      "netMm": 12280.7496,
-      "kerfMm": 57,
-      "stockMm": 14630.4
+      "bars": 3,
+      "netMm": 8804.7496,
+      "kerfMm": 42,
+      "stockMm": 10972.8
     },
-    "tube": 64012,
+    "tube": 60015,
     "textiles": {
       "quantity": 1,
-      "minutes": 600,
+      "minutes": 540,
       "hourlyCents": 3000,
       "rows": [
         {
-          "id": "shell",
-          "name": "Shell: roof, walls, header and gussets",
-          "purchase": 14370,
-          "units": 6,
+          "id": "roof",
+          "name": "Roof shell, one piece",
+          "purchase": 3056,
+          "units": 2,
           "unit": "whole linear yards",
-          "allocation": 14370
+          "allocation": 3056
+        },
+        {
+          "id": "wall",
+          "name": "Wall shell: sides, front, header and gussets",
+          "purchase": 2600,
+          "units": 4,
+          "unit": "whole linear yards",
+          "allocation": 2600
         },
         {
           "id": "mesh",
@@ -229,8 +225,8 @@
           "id": "clear",
           "name": "Clear storm panels",
           "purchase": 8935,
-          "units": 1,
-          "unit": "10-yard rolls",
+          "units": 10,
+          "unit": "yards, bought as 60-yard and 10-yard rolls",
           "allocation": 8935
         },
         {
@@ -240,14 +236,6 @@
           "units": 2,
           "unit": "whole linear yards",
           "allocation": 1992
-        },
-        {
-          "id": "roofLiner",
-          "name": "Reflective roof liner",
-          "purchase": 1850,
-          "units": 2,
-          "unit": "whole linear yards",
-          "allocation": 1850
         },
         {
           "id": "pad",
@@ -266,44 +254,28 @@
           "allocation": 9095
         },
         {
-          "id": "zipper",
-          "name": "Six storm-panel zippers",
-          "purchase": 1800,
-          "units": 3,
-          "unit": "5-foot chain pieces",
-          "allocation": 1800
-        },
-        {
-          "id": "slider",
-          "name": "Six locking sliders",
-          "purchase": 2250,
-          "units": 2,
-          "unit": "packs of 5",
-          "allocation": 2250
-        },
-        {
           "id": "hook",
           "name": "Hook tape",
-          "purchase": 2100,
-          "units": 3,
-          "unit": "10-foot pieces",
-          "allocation": 2100
+          "purchase": 1738,
+          "units": 11,
+          "unit": "yards",
+          "allocation": 1738
         },
         {
           "id": "loop",
           "name": "Loop tape",
-          "purchase": 2100,
-          "units": 3,
-          "unit": "10-foot pieces",
-          "allocation": 2100
+          "purchase": 1738,
+          "units": 11,
+          "unit": "yards",
+          "allocation": 1738
         },
         {
           "id": "seam",
-          "name": "Seam tape",
-          "purchase": 2601,
-          "units": 9,
+          "name": "Roof seam tape",
+          "purchase": 1445,
+          "units": 5,
           "unit": "meters",
-          "allocation": 2601
+          "allocation": 1445
         },
         {
           "id": "reflective",
@@ -346,35 +318,39 @@
           "allocation": 1595
         }
       ],
-      "materials": 60433,
-      "rejects": 6044,
-      "labor": 30000,
+      "materials": 43939,
+      "rejects": 4394,
+      "labor": 27000,
       "freight": 6500,
-      "total": 102977,
+      "total": 81833,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 158500,
-    "cogs": 325489,
+    "other": 139080,
+    "cogs": 280928,
     "retail": 39900,
-    "gross": -285589,
-    "grossPercent": -715.7619047619048,
+    "gross": -241028,
+    "grossPercent": -604.0802005012531,
     "maxCogs": 27930,
-    "headroom": -297559,
+    "headroom": -252998,
     "meetsCostGate": false,
     "fee": 1187,
     "reserve": 1995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -293771,
-    "retailForGate": 465000,
+    "contribution": -249210,
+    "retailForGate": 401400,
+    "tubeMill": 12399,
+    "cogsMill": 233312,
+    "retailForGateMill": 333400,
+    "stainlessUpgrade": 5016,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
   "lines": [
     {
       "id": "gussets",
-      "name": "36 corner and 12 tee gussets, laser cut 1/8 inch 6061",
-      "batch": 7680,
-      "one": 21600,
+      "name": "28 corner and 12 tee gussets, laser cut 1/8 inch 6061",
+      "batch": 6400,
+      "one": 18000,
       "coverage": [
         "M01",
         "M02"
@@ -421,9 +397,9 @@
     },
     {
       "id": "fasteners",
-      "name": "152 sleeved stainless joints",
-      "batch": 15048,
-      "one": 19000,
+      "name": "152 sleeved bolted joints",
+      "batch": 10032,
+      "one": 13680,
       "coverage": [
         "H01",
         "H02",
@@ -432,13 +408,13 @@
         "H05"
       ],
       "evidence": "Allowance",
-      "note": "The largest hardware line. It follows directly from a bolted frame with no welding."
+      "note": "Zinc-plated grade 5 for the Run configuration. It follows directly from a bolted frame with no welding."
     },
     {
       "id": "panels",
-      "name": "Floor and ramp panels, sealed 12 mm marine plywood",
-      "batch": 13700,
-      "one": 15000,
+      "name": "Floor and ramp panels, sealed 15/32 inch exterior plywood",
+      "batch": 5700,
+      "one": 7000,
       "coverage": [
         "F01",
         "R01"
@@ -501,11 +477,11 @@
     {
       "id": "labor",
       "name": "Cutting, drilling, deburring and assembly labor",
-      "batch": 15000,
-      "one": 40000,
+      "batch": 13750,
+      "one": 37500,
       "coverage": [],
       "evidence": "RFQ",
-      "note": "Batch: 6 h at $25/h. One-off: 16 h. Roughly 300 tube-wall holes per carrier. Timing assumptions, not observed."
+      "note": "Batch: 5.5 h at $25/h. One-off: 15 h. Roughly 300 tube-wall holes per carrier. Timing assumptions, not observed."
     },
     {
       "id": "qa",
@@ -570,8 +546,9 @@
   "allowances": [
     "Chassis tube, 1 x 1 x .125 inch 6061-T6: $100 per 144 inch bar is an allowance scaled from the observed .065 wall bar by metal mass. No fetched price.",
     "Wheels: $60 each is an allowance. Search results showed 20 inch spoked cart wheels at $54.95 to $62.99 with 3/4 inch bores and an 88 lb tire rating. No 5/8 inch bore 20 inch pneumatic wheel with a suitable rating was found, so the wheel is an open selection, not a candidate.",
-    "Marine plywood, 12 mm, 4 x 8 ft: $125 per sheet is an allowance from an unverified search result. BS1088 okoume results ran $209 to $278.",
-    "Stainless hardware: $0.99 per sleeved joint in a batch covers an 18-8 bolt, locknut, two washers and a cut steel sleeve. Search results showed about $0.36 per bolt and $0.26 per nut; neither page was fetched.",
+    "Plywood: $45 per 4 x 8 ft sheet of 15/32 inch BC sanded exterior pine is an allowance from an unverified search result near $40.35. Marine plywood results ran $125 to $278 and are the Coast upgrade.",
+    "Hardware: $0.66 per sleeved joint in a batch covers a zinc-plated grade 5 bolt, locknut, two washers and a cut steel sleeve, the same allowance the XL r1 study uses. 18-8 stainless for salt use adds about $0.33 per joint from unverified search results.",
+    "Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists.",
     "Hinge, latches, brake set, leveling feet, grip, rivet nuts, ridge pole and bedding tape are allowances with no supplier page behind them."
   ]
 }

@@ -4,7 +4,7 @@
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
   "generator": "native Stacks solid kit, no external CAD executable",
   "geometryHash": "472d9fea60e619628f8090eaa4da4d81f566440f7ac3dd6a1294970d6e210ac7",
-  "costHash": "05a8cbc52065390bf6c544bd31aab6ea70a639c7fb6ee7bbcf5d0be3b6d9f9de",
+  "costHash": "1c4e476b4601f7ea1a2afef54d4b93e19ad2d9049d30a75c3fb46f8242bb6124",
   "setup": {
     "length": 1200,
     "width": 700,
@@ -69,9 +69,9 @@
       },
       {
         "id": "C02",
-        "name": "Base cross member",
+        "name": "Base end cross member",
         "wall": "heavy",
-        "qty": 5,
+        "qty": 2,
         "length": 700
       },
       {
@@ -105,7 +105,7 @@
       {
         "id": "C07",
         "name": "Ramp under rib",
-        "wall": "heavy",
+        "wall": "light",
         "qty": 2,
         "length": 688
       },
@@ -150,10 +150,17 @@
         "wall": "light",
         "qty": 1,
         "length": 750.8
+      },
+      {
+        "id": "C14",
+        "name": "Base intermediate cross member",
+        "wall": "light",
+        "qty": 3,
+        "length": 700
       }
     ],
     "counts": {
-      "corner": 36,
+      "corner": 28,
       "tee": 12,
       "hanger": 8,
       "bolts": 148,
@@ -161,33 +168,34 @@
       "sleeves": 156,
       "rampBolts": 16,
       "floorScrews": 27,
-      "capHeavy": 16,
-      "capLight": 8,
+      "capHeavy": 12,
+      "capLight": 12,
       "toe": 3,
       "saddle": 3,
       "fabricClip": 28,
       "cableClip": 6,
       "axleCover": 6
     },
-    "heavyM": 12.2807,
-    "lightM": 11.144,
+    "heavyM": 8.8047,
+    "lightM": 14.62,
+    "tubeLb": 28.7,
     "floorArea": 0.9391,
     "rampArea": 0.6192,
     "mass": {
-      "tube": 14.1,
-      "plates": 5.1,
+      "tube": 12.9,
+      "plates": 4.7,
       "panels": 10.1,
       "wheels": 6.9,
       "hardware": 6.3,
-      "softgoods": 4.5
+      "softgoods": 4.2
     },
-    "carrierKg": 47.1,
+    "carrierKg": 45.1,
     "frontShare": 8.0857,
-    "tiltForceN": 101,
-    "tiltForceLbf": 23,
+    "tiltForceN": 100,
+    "tiltForceLbf": 22,
     "volumeRatio": 2.0082
   },
-  "printVolumeCm3": 1338,
+  "printVolumeCm3": 1339,
   "assets": [
     {
       "path": "parts/cap_heavy.stl",
@@ -276,28 +284,28 @@
     },
     {
       "path": "assembly.md",
-      "sha256": "b01989925af37dca1007d9385e7bcb51f846bc4ec646226d933e6560c1511b60",
-      "bytes": 9826
+      "sha256": "1b0afd1e55249a187b8d19d69fe4592c7b0a53b3856753d35818bd5ace580804",
+      "bytes": 9953
     },
     {
       "path": "bom.csv",
-      "sha256": "7a9996c1732691d4365a65b0802c4cf458c7d2ad431847db4dfd907bddcfe547",
-      "bytes": 7352
+      "sha256": "d920e3758c81fc2fe84fc5ddaf21f5258c08fab804a651f823ff4209ea71c5f7",
+      "bytes": 7650
     },
     {
       "path": "materials.md",
-      "sha256": "9c61eb82ffeefd04d412e17a7e66ba520d64d76945ff19af6dfe49803f4b1b53",
-      "bytes": 11452
+      "sha256": "72b3f1c854920ef5cdf145b760546c5576291dafd1b73089c4c60b601ca32aa5",
+      "bytes": 11770
     },
     {
       "path": "cover-cut-schedule.csv",
-      "sha256": "401a2ef59932f374d957b345142cfec2fb16bea0615c4eef9233d227d5f1af48",
-      "bytes": 2704
+      "sha256": "48c81de064cc5e39de87a122329847d1451eca672dcb3ae6265fe7af39f79cb5",
+      "bytes": 2533
     },
     {
       "path": "cover-panels.svg",
-      "sha256": "5e22e0814379a36cdc14665fadd05d7df3899f2eb58b81aacfe395a4ccc057bf",
-      "bytes": 4737
+      "sha256": "9d77ce8f9d7493acf42b012a1bc6082cbd9885b1ff5ef74237c3e391cad74b3f",
+      "bytes": 4436
     },
     {
       "path": "drawing.svg",
@@ -306,23 +314,23 @@
     },
     {
       "path": "cut-list.csv",
-      "sha256": "5cdddb4f1069214acf3f148e637a0b688d6a07c58931c3508177462475b4108f",
-      "bytes": 1002
+      "sha256": "2e3446ecd15d0e847620368ee0d3428f9de630029e7f84ed67684aae96ac58ad",
+      "bytes": 1095
     },
     {
       "path": "cost-notes.md",
-      "sha256": "7732cb84ed93e1bba4df1225d8d61fe85658c772714d6a44912c29d0ca08791a",
-      "bytes": 8686
+      "sha256": "128070becde39429961c721038246c8b270c3bbbfc2e493556e53204c91ebe44",
+      "bytes": 10701
     },
     {
       "path": "cost-model.json",
-      "sha256": "37a689feda077ad831f989fe98fa1c529bffe46e07f5f39a338ab54955471654",
-      "bytes": 15731
+      "sha256": "bbab088358323cb84d761c58a24d6c7a2fb54fe5826d2d54a82fc1c790bf8344",
+      "bytes": 15513
     },
     {
       "path": "setup.json",
-      "sha256": "bcd08412f90763940a41df308573ed57743bde00a83ad7fc08267d9ce0b48602",
-      "bytes": 3744
+      "sha256": "5401e5271e6c8469f606be6c319fa90ff84f9e4d64d86fea79cee396c7ea046a",
+      "bytes": 3920
     },
     {
       "path": "README.md",

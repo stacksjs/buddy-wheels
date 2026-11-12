@@ -24,7 +24,7 @@ Coordinates: X forward, Y across, Z up. Origin on the ground under the rear axle
 | Overall length, width over axle ends, height | 2168.8 x 955.25 x 1204 |
 | Ground clearance under the base gussets | 108.125 |
 | Assumed wheel hub through-length | 75 |
-| Estimated empty mass, arithmetic only | 47.1 kg (104 lb) |
+| Estimated empty mass, arithmetic only | 45.1 kg (99 lb) |
 
 ## Stated geometry beside the reference trailer
 
@@ -37,34 +37,35 @@ Burley Bark Ranger XL figures are the maker's published numbers, read 2026-11-11
 | Interior height | 29.9 in | 37.4 in |
 | Interior volume ratio | 1.0 | 2.01 |
 | Entry | 9 in step-up at a tailgate | 8.9 degree ramp, no step |
-| Weight | 33 lb | about 104 lb estimated |
+| Weight | 33 lb | about 99 lb estimated |
 | Capacity | 100 lb stated by its maker | none. Untested bench design |
 
 Rover is much larger and much heavier. The mass is the price of a bolted frame and plywood panels and is the first thing a second revision should reduce.
 
 ## Planning statics, not test results
 
-With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 80 mm ahead of the rear axle. The front wheel then carries about 8% of that mass, and lifting the front wheel to steer takes roughly 101 N (23 lbf) down on the handle. A dog that stands at the tailgate moves the center behind the axle. The two tip-stop feet exist for that case and their setting and strength are unproven. A swiveling, lockable front wheel may be the right answer for walking pace and is not designed here.
+With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 80 mm ahead of the rear axle. The front wheel then carries about 8% of that mass, and lifting the front wheel to steer takes roughly 100 N (22 lbf) down on the handle. A dog that stands at the tailgate moves the center behind the axle. The two tip-stop feet exist for that case and their setting and strength are unproven. A swiveling, lockable front wheel may be the right answer for walking pace and is not designed here.
 
 ## Cut list
 
 | ID | Qty | Member | Stock | Cut |
 | --- | ---: | --- | --- | ---: |
 | C01 | 2 | Base side rail | .125 wall | 1250.8 |
-| C02 | 5 | Base cross member | .125 wall | 700 |
+| C02 | 2 | Base end cross member | .125 wall | 700 |
 | C03 | 2 | Axle post | .125 wall | 965.2 |
 | C04 | 2 | Fork arm | .125 wall | 344 |
 | C05 | 2 | Fork stub post | .125 wall | 167.3 |
 | C06 | 2 | Ramp side curb rail | .125 wall | 900 |
-| C07 | 2 | Ramp under rib | .125 wall | 688 |
+| C07 | 2 | Ramp under rib | .065 wall | 688 |
 | C08 | 2 | Ramp stand leg | .125 wall | 75.0748 |
 | C09 | 4 | Corner post | .065 wall | 965.2 |
 | C10 | 2 | Top side rail | .065 wall | 1250.8 |
 | C11 | 3 | Top cross tube | .065 wall | 700 |
 | C12 | 2 | Handle arm | .065 wall | 965.4 |
 | C13 | 1 | Handle grip tube | .065 wall | 750.8 |
+| C14 | 3 | Base intermediate cross member | .065 wall | 700 |
 
-Total 12.28 m of .125 wall and 11.14 m of .065 wall. Base cross members sit at X = -532.7, -226.35, 95, 386.35, 692.7.
+Total 8.80 m of .125 wall and 14.62 m of .065 wall. Base cross members sit at X = -532.7, -226.35, 95, 386.35, 692.7.
 
 ## Joint patterns
 
@@ -72,7 +73,7 @@ Every joint is a flat gusset with 1/4 inch bolts through steel crush sleeves. Ho
 
 | Profile | Qty | Holes from the joint centerline | Where |
 | --- | ---: | --- | --- |
-| Corner gusset | 36 | Leg A 50 and 80. Leg B 35 and 65 | Post to rail both faces, rail to cross member, roof corners, handle grip, ramp legs |
+| Corner gusset | 28 | Leg A 50 and 80. Leg B 35 and 65 | Corner posts on the outside face only, axle-post tops both faces, rail to cross member, roof corners, handle grip, ramp legs |
 | Tee gusset | 12 | Bar 30 each side. Stem 35 and 60 | Intermediate base cross members, mid roof bow, fork arms top and bottom |
 | Axle hanger | 8 | Bar 30 each side. Stem 60, 105, 155. Axle bore at 130 | Both faces of each axle post and each fork stub |
 
@@ -84,7 +85,7 @@ Legs A and B alternate where two gussets meet on one tube, so bolts cross 15 mm 
 2. Cut and deburr every tube. Mark each with its ID.
 3. Base frame: two side rails, 5 cross members. Corner gussets under each corner, tee gussets under each intermediate member.
 4. Axle posts at X = 0 with paired hangers. The hanger bar bolts to the rail, the stem to the post. Fit the 19.05 axle sleeve through post and both hangers.
-5. Corner posts with paired corner gussets, leg A up the post.
+5. Corner posts with one corner gusset on the outside face, leg A up the post, and washers on the inside.
 6. Top rails, three top cross tubes, corner gussets on top, tee gussets at the mid bow.
 7. Fork: two arms butt against the front cross member at Y = 54.875 each side, tee gussets above and below. Stub posts with paired hangers at the front axle, 989.4 ahead of the rear axle.
 8. Floor panel on bedding tape, fastened to the frame.
@@ -103,8 +104,8 @@ Each rear axle end stands 14.525 mm into the cabin, about 102 mm above the deck.
 
 ## Printing
 
-- Chassis tube cap, cap_heavy.stl, quantity 16. Closes 1/8 inch wall tube ends. End protection only.
-- Cabin tube cap, cap_light.stl, quantity 8. Closes .065 inch wall tube ends. End protection only.
+- Chassis tube cap, cap_heavy.stl, quantity 12. Closes 1/8 inch wall tube ends. End protection only.
+- Cabin tube cap, cap_light.stl, quantity 12. Closes .065 inch wall tube ends. End protection only.
 - Ramp threshold toe, ramp_toe.stl, quantity 3. Ground-supported bevel that removes the step at the ramp edge. It is not the ramp structure.
 - Roof ridge saddle, ridge_saddle.stl, quantity 3. Holds the ridge pole above the frame so the roof sheds water. Carries fabric tension only.
 - Cover rail clip, fabric_clip.stl, quantity 28. Snaps a cover hem onto a frame tube. No restraint or structural function.
@@ -122,7 +123,7 @@ Files prefixed FIT_CHECK_ONLY are plastic copies of metal parts for checking hol
 ## Release gates
 
 1. Buddy's measurements, lying length and standing height first, and a veterinary view on whether riding suits him.
-2. Engineering review of the frame, the axle hangers, the ramp and its stand, the handle and the tip-stops, including steel-to-aluminum corrosion and stainless galling.
+2. Engineering review of the frame, the axle hangers, the ramp and its stand, the handle and the tip-stops, including steel-to-aluminum corrosion.
 3. A real wheel with a known bore, hub length and rating, then the brake. Until both exist the running gear is a placeholder.
 4. Ballast tests to an approved plan: static proof, ramp load at mid span and at the threshold, tip in every direction, curb and brake events, fatigue.
 5. Cover tests listed in materials.md.

@@ -28,7 +28,21 @@ Not in this revision: a selected wheel, a brake design, a swivel front wheel, a 
 | Three matching 20 inch wheels | One wheel, one hanger, one spare | No verified wheel with a 5/8 inch bore and a suitable rating was found |
 | Bolted gusset frame, no welding | Matches the XL r1 standard-parts approach and can be built with a drill | About 150 sleeved joints. Heavy, slow and expensive. See the cost study |
 | Fixed front wheel | The brief asked for a straight-tracking front assembly for running | Steering effort with a heavy dog. A lockable swivel is likely needed |
-| 18-8 stainless fasteners, aluminum gussets | Beach use and aluminum-to-aluminum joints | Lower strength than grade 5 steel, thread galling, steel sleeves inside aluminum |
+| Zinc-plated grade 5 fasteners in Run, aluminum gussets | Lower cost and higher strength than 18-8 stainless | Corrosion in salt. Stainless is the Coast upgrade, with galling to manage |
+
+## Cost-down pass, November 12, 2026
+
+The owner asked for the price to come down. The same r0 design was revised before anything was built: no part geometry changed, so every STL and DXF is byte-identical, while quantities, tube walls, hardware, panel grade and the cover specification changed. Earlier downloads of the documents are superseded.
+
+- Intermediate base cross members and both ramp ribs are thin-wall tube. A 700 mm cross member carrying a 450 N share at mid span works out near 68 MPa by hand arithmetic. End cross members, rails, axle posts, fork and ramp curbs stay 1/8 inch wall.
+- The eight corner-post joints use one outside gusset instead of a pair. Axle posts, which take the handle and the wheels, keep pairs.
+- Run hardware is zinc-plated grade 5. Panels are sealed exterior BC plywood.
+- The cover keeps the solution-dyed fabric on the roof and uses a cheaper PVC-coated 600 denier polyester on the walls, drops the zippers for hook and loop, tapes only the roof seams and makes the reflective liner optional.
+- Listed supplier quantity tiers are used where the 100-carrier purchase reaches them.
+
+Result: $1,668.26 per carrier at 100 units and $2,809.28 for one, from $2,037.93 and $3,254.89. Tube and wheel prices could not be verified lower; supplier pages refused automated reads on both days. The study therefore also reports a second total with tube bought by weight at an assumed $4.00 per pound, $1,296.72, and labels it as an assumption.
+
+What this pass could not do is make the design competitive with the reference trailer's price. That needs a different architecture, most likely a fabric cabin on bent hoops over a welded or riveted base, and quotes rather than listings.
 
 ## Native geometry
 

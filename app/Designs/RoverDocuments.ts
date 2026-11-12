@@ -17,7 +17,7 @@ export function roverBom(s: RoverSetup): string {
   return csv([
     ['ID', 'Quantity', 'Part', 'Specification', 'Status'],
     ...d.cuts.map(cut => [cut.id, cut.qty, cut.name, `${WALL[cut.wall as 'heavy' | 'light']}; cut ${cut.length} mm`, 'Cut to fit. Not telescoping']),
-    ['M01', c.corner, 'Corner gusset', '6061-T6 3.175 mm, metal/corner_gusset.dxf', 'One profile, flipped for the opposite hand. Fatigue and bearing review pending'],
+    ['M01', c.corner, 'Corner gusset', '6061-T6 3.175 mm, metal/corner_gusset.dxf', 'One profile, flipped for the opposite hand. Single outside plate at the eight corner-post joints. Fatigue and bearing review pending'],
     ['M02', c.tee, 'Tee gusset', '6061-T6 3.175 mm, metal/tee_gusset.dxf', 'Single-sided at base cross members and roof bow; paired at the fork'],
     ['M03', c.hanger, 'Axle hanger', '304 stainless 3.175 mm, metal/axle_hanger.dxf', 'Paired on every axle post and fork stub. Finish the 19.25 mm bore after drawing review'],
     ['W01', 3, 'Pneumatic wheel, 20 inch', `508 OD, about ${h.tire} wide, 15.875 bore; hub through-length assumed ${s.hub} mm`, 'OPEN SELECTION. No verified wheel with this bore and a suitable rating has been found'],
@@ -26,15 +26,15 @@ export function roverBom(s: RoverSetup): string {
     ['W04', 4, 'Axle sleeve', '4130 tube 19.05 OD x 1.4732 wall; cut 25.4 mm', 'Through each axle post and fork stub. Steel, not printed'],
     ['W05', 2, 'Rear wheel spacer', '4130 tube 19.05 OD x 1.4732 wall; cut 12.7 mm', 'Check actual hub and bearing face contact'],
     ['W06', 8, 'Thrust washer and split cotter set', '5/8 inch bore washer 1.5 mm; 3.2 mm stainless cotter', 'Rear: 2 washers and 2 cotters per side. Front: 4 washers and 2 cotters'],
-    ['H01', c.bolts, 'Joint bolt', '1/4-20 x 2 inch 18-8 stainless hex bolt', 'Partially threaded shank required at sleeves. Torque procedure pending'],
-    ['H02', c.handleBolts, 'Handle lap bolt', '1/4-20 x 3 inch 18-8 stainless hex bolt', 'Through one handle arm and one post'],
-    ['H03', c.sleeves, 'Crush sleeve', '4130 .375 OD x .049 wall; cut 25.4 mm', 'One per tube crossing. Isolate steel from aluminum with the reviewed finish'],
-    ['H04', 2 * (c.bolts + c.handleBolts), 'Bolt washer', '1/4 inch 18-8 flat washer', 'Two per bolt'],
-    ['H05', c.bolts + c.handleBolts, 'Prevailing-torque nut', '1/4-20 18-8 nylon-insert locknut', 'New nuts at every assembly. Anti-seize practice to be defined against galling'],
-    ['F01', 1, 'Floor panel', `12 mm marine plywood ${d.rail} x ${s.width + 2 * h.tube} mm, six post notches 44 x 30, sealed all faces`, 'Sits on gussets and bedding tape. Deflection under a standing dog not yet calculated'],
+    ['H01', c.bolts, 'Joint bolt', '1/4-20 x 2 inch SAE J429 grade 5 zinc hex bolt', 'Partially threaded shank required at sleeves. Torque procedure pending. 18-8 stainless is the salt-use upgrade'],
+    ['H02', c.handleBolts, 'Handle lap bolt', '1/4-20 x 3 inch grade 5 zinc hex bolt', 'Through one handle arm and one post'],
+    ['H03', c.sleeves, 'Crush sleeve', '4130 .375 OD x .049 wall; cut 25.4 mm', 'One per tube crossing. Corrosion finish between steel and aluminum pending'],
+    ['H04', 2 * (c.bolts + c.handleBolts), 'Bolt washer', '1/4 inch zinc steel flat washer', 'Two per bolt'],
+    ['H05', c.bolts + c.handleBolts, 'Prevailing-torque nut', '1/4-20 zinc nylon-insert locknut', 'New nuts at every assembly'],
+    ['F01', 1, 'Floor panel', `15/32 inch (12 mm) BC exterior plywood ${d.rail} x ${s.width + 2 * h.tube} mm, six post notches 44 x 30, sealed all faces and edges; marine plywood for salt use`, 'Sits on gussets and bedding tape. Deflection under a standing dog not yet calculated'],
     ['F02', 1, 'Bedding tape', '3.2 mm closed-cell tape, 25 mm wide, about 9 m', 'Fills the gusset thickness under both panels'],
     ['F03', c.floorScrews, 'Floor fastener set', '1/4-20 stainless countersunk screw with rivet nut in the tube top wall', 'Rivet nut pull-out in .125 wall to be tested'],
-    ['R01', 1, 'Ramp panel', `12 mm marine plywood ${s.ramp} x ${d.rampWidth} mm, sealed, toe edge fitted with printed threshold toes`, 'Curb rails on top, two ribs underneath'],
+    ['R01', 1, 'Ramp panel', `15/32 inch (12 mm) BC exterior plywood ${s.ramp} x ${d.rampWidth} mm, sealed all faces and edges, toe edge fitted with printed threshold toes`, 'Curb rails on top, two ribs underneath'],
     ['R02', 1, 'Continuous hinge', `Stainless, ${Math.floor(d.rampWidth / 25.4 / 6) * 6} inch nominal, leaves on the top faces`, 'Knuckle sits in the 6 mm gap. Pinch review pending'],
     ['R03', 2, 'Draw latch with keeper', 'Stainless, with a secondary catch', 'Holds the raised ramp to both rear posts'],
     ['R04', 1, 'Tailgate safety strap', '1 inch webbing with a metal hook, independent of both latches', 'Second retention path if a latch opens'],
@@ -44,7 +44,7 @@ export function roverBom(s: RoverSetup): string {
     ['B02', 1, 'Handle grip and wrist tether', `Foam grip for 25.4 tube over ${d.grip} mm; 1.2 m wrist tether`, 'Tether is a secondary link to the caregiver'],
     ['S01', 2, 'Tip-stop foot', '3/8-16 leveling foot with 100 mm stem through each base rail behind the axle, jam nuts and fender washers', 'Catches a rearward tip. Height setting and strength are untested'],
     ['X01', 1, 'Roof ridge pole', `12.7 mm aluminum tube, cut ${d.rail} mm`, 'Rests in three printed saddles'],
-    ['T01', 1, 'Weather cover set', 'Shell, mesh windows, clear storm panels, zippers, seam tape, reflective trim', 'See cover-cut-schedule.csv and materials.md. No sewn sample exists'],
+    ['T01', 1, 'Weather cover set', 'Roof and wall shell, mesh windows, clear storm panels, hook and loop, seam tape, reflective trim', 'See cover-cut-schedule.csv and materials.md. No sewn sample exists'],
     ['T02', 1, 'Floor set', 'Two EVA pad halves under a vinyl tub liner with a threshold flap', 'Removable for washing'],
     ['T03', 1, 'Ramp traction surface', `5 mm adhesive EVA, ${d.rampWidth - 2 * h.tube} x ${s.ramp} mm between the curbs`, 'Wet grip unproven'],
     ['T04', 2, 'Interior tether loop', '1 inch webbing loop around a base rail with a 316 D-ring', 'Positioning aid only. Not a restraint rating'],
@@ -54,9 +54,8 @@ export function roverBom(s: RoverSetup): string {
 export function roverCoverCsv(s: RoverSetup): string {
   const cover = roverCover(s)
   return csv([['ID', 'Quantity', 'Piece', 'Material', 'Width mm', 'Length mm', 'Notes'], ...cover.pieces.map(p => [p.id, p.qty, p.name, roverMaterials.find(m => m.id === p.material)!.name, p.width, p.length, p.note]),
-    ['Z01', 6, 'Storm panel zipper', 'YKK #10 molded tooth', '', cover.lengths.zipperCuts[0]!, 'One continuous cut each, one locking slider each'],
-    ['Z02', 1, 'Hook tape and loop tape', '2 inch polyester', '', cover.lengths.hookLoop, 'Same length of each side'],
-    ['Z03', 1, 'Seam tape', '20 mm', '', cover.lengths.seamTape, 'Roof-to-wall seams and four corner seams'],
+    ['Z02', 1, 'Hook tape and loop tape', '2 inch', '', cover.lengths.hookLoop, 'Same length of each side: storm panel sides and sills plus 24 cover tabs'],
+    ['Z03', 1, 'Seam tape', '20 mm', '', cover.lengths.seamTape, 'Roof-to-wall seams'],
     ['Z04', 1, 'Reflective trim', '1 inch sew-on', '', cover.lengths.reflective, 'Full perimeter at wheel-top height'],
     ['Z05', 1, 'Roof hem shock cord', '3/16 inch', '', cover.lengths.cord, 'Drawn snug under the top rails'],
     ['Z06', 1, 'Webbing', '1 inch polyester', '', cover.lengths.webbing, 'Two tether loops, grab loop, eight roll-up ties, wrist tether']])
@@ -72,12 +71,12 @@ Configuration ${roverCode(s)}. Supplier pages read ${roverTextileDate} unless a 
 
 | Exposure | Design answer | What still has to be proven |
 | --- | --- | --- |
-| Rain | One-piece roof with no seam on top, pitched over a ridge pole ${h.ridge} mm above the frame so water runs to both sides. 40 mm drip overhangs. Roof-to-wall and corner seams taped. Rear header overlaps the raised ramp. Floor tub liner with 80 mm upturned walls. | Spray and pooling test on the sewn roof. Hydrostatic head of fabric and taped seams. Target to verify: 1,500 mm or better at the roof. |
-| Wind | Clear roll-down storm panels on both sides and the front, zipped at the sides and held along the sill. Solid ramp panel as the tailgate, with fabric gussets to the rear posts. | Flap noise and billow at running speed. Whether a nervous dog tolerates it. |
-| Sun | Shell fabric the supplier calls highly UV resistant, mesh with a stated 70% shade factor, optional reflective liner under the roof, light exterior color recommended for hot routes. | UPF of the roof assembly and interior temperature rise in direct sun, panels open and closed. Charcoal is the priced color; a light color must be re-priced. |
+| Rain | One-piece roof in the better, solution-dyed fabric, with no seam on top, pitched over a ridge pole ${h.ridge} mm above the frame so water runs to both sides. 40 mm drip overhangs. Roof-to-wall seams taped; wall corner seams lapped and left untaped under the overhang. Rear header overlaps the raised ramp. Floor tub liner with 80 mm upturned walls. | Spray and pooling test on the sewn roof. Hydrostatic head of fabric and taped seams. Target to verify: 1,500 mm or better at the roof. |
+| Wind | Clear roll-down storm panels on both sides and the front, held by hook and loop down the sides and along the sill. Solid ramp panel as the tailgate, with fabric gussets to the rear posts. | Flap noise and billow at running speed. Whether a nervous dog tolerates it. |
+| Sun | Solution-dyed roof fabric the supplier credits with excellent UV resistance, mesh with a stated 70% shade factor, and an optional reflective liner under the roof that is not in the base cost. | UPF of the roof assembly and interior temperature rise in direct sun, panels open and closed. The priced roof is black and the walls charcoal, which run hot; a light roof must be sourced and re-priced. The wall fabric is not solution dyed and will fade. |
 | Heat | Three large mesh windows plus a high rear vent that stays open under the roof overhang even with storm panels down. | Airflow and temperature limits. A closed cabin is not safe in heat until measured. |
-| Cold and snow | Clear panel with a stated -20 F cold-crack rating, EVA floor pad under the liner. | Zipper and panel handling with gloves, icing, condensation. |
-| Sand and salt | Aluminum frame and gussets, stainless fasteners, hangers and rings, molded plastic zipper teeth, rinse-out liner. | Sleeve and axle corrosion, sand in bearings and hook tape. |
+| Cold and snow | Clear panel with a stated -20 F cold-crack rating, EVA floor pad under the liner. | Panel handling with gloves, hook and loop packed with snow, icing, condensation. |
+| Sand and salt | Aluminum frame and gussets, stainless hangers and rings, rinse-out liner. The Run hardware is zinc-plated steel and the panels exterior plywood; salt use needs the stainless fastener and marine plywood upgrades. | Fastener, sleeve and axle corrosion, sand in bearings and hook tape. |
 | Wet paws on the ramp | 5 mm diamond EVA surface between two 25 mm curb rails, printed threshold toes at the ground edge. | Grip when wet at ${d.rampAngle.toFixed(1)} degrees, claw wear. |
 
 ## Layers and candidates
@@ -99,7 +98,7 @@ ${cover.pieces.map(p => `| ${p.id} | ${p.qty} | ${p.name} | ${p.material} | ${p.
 ## Sewing and sealing notes
 
 1. Sew with Tex 90 bonded polyester and a size 18 to 20 needle. Use lapped or flat-felled seams on the shell so water runs over, not into, each seam.
-2. Tape roof-to-wall and corner seams from the inside. The candidate tape is made for polyurethane coatings and the candidate shell is acrylic coated, so prove adhesion on an offcut first.
+2. Tape the roof-to-wall seams from the inside and prove adhesion on offcuts of both fabrics first. Lap the wall corner seams so they shed outward.
 3. Bind every mesh edge inside a shell frame. Never leave a raw mesh edge where a nose or claw can reach it.
 4. Hem the roof skirt around the shock cord. Add reflective trim on both sides and the rear at wheel-top height.
 5. Bind the four cutouts where the handle arms cross the rear and axle posts so metal clamps metal.
@@ -107,7 +106,7 @@ ${cover.pieces.map(p => `| ${p.id} | ${p.qty} | ${p.name} | ${p.material} | ${p.
 
 ## Tests before any dog rides
 
-Spray and pooling, hydrostatic head, UPF, interior temperature rise, airflow with panels down, cold handling, wet ramp grip, mesh push-out and chew, zipper cycling with sand, colorfastness, and a flame behavior check of every layer.
+Spray and pooling, hydrostatic head, UPF, interior temperature rise, airflow with panels down, cold handling, wet ramp grip, mesh push-out and chew, hook and loop cycling with sand, colorfastness, and a flame behavior check of every layer.
 `
 }
 
@@ -175,7 +174,7 @@ Every joint is a flat gusset with 1/4 inch bolts through steel crush sleeves. Ho
 
 | Profile | Qty | Holes from the joint centerline | Where |
 | --- | ---: | --- | --- |
-| Corner gusset | ${c.corner} | Leg A 50 and 80. Leg B 35 and 65 | Post to rail both faces, rail to cross member, roof corners, handle grip, ramp legs |
+| Corner gusset | ${c.corner} | Leg A 50 and 80. Leg B 35 and 65 | Corner posts on the outside face only, axle-post tops both faces, rail to cross member, roof corners, handle grip, ramp legs |
 | Tee gusset | ${c.tee} | Bar 30 each side. Stem 35 and 60 | Intermediate base cross members, mid roof bow, fork arms top and bottom |
 | Axle hanger | ${c.hanger} | Bar 30 each side. Stem 60, 105, 155. Axle bore at ${h.rise} | Both faces of each axle post and each fork stub |
 
@@ -187,7 +186,7 @@ Legs A and B alternate where two gussets meet on one tube, so bolts cross 15 mm 
 2. Cut and deburr every tube. Mark each with its ID.
 3. Base frame: two side rails, ${d.stations.length} cross members. Corner gussets under each corner, tee gussets under each intermediate member.
 4. Axle posts at X = 0 with paired hangers. The hanger bar bolts to the rail, the stem to the post. Fit the 19.05 axle sleeve through post and both hangers.
-5. Corner posts with paired corner gussets, leg A up the post.
+5. Corner posts with one corner gusset on the outside face, leg A up the post, and washers on the inside.
 6. Top rails, three top cross tubes, corner gussets on top, tee gussets at the mid bow.
 7. Fork: two arms butt against the front cross member at Y = ${d.forkY} each side, tee gussets above and below. Stub posts with paired hangers at the front axle, ${d.wheelbase} ahead of the rear axle.
 8. Floor panel on bedding tape, fastened to the frame.
@@ -215,7 +214,7 @@ Files prefixed FIT_CHECK_ONLY are plastic copies of metal parts for checking hol
 ## Release gates
 
 1. Buddy's measurements, lying length and standing height first, and a veterinary view on whether riding suits him.
-2. Engineering review of the frame, the axle hangers, the ramp and its stand, the handle and the tip-stops, including steel-to-aluminum corrosion and stainless galling.
+2. Engineering review of the frame, the axle hangers, the ramp and its stand, the handle and the tip-stops, including steel-to-aluminum corrosion.
 3. A real wheel with a known bore, hub length and rating, then the brake. Until both exist the running gear is a placeholder.
 4. Ballast tests to an approved plan: static proof, ramp load at mid span and at the threshold, tip in every direction, curb and brake events, fatigue.
 5. Cover tests listed in materials.md.
@@ -273,18 +272,34 @@ export function roverDrawing(s: RoverSetup): string {
 }
 
 export function roverCostMarkdown(s: RoverSetup): string {
-  const batch = roverEconomics(s, 100); const one = roverEconomics(s, 1); const lines = roverCostLines(s); const textiles = roverTextileCost(s, 100); const oneTextiles = roverTextileCost(s, 1)
+  const batch = roverEconomics(s, 100); const one = roverEconomics(s, 1); const lines = roverCostLines(s); const textiles = roverTextileCost(s, 100); const oneTextiles = roverTextileCost(s, 1); const dims = roverDimensions(s)
   return `# Buddy Rover r0 cost study
 
 Checked ${roverPriceDate}, USD, integer cents, native Bun arithmetic. Configuration ${roverCode(s)}. This prices the r0 bench architecture. It is not a supplier quote, a production cost or a selling price, and nothing has been bought.
 
 ## Result
 
-At 100 carriers the modeled landed manufacturing cost is **${money(batch.cogs)} each**. A single build at retail quantities is **${money(one.cogs)}**. The catalog's provisional Run price is ${money(batch.retail)}, so the 30% gross-margin gate allows ${money(batch.maxCogs)} and this design ${batch.meetsCostGate ? 'meets it' : `misses it by ${money(-batch.headroom)}`}. To pass the same gate at this cost the price would have to be about ${money(batch.retailForGate)}.
+At 100 carriers the modeled landed manufacturing cost is **${money(batch.cogs)} each** at listed prices. A single build at retail quantities is **${money(one.cogs)}**. The first count of this design, on November 11, was $2,037.93 and $3,254.89.
 
-The earlier Rover unit economics assumed $210 of cost for Run. That figure was a target with no bill of materials behind it. This study replaces it with a counted one, and the counted one does not fit. Either the price moves, or the architecture changes, or both. The catalog price is unchanged pending that decision.
+The catalog's provisional Run price is ${money(batch.retail)}, so the 30% gross-margin gate allows ${money(batch.maxCogs)} and this design ${batch.meetsCostGate ? 'meets it' : `still misses it by ${money(-batch.headroom)}`}. To pass the same gate at this cost the price would have to be about ${money(batch.retailForGate)}. The catalog price is unchanged pending the owner's decision.
 
-For scale, the reference trailer sold for ${money(roverPriceEvidence[1].price)} at one retailer on the check date, with a 100 lb stated capacity and a 36.2 x 22.4 x 29.9 inch interior. Rover's cabin is about twice that volume.
+**If tube is bought by weight.** ${money(batch.tube)} of the total is ${dims.tubeLb} lb of aluminum tube priced as cut-to-order retail bars, close to five dollars a foot. A 100-carrier batch is about ${Math.round(dims.tubeLb * 100 / 100) * 100 >= 1000 ? (dims.tubeLb * 100 / 2000).toFixed(1) + ' tons' : Math.round(dims.tubeLb * 100) + ' lb'} of one extrusion and would be bought from a mill or distributor. At an assumed $4.00 per pound with 8% scrap the tube line falls to ${money(batch.tubeMill)} and the total to **${money(batch.cogsMill)}**, which a price near ${money(batch.retailForGateMill)} would carry. That rate is an assumption with no quote behind it. Getting that quote is the single most valuable next step on cost.
+
+For scale, the reference trailer sold for ${money(roverPriceEvidence[1].price)} at one retailer on the check date, with a 100 lb stated capacity and a 36.2 x 22.4 x 29.9 inch interior. Rover's cabin is about twice that volume. Rover does not reach that price in either scenario.
+
+## What changed since the first count
+
+| Change | Effect at 100 carriers | Trade-off |
+| --- | ---: | --- |
+| Wall fabric: a $6.50 PVC-coated 600 denier polyester under the roof overhang, with the solution-dyed fabric kept for the roof | about -$85 | Walls will fade and carry no stated UV rating |
+| Hook and loop instead of six zippers; roof liner made optional; corner seams lapped, not taped | about -$55 | Storm panels are slower to close; less sun insulation unless the liner is added |
+| Listed quantity tiers used where the batch reaches them: wall fabric, liner, clear panel rolls | about -$20 | None. They are published prices |
+| Sewing time 240 to 200 minutes | -$20.00 | An assumption either way |
+| Zinc-plated grade 5 hardware for Run; stainless becomes the salt-use upgrade | about -$50 | Add ${money(batch.stainlessUpgrade)} for stainless before beach use |
+| Exterior BC plywood instead of marine | -$80.00 | Marine plywood returns for salt use. Price is from an unverified search result |
+| Intermediate cross members and ramp ribs in thin-wall tube | about -$40 | Members checked by hand arithmetic only |
+| One gusset instead of two at the eight corner-post joints | -$12.80 | Corner posts carry the cover, not the dog |
+| Assembly time 6 to 5.5 hours | -$12.50 | An assumption either way |
 
 ## Where the money goes
 
@@ -309,7 +324,7 @@ ${textiles.rows.map((row, i) => `| ${row.name} | ${money(oneTextiles.rows[i]!.al
 | Textile freight | ${money(oneTextiles.freight)} | ${money(textiles.freight)} | Unquoted |
 | **Total** | **${money(oneTextiles.total)}** | **${money(textiles.total)}** | |
 
-Material prices are the listed single-unit prices in [the materials sheet](../product/rover-materials.md). No quantity break is assumed even where a supplier lists one.
+Material prices are the listed prices in [the materials sheet](../product/rover-materials.md). A listed quantity tier is used only where the 100-carrier purchase actually reaches it; no unlisted discount is assumed.
 
 ## What was and was not observed
 
@@ -317,12 +332,12 @@ ${roverPriceEvidence.map(e => `- [${e.name}](${e.url}): **${money(e.price)}**, $
 
 ${roverAllowanceNotes.map(n => `- ${n}`).join('\n')}
 
-## What would bring the cost down
+## What would bring it down further
 
-1. Joints. ${roverCostLines(s).find(l => l.id === 'fasteners')!.name} and the labor to drill for them are the largest controllable lines. Welded or riveted sub-frames, or purpose-made corner fittings, remove most of both and several kilograms.
-2. Panels. Plywood is cheap per sheet but heavy. A ribbed aluminum or composite deck changes mass more than cost.
-3. Cover. One shell fabric everywhere is simple and expensive. Mesh already replaces much of the wall area; a lighter wall fabric below the windows would cut more.
-4. Wheels and brake. Both are open selections and the allowances may be low for parts with a real rating.
+1. A tube quote. See the mill-quantity paragraph above. Nothing else moves the total as much.
+2. Joints. ${roverCostLines(s).find(l => l.id === 'fasteners')!.name} and the labor to drill for them come to about ${money(roverCostLines(s).find(l => l.id === 'fasteners')!.batch + roverCostLines(s).find(l => l.id === 'labor')!.batch)}. Welded or riveted sub-frames, or purpose-made corner fittings, remove most of both and several kilograms. That needs a fabricator's quote.
+3. Wheels and brake. Three wheels at an allowance of $60 each is the largest single parts line and has no verified candidate. A real wheel could cost more or less.
+4. The cover is now ${money(batch.textiles.total)}. The ramp surface, floor pad and mesh are the largest material lines left; sewing is ${money(batch.textiles.labor)}.
 
 Selling-cost lines for the provisional price, per carrier at 100: payment fee ${money(batch.fee)}, returns reserve ${money(batch.reserve)}, support ${money(batch.support)}, acquisition ${money(batch.acquisition)}. Contribution before fixed overhead: ${money(batch.contribution)}.
 

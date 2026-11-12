@@ -92,24 +92,25 @@ export function roverDimensions(s: RoverSetup) {
   const roofSlope = Math.hypot(s.width / 2 + t, h.ridge + h.pole)
   const cuts = [
     { id: 'C01', name: 'Base side rail', wall: 'heavy', qty: 2, length: rail },
-    { id: 'C02', name: 'Base cross member', wall: 'heavy', qty: stations.length, length: s.width },
+    { id: 'C02', name: 'Base end cross member', wall: 'heavy', qty: 2, length: s.width },
     { id: 'C03', name: 'Axle post', wall: 'heavy', qty: 2, length: post },
     { id: 'C04', name: 'Fork arm', wall: 'heavy', qty: 2, length: forkArm },
     { id: 'C05', name: 'Fork stub post', wall: 'heavy', qty: 2, length: stub },
     { id: 'C06', name: 'Ramp side curb rail', wall: 'heavy', qty: 2, length: s.ramp },
-    { id: 'C07', name: 'Ramp under rib', wall: 'heavy', qty: 2, length: rampWidth },
+    { id: 'C07', name: 'Ramp under rib', wall: 'light', qty: 2, length: rampWidth },
     { id: 'C08', name: 'Ramp stand leg', wall: 'heavy', qty: 2, length: legCut },
     { id: 'C09', name: 'Corner post', wall: 'light', qty: 4, length: post },
     { id: 'C10', name: 'Top side rail', wall: 'light', qty: 2, length: rail },
     { id: 'C11', name: 'Top cross tube', wall: 'light', qty: 3, length: s.width },
     { id: 'C12', name: 'Handle arm', wall: 'light', qty: 2, length: handleArm },
     { id: 'C13', name: 'Handle grip tube', wall: 'light', qty: 1, length: grip },
+    { id: 'C14', name: 'Base intermediate cross member', wall: 'light', qty: intermediates, length: s.width },
   ].map(c => ({ ...c, length: mm(c.length) }))
   const counts = {
-    corner: 36, tee: 2 * intermediates + 6, hanger: 8,
+    corner: 28, tee: 2 * intermediates + 6, hanger: 8,
     bolts: 124 + 8 * intermediates, handleBolts: 4, sleeves: 124 + 8 * intermediates + 8,
     rampBolts: 2 * (Math.floor(s.ramp / 200) + 1) + 6, floorScrews: 2 * Math.ceil(rail / 250) + stations.length * 3,
-    capHeavy: 16, capLight: 8, toe: Math.floor(rampWidth / 200), saddle: 3, fabricClip: 28, cableClip: 6, axleCover: 6,
+    capHeavy: 12, capLight: 12, toe: Math.floor(rampWidth / 200), saddle: 3, fabricClip: 28, cableClip: 6, axleCover: 6,
   }
   const heavyM = cuts.filter(c => c.wall === 'heavy').reduce((n, c) => n + c.qty * c.length, 0) / 1000
   const lightM = cuts.filter(c => c.wall === 'light').reduce((n, c) => n + c.qty * c.length, 0) / 1000
@@ -118,10 +119,11 @@ export function roverDimensions(s: RoverSetup) {
   const mass = {
     tube: heavyM * 0.762 + lightM * 0.423,
     plates: (counts.corner * 6900 + counts.tee * 8000) * h.plate * 2.7e-6 + counts.hanger * 10950 * h.plate * 7.9e-6,
+    // 15/32 inch exterior pine plywood, nominal.
     panels: (floorArea + rampArea) * 6.5,
     wheels: 3 * 2.3,
     hardware: (counts.bolts + counts.handleBolts) * 0.027 + 2.2,
-    softgoods: 4.5,
+    softgoods: 4.2,
   }
   const carrierKg = Object.values(mass).reduce((a, b) => a + b, 0)
   const lever = (s.axle + t + h.reach) / 1000
@@ -133,7 +135,7 @@ export function roverDimensions(s: RoverSetup) {
     rampAngle: mm(degrees(rampAngleRad)), rampAngleRad, rampWidth: mm(rampWidth), rampRise: mm(deck - h.panel), legCut: mm(legCut), hingeX: mm(hingeX), gripX: mm(gripX),
     handleArm: mm(handleArm), grip: mm(grip), handleMax, centerAhead: mm(centerAhead), roofSlope: mm(roofSlope),
     overallWidth: mm(2 * (postY - inboard + rearShaft)), tireWidth: mm(2 * wheelY + h.tire), overallLength: mm(wheelbase + R - gripX), overallHeight: mm(topZ + t / 2 + h.ridge + h.pole + 4),
-    cuts, counts, heavyM: mm(heavyM), lightM: mm(lightM), floorArea: mm(floorArea), rampArea: mm(rampArea),
+    cuts, counts, heavyM: mm(heavyM), lightM: mm(lightM), tubeLb: Math.round((heavyM * 0.774 + lightM * 0.423) * 2.2046 * 10) / 10, floorArea: mm(floorArea), rampArea: mm(rampArea),
     mass: Object.fromEntries(Object.entries(mass).map(([k, v]) => [k, Math.round(v * 10) / 10])) as Record<keyof typeof mass, number>, carrierKg: Math.round(carrierKg * 10) / 10,
     frontShare: mm(centerAhead / wheelbase * 100), tiltForceN: Math.round(tiltForceN), tiltForceLbf: Math.round(tiltForceN / 4.448),
     volumeRatio: mm(s.length * s.width * s.height / (referenceCarrier.interior[0] * referenceCarrier.interior[1] * referenceCarrier.interior[2])),
