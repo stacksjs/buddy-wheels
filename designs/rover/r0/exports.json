@@ -4,7 +4,7 @@
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
   "generator": "native Stacks solid kit, no external CAD executable",
   "geometryHash": "92a14b78fbca3bbfed190d0d4a5e4999936f656eb1757085ddefa9e3bace8645",
-  "costHash": "3ecacadc95f96f224e9082a4e2bc018bd1bf9290c02fee85b7027a66f8e1d9fc",
+  "costHash": "e9f7e1535576b39a513121263bcf9f4ac5e4904d2014630e55e346fd6b270cf6",
   "setup": {
     "length": 1200,
     "width": 700,
@@ -77,7 +77,7 @@
     "rampAngle": 8.9426,
     "rampWidth": 688,
     "rampRise": 139.9,
-    "legCut": 82.0748,
+    "legCut": 107.0748,
     "hingeX": -551.4,
     "gripX": -925.4,
     "handleArm": 965.4,
@@ -130,7 +130,7 @@
         "name": "Ramp stand leg",
         "wall": "heavy",
         "qty": 2,
-        "length": 82.0748
+        "length": 107.0748
       },
       {
         "id": "C09",
@@ -208,7 +208,7 @@
       "brakeClamps": 2,
       "rampBolts": 16,
       "floorScrews": 27,
-      "capHeavy": 14,
+      "capHeavy": 16,
       "capLight": 12,
       "toe": 3,
       "saddle": 3,
@@ -216,9 +216,9 @@
       "cableClip": 6,
       "axleCover": 4
     },
-    "heavyM": 10.9266,
+    "heavyM": 10.9766,
     "lightM": 14.62,
-    "tubeLb": 31.5,
+    "tubeLb": 31.6,
     "floorArea": 0.9391,
     "rampArea": 0.6192,
     "mass": {
@@ -235,7 +235,7 @@
     "tiltForceLbf": 23,
     "volumeRatio": 2.0082
   },
-  "printVolumeCm3": 1330,
+  "printVolumeCm3": 1339,
   "assets": [
     {
       "path": "parts/cap_heavy.stl",
@@ -354,13 +354,13 @@
     },
     {
       "path": "assembly.md",
-      "sha256": "c4b502575dc8caf409808a588d10c2580ba74b01b25ee6e85ae504829db0040e",
-      "bytes": 11023
+      "sha256": "bef34460a05d36e8401be2bc3da04b848f0a82767524c10c5a378c29df8fa6ae",
+      "bytes": 11022
     },
     {
       "path": "bom.csv",
-      "sha256": "f1deafbb339b3fcce5c9eaa09ca2d9bcecc2a1c12f4078077c176431a61688dd",
-      "bytes": 9193
+      "sha256": "708ef459988c3537cd0dc601a16f2b0d84a6ebcd931ca2ad9f1c973da8543c1e",
+      "bytes": 9287
     },
     {
       "path": "materials.md",
@@ -384,28 +384,28 @@
     },
     {
       "path": "cut-list.csv",
-      "sha256": "a96c9d46a11e8b46f7e932c268db62d6867e40a26ed7dbbda86162868481d037",
-      "bytes": 1163
+      "sha256": "e9074fdf296c370597443d77bc8e45d7a611f8926f0445424b9630b5e0459c71",
+      "bytes": 1164
     },
     {
       "path": "cost-notes.md",
-      "sha256": "d389a3419689328b0823dfc8984f59ed14fe6ce894a3faa0bfe92838f02688af",
-      "bytes": 17622
+      "sha256": "b62775668236d13236f906669dc7f5bdbb1ab6b04991c13a7a17b1b41b348854",
+      "bytes": 17855
     },
     {
       "path": "buy-list.md",
-      "sha256": "2605e36d467e8fb5cb69f30266765d7e67dc3537574203065cda7ebbeceac0c9",
-      "bytes": 5965
+      "sha256": "da85074edd99a89c170ab145e5966becbdc1a9837bf9fc6cb547b775acbd1791",
+      "bytes": 5955
     },
     {
       "path": "build-guide.md",
-      "sha256": "1684c76eb0302b8b5702a8fec49c6a47e3a525922092476714d7abeb91a83a74",
-      "bytes": 20600
+      "sha256": "179b7364291d71f8fe12c0d5180a678748d8039c01610cf006d578067275595c",
+      "bytes": 20484
     },
     {
       "path": "drilling.csv",
-      "sha256": "2e0d91a75546e83fb156dd11870e8a097faf65654f9e2fb6aa5dab817f798d1c",
-      "bytes": 4949
+      "sha256": "13eeeee564b939fa0bb02d63d0d1ff297b845cb218340ba5bb42466aad1fc8a1",
+      "bytes": 4945
     },
     {
       "path": "base-plan.svg",
@@ -414,13 +414,13 @@
     },
     {
       "path": "cost-model.json",
-      "sha256": "9e7379b3b9d60592d4e33f45e13e701df83dd8f08322f6614909455eddf6d044",
-      "bytes": 23032
+      "sha256": "c6b9d5f0d8b7a9ddeb7d6f3912338e0d0c34c1a303692a39e7015dda7f9fa953",
+      "bytes": 23263
     },
     {
       "path": "setup.json",
-      "sha256": "952dc1d0ebe4d8ef6c3b5436b25b4cc3bc8dadf3d900db599b30566a1fc8d98f",
-      "bytes": 4727
+      "sha256": "e156bf22680c8ac7915dcc21694825eb8d77015aecd5853e2909f1962b81d6e9",
+      "bytes": 4729
     },
     {
       "path": "README.md",

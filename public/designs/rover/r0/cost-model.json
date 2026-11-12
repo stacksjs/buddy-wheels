@@ -21,12 +21,12 @@
       "stockMm": 1548993.6
     },
     "heavy": {
-      "bars": 151,
-      "netMm": 1092664.96,
+      "bars": 152,
+      "netMm": 1097664.96,
       "kerfMm": 5400,
-      "stockMm": 1104595.2
+      "stockMm": 1111910.4
     },
-    "tube": 33447,
+    "tube": 33563,
     "textiles": {
       "quantity": 100,
       "minutes": 200,
@@ -160,23 +160,23 @@
       "total": 37991,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 79343,
-    "cogs": 150781,
+    "other": 76554,
+    "cogs": 148108,
     "retail": 39900,
-    "gross": -110881,
-    "grossPercent": -277.89724310776944,
+    "gross": -108208,
+    "grossPercent": -271.1979949874687,
     "maxCogs": 27930,
-    "headroom": -122851,
+    "headroom": -120178,
     "meetsCostGate": false,
     "fee": 1187,
     "reserve": 1995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -119063,
-    "retailForGate": 215500,
-    "tubeMill": 13609,
-    "cogsMill": 130943,
-    "retailForGateMill": 187100,
+    "contribution": -116390,
+    "retailForGate": 211600,
+    "tubeMill": 13652,
+    "cogsMill": 128197,
+    "retailForGateMill": 183200,
     "stainlessUpgrade": 4002,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
@@ -190,7 +190,7 @@
     },
     "heavy": {
       "bars": 5,
-      "netMm": 10926.6496,
+      "netMm": 10976.6496,
       "kerfMm": 54,
       "stockMm": 12192
     },
@@ -328,23 +328,23 @@
       "total": 81833,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 137750,
-    "cogs": 277743,
+    "other": 134961,
+    "cogs": 274954,
     "retail": 39900,
-    "gross": -237843,
-    "grossPercent": -596.0977443609022,
+    "gross": -235054,
+    "grossPercent": -589.1077694235589,
     "maxCogs": 27930,
-    "headroom": -249813,
+    "headroom": -247024,
     "meetsCostGate": false,
     "fee": 1187,
     "reserve": 1995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -246025,
-    "retailForGate": 396800,
-    "tubeMill": 13609,
-    "cogsMill": 233192,
-    "retailForGateMill": 333200,
+    "contribution": -243236,
+    "retailForGate": 392800,
+    "tubeMill": 13652,
+    "cogsMill": 230446,
+    "retailForGateMill": 329300,
     "stainlessUpgrade": 4002,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
@@ -445,9 +445,9 @@
     },
     {
       "id": "ramp",
-      "name": "Hinge, two latches, stand feet, carriage bolts and strap hardware",
-      "batch": 6695,
-      "one": 6891,
+      "name": "Hinge, two latches, carriage bolts and strap hardware",
+      "batch": 4865,
+      "one": 5061,
       "coverage": [
         "R02",
         "R03",
@@ -455,9 +455,9 @@
         "R05",
         "R06"
       ],
-      "evidence": "Observed 2026-11-12 + insert and strap allowance",
+      "evidence": "Observed 2026-11-12 + strap allowance",
       "url": "https://www.zoro.com/zoro-select-piano-hinge-stainless-steel-full-surface-mounting-1-in-leaf-w-x-36-in-leaf-h-stainless-steel-2zfk4/i/G1671966/",
-      "note": "Stainless piano hinge 2ZFK4 at $18.19, two Southco TL-20-202-52 stainless draw latches at $11.89, two S&W BSW-1Z leveling mounts at $6.15, carriage bolts at $0.16. Two threaded tube inserts and the strap hook are a $10.00 allowance."
+      "note": "Stainless piano hinge 2ZFK4 at $18.19, two Southco TL-20-202-52 stainless draw latches at $11.89, carriage bolts at $0.16. The ramp legs end in printed caps, so they need no feet or inserts. The strap hook is a $4.00 allowance."
     },
     {
       "id": "controls",
@@ -478,16 +478,16 @@
     },
     {
       "id": "brake",
-      "name": "Parking brake: two push-pull toggle clamps with rubber pads",
-      "batch": 3517,
-      "one": 4129,
+      "name": "Parking brake: two push-pull toggle clamps with neoprene-tipped spindles",
+      "batch": 2558,
+      "one": 3170,
       "coverage": [
         "B03",
         "B04"
       ],
       "evidence": "Observed 2026-11-12 + screw allowance",
       "url": "https://www.zoro.com/powertec-toggle-clamp-300lbs-cap-302f-quick-release-pushpull-clamp-20304n/i/G714915420/",
-      "note": "POWERTEC 302F at $10.70 each, $7.64 in a six-pack, 300 lb holding capacity stated. Rubber bumper pair at $17.89; its thread pitch is not confirmed."
+      "note": "POWERTEC 302F at $10.70 each, $7.64 in a six-pack, 300 lb holding capacity and a 5/16-18 plunger thread stated. DE-STA-CO 507208 neoprene-tipped spindle, 5/16-18, at $4.15 each."
     },
     {
       "id": "prints",
@@ -638,10 +638,10 @@
   "allowances": [
     "Tube for one build: the supplier ships bars over 8 ft by truck, so the one-carrier scenario buys 8 ft bars at $58.08 for the 1/8 inch 6061-T6 and $41.60 for the 1/16 inch 6063-T52, both read on the supplier page. The batch buys 24 ft and 21 ft bars.",
     "Run wheels: $60 each is an allowance. No 20 inch pneumatic wheel with a 5/8 inch bore and a suitable rating was found, so the 20 inch wheel remains an open selection.",
-    "Plates: SendCutSend lists .125 inch 6061-T6 and .125 inch 304 stainless for laser cutting, accepts DXF, has no minimum quantity, ships laser parts in 1 to 3 days and ships free in the US over $39. No quote was run, because that means uploading the DXF files. The gusset, brake plate and hanger lines stay allowances until someone does.",
-    "Front caster: the priced caster states its mounting height but not its plate size or bolt pattern, so the caster beams are drilled from the delivered plate. CasterHQ CB-SPC10 at $79.00 states a 4 x 4-1/2 inch plate, a slotted pattern, a 7-1/4 inch swivel radius and 12-1/4 inch height for the same wheel size; the design uses that sweep. Harbor Freight 63799 at $19.99 is the cheapest alternative, with no swivel lock and no stated height.",
-    "Parking brake: a push-pull toggle clamp on an arm over each rear tire. The clamp, the plate it hangs on and the arm are untested as a brake. Two rubber chocks stay in the kit for slopes.",
-    "Still allowances: two threaded inserts for the ramp legs (none found at the suppliers checked), the tailgate strap hook, floor screws, the ridge pole (the 4 ft store length is too short for the starting cabin), clamp screws, and caster nuts and sleeves.",
+    "Plates: no quote was run. OSH Cut shows instant pricing for uploaded DXF files without an account; SendCutSend lists .125 inch 6061-T6 and .125 inch 304 stainless, accepts DXF, has no minimum quantity and ships laser parts in 1 to 3 days, but asks for a sign-up. Uploading the files is left to the owner, so the gusset, brake plate and hanger lines stay allowances.",
+    "Front caster: the maker's shop page for the same caster series lists a 4 x 4-1/2 inch top plate, bolt holes at 2-5/8 x 3-5/8 inch slotted to 3 x 3 inch, 3/8 inch mounting bolts and a 12-3/16 inch mounting height. The design puts the beams 85.7 mm apart and the holes 70 mm apart, inside those slots. Its swivel radius is not published; the 185 mm sweep comes from CasterHQ CB-SPC10, a same-size caster that states 7-1/4 inch. The maker sells the version without a swivel lock at $41.38, and Harbor Freight 63799 is $19.99 with no stated height.",
+    "Parking brake: a push-pull toggle clamp on an arm over each rear tire, with a neoprene-tipped spindle whose 5/16-18 thread matches the clamp plunger. The spindle tip is listed at 0.83 inch on one page and about 0.5 inch elsewhere. The clamp, the plate it hangs on and the arm are untested as a brake. Two rubber chocks stay in the kit for slopes.",
+    "Still allowances: the tailgate strap hook, floor screws, the ridge pole (the 4 ft store length is too short for the starting cabin), clamp screws, and caster nuts and sleeves.",
     "Listing prices, read on a search or category page and not a product page: 5/8 inch steel rod $20.57, rivet nuts $16.87 per 100, foam grip $1.95 per 6 inches, foam strip $18.99 per 50 ft.",
     "Stainless option: the stainless bolt is an observed $30.75 per 100. Stainless nuts and washers were not priced; the $0.23 per joint upgrade includes a $0.10 allowance for them.",
     "Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists."

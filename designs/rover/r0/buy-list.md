@@ -2,7 +2,7 @@
 
 Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub101.6-trail-swivel310. Checked 2026-11-12, USD, before tax and shipping. This is what one builder buys for one bench carrier, in whole bars, sheets, yards and packs, so it is more than the material the carrier consumes. It is a bench build. Nothing here is rated or approved for carrying an animal.
 
-**Materials to buy: about $1,863.49.** $1,557.49 of that has a supplier page behind it. The remaining $306.00 is allowance and needs a quote or a shop visit. Your own time is extra: the study assumes about 15 hours of cutting, drilling and assembly and 9 hours of sewing.
+**Materials to buy: about $1,835.60.** $1,529.60 of that has a supplier page behind it. The remaining $306.00 is allowance and needs a quote or a shop visit. Your own time is extra: the study assumes about 15 hours of cutting, drilling and assembly and 9 hours of sewing.
 
 ## Frame, running gear and hardware
 
@@ -17,11 +17,11 @@ Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub101.6-trail-swivel310. 
 | [2 stock-shaft axles, sleeves, spacers, washers and cotters](https://www.onlinemetals.com/en/buy/carbon-steel/0-75-od-x-0-065-wall-x-0-62-id-carbon-steel-round-tube-a513-type-5-dom/pid/7765) | $26.44 | Observed 2026-11-12, rod from a listing |
 | [174 sleeved bolted joints](https://boltdepot.com/Product-Details?product=328) | $91.62 | Observed 2026-11-12 |
 | [Floor and ramp panels, sealed 15/32 inch ACX plywood](https://www.homedepot.com/b/Lumber-Composites-Plywood/15-32/N-5yc1vZbqm7Z1z0mcqq) | $77.00 | Observed 2026-11-12 + sealing allowance |
-| [Hinge, two latches, stand feet, carriage bolts and strap hardware](https://www.zoro.com/zoro-select-piano-hinge-stainless-steel-full-surface-mounting-1-in-leaf-w-x-36-in-leaf-h-stainless-steel-2zfk4/i/G1671966/) | $68.91 | Observed 2026-11-12 + insert and strap allowance |
+| [Hinge, two latches, carriage bolts and strap hardware](https://www.zoro.com/zoro-select-piano-hinge-stainless-steel-full-surface-mounting-1-in-leaf-w-x-36-in-leaf-h-stainless-steel-2zfk4/i/G1671966/) | $50.61 | Observed 2026-11-12 + strap allowance |
 | [Wheel chocks, grip, tip-stop feet, floor fasteners, bedding tape and ridge pole](https://www.harborfreight.com/solid-rubber-wheel-chock-96479.html) | $97.77 | Observed 2026-11-12, partly from listings |
-| [Parking brake: two push-pull toggle clamps with rubber pads](https://www.zoro.com/powertec-toggle-clamp-300lbs-cap-302f-quick-release-pushpull-clamp-20304n/i/G714915420/) | $41.29 | Observed 2026-11-12 + screw allowance |
+| [Parking brake: two push-pull toggle clamps with neoprene-tipped spindles](https://www.zoro.com/powertec-toggle-clamp-300lbs-cap-302f-quick-release-pushpull-clamp-20304n/i/G714915420/) | $31.70 | Observed 2026-11-12 + screw allowance |
 | Printed service parts and fixtures | $27.00 | Computed volume + allowance |
-| **Subtotal** | **$1,424.10** | |
+| **Subtotal** | **$1,396.21** | |
 
 Cut from the bars with cut-list.csv. Send metal/*.dxf to a laser or waterjet shop for the 44 corner gussets, 8 tee gussets and 4 axle hangers. The parts list in bom.csv has every specification.
 

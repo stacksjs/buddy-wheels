@@ -71,7 +71,7 @@
     "rampAngle": 8.9426,
     "rampWidth": 688,
     "rampRise": 139.9,
-    "legCut": 82.0748,
+    "legCut": 107.0748,
     "hingeX": -551.4,
     "gripX": -925.4,
     "handleArm": 965.4,
@@ -124,7 +124,7 @@
         "name": "Ramp stand leg",
         "wall": "heavy",
         "qty": 2,
-        "length": 82.0748
+        "length": 107.0748
       },
       {
         "id": "C09",
@@ -202,7 +202,7 @@
       "brakeClamps": 2,
       "rampBolts": 16,
       "floorScrews": 27,
-      "capHeavy": 14,
+      "capHeavy": 16,
       "capLight": 12,
       "toe": 3,
       "saddle": 3,
@@ -210,9 +210,9 @@
       "cableClip": 6,
       "axleCover": 4
     },
-    "heavyM": 10.9266,
+    "heavyM": 10.9766,
     "lightM": 14.62,
-    "tubeLb": 31.5,
+    "tubeLb": 31.6,
     "floorArea": 0.9391,
     "rampArea": 0.6192,
     "mass": {

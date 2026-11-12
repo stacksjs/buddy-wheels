@@ -58,8 +58,7 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
       cap(`ramp-curb-cap-${side}`, true, at(s.ramp, t / 2, side * (half - t / 2)), r)
       const legY = side * (half - 60); const rib = at(40, -h.panel - t / 2, legY)
       tube(`ramp-leg-${side}`, true, d.legCut, add3(rib, scale(up, -t / 2)), scale(up, -1))
-      rod(`ramp-foot-${side}`, 22, 10, add3(rib, scale(up, -t / 2 - d.legCut - h.foot + 5)), up, '#29322d')
-      rod(`ramp-foot-stem-${side}`, 4.7, h.foot - 10, add3(rib, scale(up, -t / 2 - d.legCut - (h.foot - 10) / 2)), up, steel)
+      cap(`ramp-leg-cap-${side}`, true, add3(rib, scale(up, -t / 2 - d.legCut)), scale(up, -1))
       for (const sign of [-1, 1]) gusset(`ramp-leg-gusset-${side}-${sign}`, 'corner_gusset', rib, scale(r, sign), [0, -side, 0], scale(up, -1))
     }
     for (const [i, along] of [40, s.ramp / 2].entries()) tube(`ramp-rib-${i}`, false, d.rampWidth, at(along, -h.panel - t / 2, -half), across)

@@ -25,9 +25,9 @@ export const roverLimits = { length: [1000, 1400], width: [600, 800], height: [8
 export const roverHardware = {
   tube: 25.4, heavy: 3.175, light: 1.5875, plate: 3.175, panel: 12, bedding: 3.2, mat: 5,
   axle: 15.875, sleeve: 9.525, sleeveWall: 1.2446, axleSleeve: 19.05, axleSleeveWall: 1.4732,
-  washer: 1.5, cotter: 3.2, reach: 380, hingeGap: 6, foot: 28, ridge: 60, pole: 12.7, forkGap: 30, forkTail: 60,
+  washer: 1.5, cotter: 3.2, reach: 380, hingeGap: 6, foot: 3, ridge: 60, pole: 12.7, forkGap: 30, forkTail: 60,
   // Front swivel caster: wheel sweep radius, wheel size, trail behind the swivel axis and plate bolt pattern along and across the carrier.
-  casterSweep: 185, casterWheel: 254, casterTire: 89, casterTrail: 57, casterAlong: 85.7, casterAcross: 76.2, casterKg: 3.6,
+  casterSweep: 185, casterWheel: 254, casterTire: 89, casterTrail: 57, casterAlong: 85.7, casterAcross: 70, casterKg: 3.6,
   // Parking brake: a short arm over each rear tire carries a push-pull toggle clamp. brakeDrop is arm centerline above the tire top.
   brakeArm: 140, brakeDrop: 170,
 } as const
@@ -152,7 +152,8 @@ export function roverDimensions(s: RoverSetup) {
     corner: (swivel ? 40 : 28) + 4, tee: 2 * intermediates + (swivel ? 2 : 6), hanger: swivel ? 4 : 8, wheels: swivel ? 2 : 3,
     bolts: 132 + 8 * intermediates + (swivel ? 14 : 0), handleBolts: 4, sleeves: 132 + 8 * intermediates + 8 + (swivel ? 14 : 0), casterBolts: swivel ? 4 : 0, brakeClamps: 2,
     rampBolts: 2 * (Math.floor(s.ramp / 200) + 1) + 6, floorScrews: 2 * Math.ceil(topRail / 250) + stations.length * 3,
-    capHeavy: 14, capLight: 12, toe: Math.floor(rampWidth / 200), saddle: 3, fabricClip: 28, cableClip: 6, axleCover: swivel ? 4 : 6,
+    // Two of the chassis caps are the ramp leg feet.
+    capHeavy: 16, capLight: 12, toe: Math.floor(rampWidth / 200), saddle: 3, fabricClip: 28, cableClip: 6, axleCover: swivel ? 4 : 6,
   }
   const heavyM = cuts.filter(c => c.wall === 'heavy').reduce((n, c) => n + c.qty * c.length, 0) / 1000
   const lightM = cuts.filter(c => c.wall === 'light').reduce((n, c) => n + c.qty * c.length, 0) / 1000

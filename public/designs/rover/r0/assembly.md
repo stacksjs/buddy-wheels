@@ -57,7 +57,7 @@ With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 80 
 | C03 | 2 | Axle post | 1/8 wall 6061-T6 | 965.2 |
 | C06 | 2 | Ramp side curb rail | 1/8 wall 6061-T6 | 900 |
 | C07 | 2 | Ramp under rib | 1/16 wall 6063-T52 | 688 |
-| C08 | 2 | Ramp stand leg | 1/8 wall 6061-T6 | 82.0748 |
+| C08 | 2 | Ramp stand leg | 1/8 wall 6061-T6 | 107.0748 |
 | C09 | 4 | Corner post | 1/16 wall 6063-T52 | 965.2 |
 | C10 | 2 | Top side rail | 1/16 wall 6063-T52 | 1250.8 |
 | C11 | 3 | Top cross tube | 1/16 wall 6063-T52 | 700 |
@@ -68,7 +68,7 @@ With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 80 
 | C16 | 2 | Caster beam | 1/8 wall 6061-T6 | 750.8 |
 | C17 | 2 | Brake arm | 1/8 wall 6061-T6 | 140 |
 
-Total 10.93 m of 1/8 inch wall 6061-T6 and 14.62 m of 1/16 inch wall 6063-T52. Base cross members sit at X = -532.7, -226.35, 95, 386.35, 692.7.
+Total 10.98 m of 1/8 inch wall 6061-T6 and 14.62 m of 1/16 inch wall 6063-T52. Base cross members sit at X = -532.7, -226.35, 95, 386.35, 692.7.
 
 ## Joint patterns
 
@@ -99,7 +99,7 @@ Legs A and B alternate where two gussets meet on one tube, so bolts cross 15 mm 
 
 ## The ramp
 
-Lowered, the panel runs from the deck at 151.9 down to the ground over 900. The two stand feet under the hinge end touch the ground directly below the threshold. Set them on level ground so the hinge carries no bending. The walking width between the curb rails is 637.2. Three printed toes slide onto the ground edge and take the last 20 mm down to nothing.
+Lowered, the panel runs from the deck at 151.9 down to the ground over 900. The two capped stand legs under the hinge end touch the ground directly below the threshold, so the hinge carries no bending on level ground. The walking width between the curb rails is 637.2. Three printed toes slide onto the ground edge and take the last 20 mm down to nothing.
 
 Raised, the ramp is the tailgate. Two draw latches hold it to the rear posts and the safety strap is a second, independent hold. The stand legs then point backward about 110 mm at shin height. The handle reaches 380 mm behind the tailgate. Stride clearance has to be checked by a runner before this layout is accepted.
 
@@ -107,7 +107,7 @@ Each rear axle end stands 14.525 mm into the cabin, about 41 mm above the deck. 
 
 ## Printing
 
-- Chassis tube cap, cap_heavy.stl, quantity 14. Closes 1/8 inch wall tube ends. End protection only.
+- Chassis tube cap, cap_heavy.stl, quantity 16. Closes 1/8 inch wall tube ends. End protection only.
 - Cabin tube cap, cap_light.stl, quantity 12. Closes .065 inch wall tube ends. End protection only.
 - Ramp threshold toe, ramp_toe.stl, quantity 3. Ground-supported bevel that removes the step at the ramp edge. It is not the ramp structure.
 - Roof ridge saddle, ridge_saddle.stl, quantity 3. Holds the ridge pole above the frame so the roof sheds water. Carries fabric tension only.
