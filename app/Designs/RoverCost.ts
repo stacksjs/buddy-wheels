@@ -35,6 +35,7 @@ export const roverAllowanceNotes = [
   'Stainless option: the stainless bolt is an observed $30.75 per 100. Stainless nuts and washers were not priced; the $0.23 per joint upgrade includes a $0.10 allowance for them.',
   'Sprung rear: the travel, sag and spring figures are arithmetic from the drawn arm geometry and an assumed spring rate. No shock has been fitted, no ride has been measured, and no comparison with any other product is claimed. The parking brake presses on a tire that now moves with the load, which is unresolved.',
   'Axle sleeve fit: the linked 3/4 inch x .065 wall DOM tube is 0.620 inch inside, 0.005 under the 5/8 inch axle. Ream it to 5/8 or buy .058 wall, 0.634 inside, which the drawn numbers assume.',
+  'Tube laser option: the bolted kit includes a 3D file for every tube so a tube laser service can cut and drill them. That route is not priced. The service prices on upload and nothing was uploaded for this study, so every total here still assumes stock bars cut and drilled by hand.',
   'Welded build: the welding line is arithmetic on assumed shop rates and minutes per joint. No fabricator has seen the drawings. A welded frame also ships assembled, and outbound truck freight for a carton that size is not in any total here.',
   'Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists.',
 ] as const

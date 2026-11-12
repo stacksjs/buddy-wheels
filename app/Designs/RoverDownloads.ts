@@ -18,6 +18,7 @@ const single: Record<string, [string, string, string]> = {
   drilling: ['drilling.csv', 'text/csv; charset=utf-8', '-drilling.csv'],
   baseplan: ['base-plan.svg', 'image/svg+xml', '-base-plan.svg'],
   welds: ['weld-schedule.csv', 'text/csv; charset=utf-8', '-weld-schedule.csv'],
+  tubeorder: ['tube-order.csv', 'text/csv; charset=utf-8', '-tube-order.csv'],
 }
 /** Configured documents plus the published geometry, re-proven against freshly generated meshes before delivery. */
 export async function roverDownload(root: string, artifact: string, setup: RoverSetup): Promise<Response> {
@@ -26,7 +27,7 @@ export async function roverDownload(root: string, artifact: string, setup: Rover
   const attachment = (body: BodyInit, type: string, suffix: string) => new Response(body, { headers: { ...headers, 'Content-Type': type, 'Content-Disposition': `attachment; filename="buddy-${roverCode(setup)}${suffix}"` } })
   if (Object.hasOwn(single, artifact)) {
     const [file, type, suffix] = single[artifact]!
-    // The weld schedule only exists for the welded build.
+    // The weld schedule exists only for the welded build, the tube order only for the bolted one.
     return docs[file] === undefined ? new Response('File not found.', { status: 404 }) : attachment(docs[file], type, suffix)
   }
   if (artifact !== 'kit') return new Response('File not found.', { status: 404 })

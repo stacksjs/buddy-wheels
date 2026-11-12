@@ -8,6 +8,7 @@ Start with build-guide.md: it walks through ordering, cutting, drilling and asse
 | --- | --- |
 | parts/ | Eleven printable types at 1:1 mm in print orientation, plus eight FIT_CHECK_ONLY plastic copies of the metal profiles |
 | metal/ | Eight flat DXF profiles: corner gusset, tee gusset, brake clamp plate, the two shock mount plates and one axle hanger for each wheel choice. A configured bolted kit adds three gussets cut to that setup's roof and pillar angles |
+| tubes/, tube-order.csv | One 3D STEP file for each different frame tube of the bolted build, with its holes and angled ends, for a tube laser service, and the quantity and material for each. Generated natively and checked as closed solids; not opened in a CAD program or accepted by any service |
 | cover-cut-schedule.csv, cover-panels.svg | Every fabric blank with seam allowance |
 
 Geometry is generated natively by the Stacks app in app/Designs/Rover*.ts and app/Designs/Solid.ts. There is no SCAD or STEP file for this design, and no OpenSCAD run was involved. Every mesh is checked for a closed, consistently wound, single body of positive volume inside a 220 x 220 x 100 mm print envelope. Those are digital checks only.
