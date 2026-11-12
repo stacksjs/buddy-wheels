@@ -33,6 +33,7 @@
       "stockMm": 1228953.6
     },
     "tube": 34699,
+    "tubeParcel": 34699,
     "textiles": {
       "quantity": 100,
       "minutes": 200,
@@ -189,18 +190,224 @@
   "one": {
     "quantity": 1,
     "light": {
-      "bars": 7,
+      "bars": 3,
+      "halves": [
+        {
+          "pieces": [
+            {
+              "id": "C10",
+              "length": 1016.8582
+            },
+            {
+              "id": "C10",
+              "length": 1016.8582
+            },
+            {
+              "id": "C09",
+              "length": 1015.2
+            }
+          ],
+          "offcut": 140.5836
+        },
+        {
+          "pieces": [
+            {
+              "id": "C09",
+              "length": 1015.2
+            },
+            {
+              "id": "C12",
+              "length": 1005.4
+            },
+            {
+              "id": "C12",
+              "length": 1005.4
+            }
+          ],
+          "offcut": 163.5
+        },
+        {
+          "pieces": [
+            {
+              "id": "C21",
+              "length": 905.5711
+            },
+            {
+              "id": "C21",
+              "length": 905.5711
+            },
+            {
+              "id": "C13",
+              "length": 801.6
+            }
+          ],
+          "offcut": 576.7578
+        },
+        {
+          "pieces": [
+            {
+              "id": "C11",
+              "length": 700
+            },
+            {
+              "id": "C11",
+              "length": 700
+            },
+            {
+              "id": "C11",
+              "length": 700
+            },
+            {
+              "id": "C14",
+              "length": 700
+            }
+          ],
+          "offcut": 386.5
+        },
+        {
+          "pieces": [
+            {
+              "id": "C14",
+              "length": 700
+            },
+            {
+              "id": "C14",
+              "length": 700
+            },
+            {
+              "id": "C07",
+              "length": 688
+            },
+            {
+              "id": "C07",
+              "length": 688
+            }
+          ],
+          "offcut": 410.5
+        }
+      ],
       "netMm": 14263.6586,
       "kerfMm": 51,
-      "stockMm": 17068.8
+      "stockMm": 19202.4
     },
     "heavy": {
-      "bars": 6,
+      "bars": 2,
+      "halves": [
+        {
+          "pieces": [
+            {
+              "id": "C01",
+              "length": 1678.65
+            },
+            {
+              "id": "C01",
+              "length": 1678.65
+            },
+            {
+              "id": "C15",
+              "length": 173.3
+            },
+            {
+              "id": "C08",
+              "length": 107.3571
+            }
+          ],
+          "offcut": 6.0429
+        },
+        {
+          "pieces": [
+            {
+              "id": "C06",
+              "length": 1000
+            },
+            {
+              "id": "C06",
+              "length": 1000
+            },
+            {
+              "id": "C03",
+              "length": 909.9122
+            },
+            {
+              "id": "C02",
+              "length": 700
+            }
+          ],
+          "offcut": 34.0878
+        },
+        {
+          "pieces": [
+            {
+              "id": "C03",
+              "length": 909.9122
+            },
+            {
+              "id": "C16",
+              "length": 750.8
+            },
+            {
+              "id": "C16",
+              "length": 750.8
+            },
+            {
+              "id": "C02",
+              "length": 700
+            },
+            {
+              "id": "C22",
+              "length": 357.8103
+            },
+            {
+              "id": "C17",
+              "length": 140
+            }
+          ],
+          "offcut": 28.6775
+        },
+        {
+          "pieces": [
+            {
+              "id": "C22",
+              "length": 357.8103
+            },
+            {
+              "id": "C15",
+              "length": 173.3
+            },
+            {
+              "id": "C15",
+              "length": 173.3
+            },
+            {
+              "id": "C15",
+              "length": 173.3
+            },
+            {
+              "id": "C17",
+              "length": 140
+            },
+            {
+              "id": "C08",
+              "length": 107.3571
+            },
+            {
+              "id": "C23",
+              "length": 60
+            },
+            {
+              "id": "C23",
+              "length": 60
+            }
+          ],
+          "offcut": 2386.9326
+        }
+      ],
       "netMm": 12102.2592,
       "kerfMm": 66,
       "stockMm": 14630.4
     },
-    "tube": 63968,
+    "tube": 42951,
+    "tubeParcel": 63968,
     "textiles": {
       "quantity": 1,
       "minutes": 540,
@@ -335,19 +542,19 @@
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
     "other": 171807,
-    "cogs": 318781,
+    "cogs": 297764,
     "retail": 99900,
-    "gross": -218881,
-    "grossPercent": -219.1001001001001,
+    "gross": -197864,
+    "grossPercent": -198.06206206206207,
     "maxCogs": 69930,
-    "headroom": -248851,
+    "headroom": -227834,
     "meetsCostGate": false,
     "fee": 2927,
     "reserve": 4995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -231803,
-    "retailForGate": 455500,
+    "contribution": -210786,
+    "retailForGate": 425400,
     "tubeMill": 14343,
     "cogsMill": 269156,
     "retailForGateMill": 384600,
@@ -562,7 +769,7 @@
       "one": 9000,
       "coverage": [],
       "evidence": "RFQ",
-      "note": "Truck freight for long bars in a batch; parcel shipping for one build. Unquoted."
+      "note": "Truck freight for long bars in a batch. For one build, delivery of the parts, with the tube collected from a local supplier. Unquoted."
     },
     {
       "id": "machine",
@@ -714,6 +921,8 @@
     "Sprung rear: the travel, sag and spring figures are arithmetic from the drawn arm geometry and an assumed spring rate. No shock has been fitted, no ride has been measured, and no comparison with any other product is claimed. The parking brake presses on a tire that now moves with the load, which is unresolved.",
     "Axle sleeve fit: the linked 3/4 inch x .065 wall DOM tube is 0.620 inch inside, 0.005 under the 5/8 inch axle. Ream it to 5/8 or buy .058 wall, 0.634 inside, which the drawn numbers assume.",
     "Laser quotes: on 2026-11-12 the tube and plate files for the starting bolted setup were uploaded to OSH Cut with the owner's permission. All passed its design check. These are quotes for one carrier on one day, before shipping and tax, and nothing was ordered. No other setup, and no batch quantity, has been quoted. The counted one-carrier total uses the quoted plate prices and still assumes stock bars cut and drilled by hand, because that is the cheaper way to get the tubes.",
+    "Tube for one carrier: priced as full 21 ft and 24 ft bars at the listed long-bar prices, each cut in half by the supplier to carry. Those prices are one online supplier's for bars that ship by truck. A local supplier's counter price was not checked and may be higher or lower. The same tube as 8 ft parcel bars costs more and is shown as the alternative.",
+    "Plate alloy: the owner chose to keep the plates in 6061-T6 on 2026-11-12. The 5052-H32 quote stays on record as a price only.",
     "Welded build: the welding line is arithmetic on assumed shop rates and minutes per joint. No fabricator has seen the drawings. A welded frame also ships assembled, and outbound truck freight for a carton that size is not in any total here.",
     "Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists."
   ]

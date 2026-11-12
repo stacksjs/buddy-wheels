@@ -1,5 +1,5 @@
 import type { RoverSetup } from './Rover'
-import { packRoverStock, roverDimensions, roverParcelStock, roverStart } from './Rover'
+import { homeRoverStock, packRoverStock, roverDimensions, roverParcelStock, roverStart } from './Rover'
 import { roverTextileCost } from './RoverSoftGoods'
 import { roverConfigurations } from '../Storefront/Catalog'
 
@@ -39,6 +39,8 @@ export const roverAllowanceNotes = [
   'Sprung rear: the travel, sag and spring figures are arithmetic from the drawn arm geometry and an assumed spring rate. No shock has been fitted, no ride has been measured, and no comparison with any other product is claimed. The parking brake presses on a tire that now moves with the load, which is unresolved.',
   'Axle sleeve fit: the linked 3/4 inch x .065 wall DOM tube is 0.620 inch inside, 0.005 under the 5/8 inch axle. Ream it to 5/8 or buy .058 wall, 0.634 inside, which the drawn numbers assume.',
   'Laser quotes: on 2026-11-12 the tube and plate files for the starting bolted setup were uploaded to OSH Cut with the owner\'s permission. All passed its design check. These are quotes for one carrier on one day, before shipping and tax, and nothing was ordered. No other setup, and no batch quantity, has been quoted. The counted one-carrier total uses the quoted plate prices and still assumes stock bars cut and drilled by hand, because that is the cheaper way to get the tubes.',
+  'Tube for one carrier: priced as full 21 ft and 24 ft bars at the listed long-bar prices, each cut in half by the supplier to carry. Those prices are one online supplier\'s for bars that ship by truck. A local supplier\'s counter price was not checked and may be higher or lower. The same tube as 8 ft parcel bars costs more and is shown as the alternative.',
+  'Plate alloy: the owner chose to keep the plates in 6061-T6 on 2026-11-12. The 5052-H32 quote stays on record as a price only.',
   'Welded build: the welding line is arithmetic on assumed shop rates and minutes per joint. No fabricator has seen the drawings. A welded frame also ships assembled, and outbound truck freight for a carton that size is not in any total here.',
   'Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists.',
 ] as const
@@ -80,7 +82,7 @@ export const roverTubePrices = {
   light: { cents: 6573, basis: 'Observed 2026-11-12', url: 'https://www.metalsdepot.com/aluminum-products/aluminum-square-tube' as string | undefined },
   heavy: { cents: 11616, basis: 'Observed 2026-11-12', url: 'https://www.metalsdepot.com/aluminum-products/aluminum-square-tube' as string | undefined },
 }
-/** The same two tubes as 8 ft bars, which ship by parcel. Used for the one-carrier scenario and the buy list. */
+/** The same two tubes as 8 ft bars, which ship by parcel. The dearer alternative for one carrier; the counted figure uses full-length bars cut in half. */
 export const roverParcelPrices = { light: 4160, heavy: 5808 } as const
 const TUBE_LIGHT = roverTubePrices.light.cents; const TUBE_HEAVY = roverTubePrices.heavy.cents; const MILL_CENTS_PER_LB = 400; const STAINLESS_CENTS_PER_JOINT = 23
 export function roverCostLines(s: RoverSetup = roverStart) {
@@ -120,16 +122,17 @@ export function roverCostLines(s: RoverSetup = roverStart) {
     w
       ? { id: 'pack', name: 'Packaging', batch: 4500, one: 6000, coverage: [], evidence: 'RFQ', note: 'A welded frame does not pack flat: one carton about the size of the cabin. Outbound freight is separate and for a box this size it is truck freight, not parcel.' }
       : { id: 'pack', name: 'Packaging', batch: 2500, one: 3500, coverage: [], evidence: 'RFQ', note: 'Large flat-pack carton set. Outbound freight is separate.' },
-    { id: 'freight', name: 'Inbound freight allocation', batch: 3000, one: 9000, coverage: [], evidence: 'RFQ', note: 'Truck freight for long bars in a batch; parcel shipping for one build. Unquoted.' },
+    { id: 'freight', name: 'Inbound freight allocation', batch: 3000, one: 9000, coverage: [], evidence: 'RFQ', note: 'Truck freight for long bars in a batch. For one build, delivery of the parts, with the tube collected from a local supplier. Unquoted.' },
     { id: 'machine', name: 'Machine wear and shop consumables', batch: 600, one: 1000, coverage: [], evidence: 'RFQ', note: 'Drill bits, blades, jig wear.' },
   ]
 }
 export function roverEconomics(s: RoverSetup = roverStart, quantity = 100) {
   if (quantity !== 1 && quantity !== 100) throw new Error('Cost scenarios are one carrier or a 100-carrier batch.')
-  // One carrier is bought as 8 ft parcel bars; the batch as 21 ft and 24 ft truck bars.
-  const parcel = quantity === 1
-  const light = packRoverStock(s, 'light', quantity, parcel ? roverParcelStock.mm : undefined); const heavy = packRoverStock(s, 'heavy', quantity, parcel ? roverParcelStock.mm : undefined)
-  const tube = Math.ceil((light.bars * (parcel ? roverParcelPrices.light : TUBE_LIGHT) + heavy.bars * (parcel ? roverParcelPrices.heavy : TUBE_HEAVY)) / quantity)
+  // Both scenarios buy the same 21 ft and 24 ft bars. For one carrier each bar is cut in half by the supplier, and the pieces are nested into the halves.
+  const light = quantity === 1 ? homeRoverStock(s, 'light') : packRoverStock(s, 'light', quantity); const heavy = quantity === 1 ? homeRoverStock(s, 'heavy') : packRoverStock(s, 'heavy', quantity)
+  const tube = Math.ceil((light.bars * TUBE_LIGHT + heavy.bars * TUBE_HEAVY) / quantity)
+  // The same tube as 8 ft bars delivered by parcel, for anyone without a metal supplier nearby.
+  const tubeParcel = quantity === 1 ? packRoverStock(s, 'light', 1, roverParcelStock.mm).bars * roverParcelPrices.light + packRoverStock(s, 'heavy', 1, roverParcelStock.mm).bars * roverParcelPrices.heavy : tube
   const textiles = roverTextileCost(s, quantity)
   const other = roverCostLines(s).reduce((total, row) => total + row[quantity === 1 ? 'one' : 'batch'], 0)
   const cogs = tube + other + textiles.total
@@ -138,6 +141,6 @@ export function roverEconomics(s: RoverSetup = roverStart, quantity = 100) {
   const stainlessUpgrade = (roverDimensions(s).counts.bolts + roverDimensions(s).counts.handleBolts) * STAINLESS_CENTS_PER_JOINT
   const fee = Math.round(roverRetail * 0.029) + 30; const reserve = Math.round(roverRetail * 0.05); const support = 1500; const acquisition = 3500
   const gross = roverRetail - cogs; const maxCogs = Math.floor(roverRetail * 0.7)
-  return { quantity, light, heavy, tube, textiles, other, cogs, retail: roverRetail, gross, grossPercent: gross / roverRetail * 100, maxCogs, headroom: maxCogs - cogs, meetsCostGate: cogs <= maxCogs, fee, reserve, support, acquisition, contribution: gross - fee - reserve - support - acquisition, retailForGate: Math.ceil(cogs / 0.7 / 100) * 100, tubeMill, cogsMill, retailForGateMill: Math.ceil(cogsMill / 0.7 / 100) * 100, stainlessUpgrade, status: 'UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE' }
+  return { quantity, light, heavy, tube, tubeParcel, textiles, other, cogs, retail: roverRetail, gross, grossPercent: gross / roverRetail * 100, maxCogs, headroom: maxCogs - cogs, meetsCostGate: cogs <= maxCogs, fee, reserve, support, acquisition, contribution: gross - fee - reserve - support - acquisition, retailForGate: Math.ceil(cogs / 0.7 / 100) * 100, tubeMill, cogsMill, retailForGateMill: Math.ceil(cogsMill / 0.7 / 100) * 100, stainlessUpgrade, status: 'UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE' }
 }
 export const roverCostModel = (s: RoverSetup = roverStart) => ({ checked: roverPriceDate, setup: s, base: roverEconomics(s, 100), one: roverEconomics(s, 1), lines: roverCostLines(s), evidence: roverPriceEvidence, allowances: roverAllowanceNotes })

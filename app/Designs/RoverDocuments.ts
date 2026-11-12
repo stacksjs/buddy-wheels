@@ -1,5 +1,5 @@
 import type { RoverSetup } from './Rover'
-import { mm, nestRoverStock, packRoverStock, referenceCarrier as ref, roverCode, roverDimensions, roverHardware as h, roverParcelStock, roverPartFile, roverParts, roverPlanningDogKg, roverStart } from './Rover'
+import { homeRoverStock, mm, nestRoverStock, packRoverStock, referenceCarrier as ref, roverCode, roverDimensions, roverHardware as h, roverParcelStock, roverPartFile, roverParts, roverPlanningDogKg, roverStart } from './Rover'
 import { roverAllowanceNotes, roverCostLines, roverPlateCost, roverPlateQuote, roverShock, roverSpacers, roverTubeQuote, roverCostModel, roverEconomics, roverParcelPrices, roverPriceDate, roverPriceEvidence, roverTubePrices } from './RoverCost'
 import type { TubeHole, TubeSpec } from './Step'
 import { angleGussetDxf } from './RoverParts'
@@ -649,11 +649,13 @@ export function roverDrillingCsv(s: RoverSetup): string {
 /** The whole job in order, for one builder making one bench carrier: what to order, how the frame gets its shape, and how it goes together. */
 export function roverBuildGuide(s: RoverSetup): string {
   const d = roverDimensions(s); const c = d.counts; const t = h.tube; const q = roverPrintQuantities(s); const cover = roverCover(s)
-  const heavyBars = nestRoverStock(s, 'heavy', 1, roverParcelStock.mm); const lightBars = nestRoverStock(s, 'light', 1, roverParcelStock.mm)
+  // Pieces are nested into half bars: each full bar is cut in half by the supplier so it can be carried.
+  const heavyHome = homeRoverStock(s, 'heavy'); const lightHome = homeRoverStock(s, 'light'); const heavyBars = heavyHome.halves; const lightBars = lightHome.halves
+  const parcelCost = packRoverStock(s, 'heavy', 1, roverParcelStock.mm).bars * roverParcelPrices.heavy + packRoverStock(s, 'light', 1, roverParcelStock.mm).bars * roverParcelPrices.light
   const drilling = roverDrilling(s); const fasteners = c.bolts + c.handleBolts; const boxes = Math.ceil(fasteners / 100)
   const axleSleeves = d.swivel ? 2 : 4
   const tubes = roverTubes(s); const sticks = roverSticks(s); const startingSize = roverCode(s) === roverCode(roverStart)
-  const barCost = heavyBars.length * roverParcelPrices.heavy + lightBars.length * roverParcelPrices.light; const sawCuts = sticks.reduce((n, x) => n + x.qty * x.cuts.length, 0)
+  const barCost = heavyHome.bars * roverTubePrices.heavy.cents + lightHome.bars * roverTubePrices.light.cents; const sawCuts = sticks.reduce((n, x) => n + x.qty * x.cuts.length, 0)
   const tubeProof = startingSize
     ? `On ${roverTubeQuote.checked} the files for this setup were uploaded to ${roverTubeService.name}: every one passed its design check and the set was priced at ${money(roverTubeQuote.sticks.standard)} before shipping and tax. Bars for the same tubes cost about ${money(barCost)}, so the laser costs about ${money(roverTubeQuote.sticks.standard - barCost)} more. Ordered as ${roverTubeQuote.single.files} separate tubes with nothing to saw, the same set was quoted at ${money(roverTubeQuote.single.standard)}.`
     : `The files for the starting size were uploaded to ${roverTubeService.name} on ${roverTubeQuote.checked}, all passed its design check and that set was priced at ${money(roverTubeQuote.sticks.standard)} before shipping and tax. The files for this size are made the same way but have not been uploaded, so upload one first.`
@@ -835,8 +837,8 @@ Order the wheel and caster first, because two dimensions in the design come from
 | A | Rear wheel | ${s.wheel === 'trail' ? '[Zoro Select 1NWV4](https://www.zoro.com/zoro-select-pneumatic-wheel-15-316dia-435lb-400-8-1nwv4/i/G1932594/), $32.89 each' : s.wheel === 'path' ? '[Harbor Freight 67467](https://www.harborfreight.com/13-inch-x-4-inch-pneumatic-tire-67467.html), $14.99 each' : 'Not selected. No suitable 20 inch wheel has been found'} | ${c.wheels} | When they arrive, measure the hub from bearing face to bearing face. If it is not ${s.hub}, enter the real number in the studio and download the kit again before cutting axles |
 ${d.swivel ? `| A | Front caster | [Service Caster SCC-100S3504-PNB-BSL](https://www.zoro.com/service-caster-10-inch-black-pneumatic-wheel-swivel-caster-with-bolt-swivel-lock-scc-100s3504-pnb-bsl/i/G705434817/), $64.69: 10 inch pneumatic, swivel lock, 350 lb and a 12-3/16 inch mounting height stated | 1 | Measure from the floor to the top of the mounting plate. This guide assumes ${s.caster}. If yours differs, enter it in the studio: it sets the nose post length. A [Harbor Freight 63799](https://www.harborfreight.com/10-in-pneumatic-swivel-caster-63799.html) at $19.99 also fits, with no swivel lock and no stated height |\n` : ''}| A | Parking brake | [POWERTEC 302F push-pull toggle clamp](https://www.zoro.com/powertec-toggle-clamp-300lbs-cap-302f-quick-release-pushpull-clamp-20304n/i/G714915420/), $10.70 each, and a [DE-STA-CO 507208 neoprene-tipped spindle, 5/16-18](https://www.zoro.com/de-sta-co-flat-tip-spindle-516-18-083-3-507208/i/G0295985/), $4.15 each | 2 clamps, 2 spindles | The spindle replaces the plain bolt that comes in the clamp plunger. Eight #10 screws and lock nuts hold the clamps to their plates |
 | B | ${d.welded ? 'Hangers and brake plates' : 'Gussets and hangers'} | A laser-cutting service. [OSH Cut](https://app.oshcut.com/cart) shows a price as soon as you drop the files in, with no account. [SendCutSend](https://sendcutsend.com) lists both materials, has no minimum quantity and ships laser parts in 1 to 3 days, and asks you to sign up first | ${d.welded ? '2 x brake_plate.dxf' : `${c.corner} x corner_gusset.dxf, ${d.angles.map(a => `${a.qty} x ${a.file}.dxf`).join(', ')}, ${c.tee} x tee_gusset.dxf, 2 x brake_plate.dxf`}${d.sprung ? `, ${c.shockPlates} x shock_plate.dxf, ${c.shockHangers} x shock_hanger.dxf` : ''}, all in 0.125 inch 6061-T6 aluminum.${d.welded ? '' : ' The roof and pillar gusset files are cut for this setup only.'}${c.hanger ? '' : ' No hangers are needed with the sprung rear and the swivel caster.'} ${c.hanger ? `${c.hanger} x ${d.wheel.hanger}.dxf in 0.125 inch 304 stainless` : ''} | Upload each of those DXF files from the metal folder, pick material and thickness, enter quantities. Add their deburring service or file the edges yourself |
-| C | Chassis tube, 1 x 1 x 1/8 inch 6061-T6 | [Metals Depot T3118-6061](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 8 ft at $58.08 | ${heavyBars.length} bars | 8 ft is the longest that ships by parcel. Longer bars are cheaper per foot but come by truck |
-| C | Cabin tube, 1 x 1 x 1/16 inch 6063-T52 | [Metals Depot T31116](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 8 ft at $41.60 | ${lightBars.length} bars | Do not swap this softer tube into the chassis positions |${tubes.length ? `
+| C | Chassis tube, 1 x 1 x 1/8 inch 6061-T6 | A local metal supplier, or [Metals Depot T3118-6061](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 24 ft at $116.16 | ${heavyHome.bars} bars of 24 ft, each cut in half | Ask the supplier to cut each bar in half so it fits a car: ${heavyBars.length} pieces of 12 ft. The price is one online supplier's for a bar that ships by truck; a local counter price was not checked. As 8 ft bars by parcel the same tube is $58.08 a bar and the two tubes come to ${money(parcelCost)}, ${money(parcelCost - barCost)} more |
+| C | Cabin tube, 1 x 1 x 1/16 inch 6063-T52 | The same supplier, or [Metals Depot T31116](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 21 ft at $65.73 | ${lightHome.bars} bars of 21 ft, each cut in half | ${lightBars.length} pieces of 10 ft 6 in. Do not swap this softer tube into the chassis positions |${tubes.length ? `
 | C | Or: tubes laser drilled, as sticks | [${roverTubeService.name}](${roverTubeService.url}) tube laser, from the files in the tubes folder | ${sticks.length} files, quantity in each file name | Replaces both tube rows above and nearly all of section 7. ${startingSize ? `Quoted at ${money(roverTubeQuote.sticks.standard)} on ${roverTubeQuote.checked}, before shipping and tax` : `The starting size was quoted at ${money(roverTubeQuote.sticks.standard)}; this size has not been uploaded`} |` : ''}
 | D | Bolts, nuts, washers | [Bolt Depot](https://boltdepot.com/Product-Details?product=328): 1/4-20 x 2 inch grade 5 zinc hex bolt 328, lock nut 2624, SAE washer 2976 | ${boxes} box${boxes === 1 ? '' : 'es'} of 100 bolts, ${boxes} of nuts, ${Math.ceil(2 * fasteners / 100)} of washers | You need ${c.bolts} bolts${c.handleBolts ? `, plus ${c.handleBolts} at 3 inch long for the handle` : ''}${d.swivel ? ` and ${c.casterBolts} at 5/16-18 x 2-1/2 inch for the caster` : ''} |
 | D | Sleeve tube | [Online Metals DOM steel tube, 3/8 inch OD x .049 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-375-od-x-0-049-wall-x-0-28-id-carbon-steel-round-tube-a513-type-5-dom/pid/7754), $11.66 per 6 ft | ${Math.ceil(c.sleeves * 26.9 / 1828.8)} lengths of 6 ft | Cut into ${c.sleeves} sleeves, each ${t} long |
@@ -876,13 +878,13 @@ Files named FIT_CHECK_ONLY are plastic copies of the metal plates. Print one of 
 
 ${sticks.length ? `If your tubes came as laser sticks, saw each one apart through its marker holes: tube-order.csv lists which tubes are in each stick and where the ${sawCuts} cuts fall. Split each marker hole with the blade, check every piece against the list below, then skip to the sleeves at the end of this section.\n\n` : ''}Cut the long pieces first. Clamp the bar, cut square, and leave the saw 3 mm per cut. Deburr both ends inside and out. Write the ID on each piece as it comes off the saw. Cut pairs to the same stop so they match each other exactly; matching matters more than the absolute length.
 
-Chassis tube, 1/8 inch wall, from ${heavyBars.length} bars of 8 ft:
+Chassis tube, 1/8 inch wall, from ${heavyBars.length} half bars of 12 ft:
 
 | Bar | Pieces, ID and length | Offcut |
 | --- | --- | ---: |
 ${bars(heavyBars)}
 
-Cabin tube, 1/16 inch wall, from ${lightBars.length} bars of 8 ft:
+Cabin tube, 1/16 inch wall, from ${lightBars.length} half bars of 10 ft 6 in:
 
 | Bar | Pieces, ID and length | Offcut |
 | --- | --- | ---: |
@@ -993,14 +995,12 @@ export function roverBuyList(s: RoverSetup): string {
   const skip = new Set(['labor', 'qa', 'pack', 'freight', 'machine'])
   const lines = roverCostLines(s).filter(l => !skip.has(l.id))
   const tubeRows = [
-    { name: `${one.light.bars} bars of 1 x 1 x 1/16 inch 6063-T52 square tube, ${roverParcelStock.label} each`, cents: one.light.bars * roverParcelPrices.light, basis: roverTubePrices.light.basis, url: roverTubePrices.light.url },
-    { name: `${one.heavy.bars} bars of 1 x 1 x 1/8 inch 6061-T6 square tube, ${roverParcelStock.label} each`, cents: one.heavy.bars * roverParcelPrices.heavy, basis: roverTubePrices.heavy.basis, url: roverTubePrices.heavy.url },
+    { name: `${one.light.bars} bars of 1 x 1 x 1/16 inch 6063-T52 square tube, 21 ft each, cut in half to carry`, cents: one.light.bars * roverTubePrices.light.cents, basis: roverTubePrices.light.basis, url: roverTubePrices.light.url },
+    { name: `${one.heavy.bars} bars of 1 x 1 x 1/8 inch 6061-T6 square tube, 24 ft each, cut in half to carry`, cents: one.heavy.bars * roverTubePrices.heavy.cents, basis: roverTubePrices.heavy.basis, url: roverTubePrices.heavy.url },
   ]
   const parts = [...tubeRows, ...lines.map(l => ({ name: l.name, cents: l.one, basis: l.evidence, url: (l as { url?: string }).url }))]
   const cover = textiles.rows.map(r => ({ name: `${r.name}: ${r.units} ${r.unit}`, cents: r.purchase, basis: 'Listed price', url: roverMaterials.find(m => m.id === r.id)!.url }))
   const sum = (rows: { cents: number }[]) => rows.reduce((n, r) => n + r.cents, 0)
-  // The same tube as the long bars the batch study uses: far cheaper per foot, but too long for a parcel.
-  const longBars = packRoverStock(s, 'heavy', 1).bars * roverTubePrices.heavy.cents + packRoverStock(s, 'light', 1).bars * roverTubePrices.light.cents
   const firm = sum([...parts, ...cover].filter(r => r.url)); const total = sum(parts) + sum(cover)
   const row = (r: { name: string, cents: number, basis: string, url?: string }) => `| ${r.url ? `[${r.name}](${r.url})` : r.name} | ${money(r.cents)} | ${r.basis} |`
   return `# Buddy Rover r0 buy list for one carrier
@@ -1016,7 +1016,7 @@ Configuration ${roverCode(s)}. Checked ${roverPriceDate}, USD, before tax and sh
 ${parts.map(row).join('\n')}
 | **Subtotal** | **${money(sum(parts))}** | |
 
-Cut from the bars with cut-list.csv. Send metal/*.dxf to a laser or waterjet shop for the ${d.welded ? '2 brake clamp plates' : `${d.counts.corner} corner gussets, ${d.counts.angle} angled gussets, ${d.counts.tee} tee gussets and the brake and shock plates`}${d.counts.hanger ? ` and ${d.counts.hanger} axle hangers` : ''}. The plate prices above are a real quote for one carrier.${d.welded ? ' The frame is welded by a fabrication shop from weld-schedule.csv; build-guide.md says how to find one and what to ask.' : ''} The parts list in bom.csv has every specification.
+The tube is priced as full-length bars at one online supplier's listed prices; a local supplier's counter price was not checked. Cut from the bars with cut-list.csv. Send metal/*.dxf to a laser or waterjet shop for the ${d.welded ? '2 brake clamp plates' : `${d.counts.corner} corner gussets, ${d.counts.angle} angled gussets, ${d.counts.tee} tee gussets and the brake and shock plates`}${d.counts.hanger ? ` and ${d.counts.hanger} axle hangers` : ''}. The plate prices above are a real quote for one carrier.${d.welded ? ' The frame is welded by a fabrication shop from weld-schedule.csv; build-guide.md says how to find one and what to ask.' : ''} The parts list in bom.csv has every specification.
 
 ## Cover, floor and ramp surface
 
@@ -1033,19 +1033,19 @@ Each line is a choice with a real price behind it. None is applied above.
 
 | Choice | Saves about | What you give up |
 | --- | ---: | --- |
-| Buy the tube as full-length bars from a local metal supplier and have them cut in half to carry | ${money(tubeRows.reduce((n, r) => n + r.cents, 0) - longBars)} | A trip, or truck freight. ${money(longBars)} for ${packRoverStock(s, 'heavy', 1).bars} bars of 24 ft and ${packRoverStock(s, 'light', 1).bars} of 21 ft at the listed long-bar prices, against ${money(tubeRows.reduce((n, r) => n + r.cents, 0))} in 8 ft parcel bars |
-| Have the plates cut in 5052-H32 instead of 6061-T6 | ${money(roverPlateCost(s).total - roverPlateCost(s, 'h32').total)} | Strength. 5052-H32 is the softer alloy. Nothing here has been calculated in either, so this is an engineer's call |
 | The same front caster without a swivel lock, from its maker | $23.31 | The lock that holds the wheel straight for running |
 | Leave out the clear storm panels | ${money(textiles.rows.find(r => r.id === 'clear')!.purchase)} | Wind and rain protection at the windows. They can be added later |
-${d.sprung ? `| Rigid rear axle instead of sprung wheels | ${money(roverBuyTotal(s) - roverBuyTotal({ ...s, ride: 'rigid' }))} | The suspension |\n` : ''}
+${d.sprung ? `| Rigid rear axle instead of sprung wheels | ${money(roverBuyTotal(s) - roverBuyTotal({ ...s, ride: 'rigid' }))} | The suspension |\n` : ''}| Not taken: plates in 5052-H32 instead of 6061-T6 | ${money(roverPlateCost(s).total - roverPlateCost(s, 'h32').total)} | Strength. 5052-H32 is roughly 30% weaker and the plates hold every joint. The owner chose to keep 6061-T6 on 2026-11-12; the price is recorded only |
+
 ## Ways to save time that cost more
 
 | Shortcut | Cost | Instead of | What it saves |
 | --- | ---: | --- | --- |
 | Tubes laser drilled, as sticks from the tubes folder | ${roverCode(s) === roverCode(roverStart) ? `${money(roverTubeQuote.sticks.standard)}, quoted ${roverTubeQuote.checked} before shipping and tax` : `not quoted for this size; the starting size was ${money(roverTubeQuote.sticks.standard)}`} | ${money(tubeRows.reduce((n, r) => n + r.cents, 0))} of bars | ${roverTubes(s).reduce((n, x) => n + x.qty * x.pierces, 0)} drilled tube walls and ${roverTubes(s).reduce((n, x) => n + x.qty, 0) - roverSticks(s).reduce((n, x) => n + x.qty * x.cuts.length, 0)} of the ${roverTubes(s).reduce((n, x) => n + x.qty, 0)} saw cuts |
+| The tube as 8 ft bars delivered by parcel | ${money(one.tubeParcel)} | ${money(one.tube)} of full-length bars | The trip to a metal supplier, or truck freight |
 | Bolt sleeves ready cut, [Mutual Screw FC1198-25-S-12](${roverSpacers.url}) | ${money(Math.ceil(d.counts.sleeves / roverSpacers.pack) * roverSpacers.cents)} | ${money(Math.ceil(d.counts.sleeves * 26.9 / 1828.8) * 1166)} of sleeve tube | ${d.counts.sleeves} saw cuts and their deburring |
 
-Neither is in the total above.
+None of these is in the total above.
 
 `}## Before you order
 

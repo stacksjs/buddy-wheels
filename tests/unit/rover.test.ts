@@ -3,7 +3,7 @@ import { cp, mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { transformModelPoint } from '@stacksjs/browser/model-viewer'
-import { nestRoverStock, packRoverStock, parseRoverSetup, referenceCarrier, roverActivities, roverDimensions, roverParcelStock, roverParts, roverPartFile, roverQuery, roverStart, roverWheels } from '../../app/Designs/Rover'
+import { homeRoverStock, nestRoverStock, packRoverStock, parseRoverSetup, referenceCarrier, roverActivities, roverDimensions, roverParcelStock, roverParts, roverPartFile, roverQuery, roverStart, roverWheels } from '../../app/Designs/Rover'
 import { inspectRoverGeometry, roverGeometry, roverPrintVolumeCm3, roverPublicPath, sha256 } from '../../app/Designs/RoverBuild'
 import { roverCostLines, roverEconomics, roverPlateCost, roverTubeQuote } from '../../app/Designs/RoverCost'
 import { roverBom, roverDocuments, roverDrilling, roverPrintQuantities, roverSticks, roverTubes } from '../../app/Designs/RoverDocuments'
@@ -217,15 +217,19 @@ test('Rover cost study charges whole stock, every parts-list line and paid labor
   for (const q of [0, 0.5, Infinity, 1001]) expect(() => packRoverStock(roverStart, 'light', q)).toThrow()
   const base = roverEconomics(weldedStart); const one = roverEconomics(weldedStart, 1)
   expect(base.cogs).toBe(159212)
-  expect(one.cogs).toBe(313055)
+  expect(one.cogs).toBe(292038)
   expect(base.cogsMill).toBe(138856)
   expect(roverEconomics(wp({ wheel: 'run', hub: 75 })).cogs).toBe(155810)
   expect(roverEconomics(wp({ wheel: 'path', hub: 82.55 })).cogs).toBe(155487)
   expect(roverEconomics(wp({ front: 'fixed' })).cogs).toBe(153327)
   expect(roverEconomics(wp({ kit: 'ski' })).cogs).toBe(180226)
   expect(roverEconomics(wp({ rake: 0 })).cogs).toBe(162193)
-  expect(one.heavy.bars).toBe(6)
-  expect(one.light.bars).toBe(7)
+  expect(one.heavy.bars).toBe(2)
+  expect(one.light.bars).toBe(3)
+  // One carrier buys the same full-length bars as the batch, each cut in half to carry, and every piece fits a half.
+  expect(one.tube).toBe(2 * 11616 + 3 * 6573)
+  expect(one.tubeParcel).toBe(63968)
+  for (const wall of ['heavy', 'light'] as const) { const home = homeRoverStock(weldedStart, wall); expect(home.bars).toBe(Math.ceil(home.halves.length / 2)); for (const half of home.halves) expect(half.pieces.reduce((n, piece) => n + piece.length + 3, 0) + half.offcut).toBeCloseTo(wall === 'heavy' ? 3656 : 3198.5, 3) }
   expect(base.cogsMill).toBe(base.cogs - base.tube + base.tubeMill)
   expect(base.stainlessUpgrade).toBe(184)
   expect(base.retail).toBe(99900)
@@ -238,11 +242,11 @@ test('Rover cost study charges whole stock, every parts-list line and paid labor
   expect(() => roverEconomics(roverStart, 2)).toThrow()
   // The starting setup is the bolted home build, so the default study is that one.
   expect(roverEconomics().cogs).toBe(160005)
-  expect(roverEconomics(roverStart, 1).cogs).toBe(318781)
+  expect(roverEconomics(roverStart, 1).cogs).toBe(297764)
   // The bolted build keeps its own counted cost. Welding does not make the carrier cheaper in a batch and costs more for one.
   const boltedSetup = parseRoverSetup({ build: 'bolted' }); const bolted = roverEconomics(boltedSetup); const boltedOne = roverEconomics(boltedSetup, 1)
   expect(bolted.cogs).toBe(160005)
-  expect(boltedOne.cogs).toBe(318781)
+  expect(boltedOne.cogs).toBe(297764)
   expect(bolted.stainlessUpgrade).toBe(3956)
   expect(Math.abs(bolted.cogs - base.cogs)).toBeLessThan(5000)
   // The one-carrier plate line is the real laser quote, and the softer alloy is priced only as an option.
@@ -413,7 +417,9 @@ test('Rover tube files are closed solids that agree with the cut list and the dr
   expect(docs['build-guide.md']).toContain('the same set was quoted at $1,405.06')
   expect(docs['build-guide.md']).toContain('Or: sleeves ready cut')
   expect(docs['buy-list.md']).toContain('## Ways to lower this total')
-  expect(docs['buy-list.md']).toContain('| Have the plates cut in 5052-H32 instead of 6061-T6 | $167.38 |')
+  expect(docs['buy-list.md']).toContain('| Not taken: plates in 5052-H32 instead of 6061-T6 | $167.38 |')
+  expect(docs['buy-list.md']).toContain('| The tube as 8 ft bars delivered by parcel | $639.68 | $429.51 of full-length bars |')
+  expect(docs['buy-list.md']).not.toMatch(/\|\n\n\|/)
   expect(docs['buy-list.md']).toContain('## Ways to save time that cost more')
   expect(docs['cost-notes.md']).toContain('## What the plate quote showed')
   expect(docs['cost-notes.md']).toContain('## Cutting it yourself against having it cut')

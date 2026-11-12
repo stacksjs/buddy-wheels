@@ -4,7 +4,7 @@
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
   "generator": "native Stacks solid kit, no external CAD executable",
   "geometryHash": "77c855e62b909b518ab655607c022b458bb8eb0a1e3f6155e9ace3935b860849",
-  "costHash": "6126dc0fbff22934317b2cb9dbe5bd8443cd69026976d5c795733e483b02e915",
+  "costHash": "e059c3afa0c231e6ec5a1520340b5d5b66fde3c123d9ca06a72b23ab9873657f",
   "setup": {
     "length": 1300,
     "width": 700,
@@ -529,18 +529,18 @@
     },
     {
       "path": "cost-notes.md",
-      "sha256": "ff21228907ee53ee048b78e56c904cb3353fad37932f89c15ccc855fb591910f",
-      "bytes": 29250
+      "sha256": "4a7dee54fcf17cb398f1fa78929afced04497df07fde617361aec168047cead5",
+      "bytes": 29789
     },
     {
       "path": "buy-list.md",
-      "sha256": "f52f15ed4beb1ee9b66f00dffd99116710529f7eb4c0e9cee7228d5d6ba844c5",
-      "bytes": 7839
+      "sha256": "be9679d4f397ab823d8164bf6acf1933ae1b8e2d8c34cf3564a912dc77de2424",
+      "bytes": 7939
     },
     {
       "path": "build-guide.md",
-      "sha256": "b3382a50ed4b729c4205579484dbc1ac7a1313925005960ff40e9f2cde382515",
-      "bytes": 29797
+      "sha256": "eec4703bf7151ca100521a1e39e11d4b39470707b7632f813085c971261de3ab",
+      "bytes": 30078
     },
     {
       "path": "drilling.csv",
@@ -614,8 +614,8 @@
     },
     {
       "path": "cost-model.json",
-      "sha256": "1ee0003c22fe976893e1474d3c5b324e7b4eb05cec46eb251b518c639e036d54",
-      "bytes": 29994
+      "sha256": "ab7c5880576e28033f95ab5e594f1717d4dfcbf873d67496cdf908bebe276d1e",
+      "bytes": 34752
     },
     {
       "path": "setup.json",

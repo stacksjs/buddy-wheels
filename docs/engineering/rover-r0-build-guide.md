@@ -13,7 +13,7 @@ So there are only three things to obtain: straight tube cut to length, flat plat
 1. **Cut it yourself.** Buy stock bars and cut them with a miter saw fitted with a blade for non-ferrous metal, or with a hacksaw and a miter box. This is the cheapest route and the one priced here.
 2. **Have the supplier cut it.** Online Metals says every order is cut to size, and Metals Depot offers a cut to size option. Order each line of cut-list.csv as its own cut length. You pay more per foot and receive a box of finished pieces. Their cut tolerance is looser than yours can be, so check every piece against the list when it arrives.
 3. **Hand the package to a local shop.** A metal supplier with a saw, a fabrication shop or a makerspace can cut and drill the whole frame. Give them cut-list.csv, drilling.csv, base-plan.svg, drawing.svg and the DXF files. If they offer to weld it instead, choose the welded frame in the studio and download that kit: it is the same frame with a weld schedule in place of the plates.
-4. **Have a tube laser drill every hole.** The kit has a tubes folder with 8 3D files. Each is a stick: several tubes end to end in one piece, with every hole already in it, 235 in all, floor fastener holes included. You saw each stick apart through small marker holes, 25 cuts in all, and the drilling in section 7 shrinks to a few holes. Sticks cost less than the same tubes ordered one by one, because the service charges for every piece it handles. On 2026-11-12 the files for this setup were uploaded to OSH Cut: every one passed its design check and the set was priced at $1,195.44 before shipping and tax. Bars for the same tubes cost about $639.68, so the laser costs about $555.76 more. Ordered as 20 separate tubes with nothing to saw, the same set was quoted at $1,405.06. How to order, in the fewest steps:
+4. **Have a tube laser drill every hole.** The kit has a tubes folder with 8 3D files. Each is a stick: several tubes end to end in one piece, with every hole already in it, 235 in all, floor fastener holes included. You saw each stick apart through small marker holes, 25 cuts in all, and the drilling in section 7 shrinks to a few holes. Sticks cost less than the same tubes ordered one by one, because the service charges for every piece it handles. On 2026-11-12 the files for this setup were uploaded to OSH Cut: every one passed its design check and the set was priced at $1,195.44 before shipping and tax. Bars for the same tubes cost about $429.51, so the laser costs about $765.93 more. Ordered as 20 separate tubes with nothing to saw, the same set was quoted at $1,405.06. How to order, in the fewest steps:
    1. Open [OSH Cut](https://app.oshcut.com). No account is needed to see a price.
    2. Drag every file in tubes/6061-T6-0.125-wall onto the page and wait until each shows Passed. Tick the box at the top left of the list to select them all, click the stacked-sheets icon beside it, and pick the one material offered: 6061-T6 aluminum square tube, 1 x 1 inch, 0.125 inch wall.
    3. Drag every file in tubes/6063-T52-0.062-wall onto the page. Tick only those new rows, click the same icon, and pick the one material offered: 6063-T52 aluminum square tube, 1 x 1 inch, 0.062 inch wall.
@@ -44,8 +44,8 @@ Order the wheel and caster first, because two dimensions in the design come from
 | A | Front caster | [Service Caster SCC-100S3504-PNB-BSL](https://www.zoro.com/service-caster-10-inch-black-pneumatic-wheel-swivel-caster-with-bolt-swivel-lock-scc-100s3504-pnb-bsl/i/G705434817/), $64.69: 10 inch pneumatic, swivel lock, 350 lb and a 12-3/16 inch mounting height stated | 1 | Measure from the floor to the top of the mounting plate. This guide assumes 310. If yours differs, enter it in the studio: it sets the nose post length. A [Harbor Freight 63799](https://www.harborfreight.com/10-in-pneumatic-swivel-caster-63799.html) at $19.99 also fits, with no swivel lock and no stated height |
 | A | Parking brake | [POWERTEC 302F push-pull toggle clamp](https://www.zoro.com/powertec-toggle-clamp-300lbs-cap-302f-quick-release-pushpull-clamp-20304n/i/G714915420/), $10.70 each, and a [DE-STA-CO 507208 neoprene-tipped spindle, 5/16-18](https://www.zoro.com/de-sta-co-flat-tip-spindle-516-18-083-3-507208/i/G0295985/), $4.15 each | 2 clamps, 2 spindles | The spindle replaces the plain bolt that comes in the clamp plunger. Eight #10 screws and lock nuts hold the clamps to their plates |
 | B | Gussets and hangers | A laser-cutting service. [OSH Cut](https://app.oshcut.com/cart) shows a price as soon as you drop the files in, with no account. [SendCutSend](https://sendcutsend.com) lists both materials, has no minimum quantity and ships laser parts in 1 to 3 days, and asks you to sign up first | 30 x corner_gusset.dxf, 6 x roof-gusset.dxf, 2 x pillar-foot-gusset.dxf, 2 x pillar-top-gusset.dxf, 12 x tee_gusset.dxf, 2 x brake_plate.dxf, 4 x shock_plate.dxf, 4 x shock_hanger.dxf, all in 0.125 inch 6061-T6 aluminum. The roof and pillar gusset files are cut for this setup only. No hangers are needed with the sprung rear and the swivel caster.  | Upload each of those DXF files from the metal folder, pick material and thickness, enter quantities. Add their deburring service or file the edges yourself |
-| C | Chassis tube, 1 x 1 x 1/8 inch 6061-T6 | [Metals Depot T3118-6061](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 8 ft at $58.08 | 6 bars | 8 ft is the longest that ships by parcel. Longer bars are cheaper per foot but come by truck |
-| C | Cabin tube, 1 x 1 x 1/16 inch 6063-T52 | [Metals Depot T31116](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 8 ft at $41.60 | 7 bars | Do not swap this softer tube into the chassis positions |
+| C | Chassis tube, 1 x 1 x 1/8 inch 6061-T6 | A local metal supplier, or [Metals Depot T3118-6061](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 24 ft at $116.16 | 2 bars of 24 ft, each cut in half | Ask the supplier to cut each bar in half so it fits a car: 4 pieces of 12 ft. The price is one online supplier's for a bar that ships by truck; a local counter price was not checked. As 8 ft bars by parcel the same tube is $58.08 a bar and the two tubes come to $639.68, $210.17 more |
+| C | Cabin tube, 1 x 1 x 1/16 inch 6063-T52 | The same supplier, or [Metals Depot T31116](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 21 ft at $65.73 | 3 bars of 21 ft, each cut in half | 5 pieces of 10 ft 6 in. Do not swap this softer tube into the chassis positions |
 | C | Or: tubes laser drilled, as sticks | [OSH Cut](https://app.oshcut.com) tube laser, from the files in the tubes folder | 8 files, quantity in each file name | Replaces both tube rows above and nearly all of section 7. Quoted at $1,195.44 on 2026-11-12, before shipping and tax |
 | D | Bolts, nuts, washers | [Bolt Depot](https://boltdepot.com/Product-Details?product=328): 1/4-20 x 2 inch grade 5 zinc hex bolt 328, lock nut 2624, SAE washer 2976 | 2 boxes of 100 bolts, 2 of nuts, 4 of washers | You need 166 bolts, plus 6 at 3 inch long for the handle and 4 at 5/16-18 x 2-1/2 inch for the caster |
 | D | Sleeve tube | [Online Metals DOM steel tube, 3/8 inch OD x .049 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-375-od-x-0-049-wall-x-0-28-id-carbon-steel-round-tube-a513-type-5-dom/pid/7754), $11.66 per 6 ft | 3 lengths of 6 ft | Cut into 186 sleeves, each 25.4 long |
@@ -58,7 +58,7 @@ Order the wheel and caster first, because two dimensions in the design come from
 | G | Cover materials | See buy-list.md for every line with its link | | Cut list in cover-cut-schedule.csv |
 | H | Filament | Any PETG for fit trials, ASA for parts left in the sun | About 1 kg | 76 printed pieces in all |
 
-Materials for one build come to about $2,272.80 before tax and shipping. buy-list.md splits that into prices read on a supplier page and allowances.
+Materials for one build come to about $2,062.63 before tax and shipping. buy-list.md splits that into prices read on a supplier page and allowances.
 
 ## 4. Tools
 
@@ -87,28 +87,24 @@ If your tubes came as laser sticks, saw each one apart through its marker holes:
 
 Cut the long pieces first. Clamp the bar, cut square, and leave the saw 3 mm per cut. Deburr both ends inside and out. Write the ID on each piece as it comes off the saw. Cut pairs to the same stop so they match each other exactly; matching matters more than the absolute length.
 
-Chassis tube, 1/8 inch wall, from 6 bars of 8 ft:
+Chassis tube, 1/8 inch wall, from 4 half bars of 12 ft:
 
 | Bar | Pieces, ID and length | Offcut |
 | --- | --- | ---: |
-| 1 | C01 1678.65, C16 750.8 | 2.95 |
-| 2 | C01 1678.65, C16 750.8 | 2.95 |
-| 3 | C06 1000, C06 1000, C22 357.8103, C23 60 | 8.5897 |
-| 4 | C03 909.9122, C03 909.9122, C22 357.8103, C15 173.3, C23 60 | 12.4653 |
-| 5 | C02 700, C02 700, C15 173.3, C15 173.3, C15 173.3, C17 140, C17 140, C08 107.3571 | 107.1429 |
-| 6 | C08 107.3571 | 2328.0429 |
+| 1 | C01 1678.65, C01 1678.65, C15 173.3, C08 107.3571 | 6.0429 |
+| 2 | C06 1000, C06 1000, C03 909.9122, C02 700 | 34.0878 |
+| 3 | C03 909.9122, C16 750.8, C16 750.8, C02 700, C22 357.8103, C17 140 | 28.6775 |
+| 4 | C22 357.8103, C15 173.3, C15 173.3, C15 173.3, C17 140, C08 107.3571, C23 60, C23 60 | 2386.9326 |
 
-Cabin tube, 1/16 inch wall, from 7 bars of 8 ft:
+Cabin tube, 1/16 inch wall, from 5 half bars of 10 ft 6 in:
 
 | Bar | Pieces, ID and length | Offcut |
 | --- | --- | ---: |
-| 1 | C10 1016.8582, C10 1016.8582 | 398.6836 |
-| 2 | C09 1015.2, C09 1015.2 | 402 |
-| 3 | C12 1005.4, C12 1005.4 | 421.6 |
-| 4 | C21 905.5711, C21 905.5711 | 621.2578 |
-| 5 | C13 801.6, C11 700, C11 700 | 227.8 |
-| 6 | C11 700, C14 700, C14 700 | 329.4 |
-| 7 | C14 700, C07 688, C07 688 | 353.4 |
+| 1 | C10 1016.8582, C10 1016.8582, C09 1015.2 | 140.5836 |
+| 2 | C09 1015.2, C12 1005.4, C12 1005.4 | 163.5 |
+| 3 | C21 905.5711, C21 905.5711, C13 801.6 | 576.7578 |
+| 4 | C11 700, C11 700, C11 700, C14 700 | 386.5 |
+| 5 | C14 700, C14 700, C07 688, C07 688 | 410.5 |
 
 | ID | Member | Qty | Cut |
 | --- | --- | ---: | ---: |

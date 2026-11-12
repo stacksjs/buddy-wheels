@@ -39,7 +39,17 @@ export const roverWheels = {
 } as const
 /** Stock bars as sold by the priced supplier. Thin wall is 1/16 inch 6063-T52, chassis wall is 1/8 inch 6061-T6. */
 export const roverTubeStock = { heavy: { mm: 7315.2, label: '24 ft', alloy: '6061-T6', wall: '1/8 inch' }, light: { mm: 6400.8, label: '21 ft', alloy: '6063-T52', wall: '1/16 inch' } } as const
-/** Parcel bars for a single build: 8 ft is the longest length the priced supplier ships without a truck. */
+/**
+ * One carrier is built from the same full-length bars, each cut in half by the supplier so it can be carried home.
+ * A half is half the bar less the supplier's saw cut. Halves are what the cut list is nested into.
+ */
+export const roverHalfStock = { heavy: { mm: 3656, label: '12 ft' }, light: { mm: 3198.5, label: '10 ft 6 in' } } as const
+/** Full bars to buy for one carrier, and the halves the pieces are cut from. */
+export function homeRoverStock(s: RoverSetup, wall: 'heavy' | 'light') {
+  const halves = nestRoverStock(s, wall, 1, roverHalfStock[wall].mm); const pieces = halves.flatMap(b => b.pieces); const bars = Math.ceil(halves.length / 2)
+  return { bars, halves, netMm: mm(pieces.reduce((a, b) => a + b.length, 0)), kerfMm: pieces.length * 3, stockMm: mm(bars * roverTubeStock[wall].mm) }
+}
+/** Parcel bars, the dearer alternative for a single build: 8 ft is the longest length the priced supplier ships without a truck. */
 export const roverParcelStock = { mm: 2438.4, label: '8 ft' } as const
 export const roverLimits = { length: [1000, 1400], width: [600, 800], height: [800, 1100], ramp: [700, 1100], axle: [300, 650], handle: [700, 1100], hub: [50, 110], caster: [250, 340], rake: [0, 500], taper: [0, 300] } as const
 export const roverHardware = {

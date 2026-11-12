@@ -4,7 +4,7 @@ Checked 2026-11-12, USD, integer cents, native Bun arithmetic. Configuration rov
 
 ## Result
 
-At 100 carriers the modeled landed manufacturing cost is **$1,600.05 each** at listed prices. A single build at retail quantities is **$3,187.81**. The first count of this design, on November 11, was $2,037.93 and $3,254.89, with 20 inch wheels, the original cover and most prices as allowances.
+At 100 carriers the modeled landed manufacturing cost is **$1,600.05 each** at listed prices. A single build at retail quantities is **$2,977.64**. The first count of this design, on November 11, was $2,037.93 and $3,254.89, with 20 inch wheels, the original cover and most prices as allowances.
 
 The owner set the Run price to $999.00 on November 12, 2026. At the counted cost that is $601.05 below cost on every carrier, before card fees, returns, support or freight. A 30% gross margin at that price needs the cost at $699.30 or less, so $900.75 has to come out. At today's cost the price that would carry a 30% margin is about $2,286.00.
 
@@ -19,7 +19,7 @@ The same carrier can be built two ways: the same tubes, the same shape and the s
 | | Welded | Bolted |
 | --- | ---: | ---: |
 | Counted cost each, at 100 | $1,592.12 | $1,600.05 |
-| Counted cost of one | $3,130.55 | $3,187.81 |
+| Counted cost of one | $2,920.38 | $2,977.64 |
 | Welded joints | 46 | 0 |
 | Bolted joints | 8 | 172 |
 | Plates to cut | 10 | 62 |
@@ -35,12 +35,12 @@ The counted totals assume stock bars sawn and drilled by hand, which is the chea
 
 | For one carrier | Bars, sawn and drilled at home | Laser sticks, sawn apart at home | Every tube laser cut on its own |
 | --- | ---: | ---: | ---: |
-| Tube cost | $639.68 | $1,195.44 | $1,405.06 |
+| Tube cost | $429.51 | $1,195.44 | $1,405.06 |
 | Saw cuts | 39 | 25 | 0 |
 | Tube walls to drill | 443 | A few, listed in tube-order.csv | A few |
 | Files to upload | 0 | 8 | 20 |
 
-The laser figures are OSH Cut's instant quotes for the starting setup on 2026-11-12, after every file passed its design check, before shipping and tax. Nothing was ordered. Packing the tubes into sticks was tried in the hope that the price was mostly a charge per piece. It is not: it took the set from $1,405.06 to $1,195.44, and what is left is mostly the service's price for the metal, about twice what the same tube costs as bars. So the laser buys time, not money: about $555.76 more than bars to skip the drilling. Ready-cut bolt sleeves are the other paid shortcut, $184.32 for a pack of 250 against about $34.98 of tube and 186 saw cuts.
+The laser figures are OSH Cut's instant quotes for the starting setup on 2026-11-12, after every file passed its design check, before shipping and tax. Nothing was ordered. Packing the tubes into sticks was tried in the hope that the price was mostly a charge per piece. It is not: it took the set from $1,405.06 to $1,195.44, and what is left is mostly the service's price for the metal, about twice what the same tube costs as bars. So the laser buys time, not money: about $765.93 more than bars to skip the drilling. Ready-cut bolt sleeves are the other paid shortcut, $184.32 for a pack of 250 against about $34.98 of tube and 186 saw cuts.
 
 ## What the plate quote showed
 
@@ -69,7 +69,7 @@ The plates were the largest unquoted line. Quoted for one carrier in 6061-T6 the
 
 | Line | One carrier | 100-carrier allocation | Evidence |
 | --- | ---: | ---: | --- |
-| Aluminum tube, whole stock bars with kerf | $639.68 | $346.99 | Observed 2026-11-12 |
+| Aluminum tube, whole stock bars with kerf | $429.51 | $346.99 | Observed 2026-11-12 |
 | 30 corner gussets, 10 gussets cut to this setup's angles, 12 tee gussets and 2 brake plates, laser cut 1/8 inch 6061 | $515.62 | $90.40 | One carrier: quoted 2026-11-12. Batch: allowance |
 | 2 pneumatic trail wheels, 15 inch 4.00-8 | $65.78 | $65.78 | Observed 2026-11-12 |
 | Front swivel caster with swivel lock, 10 inch pneumatic, and four bolts | $67.69 | $66.89 | Observed 2026-11-12 + nut and sleeve allowance |
@@ -87,7 +87,7 @@ The plates were the largest unquoted line. Quoted for one carrier in 6061-T6 the
 | Inbound freight allocation | $90.00 | $30.00 | RFQ |
 | Machine wear and shop consumables | $10.00 | $6.00 | RFQ |
 | Weather cover, floor set and ramp surface | $830.06 | $399.97 | Listed materials + assumed sewing |
-| **Landed manufacturing** | **$3,187.81** | **$1,600.05** | Mostly unquoted |
+| **Landed manufacturing** | **$2,977.64** | **$1,600.05** | Mostly unquoted |
 
 - **30 corner gussets, 10 gussets cut to this setup's angles, 12 tee gussets and 2 brake plates, laser cut 1/8 inch 6061:** Six aluminum profiles, three of them cut to the roof and pillar angles of this setup. For one carrier these are OSH Cut's instant-quote prices in 6061-T6: $9.47 a corner gusset, $8.19 a tee gusset, $10.15 to $12.43 for the angled ones and $12.23 a brake plate, about double the earlier allowance. The same plates in softer 5052-H32 were quoted $163.94 lower. The batch figure is still an allowance of $1.60 to $2.00 a plate with no quote behind it, and the one-carrier quote suggests it is low.
 - **2 pneumatic trail wheels, 15 inch 4.00-8:** $32.89 each, no bulk discount assumed. Ball bearings, 5/8 inch bore and a 4 inch hub are stated by the supplier.
@@ -103,10 +103,10 @@ The plates were the largest unquoted line. Quoted for one carrier in 6061-T6 the
 - **Cutting, drilling, deburring and assembly labor:** Batch: 5.5 h at $25/h. One-off: 15 h. Roughly 300 tube-wall holes per carrier. Timing assumptions, not observed.
 - **Per-carrier inspection:** Does not replace engineering qualification.
 - **Packaging:** Large flat-pack carton set. Outbound freight is separate.
-- **Inbound freight allocation:** Truck freight for long bars in a batch; parcel shipping for one build. Unquoted.
+- **Inbound freight allocation:** Truck freight for long bars in a batch. For one build, delivery of the parts, with the tube collected from a local supplier. Unquoted.
 - **Machine wear and shop consumables:** Drill bits, blades, jig wear.
 
-Tube packing at 100 carriers: 231 bars of 1/16 inch wall, 21 ft each, and 168 bars of 1/8 inch wall, 24 ft each. One carrier needs 7 and 6 whole bars.
+Tube packing at 100 carriers: 231 bars of 1/16 inch wall, 21 ft each, and 168 bars of 1/8 inch wall, 24 ft each. One carrier needs 3 and 2 whole bars.
 
 ## Cover and soft goods detail
 
@@ -166,6 +166,8 @@ Material prices are the listed prices in [the materials sheet](../product/rover-
 - Sprung rear: the travel, sag and spring figures are arithmetic from the drawn arm geometry and an assumed spring rate. No shock has been fitted, no ride has been measured, and no comparison with any other product is claimed. The parking brake presses on a tire that now moves with the load, which is unresolved.
 - Axle sleeve fit: the linked 3/4 inch x .065 wall DOM tube is 0.620 inch inside, 0.005 under the 5/8 inch axle. Ream it to 5/8 or buy .058 wall, 0.634 inside, which the drawn numbers assume.
 - Laser quotes: on 2026-11-12 the tube and plate files for the starting bolted setup were uploaded to OSH Cut with the owner's permission. All passed its design check. These are quotes for one carrier on one day, before shipping and tax, and nothing was ordered. No other setup, and no batch quantity, has been quoted. The counted one-carrier total uses the quoted plate prices and still assumes stock bars cut and drilled by hand, because that is the cheaper way to get the tubes.
+- Tube for one carrier: priced as full 21 ft and 24 ft bars at the listed long-bar prices, each cut in half by the supplier to carry. Those prices are one online supplier's for bars that ship by truck. A local supplier's counter price was not checked and may be higher or lower. The same tube as 8 ft parcel bars costs more and is shown as the alternative.
+- Plate alloy: the owner chose to keep the plates in 6061-T6 on 2026-11-12. The 5052-H32 quote stays on record as a price only.
 - Welded build: the welding line is arithmetic on assumed shop rates and minutes per joint. No fabricator has seen the drawings. A welded frame also ships assembled, and outbound truck freight for a carton that size is not in any total here.
 - Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists.
 
