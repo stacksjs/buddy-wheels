@@ -4,7 +4,7 @@
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
   "generator": "native Stacks solid kit, no external CAD executable",
   "geometryHash": "92a14b78fbca3bbfed190d0d4a5e4999936f656eb1757085ddefa9e3bace8645",
-  "costHash": "3eebbd258010b7392c1ba35a3e9f25e9b2700f15c90bea7fd145607084874550",
+  "costHash": "5046a701495781dd0e317372201596076abdb69b569ddbeaceecd72b12feb46f",
   "setup": {
     "length": 1300,
     "width": 700,
@@ -14,8 +14,10 @@
     "handle": 1000,
     "hub": 101.6,
     "caster": 310,
+    "rake": 350,
     "wheel": "trail",
-    "front": "swivel"
+    "front": "swivel",
+    "kit": "wheels"
   },
   "dimensions": {
     "R": 192.9,
@@ -46,7 +48,11 @@
     "rearX": -560,
     "frontX": 740,
     "rail": 1678.65,
-    "topRail": 1350.8,
+    "topRail": 1000.8,
+    "floorLen": 1350.8,
+    "frontPostX": 402.7,
+    "windshield": 1097.8836,
+    "stay": 1127.8836,
     "post": 1015.2,
     "stations": [
       -572.7,
@@ -67,6 +73,9 @@
     "inboard": 27.225,
     "wheelY": 442.075,
     "cabinIntrusion": 14.525,
+    "ski": false,
+    "skiPost": 172.5,
+    "towPinX": 820.4,
     "brakeZ": 555.8,
     "forkY": 68.175,
     "frontStack": 171.1,
@@ -144,7 +153,7 @@
         "name": "Top side rail",
         "wall": "light",
         "qty": 2,
-        "length": 1350.8
+        "length": 1000.8
       },
       {
         "id": "C11",
@@ -217,19 +226,19 @@
       "axleCover": 4
     },
     "heavyM": 11.4772,
-    "lightM": 15.1,
-    "tubeLb": 32.9,
+    "lightM": 14.4,
+    "tubeLb": 32.2,
     "floorArea": 1.0142,
     "rampArea": 0.688,
     "mass": {
-      "tube": 14.9,
+      "tube": 14.6,
       "plates": 4.2,
       "panels": 11.1,
       "wheels": 10,
       "hardware": 6.9,
       "softgoods": 4.2
     },
-    "carrierKg": 51.3,
+    "carrierKg": 51,
     "frontShare": 9.8533,
     "tiltForceN": 113,
     "tiltForceLbf": 25,
@@ -354,58 +363,58 @@
     },
     {
       "path": "assembly.md",
-      "sha256": "0725060014c7919ca615b89ab46e7ef8c47c3582bb06968e766ca069013e6fbc",
-      "bytes": 11036
+      "sha256": "68da596b0e9284a4f23c49c83d7c09ca6378e4806b4e8ed4d6e4ae52327a7d69",
+      "bytes": 11101
     },
     {
       "path": "bom.csv",
-      "sha256": "a58ae6f07bc9076590a498bf2ace4c211f5ed6ce513d786dde6d92f8e9fcdf92",
-      "bytes": 9293
+      "sha256": "0cd131f6344ce6776e75eb02395396e8a1796434242c47715f469e63ed995742",
+      "bytes": 9509
     },
     {
       "path": "materials.md",
-      "sha256": "969d256c3b8fe1ffebc94bcfdf82fb2f54234a70c9a847c62218c98e0bf60847",
-      "bytes": 11842
+      "sha256": "cf6e61b1bd3594cd896ee19336ed011bce2eb4dc25ee773f46f587534a44e7fb",
+      "bytes": 11851
     },
     {
       "path": "cover-cut-schedule.csv",
-      "sha256": "be229923a8c4fe8bb57add0d3db47c6c8da0b534a79d8bdef483447696966d28",
-      "bytes": 2535
+      "sha256": "f4786f948e416fbebe85dea9be176db709b4c313e16cb2107641310c683fcdf2",
+      "bytes": 2660
     },
     {
       "path": "cover-panels.svg",
-      "sha256": "c587af836adc01183c9be2e5bcfe0679b76513e9f2d201a22ba5a061f0d91646",
-      "bytes": 4438
+      "sha256": "6d270ef583eb072e67ff2a061ffa5b232374c30750ba56052df831c667d4f04a",
+      "bytes": 4440
     },
     {
       "path": "drawing.svg",
-      "sha256": "d7c7dc6ae8f2ef363e353edbb6ab94cce611feb3250a9b1570b33077537e56e8",
-      "bytes": 5760
+      "sha256": "bb2a0ece6c430ca3e1639ee884691e39e35fdc252a405ee55583e7164215db9c",
+      "bytes": 5851
     },
     {
       "path": "cut-list.csv",
-      "sha256": "787c09eb655ea4fd87ce0cf447d6df1a10cba83ba82b802239bf8813c99c5e32",
+      "sha256": "b2835119b046064e881eb437adec40643f30297a18616406b4daf3d0bd55486a",
       "bytes": 1168
     },
     {
       "path": "cost-notes.md",
-      "sha256": "69aef2f0025ffae922e75eaa533cc7f905e8c1c2381543f00043f430c2d873a3",
-      "bytes": 20471
+      "sha256": "d41dbfbd877d684a1536eb69ef155795e251a73b1a541740c345719c05e26ca2",
+      "bytes": 20503
     },
     {
       "path": "buy-list.md",
-      "sha256": "0aee27c8b44789becffa305aab668c8642481e9a4be088304244b74baaddeaa6",
-      "bytes": 5958
+      "sha256": "237636446f01063bfc50f18fff33f34476a0ccf314090fb67e0b2e20a2069db5",
+      "bytes": 5964
     },
     {
       "path": "build-guide.md",
-      "sha256": "2300bf47009b268922e1a10b49e4e289a2d56381d0ca1be57b734bfbcc0ce7a4",
-      "bytes": 20502
+      "sha256": "f8c3c0c8339959a6257aed38250a623039d890e8b9fc04262c0ff3881f98d730",
+      "bytes": 20879
     },
     {
       "path": "drilling.csv",
-      "sha256": "939ed2b86413ebf6b640953fc9adc321d6464a8a030603c0fbefe2995ca507fb",
-      "bytes": 4972
+      "sha256": "3c406e8c0bf284e6b83ecf3c7fc6b1eb82abe6d2b8d8789b5b80af57754d45a4",
+      "bytes": 4995
     },
     {
       "path": "base-plan.svg",
@@ -414,13 +423,13 @@
     },
     {
       "path": "cost-model.json",
-      "sha256": "8aa57641d31daf2649d834e9e7a010389bfe0960ce636f52cd6c5f9f031bc57f",
-      "bytes": 23265
+      "sha256": "8ffb62d42e59289697c271bbd53e48f0cbfe4403ec63df6d0dcfa8f2657f1e39",
+      "bytes": 23343
     },
     {
       "path": "setup.json",
-      "sha256": "4d6c980f3cf2196416159558b42d6d914d608fec065dd413a15e044b91d7f847",
-      "bytes": 4737
+      "sha256": "5e989eb1d81221cb97df70fbaf7d1d7722b2b33076dc8863b0044ce4254fd53f",
+      "bytes": 4932
     },
     {
       "path": "README.md",

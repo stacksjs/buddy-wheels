@@ -1,6 +1,6 @@
 # Buddy Rover r0 bench assembly
 
-Configuration rover-r0-l1300-w700-h1000-r1000-a560-g1000-hub101.6-trail-swivel310. All dimensions mm. BENCH DESIGN. NOT FOR ANIMAL USE. No payload, speed, distance, slope or surface rating exists. Buddy is owner-reported 140 lb; his measurements and suitability for a carrier are not established.
+Configuration rover-r0-l1300-w700-h1000-r1000-a560-g1000-hub101.6-trail-swivel310-k350. All dimensions mm. BENCH DESIGN. NOT FOR ANIMAL USE. No payload, speed, distance, slope or surface rating exists. Buddy is owner-reported 140 lb; his measurements and suitability for a carrier are not established.
 
 ## What this revision is
 
@@ -12,7 +12,8 @@ Coordinates: X forward, Y across, Z up. Origin on the ground under the rear axle
 
 | Item | Value |
 | --- | ---: |
-| Clear cabin length between end posts | 1300 (51.2 in) |
+| Clear cabin length at the floor | 1300 (51.2 in) |
+| Front rake, top set back from bottom | 350 |
 | Clear cabin width between side rails | 700 (27.6 in) |
 | Clear cabin height, deck to top rail | 1000 (39.4 in) |
 | Deck height above ground | 151.9 (6.0 in) |
@@ -20,13 +21,14 @@ Coordinates: X forward, Y across, Z up. Origin on the ground under the rear axle
 | Ramp rise and incline | 139.9 rise, 8.0 degrees |
 | Rear axle ahead of the tailgate plane | 560 |
 | Front wheel | swivel caster, mounting height 310 |
+| Kit | on wheels |
 | Wheelbase | 913.4 |
 | Handle height | 1000 (39.4 in) |
 | Overall length, width over axle ends, height | 2120.8 x 1008.45 x 1254 |
 | Ground clearance under the base gussets | 108.125 |
 | Rear wheel | 15 inch trail (4.00-8) |
 | Assumed wheel hub through-length | 101.6 |
-| Estimated empty mass, arithmetic only | 51.3 kg (113 lb) |
+| Estimated empty mass, arithmetic only | 51 kg (112 lb) |
 
 ## Stated geometry beside the reference trailer
 
@@ -39,7 +41,7 @@ Burley Bark Ranger XL figures are the maker's published numbers, read 2026-11-11
 | Interior height | 29.9 in | 39.4 in |
 | Interior volume ratio | 1.0 | 2.29 |
 | Entry | 9 in step-up at a tailgate | 8.0 degree ramp, no step |
-| Weight | 33 lb | about 113 lb estimated |
+| Weight | 33 lb | about 112 lb estimated |
 | Capacity | 100 lb stated by its maker | none. Untested bench design |
 
 Rover is much larger and much heavier. The mass is the price of a bolted frame and plywood panels and is the first thing a second revision should reduce.
@@ -59,7 +61,7 @@ With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 90 
 | C07 | 2 | Ramp under rib | 1/16 wall 6063-T52 | 688 |
 | C08 | 2 | Ramp stand leg | 1/8 wall 6061-T6 | 107.3571 |
 | C09 | 4 | Corner post | 1/16 wall 6063-T52 | 1015.2 |
-| C10 | 2 | Top side rail | 1/16 wall 6063-T52 | 1350.8 |
+| C10 | 2 | Top side rail | 1/16 wall 6063-T52 | 1000.8 |
 | C11 | 3 | Top cross tube | 1/16 wall 6063-T52 | 700 |
 | C12 | 2 | Handle arm | 1/16 wall 6063-T52 | 1005.4 |
 | C13 | 1 | Handle grip tube | 1/16 wall 6063-T52 | 750.8 |
@@ -68,7 +70,7 @@ With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 90 
 | C16 | 2 | Caster beam | 1/8 wall 6061-T6 | 750.8 |
 | C17 | 2 | Brake arm | 1/8 wall 6061-T6 | 140 |
 
-Total 11.48 m of 1/8 inch wall 6061-T6 and 15.10 m of 1/16 inch wall 6063-T52. Base cross members sit at X = -572.7, -241.35, 95, 421.35, 752.7.
+Total 11.48 m of 1/8 inch wall 6061-T6 and 14.40 m of 1/16 inch wall 6063-T52. Base cross members sit at X = -572.7, -241.35, 95, 421.35, 752.7.
 
 ## Joint patterns
 

@@ -36,7 +36,7 @@ export function roverBom(s: RoverSetup): string {
     ['H03', c.sleeves, 'Crush sleeve', 'A513 DOM steel tube .375 OD x .049 wall; cut 25.4 mm', 'One per tube crossing. Corrosion finish between steel and aluminum pending'],
     ['H04', 2 * (c.bolts + c.handleBolts), 'Bolt washer', '1/4 inch zinc steel flat washer', 'Two per bolt'],
     ['H05', c.bolts + c.handleBolts, 'Prevailing-torque nut', '1/4-20 zinc nylon-insert locknut', 'New nuts at every assembly'],
-    ['F01', 1, 'Floor panel', `15/32 inch (12 mm) ACX exterior plywood ${d.topRail} x ${s.width + 2 * h.tube} mm, six post notches 44 x 30, sealed all faces and edges; marine plywood for salt use`, 'Sits on gussets and bedding tape. Deflection under a standing dog not yet calculated'],
+    ['F01', 1, 'Floor panel', `15/32 inch (12 mm) ACX exterior plywood ${d.floorLen} x ${s.width + 2 * h.tube} mm, six post notches 44 x 30, sealed all faces and edges; marine plywood for salt use`, 'Sits on gussets and bedding tape. Deflection under a standing dog not yet calculated'],
     ['F02', 1, 'Bedding tape', '3.2 mm closed-cell tape, 25 mm wide, about 9 m', 'Fills the gusset thickness under both panels'],
     ['F03', c.floorScrews, 'Floor fastener set', '1/4-20 stainless countersunk screw with rivet nut in the tube top wall', 'Rivet nut pull-out in .125 wall to be tested'],
     ['R01', 1, 'Ramp panel', `15/32 inch (12 mm) ACX exterior plywood ${s.ramp} x ${d.rampWidth} mm, sealed all faces and edges, toe edge fitted with printed threshold toes`, 'Curb rails on top, two ribs underneath'],
@@ -51,6 +51,14 @@ export function roverBom(s: RoverSetup): string {
     ['B02', 1, 'Handle grip and wrist tether', `Foam grip for 25.4 tube over ${d.grip} mm; 1.2 m wrist tether`, 'Tether is a secondary link to the caregiver'],
     ['S01', 2, 'Tip-stop foot', '3/8-16 swivel leveling mount, tall version of S&W BSW-1Z, through each base rail behind the axle, nut and washer above and below', 'Catches a rearward tip. Height setting and strength are untested'],
     ['X01', 1, 'Roof ridge pole', `12.7 mm aluminum tube, cut ${d.topRail} mm`, 'Rests in three printed saddles'],
+    ...(s.rake > 0 ? [['X02', 2, 'Windshield stay', `12.7 mm aluminum tube, cut ${d.stay} mm`, 'Slides into a sleeve sewn down each front edge of the cover, from the base front corner up to the top front corner. Carries fabric tension only']] : []),
+    ...(d.ski ? [
+      ['K01', 2, 'Ski', `Junior cross-country or pulk ski, about ${h.skiLength} x ${h.skiWidth} mm, flat mounting zone at least ${h.skiFoot} long`, 'OPEN SELECTION. No ski has been chosen or priced from a supplier page'],
+      ['K02', 4, 'Ski bolt', '1/4-20 flat-head bolt up through the ski and the ski foot, washer and lock nut', 'Countersink from the sole and seal. Two per ski, 150 mm each side of the post'],
+      ['K03', 4, 'Ski post spacer', `4130 tube 19.05 OD x 1.4732 wall; cut ${mm((s.hub - h.tube) / 2)} mm`, 'One each side of the post on the axle, filling the space the wheel hub took'],
+      ['K04', 2, 'Tow shaft pin', '3/8 inch quick-release pin with lanyard', `Through the tow shaft and the ${d.swivel ? 'base rail' : 'fork arm'}, so the shaft can pitch`],
+      ['K05', 1, 'Hip belt and links', 'Padded hip belt with two short rope or strap links to the shaft ends', 'OPEN SELECTION. Release under load and downhill run-on are untested'],
+    ] : []),
     ['T01', 1, 'Weather cover set', 'Roof and wall shell, mesh windows, clear storm panels, hook and loop, seam tape, reflective trim', 'See cover-cut-schedule.csv and materials.md. No sewn sample exists'],
     ['T02', 1, 'Floor set', 'Two EVA pad halves under a vinyl tub liner with a threshold flap', 'Removable for washing'],
     ['T03', 1, 'Ramp traction surface', `5 mm adhesive EVA, ${d.rampWidth - 2 * h.tube} x ${s.ramp} mm between the curbs`, 'Wet grip unproven'],
@@ -133,7 +141,8 @@ Coordinates: X forward, Y across, Z up. Origin on the ground under the rear axle
 
 | Item | Value |
 | --- | ---: |
-| Clear cabin length between end posts | ${s.length} (${inch(s.length)} in) |
+| Clear cabin length at the floor | ${s.length} (${inch(s.length)} in) |
+| Front rake, top set back from bottom | ${s.rake} |
 | Clear cabin width between side rails | ${s.width} (${inch(s.width)} in) |
 | Clear cabin height, deck to top rail | ${s.height} (${inch(s.height)} in) |
 | Deck height above ground | ${d.deck} (${inch(d.deck)} in) |
@@ -141,6 +150,7 @@ Coordinates: X forward, Y across, Z up. Origin on the ground under the rear axle
 | Ramp rise and incline | ${d.rampRise} rise, ${d.rampAngle.toFixed(1)} degrees |
 | Rear axle ahead of the tailgate plane | ${s.axle} |
 | Front wheel | ${d.swivel ? `swivel caster, mounting height ${s.caster}` : 'fixed, on a fork'} |
+| Kit | ${d.ski ? 'snow conversion: skis on the rear axles and two tow shafts' : 'on wheels'} |
 | Wheelbase | ${d.wheelbase} |
 | Handle height | ${s.handle} (${inch(s.handle)} in) |
 | Overall length, width over axle ends, height | ${d.overallLength} x ${d.overallWidth} x ${d.overallHeight} |
@@ -250,23 +260,24 @@ export function roverDrawing(s: RoverSetup): string {
     `<path d="M${X(minX)} ${Z(0)}H${X(maxX)}" stroke="#14201a" stroke-width="1"/>`,
     wheel(0), ...(d.swivel ? [`<circle cx="${X(d.casterX - h.casterTrail)}" cy="${Z(h.casterWheel / 2)}" r="${(h.casterWheel / 2 * k).toFixed(1)}" fill="none" stroke="#29322d" stroke-width="${(22 * k).toFixed(1)}"/>`, `<path d="M${X(d.casterX)} ${Z(s.caster)}L${X(d.casterX - h.casterTrail)} ${Z(h.casterWheel / 2)}" stroke="#536358" stroke-width="3"/>`] : [wheel(d.wheelbase)]),
     box(d.rearX - t, d.railZ - t / 2, d.rail, t), box(d.rearX - t, d.topZ - t / 2, d.topRail, t),
-    ...[d.rearX - t, -t / 2, d.frontX].map(x => box(x, d.railZ + t / 2, t, d.post)),
+    ...[d.rearX - t, -t / 2, d.frontPostX - t / 2].map(x => box(x, d.railZ + t / 2, t, d.post)),
+    ...(s.rake > 0 ? [`<path d="M${X(d.frontX + t / 2)} ${Z(d.railZ)}L${X(d.frontPostX)} ${Z(d.topZ)}" stroke="#254b38" stroke-width="2"/>`] : []),
     ...(d.swivel ? [-1, 1].flatMap(end => [box(d.casterX + end * h.casterAlong / 2 - t / 2, d.railZ + t / 2, t, d.nosePost), box(d.casterX + end * h.casterAlong / 2 - t / 2, s.caster, t, t, '#8f9a93')]) : [box(d.frontX + t, d.railZ - t / 2, d.forkArm, t), box(d.wheelbase - t / 2, d.railZ + t / 2, t, d.stub)]),
-    box(d.rearX - t, d.deck - h.panel, d.topRail, h.panel, '#c9a36a'),
+    box(d.rearX - t, d.deck - h.panel, d.floorLen, h.panel, '#c9a36a'),
     box(d.gripX, s.handle - t / 2, d.handleArm, t, '#dfe6e1'),
-    `<path d="M${X(d.rearX - t)} ${Z(d.topZ + t / 2 + h.ridge + h.pole / 2)}H${X(d.frontX + t)}" stroke="#254b38" stroke-width="2"/>`,
+    `<path d="M${X(d.rearX - t)} ${Z(d.topZ + t / 2 + h.ridge + h.pole / 2)}H${X(d.rearX - t + d.topRail)}" stroke="#254b38" stroke-width="2"/>`,
     `<path d="M${X(d.hingeX)} ${Z(d.deck)}L${X(toeX)} ${Z(h.panel)}" stroke="#c9a36a" stroke-width="${(h.panel * k + 1).toFixed(1)}"/>`,
     `<path d="M${X(d.hingeX)} ${Z(d.deck)}V${Z(d.deck + s.ramp)}" stroke="#c9a36a" stroke-width="1.2" stroke-dasharray="5 4"/>`,
     `<path d="M${X(d.hingeX - 40)} ${Z(d.deck - 30)}L${X(d.hingeX - 40 - 20)} ${Z(0)}" stroke="#536358" stroke-width="3"/>`,
     dim(d.rearX, d.frontX, d.deck + s.height / 2, `clear length ${s.length}`),
     dim(toeX, d.hingeX, -45, `ramp ${s.ramp}, ${d.rampAngle.toFixed(1)} degrees`), dim(0, d.wheelbase, -45, `wheelbase ${d.wheelbase}`),
     dim(d.gripX, d.gripX + d.overallLength, top - 12, `overall ${d.overallLength}`),
-    label(d.frontX + t + 12, Z(d.deck + s.height / 2), `clear height ${s.height}`, 'start'), label(d.frontX + t + 12, Z(d.deck + 6), `deck ${d.deck}`, 'start'),
+    label(d.frontX + t + 12, Z(d.deck + s.height / 2), `clear height ${s.height}${s.rake > 0 ? `, front raked ${s.rake}` : ''}`, 'start'), label(d.frontX + t + 12, Z(d.deck + 6), `deck ${d.deck}`, 'start'),
     label(d.gripX, (Number(Z(s.handle)) - 8).toFixed(1), `handle ${s.handle}`, 'start'), label(d.hingeX + 6, (Number(Z(d.deck + s.ramp)) - 4).toFixed(1), 'raised as tailgate', 'end'),
   ]
   const outer = s.width / 2 + t; const rampY = d.rampWidth / 2
   const topView = [
-    plan(d.rearX - t, -outer, d.topRail, 2 * outer, '#c9a36a'),
+    plan(d.rearX - t, -outer, d.floorLen, 2 * outer, '#c9a36a'),
     plan(d.rearX - t, s.width / 2, d.rail, t), plan(d.rearX - t, -outer, d.rail, t),
     ...d.stations.map(x => plan(x - t / 2, -s.width / 2, t, s.width, '#dfe6e1')),
     plan(toeX, -rampY, d.hingeX - toeX, 2 * rampY, '#d8b98a'), plan(toeX, rampY - t, d.hingeX - toeX, t), plan(toeX, -rampY, d.hingeX - toeX, t),
@@ -434,7 +445,8 @@ export function roverDrilling(s: RoverSetup): DrillRow[] {
   add('C01', 'Base side rail', 2, 'vertical', 'rear end', [fromRear(d.rearX + 117.3)], 'Tip-stop foot stem', '10.0, for a 3/8 inch stem')
   add('C01', 'Base side rail', 2, 'vertical', 'rear end', stations.slice(1, -1).flatMap(x => [x - 30, x + 30]), 'Intermediate cross member tee gussets, underneath')
   add('C01', 'Base side rail', 2, 'side', 'rear end', [axlePost - 30, axlePost + 30], 'Axle hanger bar')
-  add('C01', 'Base side rail', 2, 'side', 'rear end', [frontCorner - 65, frontCorner - 35], 'Front corner post gusset')
+  const frontPost = fromRear(d.frontPostX)
+  add('C01', 'Base side rail', 2, 'side', 'rear end', [frontPost - 65, frontPost - 35], `Front post gusset. The front posts stand at ${mm(frontPost)}`)
   add('C01', 'Base side rail', 2, 'vertical', 'rear end', [frontCorner - 80, frontCorner - 50], 'Front cross member gusset, underneath')
   if (d.swivel) {
     const rearPost = fromRear(d.casterX - h.casterAlong / 2); const frontPost = fromRear(d.casterX + h.casterAlong / 2)
@@ -477,6 +489,14 @@ export function roverDrilling(s: RoverSetup): DrillRow[] {
     add('C04', 'Fork arm', 2, 'side', 'the end at the cabin', [d.wheelbase - d.frontX - t - 30, d.wheelbase - d.frontX - t + 30], 'Front axle hanger bar')
     add('C05', 'Fork stub post', 2, 'side', 'bottom', w.posts.map(p => p - half), 'Front axle hanger stem')
     add('C05', 'Fork stub post', 2, 'side', 'bottom', [w.rise - half], 'Axle sleeve', '19.25, for the 19.05 axle sleeve')
+  }
+  if (d.ski) {
+    add('C18', 'Ski post', 2, 'side', 'bottom', [35 - half, 60 - half], 'Tee gusset stem, both faces')
+    add('C18', 'Ski post', 2, 'side', 'bottom', [d.skiPost - h.skiAbove], 'Axle sleeve. The post swings on the rear axle', '19.25, for the 19.05 axle sleeve')
+    add('C19', 'Ski foot', 2, 'side', 'the middle', [-30, 30], 'Tee gusset bar, both faces')
+    add('C19', 'Ski foot', 2, 'vertical', 'the middle', [-150, 150], 'Ski bolts', '6.75, no sleeve')
+    add('C20', 'Tow shaft', 2, 'side', 'the end at the carrier', [30], 'Tow pin', '10.0, for a 3/8 inch pin')
+    add(d.swivel ? 'C01' : 'C04', d.swivel ? 'Base side rail' : 'Fork arm', 2, 'side', d.swivel ? 'rear end' : 'the end at the cabin', [d.swivel ? fromRear(d.towPinX) : d.towPinX - d.frontX - t], 'Tow pin', '10.0, for a 3/8 inch pin')
   }
   // Ramp.
   const curbStep = s.ramp / (Math.floor(s.ramp / 200) + 1)
@@ -536,7 +556,7 @@ ${d.swivel ? `| A | Front caster | [Service Caster SCC-100S3504-PNB-BSL](https:/
 | D | Bolts, nuts, washers | [Bolt Depot](https://boltdepot.com/Product-Details?product=328): 1/4-20 x 2 inch grade 5 zinc hex bolt 328, lock nut 2624, SAE washer 2976 | ${boxes} boxes of 100 bolts, ${boxes} of nuts, ${Math.ceil(2 * fasteners / 100)} of washers | You need ${c.bolts} bolts, plus ${c.handleBolts} at 3 inch long for the handle${d.swivel ? ` and ${c.casterBolts} at 5/16-18 x 2-1/2 inch for the caster` : ''} |
 | D | Sleeve tube | [Online Metals DOM steel tube, 3/8 inch OD x .049 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-375-od-x-0-049-wall-x-0-28-id-carbon-steel-round-tube-a513-type-5-dom/pid/7754), $11.66 per 6 ft | ${Math.ceil(c.sleeves * 26.9 / 1828.8)} lengths of 6 ft | Cut into ${c.sleeves} sleeves, each ${t} long |
 | D | Axle parts | [Online Metals DOM tube, 3/4 inch OD x .065 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-75-od-x-0-065-wall-x-0-62-id-carbon-steel-round-tube-a513-type-5-dom/pid/7765), $4.99 per foot. A 5/8 inch x 3 ft plain steel rod from a hardware store, about $20.57. [Bolt Depot](https://boltdepot.com) 5/8 inch SAE washers at $0.15 and 1/8 x 1-1/2 inch cotter pins at $0.07 | 1 ft of tube, 1 rod, ${d.swivel ? 4 : 8} washers, ${d.swivel ? 4 : 6} cotters | You need ${rodMm} of rod. Never use threaded rod as an axle |
-| E | Plywood | [Home Depot 15/32 inch ACX sanded pine](https://www.homedepot.com/b/Lumber-Composites-Plywood/15-32/N-5yc1vZbqm7Z1z0mcqq), $52.00 a sheet | ${d.topRail + s.ramp + 10 <= 2438.4 && s.width + 2 * t <= 1219.2 ? 1 : 2} | Floor ${d.topRail} x ${mm(s.width + 2 * t)} and ramp ${s.ramp} x ${d.rampWidth}. Plus exterior sealer |
+| E | Plywood | [Home Depot 15/32 inch ACX sanded pine](https://www.homedepot.com/b/Lumber-Composites-Plywood/15-32/N-5yc1vZbqm7Z1z0mcqq), $52.00 a sheet | ${d.floorLen + s.ramp + 10 <= 2438.4 && s.width + 2 * t <= 1219.2 ? 1 : 2} | Floor ${d.floorLen} x ${mm(s.width + 2 * t)} and ramp ${s.ramp} x ${d.rampWidth}. Plus exterior sealer |
 | F | Ramp hardware | [Zoro Select 2ZFK4 stainless piano hinge, 36 inch](https://www.zoro.com/zoro-select-piano-hinge-stainless-steel-full-surface-mounting-1-in-leaf-w-x-36-in-leaf-h-stainless-steel-2zfk4/i/G1671966/), $18.19. [Southco TL-20-202-52 stainless draw latch](https://www.zoro.com/southco-toggle-style-draw-latch-small-size-concealed-mount-stainless-steel-passivated-tl-20-202-52/i/G115615363/), $11.89 | 1 hinge, 2 latches, ${c.rampBolts} carriage bolts 1/4-20 x 2 inch (Bolt Depot 2754, $0.16) | The hinge is unpunched: cut it to ${Math.floor(d.rampWidth / 10) * 10} and drill it. Check the latch comes with its keeper |
 | F | Handle, floor and parking | [S&W BSW-1Z 3/8-16 swivel leveling mount](https://www.zoro.com/s-w-manufacturing-level-mount-swivel-stud-38-16-1-14-in-bsw-1z/i/G1257593/) in its tall version, $11.59. [Harbor Freight 96479 rubber wheel chock](https://www.harborfreight.com/solid-rubber-wheel-chock-96479.html), $7.49, in store. Hardware store: 1/4-20 rivet nuts, foam grip tube for a 1 inch bar, 1/8 inch foam strip | 2 tall leveling mounts, 2 chocks, ${c.floorScrews} rivet nuts and flat-head screws 1/4-20, about ${Math.ceil((s.width - 60) / 152.4)} foam grips of 6 inch, about 9 m of foam strip, one 12.7 mm aluminum tube ${d.topRail} long | A 4 ft store tube is too short for a ${d.topRail} ridge. Rivet nut, grip and foam strip prices were seen on listings only |
 | G | Cover materials | See buy-list.md for every line with its link | | Cut list in cover-cut-schedule.csv |
@@ -628,15 +648,16 @@ ${d.swivel ? `2. Stand the four C15 nose posts on the rail extensions at ${mm(d.
 
 ## 10. Cabin frame
 
-1. Stand the four C09 corner posts on the rail ends, one corner gusset on the outside face of each, long-hole leg up the post.
+1. Stand the two rear C09 posts on the rear ends of the rails and the two front ones ${mm(d.frontPostX - d.rearX + t)} from the rear end, one corner gusset on the outside face of each, long-hole leg up the post.${s.rake > 0 ? ` The front posts stand ${s.rake} back from the front of the floor, which is what rakes the front wall.` : ''}
 2. Lay the two C10 top rails on the posts. Corner gussets on the outside face at each corner post, a pair at each axle post.
 3. Fit the three C11 top cross tubes: front and rear with a corner gusset on top at each end, the middle one over the axle posts with a tee gusset on top.
 4. Check the frame for square in both directions before the final tightening.
-5. Clip the three ridge saddles over the top cross tubes at the centerline and lay the 12.7 mm ridge tube in them.
+5. Clip the three ridge saddles over the top cross tubes at the centerline and lay the 12.7 mm ridge tube in them.${s.rake > 0 ? `
+6. The raked front wall is fabric. When the cover goes on, slide a ${d.stay} windshield stay into the sleeve down each front edge so it runs from the base front corner up to the top front corner.` : ''}
 
 ## 11. Floor
 
-1. Cut the floor panel ${d.topRail} x ${mm(s.width + 2 * t)}. Notch 44 x 30 at each of the six posts.
+1. Cut the floor panel ${d.floorLen} x ${mm(s.width + 2 * t)}. Notch 44 x 30 at each of the six posts.
 2. Seal every face and edge, including the notches, and let it cure.
 3. Stick bedding tape along the rails and cross members between the plates.
 4. Set rivet nuts in the tube tops about every 250 and fasten the floor down with flat-head screws.
@@ -666,7 +687,17 @@ ${d.swivel ? `2. Stand the four C15 nose posts on the rail extensions at ${mm(d.
 
 Cut the ${cover.pieces.reduce((n, p) => n + p.qty, 0)} blanks in cover-cut-schedule.csv. Sew and seal as described in materials.md. Hang the cover with the printed rail clips and the hook-and-loop tabs.
 
-## 15. Before any load
+${d.ski ? `## Snow conversion
+
+This kit is a concept drawn from the same tube and gussets. No ski has been chosen and nothing about it has been tried on snow.
+
+1. Bolt each C19 ski foot along the middle of a ski with two flat-head bolts up through the sole, 150 each side of center.
+2. Stand a C18 ski post on the middle of each foot with a tee gusset on both faces, bar along the foot, stem up the post. Fit an axle sleeve through the post ${mm(d.skiPost - h.skiAbove)} up from its bottom.
+3. Take off both rear wheels and the front ${d.swivel ? 'caster' : 'wheel'}. Slide a ski post onto each rear axle in place of the wheel, a spacer each side, then washer and cotter. The ski should rock freely on the axle.
+4. Pin a C20 tow shaft to the outside of each ${d.swivel ? 'base rail' : 'fork arm'} with a quick-release pin so it can pitch. Link the two shaft ends to the hip belt.
+5. The skier now carries the front of the carrier on the belt. Try it empty, on the flat, before anything else. It has no brake and will push from behind on a descent.
+
+` : ''}## 15. Before any load
 
 1. Check every bolt has a sleeve, two washers and a lock nut with thread showing.
 2. Push, pull and rack the empty frame by hand. Nothing should shift or click.

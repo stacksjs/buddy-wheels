@@ -83,12 +83,14 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
     }
     tube(`axle-post-${side}`, true, d.post, [0, y, d.railZ + t / 2], [0, 0, 1])
     for (const [name, cx, inward] of [['rear', d.rearX - t / 2, 1], ['front', d.frontX + t / 2, -1]] as const) {
-      tube(`corner-post-${name}-${side}`, false, d.post, [cx, y, d.railZ + t / 2], [0, 0, 1])
+      // The front posts stand back by the rake; the base corner itself keeps its cross member gusset.
+      const px = name === 'front' ? d.frontPostX : cx
+      tube(`corner-post-${name}-${side}`, false, d.post, [px, y, d.railZ + t / 2], [0, 0, 1])
       // Corner posts carry the cover, not the dog: one gusset on the outside face only.
-      gusset(`base-corner-${name}-${side}`, 'corner_gusset', [cx, y, d.railZ], [0, side, 0], [0, 0, 1], [inward, 0, 0])
-      gusset(`top-corner-${name}-${side}`, 'corner_gusset', [cx, y, d.topZ], [0, side, 0], [0, 0, -1], [inward, 0, 0])
+      gusset(`base-corner-${name}-${side}`, 'corner_gusset', [px, y, d.railZ], [0, side, 0], [0, 0, 1], [inward, 0, 0])
+      gusset(`top-corner-${name}-${side}`, 'corner_gusset', [px, y, d.topZ], [0, side, 0], [0, 0, -1], [inward, 0, 0])
       gusset(`base-under-${name}-${side}`, 'corner_gusset', [cx, y, d.railZ], [0, 0, -1], [inward, 0, 0], [0, -side, 0])
-      gusset(`top-over-${name}-${side}`, 'corner_gusset', [cx, y, d.topZ], [0, 0, 1], [inward, 0, 0], [0, -side, 0])
+      gusset(`top-over-${name}-${side}`, 'corner_gusset', [px, y, d.topZ], [0, 0, 1], [inward, 0, 0], [0, -side, 0])
     }
     for (const face of [-1, 1]) {
       gusset(`axle-top-${side}-${face}`, 'corner_gusset', [0, y, d.topZ], [0, face, 0], [1, 0, 0], [0, 0, -1])
@@ -102,7 +104,18 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
     rod(`rear-axle-${side}`, h.axle / 2, d.rearShaft, [0, start + side * d.rearShaft / 2, d.R], across, '#d5dbd6')
     rod(`rear-spacer-${side}`, h.axleSleeve / 2, d.spacer, [0, side * (outer + h.plate + d.spacer / 2), d.R], across, steel, h.axle / 2)
     if (d.forkSpacer && !d.swivel) rod(`front-spacer-${side}`, h.axleSleeve / 2, d.forkSpacer, [d.wheelbase, side * (s.hub / 2 + h.washer + d.forkSpacer / 2), d.R], across, steel, h.axle / 2)
-    wheel(`rear-wheel-${side}`, [0, side * d.wheelY, d.R])
+    if (d.ski) {
+      // Snow kit: the post swings on the axle where the wheel was, a tube foot bolts to the ski, tee gussets tie foot to post.
+      const sy = side * d.wheelY; const footZ = h.skiThick + t / 2
+      tube(`ski-post-${side}`, true, d.skiPost, [0, sy, h.skiThick + t], [0, 0, 1])
+      tube(`ski-foot-${side}`, true, h.skiFoot, [-h.skiFoot / 2, sy, footZ], [1, 0, 0])
+      for (const face of [-1, 1]) gusset(`ski-tee-${side}-${face}`, 'tee_gusset', [0, sy, footZ], [0, face, 0], [1, 0, 0], [0, 0, -1])
+      slab(`ski-${side}`, [h.skiLength, h.skiWidth, h.skiThick], [60, sy, h.skiThick / 2], [1, 0, 0], across, '#1f2622')
+      const pin: V = [d.towPinX, d.swivel ? side * (outer + t / 2) : side * (d.forkY + t), d.railZ]
+      const rise = (h.hipHeight - d.railZ) / h.towShaft; const run = Math.sqrt(1 - rise * rise - 0.01)
+      tube(`tow-shaft-${side}`, false, h.towShaft, pin, [run, -side * 0.1, rise])
+    }
+    else wheel(`rear-wheel-${side}`, [0, side * d.wheelY, d.R])
     add(`rear-axle-cover-${side}`, stl('axle_cover'), accent, place(basis([0, side, 0])[0], basis([0, side, 0])[1], [0, start + side * (d.rearShaft - 6), d.R]))
     // Parking brake: arm over the tire, a gusset on the front and rear faces of the axle post, and the clamp with its pad.
     tube(`brake-arm-${side}`, true, h.brakeArm, [0, side * outer, d.brakeZ], [0, side, 0])
@@ -138,45 +151,58 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
     for (const face of [-1, 1]) gusset(`grip-gusset-${side}-${face}`, 'corner_gusset', [d.gripX + t / 2, armY, s.handle], [0, 0, face], [1, 0, 0], [0, -side, 0])
   }
   d.stations.forEach((x, i) => tube(`base-cross-${i}`, i === 0 || i === d.stations.length - 1, s.width, [x, -s.width / 2, d.railZ], across))
-  for (const [i, x] of [d.rearX - t / 2, 0, d.frontX + t / 2].entries()) {
+  for (const [i, x] of [d.rearX - t / 2, 0, d.frontPostX].entries()) {
     tube(`top-cross-${i}`, false, s.width, [x, -s.width / 2, d.topZ], across)
     add(`ridge-saddle-${i}`, stl('ridge_saddle'), accent, place([1, 0, 0], [0, 1, 0], [x, 0, d.topZ + t / 2 - 26]))
   }
-  rod('ridge-pole', h.pole / 2, d.topRail, [(d.rearX + d.frontX) / 2, 0, d.topZ + t / 2 + h.ridge + h.pole / 2], [1, 0, 0], '#d5dbd6')
+  const topMid = d.rearX - t + d.topRail / 2
+  rod('ridge-pole', h.pole / 2, d.topRail, [topMid, 0, d.topZ + t / 2 + h.ridge + h.pole / 2], [1, 0, 0], '#d5dbd6')
+  // Windshield stays run up the raked front edges. They hold fabric, nothing else.
+  const lean: V = [-s.rake / d.windshield, 0, (d.post + t) / d.windshield]
+  if (s.rake > 0) for (const side of [-1, 1]) rod(`windshield-stay-${side}`, h.pole / 2, d.windshield, [d.frontX + t / 2 - s.rake / 2, side * y0, d.railZ + (d.post + t) / 2], lean, '#d5dbd6')
   tube('handle-grip', false, d.grip, [d.gripX + t / 2, -outer, s.handle], across)
   rod('handle-foam', 17, s.width - 60, [d.gripX + t / 2, 0, s.handle], across, '#29322d', 12.9)
-  slab('floor-panel', [d.topRail, s.width + 2 * t, h.panel], [(d.rearX + d.frontX) / 2, 0, d.deck - h.panel / 2], [1, 0, 0], across, wood)
+  slab('floor-panel', [d.floorLen, s.width + 2 * t, h.panel], [(d.rearX + d.frontX) / 2, 0, d.deck - h.panel / 2], [1, 0, 0], across, wood)
   if (d.swivel) {
-    const beamZ = s.caster + t / 2; const r = h.casterWheel / 2; const hubX = d.casterX - h.casterTrail
+    const beamZ = s.caster + t / 2; const r = h.casterWheel / 2; const hubX = d.casterX - h.casterTrail; const rolling = !d.ski
     for (const end of [-1, 1]) {
       const bx = d.casterX + end * h.casterAlong / 2
       tube(`caster-beam-${end}`, true, d.casterBeam, [bx, -outer, beamZ], across)
       for (const side of [-1, 1]) cap(`caster-beam-cap-${end}-${side}`, true, [bx, side * outer, beamZ], [0, side, 0])
     }
-    slab('caster-plate', [115, 100, 6], [d.casterX, 0, s.caster - 3], [1, 0, 0], across, steel)
-    rod('caster-swivel', 30, 22, [d.casterX, 0, s.caster - 17], [0, 0, 1], steel)
-    for (const side of [-1, 1]) slab(`caster-fork-${side}`, [h.casterTrail + 50, 5, s.caster - 28 - r + 30], [d.casterX - h.casterTrail / 2, side * (h.casterTire / 2 + 8), (s.caster - 28 + r - 30) / 2], [1, 0, 0], across, steel)
-    rod('caster-tire', r, h.casterTire, [hubX, 0, r], across, '#29322d', 58)
-    rod('caster-rim', 58, 8, [hubX, 0, r], across, '#8b958e', 14)
-    rod('caster-axle', 6, h.casterTire + 26, [hubX, 0, r], across, steel)
+    if (rolling) slab('caster-plate', [115, 100, 6], [d.casterX, 0, s.caster - 3], [1, 0, 0], across, steel)
+    if (rolling) rod('caster-swivel', 30, 22, [d.casterX, 0, s.caster - 17], [0, 0, 1], steel)
+    if (rolling) for (const side of [-1, 1]) slab(`caster-fork-${side}`, [h.casterTrail + 50, 5, s.caster - 28 - r + 30], [d.casterX - h.casterTrail / 2, side * (h.casterTire / 2 + 8), (s.caster - 28 + r - 30) / 2], [1, 0, 0], across, steel)
+    if (rolling) rod('caster-tire', r, h.casterTire, [hubX, 0, r], across, '#29322d', 58)
+    if (rolling) rod('caster-rim', 58, 8, [hubX, 0, r], across, '#8b958e', 14)
+    if (rolling) rod('caster-axle', 6, h.casterTire + 26, [hubX, 0, r], across, steel)
   }
   else {
     rod('front-axle', h.axle / 2, d.frontShaft, [d.wheelbase, 0, d.R], across, '#d5dbd6')
-    wheel('front-wheel', [d.wheelbase, 0, d.R])
+    if (!d.ski) wheel('front-wheel', [d.wheelbase, 0, d.R])
   }
   ramp()
   if (cover) {
-    const coverTop = d.topZ + t / 2; const bottom = d.railZ - t / 2; const sill = bottom + 350; const cx = (d.rearX + d.frontX) / 2; const peak = coverTop + h.ridge + h.pole + 2
+    const coverTop = d.topZ + t / 2; const bottom = d.railZ - t / 2; const sill = bottom + 350; const peak = coverTop + h.ridge + h.pole + 2
+    const frontEdge = d.frontX + t; const topFront = frontEdge - s.rake
+    // Thin panel in the XZ plane from a list of corners, used for the raked side walls.
+    const sheet = (id: string, y: number, corners: [number, number][], color: string) => add(id, { kind: 'mesh', vertices: [...corners.map(([x, z]) => [x, y - 1, z] as V), ...corners.map(([x, z]) => [x, y + 1, z] as V)], triangles: corners.slice(1, -1).flatMap((_, i) => [[0, i + 1, i + 2], [corners.length, corners.length + i + 2, corners.length + i + 1]] as [number, number, number][]) }, color, place([1, 0, 0], [0, 1, 0], [0, 0, 0]))
+    const at = (z: number) => frontEdge - s.rake * (z - bottom) / (coverTop - bottom)
     for (const side of [-1, 1]) {
-      const run = outer + 30; const slope = Math.hypot(run, peak - coverTop + 8); const dir: V = [0, side * run / slope, -(peak - coverTop + 8) / slope]
-      slab(`cover-roof-${side}`, [d.topRail + 80, slope, 2], [cx, side * run / 2, (peak + coverTop - 8) / 2], [1, 0, 0], dir, trim)
-      slab(`cover-side-band-${side}`, [d.topRail, 2, 350], [cx, side * (outer + 2), (bottom + sill) / 2], [1, 0, 0], across, trim)
-      slab(`cover-side-mesh-${side}`, [d.topRail - 160, 1, coverTop - sill - 110], [cx, side * (outer + 2), (sill + coverTop - 110) / 2], [1, 0, 0], across, '#e9e6da')
-      slab(`cover-side-top-${side}`, [d.topRail, 2, 110], [cx, side * (outer + 2), coverTop - 55], [1, 0, 0], across, trim)
+      const run = outer + 30; const slope = Math.hypot(run, peak - coverTop + 8); const dir: V = [0, side * run / slope, -(peak - coverTop + 8) / slope]; const wallY = side * (outer + 2)
+      slab(`cover-roof-${side}`, [d.topRail + 80, slope, 2], [topMid, side * run / 2, (peak + coverTop - 8) / 2], [1, 0, 0], dir, trim)
+      sheet(`cover-side-band-${side}`, wallY, [[railStart, bottom], [frontEdge, bottom], [at(sill), sill], [railStart, sill]], trim)
+      sheet(`cover-side-mesh-${side}`, wallY, [[railStart + 80, sill], [at(sill) - 80, sill], [at(coverTop - 110) - 80, coverTop - 110], [railStart + 80, coverTop - 110]], '#e9e6da')
+      sheet(`cover-side-top-${side}`, wallY, [[railStart, coverTop - 110], [at(coverTop - 110), coverTop - 110], [topFront, coverTop], [railStart, coverTop]], trim)
+      sheet(`cover-side-rear-${side}`, wallY, [[railStart, sill], [railStart + 80, sill], [railStart + 80, coverTop - 110], [railStart, coverTop - 110]], trim)
+      sheet(`cover-side-front-${side}`, wallY, [[at(sill) - 80, sill], [at(sill), sill], [at(coverTop - 110), coverTop - 110], [at(coverTop - 110) - 80, coverTop - 110]], trim)
     }
-    slab('cover-front-band', [2, s.width + 2 * t, 350], [d.frontX + t + 2, 0, (bottom + sill) / 2], [1, 0, 0], across, trim)
-    slab('cover-front-mesh', [1, s.width - 60, coverTop - sill - 110], [d.frontX + t + 2, 0, (sill + coverTop - 110) / 2], [1, 0, 0], across, '#e9e6da')
-    slab('cover-front-top', [2, s.width + 2 * t, 110], [d.frontX + t + 2, 0, coverTop - 55], [1, 0, 0], across, trim)
+    // Front wall: three bands along the slope from the base front corner to the top front cross tube.
+    const frontDir: V = [-s.rake / Math.hypot(s.rake, coverTop - bottom), 0, (coverTop - bottom) / Math.hypot(s.rake, coverTop - bottom)]; const slopeLen = Math.hypot(s.rake, coverTop - bottom)
+    const band = (id: string, from: number, to: number, w: number, color: string) => slab(id, [2, w, to - from], add3([frontEdge + 2, 0, bottom], scale(frontDir, (from + to) / 2)), crossV(across, frontDir), across, color)
+    band('cover-front-band', 0, 350, s.width + 2 * t, trim)
+    band('cover-front-mesh', 350, slopeLen - 110, s.width - 60, '#e9e6da')
+    band('cover-front-top', slopeLen - 110, slopeLen, s.width + 2 * t, trim)
     const header = Math.max(150, coverTop - d.deck - s.ramp)
     slab('cover-rear-header', [2, s.width + 2 * t, header], [d.rearX - t - 2, 0, coverTop - header / 2], [1, 0, 0], across, trim)
   }

@@ -1,6 +1,6 @@
 # Buddy Rover r0 build guide
 
-Configuration rover-r0-l1300-w700-h1000-r1000-a560-g1000-hub101.6-trail-swivel310. All dimensions mm unless marked. Read this once to the end before ordering anything.
+Configuration rover-r0-l1300-w700-h1000-r1000-a560-g1000-hub101.6-trail-swivel310-k350. All dimensions mm unless marked. Read this once to the end before ordering anything.
 
 **What this builds.** A bench carrier for checking fit, handling and the ramp with sandbags. It has no load rating, an untested parking brake, no brake for slowing while moving, and no test behind it. Do not put a dog in it until the release gates at the end are met.
 
@@ -39,11 +39,11 @@ Order the wheel and caster first, because two dimensions in the design come from
 | D | Axle parts | [Online Metals DOM tube, 3/4 inch OD x .065 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-75-od-x-0-065-wall-x-0-62-id-carbon-steel-round-tube-a513-type-5-dom/pid/7765), $4.99 per foot. A 5/8 inch x 3 ft plain steel rod from a hardware store, about $20.57. [Bolt Depot](https://boltdepot.com) 5/8 inch SAE washers at $0.15 and 1/8 x 1-1/2 inch cotter pins at $0.07 | 1 ft of tube, 1 rod, 4 washers, 4 cotters | You need 350 of rod. Never use threaded rod as an axle |
 | E | Plywood | [Home Depot 15/32 inch ACX sanded pine](https://www.homedepot.com/b/Lumber-Composites-Plywood/15-32/N-5yc1vZbqm7Z1z0mcqq), $52.00 a sheet | 1 | Floor 1350.8 x 750.8 and ramp 1000 x 688. Plus exterior sealer |
 | F | Ramp hardware | [Zoro Select 2ZFK4 stainless piano hinge, 36 inch](https://www.zoro.com/zoro-select-piano-hinge-stainless-steel-full-surface-mounting-1-in-leaf-w-x-36-in-leaf-h-stainless-steel-2zfk4/i/G1671966/), $18.19. [Southco TL-20-202-52 stainless draw latch](https://www.zoro.com/southco-toggle-style-draw-latch-small-size-concealed-mount-stainless-steel-passivated-tl-20-202-52/i/G115615363/), $11.89 | 1 hinge, 2 latches, 18 carriage bolts 1/4-20 x 2 inch (Bolt Depot 2754, $0.16) | The hinge is unpunched: cut it to 680 and drill it. Check the latch comes with its keeper |
-| F | Handle, floor and parking | [S&W BSW-1Z 3/8-16 swivel leveling mount](https://www.zoro.com/s-w-manufacturing-level-mount-swivel-stud-38-16-1-14-in-bsw-1z/i/G1257593/) in its tall version, $11.59. [Harbor Freight 96479 rubber wheel chock](https://www.harborfreight.com/solid-rubber-wheel-chock-96479.html), $7.49, in store. Hardware store: 1/4-20 rivet nuts, foam grip tube for a 1 inch bar, 1/8 inch foam strip | 2 tall leveling mounts, 2 chocks, 27 rivet nuts and flat-head screws 1/4-20, about 5 foam grips of 6 inch, about 9 m of foam strip, one 12.7 mm aluminum tube 1350.8 long | A 4 ft store tube is too short for a 1350.8 ridge. Rivet nut, grip and foam strip prices were seen on listings only |
+| F | Handle, floor and parking | [S&W BSW-1Z 3/8-16 swivel leveling mount](https://www.zoro.com/s-w-manufacturing-level-mount-swivel-stud-38-16-1-14-in-bsw-1z/i/G1257593/) in its tall version, $11.59. [Harbor Freight 96479 rubber wheel chock](https://www.harborfreight.com/solid-rubber-wheel-chock-96479.html), $7.49, in store. Hardware store: 1/4-20 rivet nuts, foam grip tube for a 1 inch bar, 1/8 inch foam strip | 2 tall leveling mounts, 2 chocks, 27 rivet nuts and flat-head screws 1/4-20, about 5 foam grips of 6 inch, about 9 m of foam strip, one 12.7 mm aluminum tube 1000.8 long | A 4 ft store tube is too short for a 1000.8 ridge. Rivet nut, grip and foam strip prices were seen on listings only |
 | G | Cover materials | See buy-list.md for every line with its link | | Cut list in cover-cut-schedule.csv |
 | H | Filament | Any PETG for fit trials, ASA for parts left in the sun | About 1 kg | 76 printed pieces in all |
 
-Materials for one build come to about $1,874.83 before tax and shipping. buy-list.md splits that into prices read on a supplier page and allowances.
+Materials for one build come to about $1,854.84 before tax and shipping. buy-list.md splits that into prices read on a supplier page and allowances.
 
 ## 4. Tools
 
@@ -84,10 +84,10 @@ Cabin tube, 1/16 inch wall, from 7 bars of 8 ft:
 
 | Bar | Pieces, ID and length | Offcut |
 | --- | --- | ---: |
-| 1 | C10 1350.8, C09 1015.2 | 66.4 |
-| 2 | C10 1350.8, C09 1015.2 | 66.4 |
-| 3 | C09 1015.2, C09 1015.2 | 402 |
-| 4 | C12 1005.4, C12 1005.4 | 421.6 |
+| 1 | C09 1015.2, C09 1015.2 | 402 |
+| 2 | C09 1015.2, C09 1015.2 | 402 |
+| 3 | C12 1005.4, C12 1005.4 | 421.6 |
+| 4 | C10 1000.8, C10 1000.8 | 430.8 |
 | 5 | C13 750.8, C11 700, C11 700 | 278.6 |
 | 6 | C11 700, C14 700, C14 700 | 329.4 |
 | 7 | C14 700, C07 688, C07 688 | 353.4 |
@@ -101,7 +101,7 @@ Cabin tube, 1/16 inch wall, from 7 bars of 8 ft:
 | C07 | Ramp under rib | 2 | 688 |
 | C08 | Ramp stand leg | 2 | 107.3571 |
 | C09 | Corner post | 4 | 1015.2 |
-| C10 | Top side rail | 2 | 1350.8 |
+| C10 | Top side rail | 2 | 1000.8 |
 | C11 | Top cross tube | 3 | 700 |
 | C12 | Handle arm | 2 | 1005.4 |
 | C13 | Handle grip tube | 1 | 750.8 |
@@ -131,7 +131,7 @@ The base rails carry the most holes. For this configuration, from the rear end o
 | vertical | 142.7 | Tip-stop foot stem |
 | vertical | 314.05, 374.05, 650.4, 710.4, 976.75, 1036.75 | Intermediate cross member tee gussets, underneath |
 | side | 555.4, 615.4 | Axle hanger bar |
-| side | 1273.1, 1303.1 | Front corner post gusset |
+| side | 923.1, 953.1 | Front post gusset. The front posts stand at 988.1 |
 | vertical | 1258.1, 1288.1 | Front cross member gusset, underneath |
 | side | 1447.95, 1477.95, 1633.65, 1663.65 | Nose post gussets. Posts stand at 1512.95 and 1598.65 |
 
@@ -159,11 +159,12 @@ The base now stands on its own and has the shape in base-plan.svg.
 
 ## 10. Cabin frame
 
-1. Stand the four C09 corner posts on the rail ends, one corner gusset on the outside face of each, long-hole leg up the post.
+1. Stand the two rear C09 posts on the rear ends of the rails and the two front ones 988.1 from the rear end, one corner gusset on the outside face of each, long-hole leg up the post. The front posts stand 350 back from the front of the floor, which is what rakes the front wall.
 2. Lay the two C10 top rails on the posts. Corner gussets on the outside face at each corner post, a pair at each axle post.
 3. Fit the three C11 top cross tubes: front and rear with a corner gusset on top at each end, the middle one over the axle posts with a tee gusset on top.
 4. Check the frame for square in both directions before the final tightening.
 5. Clip the three ridge saddles over the top cross tubes at the centerline and lay the 12.7 mm ridge tube in them.
+6. The raked front wall is fabric. When the cover goes on, slide a 1127.8836 windshield stay into the sleeve down each front edge so it runs from the base front corner up to the top front corner.
 
 ## 11. Floor
 

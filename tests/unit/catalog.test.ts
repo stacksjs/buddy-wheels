@@ -41,8 +41,8 @@ describe('planning catalog boundaries', () => {
 
 describe('financial planning model', () => {
   test('accounts for Rover shipping and support separately from COGS', () => {
-    expect(roverUnitEconomics('run').contribution).toBe(-70357)
-    expect(roverUnitEconomics('run', 1.2).contribution).toBe(-101124)
+    expect(roverUnitEconomics('run').contribution).toBe(-68341)
+    expect(roverUnitEconomics('run', 1.2).contribution).toBe(-98705)
     expect(() => roverUnitEconomics('unknown')).toThrow()
   })
   test('keeps a worked large-kit contribution and exact scenario allocation', () => {

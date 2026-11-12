@@ -9,16 +9,18 @@
     "handle": 1000,
     "hub": 101.6,
     "caster": 310,
+    "rake": 350,
     "wheel": "trail",
-    "front": "swivel"
+    "front": "swivel",
+    "kit": "wheels"
   },
   "base": {
     "quantity": 100,
     "light": {
-      "bars": 246,
-      "netMm": 1510000,
+      "bars": 235,
+      "netMm": 1440000,
       "kerfMm": 5100,
-      "stockMm": 1574596.8
+      "stockMm": 1504188
     },
     "heavy": {
       "bars": 159,
@@ -26,7 +28,7 @@
       "kerfMm": 5400,
       "stockMm": 1163116.8
     },
-    "tube": 34640,
+    "tube": 33916,
     "textiles": {
       "quantity": 100,
       "minutes": 200,
@@ -35,10 +37,10 @@
         {
           "id": "roof",
           "name": "Roof shell, one piece",
-          "purchase": 241424,
-          "units": 158,
+          "purchase": 181832,
+          "units": 119,
           "unit": "whole linear yards",
-          "allocation": 2415
+          "allocation": 1819
         },
         {
           "id": "wall",
@@ -51,10 +53,10 @@
         {
           "id": "mesh",
           "name": "Mesh: three windows and the rear vent",
-          "purchase": 321305,
-          "units": 179,
+          "purchase": 253095,
+          "units": 141,
           "unit": "whole linear yards",
-          "allocation": 3214
+          "allocation": 2531
         },
         {
           "id": "clear",
@@ -91,42 +93,42 @@
         {
           "id": "hook",
           "name": "Hook tape",
-          "purchase": 174274,
-          "units": 1103,
+          "purchase": 162108,
+          "units": 1026,
           "unit": "yards",
-          "allocation": 1743
+          "allocation": 1622
         },
         {
           "id": "loop",
           "name": "Loop tape",
-          "purchase": 174274,
-          "units": 1103,
+          "purchase": 162108,
+          "units": 1026,
           "unit": "yards",
-          "allocation": 1743
+          "allocation": 1622
         },
         {
           "id": "seam",
           "name": "Roof seam tape",
-          "purchase": 121669,
-          "units": 421,
+          "purchase": 101439,
+          "units": 351,
           "unit": "meters",
-          "allocation": 1217
+          "allocation": 1015
         },
         {
           "id": "reflective",
           "name": "Reflective trim",
-          "purchase": 61655,
-          "units": 209,
+          "purchase": 51625,
+          "units": 175,
           "unit": "2.2-yard packs",
-          "allocation": 617
+          "allocation": 517
         },
         {
           "id": "cord",
           "name": "Roof hem shock cord",
-          "purchase": 52728,
-          "units": 507,
+          "purchase": 44824,
+          "units": 431,
           "unit": "yards",
-          "allocation": 528
+          "allocation": 449
         },
         {
           "id": "dring",
@@ -153,30 +155,30 @@
           "allocation": 240
         }
       ],
-      "materials": 28824,
-      "rejects": 2883,
+      "materials": 26922,
+      "rejects": 2693,
       "labor": 10000,
       "freight": 900,
-      "total": 42607,
+      "total": 40515,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 76588,
-    "cogs": 153835,
+    "other": 77388,
+    "cogs": 151819,
     "retail": 99900,
-    "gross": -53935,
-    "grossPercent": -53.988988988988986,
+    "gross": -51919,
+    "grossPercent": -51.970970970970974,
     "maxCogs": 69930,
-    "headroom": -83905,
+    "headroom": -81889,
     "meetsCostGate": false,
     "fee": 2927,
     "reserve": 4995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -66857,
-    "retailForGate": 219800,
-    "tubeMill": 14213,
-    "cogsMill": 133408,
-    "retailForGateMill": 190600,
+    "contribution": -64841,
+    "retailForGate": 216900,
+    "tubeMill": 13911,
+    "cogsMill": 131814,
+    "retailForGateMill": 188400,
     "stainlessUpgrade": 4002,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
@@ -184,7 +186,7 @@
     "quantity": 1,
     "light": {
       "bars": 7,
-      "netMm": 15100,
+      "netMm": 14400,
       "kerfMm": 51,
       "stockMm": 17068.8
     },
@@ -219,10 +221,10 @@
         {
           "id": "mesh",
           "name": "Mesh: three windows and the rear vent",
-          "purchase": 5385,
-          "units": 3,
+          "purchase": 3590,
+          "units": 2,
           "unit": "whole linear yards",
-          "allocation": 5385
+          "allocation": 3590
         },
         {
           "id": "clear",
@@ -259,42 +261,42 @@
         {
           "id": "hook",
           "name": "Hook tape",
-          "purchase": 1896,
-          "units": 12,
+          "purchase": 1738,
+          "units": 11,
           "unit": "yards",
-          "allocation": 1896
+          "allocation": 1738
         },
         {
           "id": "loop",
           "name": "Loop tape",
-          "purchase": 1896,
-          "units": 12,
+          "purchase": 1738,
+          "units": 11,
           "unit": "yards",
-          "allocation": 1896
+          "allocation": 1738
         },
         {
           "id": "seam",
           "name": "Roof seam tape",
-          "purchase": 1445,
-          "units": 5,
+          "purchase": 1156,
+          "units": 4,
           "unit": "meters",
-          "allocation": 1445
+          "allocation": 1156
         },
         {
           "id": "reflective",
           "name": "Reflective trim",
-          "purchase": 885,
-          "units": 3,
+          "purchase": 590,
+          "units": 2,
           "unit": "2.2-yard packs",
-          "allocation": 885
+          "allocation": 590
         },
         {
           "id": "cord",
           "name": "Roof hem shock cord",
-          "purchase": 624,
-          "units": 6,
+          "purchase": 520,
+          "units": 5,
           "unit": "yards",
-          "allocation": 624
+          "allocation": 520
         },
         {
           "id": "dring",
@@ -321,30 +323,30 @@
           "allocation": 1595
         }
       ],
-      "materials": 47804,
-      "rejects": 4781,
+      "materials": 45005,
+      "rejects": 4501,
       "labor": 27000,
       "freight": 6500,
-      "total": 86085,
+      "total": 83006,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 135019,
-    "cogs": 279264,
+    "other": 135819,
+    "cogs": 276985,
     "retail": 99900,
-    "gross": -179364,
-    "grossPercent": -179.54354354354354,
+    "gross": -177085,
+    "grossPercent": -177.26226226226228,
     "maxCogs": 69930,
-    "headroom": -209334,
+    "headroom": -207055,
     "meetsCostGate": false,
     "fee": 2927,
     "reserve": 4995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -192286,
-    "retailForGate": 399000,
-    "tubeMill": 14213,
-    "cogsMill": 235317,
-    "retailForGateMill": 336200,
+    "contribution": -190007,
+    "retailForGate": 395700,
+    "tubeMill": 13911,
+    "cogsMill": 232736,
+    "retailForGateMill": 332500,
     "stainlessUpgrade": 4002,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
@@ -462,19 +464,20 @@
     {
       "id": "controls",
       "name": "Wheel chocks, grip, tip-stop feet, floor fasteners, bedding tape and ridge pole",
-      "batch": 7577,
-      "one": 9777,
+      "batch": 8377,
+      "one": 10577,
       "coverage": [
         "B01",
         "B02",
         "S01",
         "F02",
         "F03",
-        "X01"
+        "X01",
+        "X02"
       ],
       "evidence": "Observed 2026-11-12, partly from listings",
       "url": "https://www.harborfreight.com/solid-rubber-wheel-chock-96479.html",
-      "note": "Two rubber chocks at $7.49, foam grip tube at $1.95 per 6 inches, two tall leveling mounts at $11.59, rivet nuts at $16.87 per 100, foam strip at $18.99 per 50 ft. Floor screws and the ridge pole are allowances."
+      "note": "Two rubber chocks at $7.49, foam grip tube at $1.95 per 6 inches, two tall leveling mounts at $11.59, rivet nuts at $16.87 per 100, foam strip at $18.99 per 50 ft. Floor screws, the ridge pole and the two windshield stays are allowances."
     },
     {
       "id": "brake",

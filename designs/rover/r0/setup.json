@@ -9,8 +9,10 @@
   "handle": 1000,
   "hub": 101.6,
   "caster": 310,
+  "rake": 350,
   "wheel": "trail",
   "front": "swivel",
+  "kit": "wheels",
   "dimensions": {
     "R": 192.9,
     "wheel": {
@@ -40,7 +42,11 @@
     "rearX": -560,
     "frontX": 740,
     "rail": 1678.65,
-    "topRail": 1350.8,
+    "topRail": 1000.8,
+    "floorLen": 1350.8,
+    "frontPostX": 402.7,
+    "windshield": 1097.8836,
+    "stay": 1127.8836,
     "post": 1015.2,
     "stations": [
       -572.7,
@@ -61,6 +67,9 @@
     "inboard": 27.225,
     "wheelY": 442.075,
     "cabinIntrusion": 14.525,
+    "ski": false,
+    "skiPost": 172.5,
+    "towPinX": 820.4,
     "brakeZ": 555.8,
     "forkY": 68.175,
     "frontStack": 171.1,
@@ -138,7 +147,7 @@
         "name": "Top side rail",
         "wall": "light",
         "qty": 2,
-        "length": 1350.8
+        "length": 1000.8
       },
       {
         "id": "C11",
@@ -211,19 +220,19 @@
       "axleCover": 4
     },
     "heavyM": 11.4772,
-    "lightM": 15.1,
-    "tubeLb": 32.9,
+    "lightM": 14.4,
+    "tubeLb": 32.2,
     "floorArea": 1.0142,
     "rampArea": 0.688,
     "mass": {
-      "tube": 14.9,
+      "tube": 14.6,
       "plates": 4.2,
       "panels": 11.1,
       "wheels": 10,
       "hardware": 6.9,
       "softgoods": 4.2
     },
-    "carrierKg": 51.3,
+    "carrierKg": 51,
     "frontShare": 9.8533,
     "tiltForceN": 113,
     "tiltForceLbf": 25,

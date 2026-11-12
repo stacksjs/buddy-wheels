@@ -30,7 +30,7 @@ defineClientPayload({ initialFinish, revision, poster, initialSetup, initialErro
 </script>
 <script client>
 import { finishQuery } from '~/app/Storefront/Finish'
-import { roverStart, roverDimensions, parseRoverSetup, roverQuery, referenceCarrier, roverWheels } from '~/app/Designs/Rover'
+import { roverStart, roverDimensions, parseRoverSetup, roverQuery, referenceCarrier, roverWheels, roverActivities } from '~/app/Designs/Rover'
 import { roverScene } from '~/app/Designs/RoverScene'
 import { roverEconomics } from '~/app/Designs/RoverCost'
 import { signedMoney as money } from '~/app/Storefront/Catalog'
@@ -47,13 +47,17 @@ const hub = state(initialSetup.hub)
 const wheel = state(initialSetup.wheel)
 const front = state(initialSetup.front)
 const caster = state(initialSetup.caster)
+const rake = state(initialSetup.rake)
+const kit = state(initialSetup.kit)
+const activity = derived(() => (Object.keys(roverActivities) as (keyof typeof roverActivities)[]).find(key => roverActivities[key].wheel === wheel() && roverActivities[key].front === front() && roverActivities[key].kit === kit()) || 'custom')
+function chooseActivity(key: keyof typeof roverActivities): void { const next = roverActivities[key]; batch(() => { wheel.set(next.wheel); front.set(next.front); kit.set(next.kit); hub.set(roverWheels[next.wheel].hub) }) }
 const focus = state('assembly')
 const rampDown = state(true)
 const showCover = state(false)
 const batchQuantity = state(true)
 const modelArea = useRef('roverModel')
 const parsed = derived(() => {
-  try { return { setup: parseRoverSetup({ length: length(), width: width(), height: height(), ramp: ramp(), axle: axle(), handle: handle(), hub: hub(), caster: caster(), wheel: wheel(), front: front() }), error: '' } }
+  try { return { setup: parseRoverSetup({ length: length(), width: width(), height: height(), ramp: ramp(), axle: axle(), handle: handle(), hub: hub(), caster: caster(), rake: rake(), wheel: wheel(), front: front(), kit: kit() }), error: '' } }
   catch (e) { return { setup: null, error: e instanceof Error ? e.message : 'Check the dimensions.' } }
 })
 const lastValid = state(initialSetup)
@@ -69,7 +73,7 @@ function inspect(id: string): void {
   void nextTick(() => { modelArea.current?.scrollIntoView({ block: 'start', behavior: 'instant' }); modelArea.current?.focus({ preventScroll: true }) })
 }
 function chooseWheel(next: 'trail' | 'path' | 'run'): void { batch(() => { wheel.set(next); hub.set(roverWheels[next].hub) }) }
-function reset(): void { batch(() => { wheel.set(roverStart.wheel); front.set(roverStart.front); caster.set(roverStart.caster); length.set(roverStart.length); width.set(roverStart.width); height.set(roverStart.height); ramp.set(roverStart.ramp); axle.set(roverStart.axle); handle.set(roverStart.handle); hub.set(roverStart.hub); focus.set('assembly'); rampDown.set(true); showCover.set(false) }) }
+function reset(): void { batch(() => { wheel.set(roverStart.wheel); front.set(roverStart.front); caster.set(roverStart.caster); rake.set(roverStart.rake); kit.set(roverStart.kit); length.set(roverStart.length); width.set(roverStart.width); height.set(roverStart.height); ramp.set(roverStart.ramp); axle.set(roverStart.axle); handle.set(roverStart.handle); hub.set(roverStart.hub); focus.set('assembly'); rampDown.set(true); showCover.set(false) }) }
 </script>
 @section('content')
 <div class="design-studio shell standard-studio">
@@ -89,10 +93,12 @@ function reset(): void { batch(() => { wheel.set(roverStart.wheel); front.set(ro
     </section>
     <aside class="studio-controls" aria-label="Buddy Rover configuration">
       <div class="studio-control-heading"><h2>Size it around them.</h2><button type="button" class="studio-reset" @click="reset()">Reset setup</button></div><p class="muted studio-intro">Cut-to-fit bench dimensions. Measure lying length and standing height first; Buddy's numbers are still pending.</p>
+      <fieldset class="standard-cost-toggle"><legend>Activity</legend><label><input type="radio" name="activity" :checked="activity() === 'walk'" @change="chooseActivity('walk')"><span>Walk</span></label><label><input type="radio" name="activity" :checked="activity() === 'run'" @change="chooseActivity('run')"><span>Run</span></label><label><input type="radio" name="activity" :checked="activity() === 'coast'" @change="chooseActivity('coast')"><span>Coast</span></label><label><input type="radio" name="activity" :checked="activity() === 'snow'" @change="chooseActivity('snow')"><span>Snow</span></label></fieldset><input type="hidden" name="kit" form="rover-download" value="{{ initialSetup.kit }}" :value="kit()"><p class="muted studio-help">Walk steers with a swivel front wheel. Run swaps it for a fixed wheel that tracks straight. Coast fits wide 4 inch tires for sand. Snow takes the wheels off for two skis and a pair of tow shafts; that kit is a concept with no ski chosen yet.</p>
       <fieldset class="studio-fieldset"><legend>Cabin</legend>
         <div class="studio-field"><div class="studio-field-title"><label for="rover-length">Clear length</label><div class="studio-number"><input id="rover-length" value="{{ initialSetup.length }}" name="length" form="rover-download" type="number" min="{{ limits.length[0] }}" max="{{ limits.length[1] }}" step="10" required x-model.number="length"><span>mm</span></div></div><input type="range" min="{{ limits.length[0] }}" max="{{ limits.length[1] }}" step="10" aria-label="Cabin length slider" x-model.number="length"><p><span>{{ limits.length[0] }}-{{ limits.length[1] }} mm</span><span>{{ inches(length()) }} in</span></p></div>
         <div class="studio-field"><div class="studio-field-title"><label for="rover-width">Clear width</label><div class="studio-number"><input id="rover-width" value="{{ initialSetup.width }}" name="width" form="rover-download" type="number" min="{{ limits.width[0] }}" max="{{ limits.width[1] }}" step="10" required x-model.number="width"><span>mm</span></div></div><input type="range" min="{{ limits.width[0] }}" max="{{ limits.width[1] }}" step="10" aria-label="Cabin width slider" x-model.number="width"><p><span>{{ limits.width[0] }}-{{ limits.width[1] }} mm</span><span>{{ inches(width()) }} in</span></p></div>
         <div class="studio-field"><div class="studio-field-title"><label for="rover-height">Clear height</label><div class="studio-number"><input id="rover-height" value="{{ initialSetup.height }}" name="height" form="rover-download" type="number" min="{{ limits.height[0] }}" max="{{ limits.height[1] }}" step="10" required x-model.number="height"><span>mm</span></div></div><input type="range" min="{{ limits.height[0] }}" max="{{ limits.height[1] }}" step="10" aria-label="Cabin height slider" x-model.number="height"><p><span>{{ limits.height[0] }}-{{ limits.height[1] }} mm</span><span>{{ inches(height()) }} in</span></p></div>
+        <div class="studio-field"><div class="studio-field-title"><label for="rover-rake">Front rake</label><div class="studio-number"><input id="rover-rake" value="{{ initialSetup.rake }}" name="rake" form="rover-download" type="number" min="{{ limits.rake[0] }}" max="{{ limits.rake[1] }}" step="10" required x-model.number="rake"><span>mm</span></div></div><input type="range" min="{{ limits.rake[0] }}" max="{{ limits.rake[1] }}" step="10" aria-label="Front rake slider" x-model.number="rake"><p><span>0 is a square front</span><span>top set back {{ inches(rake()) }} in</span></p></div>
       </fieldset>
       <fieldset class="studio-fieldset"><legend>Entry and handling</legend>
         <div class="studio-field"><div class="studio-field-title"><label for="rover-ramp">Ramp length</label><div class="studio-number"><input id="rover-ramp" value="{{ initialSetup.ramp }}" name="ramp" form="rover-download" type="number" min="{{ limits.ramp[0] }}" max="{{ limits.ramp[1] }}" step="10" required x-model.number="ramp"><span>mm</span></div></div><input type="range" min="{{ limits.ramp[0] }}" max="{{ limits.ramp[1] }}" step="10" aria-label="Ramp length slider" x-model.number="ramp"><p><span>Longer is gentler</span><span>{{ dimensions().rampAngle.toFixed(1) }} degrees</span></p></div>

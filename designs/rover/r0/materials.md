@@ -1,6 +1,6 @@
 # Buddy Rover r0 materials and weather system
 
-Configuration rover-r0-l1300-w700-h1000-r1000-a560-g1000-hub101.6-trail-swivel310. Supplier pages read 2026-11-11 unless a row says otherwise. These are costing candidates and a design intent. No fabric has been bought, sewn, soaked, sun-aged or tested, and nothing here is a waterproof, UPF or temperature claim.
+Configuration rover-r0-l1300-w700-h1000-r1000-a560-g1000-hub101.6-trail-swivel310-k350. Supplier pages read 2026-11-11 unless a row says otherwise. These are costing candidates and a design intent. No fabric has been bought, sewn, soaked, sun-aged or tested, and nothing here is a waterproof, UPF or temperature claim.
 
 ## How the cabin handles weather
 
@@ -48,16 +48,16 @@ Cover height 1066 mm, window sill 350 mm above the base rail, window height 606 
 
 | ID | Qty | Piece | Material | Width | Length |
 | --- | ---: | --- | --- | ---: | ---: |
-| P01 | 1 | Roof, one piece over the ridge | roof | 885 | 1431 |
+| P01 | 1 | Roof, one piece over the ridge | roof | 885 | 1081 |
 | P02 | 2 | Side wall | wall | 1096 | 1381 |
-| P03 | 1 | Front wall | wall | 1096 | 781 |
+| P03 | 1 | Raked front wall | wall | 1128 | 781 |
 | P04 | 1 | Rear header above the tailgate | wall | 210 | 781 |
 | P05 | 2 | Tailgate wind gusset | wall | 200 | 1030 |
-| M01 | 2 | Side window mesh | mesh | 636 | 1221 |
-| M02 | 1 | Front window mesh | mesh | 636 | 670 |
+| M01 | 2 | Side window mesh | mesh | 636 | 871 |
+| M02 | 1 | Front window mesh | mesh | 668 | 670 |
 | M03 | 1 | Rear header mesh | mesh | 120 | 670 |
-| V01 | 2 | Side storm panel | clear | 666 | 1251 |
-| V02 | 1 | Front storm panel | clear | 666 | 700 |
+| V01 | 2 | Side storm panel | clear | 666 | 901 |
+| V02 | 1 | Front storm panel | clear | 698 | 700 |
 | L01 | 1 | Floor tub liner | liner | 860 | 1460 |
 | L02 | 1 | Threshold flap | liner | 200 | 688 |
 | F01 | 2 | Floor pad half | pad | 700 | 650 |

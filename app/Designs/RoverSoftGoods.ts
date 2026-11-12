@@ -38,19 +38,19 @@ export interface CoverPiece { id: string, name: string, material: 'roof' | 'wall
 /** Rectangular cut blanks, 15 mm seam allowance on every sewn edge already included. */
 export function roverCover(s: RoverSetup) {
   const d = roverDimensions(s); const t = h.tube
-  const coverH = s.height + h.panel + h.bedding + 2 * t; const sill = 350; const windowH = coverH - sill - 110; const headerH = Math.max(150, coverH - s.ramp)
+  const coverH = s.height + h.panel + h.bedding + 2 * t; const sill = 350; const windowH = coverH - sill - 110; const frontWindow = d.windshield - sill - 110; const headerH = Math.max(150, coverH - s.ramp)
   const r = Math.ceil
   const pieces: CoverPiece[] = [
     { id: 'P01', name: 'Roof, one piece over the ridge', material: 'roof', qty: 1, width: r(2 * d.roofSlope + 120), length: r(d.topRail + 80), note: 'No seam on top. 40 mm drip overhang front and rear, 60 mm side skirts with a shock-cord hem.' },
-    { id: 'P02', name: 'Side wall', material: 'wall', qty: 2, width: r(coverH + 30), length: r(d.topRail + 30), note: `Window opening ${r(d.topRail - 160)} x ${r(windowH)} starts ${sill} mm above the base rail.` },
-    { id: 'P03', name: 'Front wall', material: 'wall', qty: 1, width: r(coverH + 30), length: r(s.width + 2 * t + 30), note: `Window opening ${r(s.width - 60)} x ${r(windowH)}.` },
+    { id: 'P02', name: 'Side wall', material: 'wall', qty: 2, width: r(coverH + 30), length: r(d.floorLen + 30), note: `${s.rake > 0 ? `Cut the front edge on the slope from the base front corner to ${s.rake} back at the top. ` : ''}Window opening ${r(d.topRail - 160)} x ${r(windowH)} starts ${sill} mm above the base rail.` },
+    { id: 'P03', name: s.rake > 0 ? 'Raked front wall' : 'Front wall', material: 'wall', qty: 1, width: r(d.windshield + 30), length: r(s.width + 2 * t + 30), note: `Window opening ${r(s.width - 60)} x ${r(frontWindow)}.${s.rake > 0 ? ' A stay sleeve runs down each side edge.' : ''}` },
     { id: 'P04', name: 'Rear header above the tailgate', material: 'wall', qty: 1, width: r(headerH + 60), length: r(s.width + 2 * t + 30), note: 'Overlaps the raised ramp by 30 mm so rain runs outside it.' },
     { id: 'P05', name: 'Tailgate wind gusset', material: 'wall', qty: 2, width: 200, length: r(s.ramp + 30), note: 'Closes the gap between the raised ramp edge and each rear post.' },
     { id: 'M01', name: 'Side window mesh', material: 'mesh', qty: 2, width: r(windowH + 30), length: r(d.topRail - 130), note: 'Sewn inside the wall opening.' },
-    { id: 'M02', name: 'Front window mesh', material: 'mesh', qty: 1, width: r(windowH + 30), length: r(s.width - 30), note: 'Sewn inside the wall opening.' },
+    { id: 'M02', name: 'Front window mesh', material: 'mesh', qty: 1, width: r(frontWindow + 30), length: r(s.width - 30), note: 'Sewn inside the wall opening.' },
     { id: 'M03', name: 'Rear header mesh', material: 'mesh', qty: 1, width: r(headerH - 30), length: r(s.width - 30), note: 'High vent that stays open under the roof overhang.' },
     { id: 'V01', name: 'Side storm panel', material: 'clear', qty: 2, width: r(windowH + 60), length: r(d.topRail - 100), note: 'Rolls up and ties under the roof skirt. Hook and loop down both sides and along the sill.' },
-    { id: 'V02', name: 'Front storm panel', material: 'clear', qty: 1, width: r(windowH + 60), length: r(s.width), note: 'Wind block for running and winter.' },
+    { id: 'V02', name: 'Front storm panel', material: 'clear', qty: 1, width: r(frontWindow + 60), length: r(s.width), note: 'Wind block for running and winter.' },
     { id: 'L01', name: 'Floor tub liner', material: 'liner', qty: 1, width: r(s.width + 160), length: r(s.length + 160), note: '80 mm upturned walls, corners folded not cut, so liquid stays in the tub.' },
     { id: 'L02', name: 'Threshold flap', material: 'liner', qty: 1, width: 200, length: r(d.rampWidth), note: 'Covers the hinge gap between floor and ramp.' },
     { id: 'F01', name: 'Floor pad half', material: 'pad', qty: 2, width: s.width, length: r(s.length / 2), note: 'Two halves butt at mid length, under the liner.' },

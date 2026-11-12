@@ -3,7 +3,7 @@ import { cp, mkdtemp, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { transformModelPoint } from '@stacksjs/browser/model-viewer'
-import { nestRoverStock, packRoverStock, parseRoverSetup, referenceCarrier, roverDimensions, roverParcelStock, roverParts, roverPartFile, roverQuery, roverStart } from '../../app/Designs/Rover'
+import { nestRoverStock, packRoverStock, parseRoverSetup, referenceCarrier, roverActivities, roverDimensions, roverParcelStock, roverParts, roverPartFile, roverQuery, roverStart, roverWheels } from '../../app/Designs/Rover'
 import { inspectRoverGeometry, roverGeometry, roverPrintVolumeCm3, roverPublicPath, sha256 } from '../../app/Designs/RoverBuild'
 import { roverCostLines, roverEconomics } from '../../app/Designs/RoverCost'
 import { roverBom, roverDocuments, roverDrilling, roverPrintQuantities } from '../../app/Designs/RoverDocuments'
@@ -24,7 +24,7 @@ test('native solid kit keeps area, rejects crossing outlines and bridges aligned
 test('Rover setup accepts cut-to-fit sizes, rejects unknown or unsafe combinations, and always gives a walk-in incline', () => {
   expect(parseRoverSetup({})).toEqual(roverStart)
   expect(parseRoverSetup(Object.fromEntries(new URLSearchParams(roverQuery(roverStart))))).toEqual(roverStart)
-  for (const invalid of [{ length: 999 }, { width: 705 }, { height: '' }, { ramp: [900] }, { hub: 75.01 }, { length: Infinity }, { capacity: 160 }, { wheel: 'big' }, { hub: 50 }, { front: 'tank' }, { caster: 249 }, { caster: 311.5 }, { __proto__: null, loadRated: true }, { ramp: 1000, height: 900 }, { axle: 650, length: 1000 }, { handle: 1100, height: 800 }]) expect(() => parseRoverSetup(invalid)).toThrow()
+  for (const invalid of [{ length: 999 }, { width: 705 }, { height: '' }, { ramp: [900] }, { hub: 75.01 }, { length: Infinity }, { capacity: 160 }, { wheel: 'big' }, { hub: 50 }, { front: 'tank' }, { caster: 249 }, { caster: 311.5 }, { rake: 50 }, { rake: 510 }, { kit: 'sled' }, { rake: 500, length: 1000, axle: 400 }, { __proto__: null, loadRated: true }, { ramp: 1000, height: 900 }, { axle: 650, length: 1000 }, { handle: 1100, height: 800 }]) expect(() => parseRoverSetup(invalid)).toThrow()
   for (const length of [1000, 1400]) for (const width of [600, 800]) for (const height of [800, 1100]) for (const ramp of [700, 800]) {
     const d = roverDimensions(parseRoverSetup({ length, width, height, ramp, axle: 400, handle: 800 }))
     expect(d.rampAngle).toBeLessThan(12)
@@ -57,7 +57,12 @@ test('Rover setup accepts cut-to-fit sizes, rejects unknown or unsafe combinatio
   expect(d.nosePost).toBeCloseTo(roverStart.caster - 124 - 12.7, 6)
   expect(d.casterX - 185).toBeGreaterThan(d.frontX + 25.4 + 15)
   const fixed = roverDimensions(parseRoverSetup({ front: 'fixed' }))
-  expect(fixed.rail).toBe(d.topRail)
+  expect(fixed.rail).toBe(d.floorLen)
+  expect(d.topRail).toBe(d.floorLen - roverStart.rake)
+  expect(d.windshield).toBeCloseTo(Math.hypot(roverStart.rake, d.post + 25.4), 3)
+  const box = roverDimensions(parseRoverSetup({ rake: 0 }))
+  expect(box.topRail).toBe(box.floorLen)
+  expect(box.frontPostX).toBe(box.frontX + 12.7)
   expect(fixed.counts).toMatchObject({ corner: 32, hanger: 8, wheels: 3 })
   expect(d.counts).toMatchObject({ corner: 44, hanger: 4, wheels: 2, casterBolts: 4, brakeClamps: 2 })
   expect(d.brakeZ).toBeGreaterThan(2 * d.R + 150)
@@ -98,6 +103,14 @@ test('Rover scene shares cut-list datums, counts every gusset in the parts list 
   expect(roverScene(s, { cover: true }).nodes.some(n => n.id === 'cover-roof-1')).toBe(true)
   expect(roverScene(s, { focus: 'ramp_toe' }).nodes[0]!.geometry).toMatchObject({ kind: 'stl', src: expect.stringContaining('ramp_toe.stl') })
   expect(scene.nodes.some(n => /spring|shock|motor/.test(n.id))).toBe(false)
+  expect(scene.nodes.filter(n => n.id.startsWith('windshield-stay-')).length).toBe(2)
+  expect(roverScene(parseRoverSetup({ rake: 0 })).nodes.some(n => n.id.startsWith('windshield-stay-'))).toBe(false)
+  const snowSetup = parseRoverSetup({ kit: 'ski' }); const snow = roverScene(snowSetup); const snowDims = roverDimensions(snowSetup)
+  expect(snow.nodes.filter(n => /^ski-(post|foot)-/.test(n.id)).length).toBe(4)
+  expect(snow.nodes.some(n => /rear-wheel-|caster-tire/.test(n.id))).toBe(false)
+  expect(snow.nodes.filter(n => n.geometry.kind === 'stl' && n.geometry.src.includes('tee_gusset')).length).toBe(snowDims.counts.tee)
+  expect(snow.nodes.filter(n => n.geometry.kind === 'tube').reduce((sum, n) => sum + (n.geometry as { length: number }).length, 0)).toBeCloseTo(snowDims.cuts.reduce((sum, c) => sum + c.qty * c.length, 0), 3)
+  for (const key of Object.keys(roverActivities) as (keyof typeof roverActivities)[]) expect(() => parseRoverSetup({ wheel: roverActivities[key].wheel, front: roverActivities[key].front, kit: roverActivities[key].kit, hub: roverWheels[roverActivities[key].wheel].hub })).not.toThrow()
 })
 
 test('Rover cost study charges whole stock, every parts-list line and paid labor, and reports the price gap honestly', () => {
@@ -105,12 +118,14 @@ test('Rover cost study charges whole stock, every parts-list line and paid labor
   expect(packRoverStock(roverStart, 'light', 1).bars).toBe(3)
   for (const q of [0, 0.5, Infinity, 1001]) expect(() => packRoverStock(roverStart, 'light', q)).toThrow()
   const base = roverEconomics(); const one = roverEconomics(roverStart, 1)
-  expect(base.cogs).toBe(153835)
-  expect(one.cogs).toBe(279264)
-  expect(base.cogsMill).toBe(133408)
-  expect(roverEconomics(parseRoverSetup({ wheel: 'run', hub: 75 })).cogs).toBe(159138)
-  expect(roverEconomics(parseRoverSetup({ wheel: 'path', hub: 82.55 })).cogs).toBe(150227)
-  expect(roverEconomics(parseRoverSetup({ front: 'fixed' })).cogs).toBe(147401)
+  expect(base.cogs).toBe(151819)
+  expect(one.cogs).toBe(276985)
+  expect(base.cogsMill).toBe(131814)
+  expect(roverEconomics(parseRoverSetup({ wheel: 'run', hub: 75 })).cogs).toBe(157122)
+  expect(roverEconomics(parseRoverSetup({ wheel: 'path', hub: 82.55 })).cogs).toBe(148211)
+  expect(roverEconomics(parseRoverSetup({ front: 'fixed' })).cogs).toBe(145386)
+  expect(roverEconomics(parseRoverSetup({ kit: 'ski' })).cogs).toBe(173103)
+  expect(roverEconomics(parseRoverSetup({ rake: 0 })).cogs).toBe(154635)
   expect(one.heavy.bars).toBe(5)
   expect(one.light.bars).toBe(7)
   expect(base.cogsMill).toBe(base.cogs - base.tube + base.tubeMill)
@@ -119,8 +134,8 @@ test('Rover cost study charges whole stock, every parts-list line and paid labor
   expect(base.maxCogs).toBe(69930)
   expect(base.gross).toBeLessThan(0)
   expect(base.meetsCostGate).toBe(false)
-  expect(base.retailForGate).toBe(219800)
-  expect(base.retailForGateMill).toBe(190600)
+  expect(base.retailForGate).toBe(216900)
+  expect(base.retailForGateMill).toBe(188400)
   expect(base.contribution).toBeLessThan(0)
   expect(() => roverEconomics(roverStart, 2)).toThrow()
   const coverage = roverCostLines().flatMap(line => line.coverage)
@@ -143,7 +158,7 @@ test('Rover cost study charges whole stock, every parts-list line and paid labor
 })
 
 test('Rover drilling schedule and stock nesting stay inside every cut piece and account for every tube', () => {
-  for (const setup of [roverStart, parseRoverSetup({ front: 'fixed' }), parseRoverSetup({ length: 1400, width: 800, height: 1100, ramp: 1100, axle: 600, handle: 1000, wheel: 'path', hub: 82.55, caster: 330 })]) {
+  for (const setup of [roverStart, parseRoverSetup({ front: 'fixed' }), parseRoverSetup({ kit: 'ski' }), parseRoverSetup({ kit: 'ski', front: 'fixed', rake: 0 }), parseRoverSetup({ rake: 100, length: 1000, axle: 300 }), parseRoverSetup({ length: 1400, width: 800, height: 1100, ramp: 1100, axle: 600, handle: 1000, wheel: 'path', hub: 82.55, caster: 330 })]) {
     const d = roverDimensions(setup); const rows = roverDrilling(setup)
     for (const row of rows) {
       const cut = d.cuts.find(c => c.id === row.id)!
@@ -180,6 +195,11 @@ test('Rover documents carry no em-dashes, no capacity claim and the configured n
   expect(docs['build-guide.md']).toContain('app.oshcut.com')
   expect(docs['build-guide.md']).not.toContain('threaded insert')
   expect(docs['bom.csv']).toContain('DE-STA-CO 507208')
+  expect(docs['bom.csv']).toContain('Windshield stay')
+  const snowDocs = roverDocuments(parseRoverSetup({ kit: 'ski' }))
+  expect(snowDocs['bom.csv']).toContain('"K01","2","Ski"')
+  expect(snowDocs['build-guide.md']).toContain('## Snow conversion')
+  expect(docs['build-guide.md']).not.toContain('## Snow conversion')
   expect(docs['base-plan.svg']).toContain('C01 base side rail')
   expect(roverDocuments(parseRoverSetup({ wheel: 'run', hub: 75 }))['bom.csv']).toContain('metal/axle_hanger.dxf')
 })
