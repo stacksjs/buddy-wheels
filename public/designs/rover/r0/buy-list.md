@@ -1,8 +1,8 @@
 # Buddy Rover r0 buy list for one carrier
 
-Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub101.6-trail-swivel311. Checked 2026-11-12, USD, before tax and shipping. This is what one builder buys for one bench carrier, in whole bars, sheets, yards and packs, so it is more than the material the carrier consumes. It is a bench build. Nothing here is rated or approved for carrying an animal.
+Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub101.6-trail-swivel310. Checked 2026-11-12, USD, before tax and shipping. This is what one builder buys for one bench carrier, in whole bars, sheets, yards and packs, so it is more than the material the carrier consumes. It is a bench build. Nothing here is rated or approved for carrying an animal.
 
-**Materials to buy: about $1,750.04.** $1,294.04 of that has a supplier page behind it. The remaining $456.00 is allowance and needs a quote or a shop visit. Your own time is extra: the study assumes about 15 hours of cutting, drilling and assembly and 9 hours of sewing.
+**Materials to buy: about $1,863.49.** $1,557.49 of that has a supplier page behind it. The remaining $306.00 is allowance and needs a quote or a shop visit. Your own time is extra: the study assumes about 15 hours of cutting, drilling and assembly and 9 hours of sewing.
 
 ## Frame, running gear and hardware
 
@@ -10,19 +10,20 @@ Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub101.6-trail-swivel311. 
 | --- | ---: | --- |
 | [7 bars of 1 x 1 x 1/16 inch 6063-T52 square tube, 8 ft each](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube) | $291.20 | Observed 2026-11-12 |
 | [5 bars of 1 x 1 x 1/8 inch 6061-T6 square tube, 8 ft each](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube) | $290.40 | Observed 2026-11-12 |
-| 40 corner and 8 tee gussets, laser cut 1/8 inch 6061 | $216.00 | RFQ |
+| 44 corner gussets, 8 tee gussets and 2 brake plates, laser cut 1/8 inch 6061 | $243.00 | RFQ |
 | 4 stainless axle hangers | $36.00 | RFQ |
 | [2 pneumatic trail wheels, 15 inch 4.00-8](https://www.zoro.com/zoro-select-pneumatic-wheel-15-316dia-435lb-400-8-1nwv4/i/G1932594/) | $65.78 | Observed 2026-11-12 |
-| [Front swivel caster, 10 inch pneumatic, with four bolts](https://www.harborfreight.com/10-in-pneumatic-swivel-caster-63799.html) | $23.99 | Observed 2026-11-12 + bolt allowance |
-| 2 stock-shaft axles, sleeves, spacers, washers and cotters | $27.00 | RFQ |
-| [166 sleeved bolted joints](https://boltdepot.com/Product-Details?product=328) | $106.28 | Observed 2026-11-12 + sleeve allowance |
+| [Front swivel caster with swivel lock, 10 inch pneumatic, and four bolts](https://www.zoro.com/service-caster-10-inch-black-pneumatic-wheel-swivel-caster-with-bolt-swivel-lock-scc-100s3504-pnb-bsl/i/G705434817/) | $67.69 | Observed 2026-11-12 + nut and sleeve allowance |
+| [2 stock-shaft axles, sleeves, spacers, washers and cotters](https://www.onlinemetals.com/en/buy/carbon-steel/0-75-od-x-0-065-wall-x-0-62-id-carbon-steel-round-tube-a513-type-5-dom/pid/7765) | $26.44 | Observed 2026-11-12, rod from a listing |
+| [174 sleeved bolted joints](https://boltdepot.com/Product-Details?product=328) | $91.62 | Observed 2026-11-12 |
 | [Floor and ramp panels, sealed 15/32 inch ACX plywood](https://www.homedepot.com/b/Lumber-Composites-Plywood/15-32/N-5yc1vZbqm7Z1z0mcqq) | $77.00 | Observed 2026-11-12 + sealing allowance |
-| Hinge, two latches, safety strap hardware and stand feet | $65.00 | Allowance |
-| Wheel chocks, grip, tip-stop feet and floor fasteners | $85.00 | Allowance |
+| [Hinge, two latches, stand feet, carriage bolts and strap hardware](https://www.zoro.com/zoro-select-piano-hinge-stainless-steel-full-surface-mounting-1-in-leaf-w-x-36-in-leaf-h-stainless-steel-2zfk4/i/G1671966/) | $68.91 | Observed 2026-11-12 + insert and strap allowance |
+| [Wheel chocks, grip, tip-stop feet, floor fasteners, bedding tape and ridge pole](https://www.harborfreight.com/solid-rubber-wheel-chock-96479.html) | $97.77 | Observed 2026-11-12, partly from listings |
+| [Parking brake: two push-pull toggle clamps with rubber pads](https://www.zoro.com/powertec-toggle-clamp-300lbs-cap-302f-quick-release-pushpull-clamp-20304n/i/G714915420/) | $41.29 | Observed 2026-11-12 + screw allowance |
 | Printed service parts and fixtures | $27.00 | Computed volume + allowance |
-| **Subtotal** | **$1,310.65** | |
+| **Subtotal** | **$1,424.10** | |
 
-Cut from the bars with cut-list.csv. Send metal/*.dxf to a laser or waterjet shop for the 40 corner gussets, 8 tee gussets and 4 axle hangers. The parts list in bom.csv has every specification.
+Cut from the bars with cut-list.csv. Send metal/*.dxf to a laser or waterjet shop for the 44 corner gussets, 8 tee gussets and 4 axle hangers. The parts list in bom.csv has every specification.
 
 ## Cover, floor and ramp surface
 

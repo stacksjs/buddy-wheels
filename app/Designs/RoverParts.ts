@@ -5,12 +5,14 @@ import { roverHardware as h, roverWheels } from './Rover'
 
 /** Bolt clearance in plates, pilot size in guides, and the axle sleeve bore. */
 const BOLT = 6.75; const PILOT = 3.3; const BORE = 19.25
-export type RoverMetalId = 'tee_gusset' | 'corner_gusset' | 'axle_hanger' | 'axle_hanger_mid' | 'axle_hanger_low'
+export type RoverMetalId = 'tee_gusset' | 'corner_gusset' | 'brake_plate' | 'axle_hanger' | 'axle_hanger_mid' | 'axle_hanger_low'
 
 /** Flat fabrication profiles. The datum (0, 0) is the joint centerline intersection. */
 export function metalProfile(id: RoverMetalId): Region {
   if (id === 'tee_gusset') return { outer: roundCorners([[-50, 20], [50, 20], [50, -20], [20, -20], [20, -75], [-20, -75], [-20, -20], [-50, -20]], 2), holes: [circle(BOLT, -30, 0), circle(BOLT, 30, 0), circle(BOLT, 0, -35), circle(BOLT, 0, -60)] }
   if (id === 'corner_gusset') return { outer: roundCorners([[-20, -20], [95, -20], [95, 20], [20, 20], [20, 95], [-20, 95]], 2), holes: [circle(BOLT, 50, 0), circle(BOLT, 80, 0), circle(BOLT, 0, 35), circle(BOLT, 0, 65)] }
+  // Hangs on the two brake-arm gusset bolts, 50 and 80 from the post centerline. The clamp holes are drilled from the delivered clamp.
+  if (id === 'brake_plate') return { outer: roundCorners([[-55, 18], [55, 18], [55, -150], [-55, -150]], 4), holes: [circle(BOLT, -30, 0), circle(BOLT, 0, 0)] }
   // Bar along the rail, stem up the post. The stem ends 18 mm above the top post bolt.
   const wheel = id === 'axle_hanger' ? roverWheels.run : id === 'axle_hanger_mid' ? roverWheels.trail : roverWheels.path; const top = wheel.posts.at(-1)! + 23
   return { outer: roundCorners([[-50, -20], [50, -20], [50, 20], [22, 20], [22, top], [-22, top], [-22, 20], [-50, 20]], 3), holes: [circle(BOLT, -30, 0), circle(BOLT, 30, 0), ...wheel.posts.map(y => circle(BOLT, 0, y)), circle(BORE, 0, wheel.rise)] }

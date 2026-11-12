@@ -10,7 +10,7 @@ const WALL = { heavy: '6061-T6 1 x 1 x 1/8 inch square tube', light: '6063-T52 1
 
 export function roverPrintQuantities(s: RoverSetup): Record<string, number> {
   const c = roverDimensions(s).counts
-  return { cap_heavy: c.capHeavy, cap_light: c.capLight, ramp_toe: c.toe, ridge_saddle: c.saddle, fabric_clip: c.fabricClip, cable_clip: c.cableClip, axle_cover: c.axleCover, guide_butt: 1, guide_run: 1, guide_tee: 1, coupon: 1, tee_gusset: c.tee, corner_gusset: c.corner, axle_hanger: s.wheel === 'run' ? c.hanger : 0, axle_hanger_mid: s.wheel === 'trail' ? c.hanger : 0, axle_hanger_low: s.wheel === 'path' ? c.hanger : 0 }
+  return { cap_heavy: c.capHeavy, cap_light: c.capLight, ramp_toe: c.toe, ridge_saddle: c.saddle, fabric_clip: c.fabricClip, cable_clip: c.cableClip, axle_cover: c.axleCover, guide_butt: 1, guide_run: 1, guide_tee: 1, coupon: 1, tee_gusset: c.tee, corner_gusset: c.corner, brake_plate: 2, axle_hanger: s.wheel === 'run' ? c.hanger : 0, axle_hanger_mid: s.wheel === 'trail' ? c.hanger : 0, axle_hanger_low: s.wheel === 'path' ? c.hanger : 0 }
 }
 export function roverBom(s: RoverSetup): string {
   const d = roverDimensions(s); const c = d.counts; const q = roverPrintQuantities(s); const w = d.wheel
@@ -20,33 +20,36 @@ export function roverBom(s: RoverSetup): string {
     ['M01', c.corner, 'Corner gusset', '6061-T6 3.175 mm, metal/corner_gusset.dxf', 'One profile, flipped for the opposite hand. Single outside plate at the eight corner-post joints. Fatigue and bearing review pending'],
     ['M02', c.tee, 'Tee gusset', '6061-T6 3.175 mm, metal/tee_gusset.dxf', 'Single-sided at base cross members and roof bow; paired at the fork'],
     ['M03', c.hanger, 'Axle hanger', `304 stainless 3.175 mm, metal/${w.hanger}.dxf`, 'Paired on every axle post and fork stub. Finish the 19.25 mm bore after drawing review'],
+    ['M04', 2, 'Brake clamp plate', '6061-T6 3.175 mm, metal/brake_plate.dxf', 'Hangs on the two brake-arm gusset bolts. Drill its clamp holes from the delivered clamp'],
     s.wheel === 'trail'
       ? ['W01', c.wheels, 'Pneumatic wheel candidate, 15 inch 4.00-8', `Zoro Select 1NWV4; 15 3/16 inch OD, 3 1/8 inch wide, 5/8 inch bore, ball bearings, hub length stated 4 inch; configured ${s.hub} mm`, 'Supplier states a 435 lb wheel load. That does not rate the carrier. Measure the delivered hub before cutting an axle']
       : s.wheel === 'path'
       ? ['W01', c.wheels, 'Pneumatic wheel candidate, 13 x 4 inch', `HAUL-MASTER 67467; 330.2 OD, 101.6 wide, 15.875 bore; hub through-length assumed ${s.hub} mm`, 'Same candidate as the XL wheelchair. Hub length is not confirmed by the supplier. A garden-cart wheel for walking pace; its supplier rating is not a carrier rating']
       : ['W01', c.wheels, 'Pneumatic wheel, 20 inch', `508 OD, about ${w.tire} wide, 15.875 bore; hub through-length assumed ${s.hub} mm`, 'OPEN SELECTION. No verified wheel with this bore and a suitable rating has been found'],
     ['W02', 2, 'Rear stub axle', `Plain 15.875 steel shaft; cut ${d.rearShaft} mm; two 3.2 cross-holes 8 mm from each end`, 'Unkeyed precision shaft. Never a threaded journal'],
-    ...(d.swivel ? [['W07', 1, 'Front swivel caster, 10 inch pneumatic', `HAUL-MASTER 63799 candidate; 10 x 3-1/2 inch wheel, plate mount, 3 x 3-3/8 inch bolt pattern; mounting height configured ${s.caster} mm`, 'Supplier states a 300 lb working load and no swivel lock. Its mounting height is not stated: measure the delivered caster and set the nose post length from it'], ['H06', c.casterBolts, 'Caster bolt set', '5/16-18 x 2-1/2 inch grade 5 bolt, two washers, lock nut and a steel crush sleeve', 'Vertical through both caster beams. Drill the beams from the delivered plate']] : [['W03', 1, 'Front through axle', `Plain 15.875 steel shaft; cut ${d.frontShaft} mm; two 3.2 cross-holes 8 mm from each end`, 'Carried in both fork stubs']]),
+    ...(d.swivel ? [['W07', 1, 'Front swivel caster with swivel lock, 10 inch pneumatic', `Service Caster SCC-100S3504-PNB-BSL; 10 x 3-1/2 inch wheel, top plate, stated mounting height 12-3/16 inch; configured ${s.caster} mm`, 'Supplier states 350 lb and a bolt-on swivel lock. Plate size and bolt pattern are not stated: drill the caster beams from the delivered plate. Lock the swivel for running'], ['H06', c.casterBolts, 'Caster bolt set', '5/16-18 x 2-1/2 inch grade 5 bolt, two washers, lock nut and a steel crush sleeve', 'Vertical through both caster beams. Drill the beams from the delivered plate']] : [['W03', 1, 'Front through axle', `Plain 15.875 steel shaft; cut ${d.frontShaft} mm; two 3.2 cross-holes 8 mm from each end`, 'Carried in both fork stubs']]),
     ['W04', d.swivel ? 2 : 4, 'Axle sleeve', '4130 tube 19.05 OD x 1.4732 wall; cut 25.4 mm', d.swivel ? 'Through each axle post. Steel, not printed' : 'Through each axle post and fork stub. Steel, not printed'],
     ['W05', w.forkSpacer && !d.swivel ? 4 : 2, 'Wheel spacer', `4130 tube 19.05 OD x 1.4732 wall; cut ${w.spacer} mm`, w.forkSpacer && !d.swivel ? 'Two at the rear wheels, two beside the front hub so the wide tire clears the fork. Check actual hub and bearing face contact' : 'Rear wheels only. Check actual hub and bearing face contact'],
     ['W06', d.swivel ? 4 : 8, 'Thrust washer and split cotter set', '5/8 inch bore washer 1.5 mm; 3.2 mm stainless cotter', d.swivel ? 'Two washers and two cotters per rear wheel' : 'Rear: 2 washers and 2 cotters per side. Front: 4 washers and 2 cotters'],
     ['H01', c.bolts, 'Joint bolt', '1/4-20 x 2 inch SAE J429 grade 5 zinc hex bolt', 'Partially threaded shank required at sleeves. Torque procedure pending. 18-8 stainless is the salt-use upgrade'],
     ['H02', c.handleBolts, 'Handle lap bolt', '1/4-20 x 3 inch grade 5 zinc hex bolt', 'Through one handle arm and one post'],
-    ['H03', c.sleeves, 'Crush sleeve', '4130 .375 OD x .049 wall; cut 25.4 mm', 'One per tube crossing. Corrosion finish between steel and aluminum pending'],
+    ['H03', c.sleeves, 'Crush sleeve', 'A513 DOM steel tube .375 OD x .049 wall; cut 25.4 mm', 'One per tube crossing. Corrosion finish between steel and aluminum pending'],
     ['H04', 2 * (c.bolts + c.handleBolts), 'Bolt washer', '1/4 inch zinc steel flat washer', 'Two per bolt'],
     ['H05', c.bolts + c.handleBolts, 'Prevailing-torque nut', '1/4-20 zinc nylon-insert locknut', 'New nuts at every assembly'],
     ['F01', 1, 'Floor panel', `15/32 inch (12 mm) ACX exterior plywood ${d.topRail} x ${s.width + 2 * h.tube} mm, six post notches 44 x 30, sealed all faces and edges; marine plywood for salt use`, 'Sits on gussets and bedding tape. Deflection under a standing dog not yet calculated'],
     ['F02', 1, 'Bedding tape', '3.2 mm closed-cell tape, 25 mm wide, about 9 m', 'Fills the gusset thickness under both panels'],
     ['F03', c.floorScrews, 'Floor fastener set', '1/4-20 stainless countersunk screw with rivet nut in the tube top wall', 'Rivet nut pull-out in .125 wall to be tested'],
     ['R01', 1, 'Ramp panel', `15/32 inch (12 mm) ACX exterior plywood ${s.ramp} x ${d.rampWidth} mm, sealed all faces and edges, toe edge fitted with printed threshold toes`, 'Curb rails on top, two ribs underneath'],
-    ['R02', 1, 'Continuous hinge', `Stainless, ${Math.floor(d.rampWidth / 25.4 / 6) * 6} inch nominal, leaves on the top faces`, 'Knuckle sits in the 6 mm gap. Pinch review pending'],
-    ['R03', 2, 'Draw latch with keeper', 'Stainless, with a secondary catch', 'Holds the raised ramp to both rear posts'],
+    ['R02', 1, 'Continuous hinge', `Stainless piano hinge, 1 inch leaf, 36 inch, cut to ${Math.floor(d.rampWidth / 10) * 10} mm; Zoro Select 2ZFK4 candidate, unpunched`, 'Leaves on the top faces, knuckle in the 6 mm gap. Drill and countersink for flat-head screws. Pinch review pending'],
+    ['R03', 2, 'Draw latch with keeper', 'Stainless toggle-style draw latch; Southco TL-20-202-52 candidate', 'Holds the raised ramp to both rear posts. The supplier page does not say a keeper is included'],
     ['R04', 1, 'Tailgate safety strap', '1 inch webbing with a metal hook, independent of both latches', 'Second retention path if a latch opens'],
     ['R05', c.rampBolts, 'Ramp carriage bolt', '1/4-20 x 2 inch stainless carriage bolt, washer and locknut', 'Smooth heads on the walking side'],
-    ['R06', 2, 'Ramp stand foot', '3/8-16 swivel leveling foot in a 1 inch square tube threaded insert', `Leg cut ${d.legCut} mm assumes a ${h.foot} mm foot. Adjust on level ground`],
-    ['B01', 2, 'Wheel chock', 'Rubber wheel chock on a lanyard, one per rear wheel', 'Parking for bench trials only. OPEN: a wheel brake with a parking lock has not been designed or tested'],
+    ['R06', 2, 'Ramp stand foot', '3/8-16 swivel leveling mount with a 2 inch stud, S&W BSW-1Z candidate, in a threaded insert for 1 inch square tube', `Leg cut ${d.legCut} mm assumes a ${h.foot} mm foot. No threaded insert was found at the suppliers checked. Adjust on level ground`],
+    ['B01', 2, 'Wheel chock', 'Solid rubber wheel chock, Harbor Freight 96479 candidate', 'Backup on slopes and whenever the ramp is down'],
+    ['B03', 2, 'Parking brake clamp', 'Push-pull toggle clamp, 300 lb holding capacity, about 1-5/16 inch plunger travel; POWERTEC 302F candidate, with four #10 screws and lock nuts each', 'Bolts to a brake clamp plate over each rear tire. Untested as a brake'],
+    ['B04', 2, 'Brake pad', 'Rubber bumper with a 5/16 inch male stud, on the clamp plunger', 'Thread pitch not confirmed against the clamp. Adjust so the pad presses about 10 mm into the tire when locked'],
     ['B02', 1, 'Handle grip and wrist tether', `Foam grip for 25.4 tube over ${d.grip} mm; 1.2 m wrist tether`, 'Tether is a secondary link to the caregiver'],
-    ['S01', 2, 'Tip-stop foot', '3/8-16 leveling foot with 100 mm stem through each base rail behind the axle, jam nuts and fender washers', 'Catches a rearward tip. Height setting and strength are untested'],
+    ['S01', 2, 'Tip-stop foot', '3/8-16 swivel leveling mount, tall version of S&W BSW-1Z, through each base rail behind the axle, nut and washer above and below', 'Catches a rearward tip. Height setting and strength are untested'],
     ['X01', 1, 'Roof ridge pole', `12.7 mm aluminum tube, cut ${d.topRail} mm`, 'Rests in three printed saddles'],
     ['T01', 1, 'Weather cover set', 'Roof and wall shell, mesh windows, clear storm panels, hook and loop, seam tape, reflective trim', 'See cover-cut-schedule.csv and materials.md. No sewn sample exists'],
     ['T02', 1, 'Floor set', 'Two EVA pad halves under a vinyl tub liner with a threshold flap', 'Removable for washing'],
@@ -105,7 +108,7 @@ ${cover.pieces.map(p => `| ${p.id} | ${p.qty} | ${p.name} | ${p.material} | ${p.
 2. Tape the roof-to-wall seams from the inside and prove adhesion on offcuts of both fabrics first. Lap the wall corner seams so they shed outward.
 3. Bind every mesh edge inside a shell frame. Never leave a raw mesh edge where a nose or claw can reach it.
 4. Hem the roof skirt around the shock cord. Add reflective trim on both sides and the rear at wheel-top height.
-5. Bind the four cutouts where the handle arms cross the rear and axle posts so metal clamps metal.
+5. Bind the four cutouts where the handle arms cross the rear and axle posts, and a slit at each axle post for the brake arm, so metal clamps metal.
 6. The cover hangs on the frame with printed rail clips and hook-and-loop tabs. Neither is a restraint. Escape prevention, tether anchors and chew resistance need their own design review.
 
 ## Tests before any dog rides
@@ -122,7 +125,7 @@ Configuration ${roverCode(s)}. All dimensions mm. BENCH DESIGN. NOT FOR ANIMAL U
 
 ## What this revision is
 
-A large cut-to-fit carrier built from 1 inch square aluminum tube, 1/8 inch wall 6061-T6 for the chassis and 1/16 inch wall 6063-T52 for the cabin, three repeated flat metal profiles, plywood panels and printed service parts. The tailgate is the ramp: it folds down to a ${d.rampAngle.toFixed(1)} degree walk-in with no step, and stands on its own two feet so the dog's weight on the threshold goes to the ground instead of tipping the carrier. ${d.swivel ? `Two ${d.wheel.label}s at the rear and a 10 inch swivel caster on a raised nose at the front, so it steers by pushing the handle sideways.` : `Three matching wheels, here the ${d.wheel.label}. Push handle with a fixed front wheel.`}
+A large cut-to-fit carrier built from 1 inch square aluminum tube, 1/8 inch wall 6061-T6 for the chassis and 1/16 inch wall 6063-T52 for the cabin, three repeated flat metal profiles, plywood panels and printed service parts. The tailgate is the ramp: it folds down to a ${d.rampAngle.toFixed(1)} degree walk-in with no step, and stands on its own two feet so the dog's weight on the threshold goes to the ground instead of tipping the carrier. ${d.swivel ? `Two ${d.wheel.label} wheels at the rear and a 10 inch swivel caster on a raised nose at the front, so it steers by pushing the handle sideways.` : `Three matching wheels, here the ${d.wheel.label} wheel. Push handle with a fixed front wheel.`}
 
 Coordinates: X forward, Y across, Z up. Origin on the ground under the rear axle.
 
@@ -142,7 +145,7 @@ Coordinates: X forward, Y across, Z up. Origin on the ground under the rear axle
 | Handle height | ${s.handle} (${inch(s.handle)} in) |
 | Overall length, width over axle ends, height | ${d.overallLength} x ${d.overallWidth} x ${d.overallHeight} |
 | Ground clearance under the base gussets | ${d.clearance} |
-| Wheel | ${d.wheel.label} |
+| Rear wheel | ${d.wheel.label} |
 | Assumed wheel hub through-length | ${s.hub} |
 | Estimated empty mass, arithmetic only | ${d.carrierKg} kg (${(d.carrierKg * 2.2046).toFixed(0)} lb) |
 
@@ -164,7 +167,7 @@ Rover is much larger and much heavier. The mass is the price of a bolted frame a
 
 ## Planning statics, not test results
 
-With a ${roverPlanningDogKg} kg (160 lb) planning mass centered in the cabin, its center sits ${d.centerAhead} mm ahead of the rear axle and the front wheel carries about ${d.frontShare.toFixed(0)}% of that mass. ${d.swivel ? `The swivel caster steers without lifting anything. Lifting the front to climb a curb takes roughly ${d.tiltForceN} N (${d.tiltForceLbf} lbf) down on the handle. A swivel caster can shimmy at a run and this one has no swivel lock, so this front end is for walking pace.` : `Lifting the front wheel to steer takes roughly ${d.tiltForceN} N (${d.tiltForceLbf} lbf) down on the handle. A swivel front caster removes that effort and is the other front option.`} A dog that stands at the tailgate moves the center behind the axle. The two tip-stop feet exist for that case and their setting and strength are unproven.
+With a ${roverPlanningDogKg} kg (160 lb) planning mass centered in the cabin, its center sits ${d.centerAhead} mm ahead of the rear axle and the front wheel carries about ${d.frontShare.toFixed(0)}% of that mass. ${d.swivel ? `The swivel caster steers without lifting anything. Lifting the front to climb a curb takes roughly ${d.tiltForceN} N (${d.tiltForceLbf} lbf) down on the handle. A swivel caster can shimmy at a run, so lock the swivel with its bolt-on lock before running and steer by lifting the front as with a fixed wheel.` : `Lifting the front wheel to steer takes roughly ${d.tiltForceN} N (${d.tiltForceLbf} lbf) down on the handle. A swivel front caster removes that effort and is the other front option.`} A dog that stands at the tailgate moves the center behind the axle. The two tip-stop feet exist for that case and their setting and strength are unproven.
 
 ## Cut list
 
@@ -182,7 +185,7 @@ Every joint is a flat gusset with 1/4 inch bolts through steel crush sleeves. Ho
 | --- | ---: | --- | --- |
 | Corner gusset | ${c.corner} | Leg A 50 and 80. Leg B 35 and 65 | Corner posts on the outside face only, axle-post tops both faces, rail to cross member, roof corners, handle grip, ramp legs |
 | Tee gusset | ${c.tee} | Bar 30 each side. Stem 35 and 60 | Intermediate base cross members, mid roof bow, fork arms top and bottom |
-| Axle hanger, ${d.wheel.label} | ${c.hanger} | Bar 30 each side. Stem ${d.wheel.posts.join(', ')}. Axle bore at ${d.wheel.rise} | Both faces of each axle post and each fork stub |
+| Axle hanger, ${d.wheel.label} wheel | ${c.hanger} | Bar 30 each side. Stem ${d.wheel.posts.join(', ')}. Axle bore at ${d.wheel.rise} | Both faces of each axle post and each fork stub |
 
 Legs A and B alternate where two gussets meet on one tube, so bolts cross 15 mm apart and never share a station. Tube bores are 9.725 for the sleeves, plate holes 6.75, axle sleeve bores 19.25. All are nominal. Use the three printed drill guides for pilot centers and finish with metal tooling.
 
@@ -199,7 +202,7 @@ ${d.swivel ? `7. Nose: the base rails run ${d.nose} past the front cross member.
 9. Ramp: panel, two curb rails on top, two ribs underneath at 40 mm and mid length, stand legs on the hinge-end rib ${60} mm in from each edge. Hinge leaves on the top faces of floor and ramp.
 10. Handle arms on the outside of the rear and axle posts at Z = ${s.handle}, one 3 inch bolt per post. Grip tube between the arm ends.
 11. Wheels, washers and cotters. Rear stack between outer washer faces ${d.rearStack}${d.swivel ? '' : `, front ${d.frontStack}`}, with 0.5 total end float.
-12. Tip-stop feet, brake, latches, safety strap. Then the cover.
+12. Tip-stop feet, the two brake arms with their plates and clamps, latches, safety strap. Then the cover.
 
 ## The ramp
 
@@ -221,7 +224,7 @@ Files prefixed FIT_CHECK_ONLY are plastic copies of metal parts for checking hol
 
 1. Buddy's measurements, lying length and standing height first, and a veterinary view on whether riding suits him.
 2. Engineering review of the frame, the axle hangers, the ramp and its stand, the handle and the tip-stops, including steel-to-aluminum corrosion.
-3. A measured wheel: actual hub length, bearing fit and a rating that suits the carrier, then the brake. The 13 inch candidate is a garden-cart wheel for walking pace; a running wheel is still an open selection. Until wheel and brake are proven the running gear is a placeholder.
+3. A measured wheel: actual hub length, bearing fit and a rating that suits the carrier, then the parking brake proven on a slope with ballast. The 13 inch candidate is a garden-cart wheel for walking pace; a running wheel is still an open selection. Until wheel and brake are proven the running gear is a placeholder. There is no brake for slowing while moving.
 4. Ballast tests to an approved plan: static proof, ramp load at mid span and at the threshold, tip in every direction, curb and brake events, fatigue.
 5. Cover tests listed in materials.md.
 6. Only then a supervised, consented fit and handling study with stop rules.
@@ -323,7 +326,7 @@ The catalog's provisional Run price is ${money(batch.retail)}, so the 30% gross-
 
 If the tube is bought by weight, it drops again. ${money(batch.tube)} of the total is ${dims.tubeLb} lb of aluminum tube priced as 21 ft and 24 ft stock bars at $3.13 and $4.84 per foot. A 100-carrier batch is about ${(dims.tubeLb * 100 / 2000).toFixed(1)} tons of two extrusions and would be bought from a mill or distributor. At an assumed $4.00 per pound with 8% scrap the tube line falls to ${money(batch.tubeMill)} and the total to **${money(batch.cogsMill)}**, which a price near ${money(batch.retailForGateMill)} would carry. That rate is an assumption with no quote behind it.
 
-For scale, the reference trailer sold for ${money(roverPriceEvidence[6].price)} at one retailer on the check date, with a 100 lb stated capacity and a 36.2 x 22.4 x 29.9 inch interior. Rover's cabin is about twice that volume. Rover does not reach that price in either scenario.
+For scale, the reference trailer sold for ${money(roverPriceEvidence[9].price)} at one retailer on the check date, with a 100 lb stated capacity and a 36.2 x 22.4 x 29.9 inch interior. Rover's cabin is about twice that volume. Rover does not reach that price in either scenario.
 
 ## What changed since the first count
 
@@ -340,6 +343,9 @@ For scale, the reference trailer sold for ${money(roverPriceEvidence[6].price)} 
 | Assembly time 6 to 5.5 hours | -$12.50 | An assumption either way |
 | A 15 inch pneumatic wheel at an observed $32.89, with ball bearings, a stated hub length and a 435 lb supplier load figure, instead of a $60 allowance for a 20 inch wheel nobody has found | -$81.33 | Smaller than a running wheel. The 13 inch path wheel at $14.99 saves a further $53.70; the 20 inch wheel stays as an option |
 | Tube bought as 21 ft and 24 ft stock bars at prices read on the supplier page, with the cabin and secondary members in 1/16 inch 6063-T52 | about -$136 | 6063-T52 is softer than 6061-T6, so it is kept out of the chassis. Long bars ship by truck |
+| A swivel front caster with a swivel lock on a raised nose, in place of the fixed fork and third wheel | about +$63 | Steers without lifting. Adds about 2 kg and twelve gussets |
+| A parking brake: a toggle clamp on an arm over each rear tire | about +$60 | Untested as a brake. Nothing slows the carrier while it moves |
+| Hinge, latches, leveling mounts, sleeve tube, axle parts and chocks priced from supplier pages instead of allowances | about +$20 | The allowances were low |
 
 ## Where the money goes
 
@@ -376,7 +382,7 @@ ${roverAllowanceNotes.map(n => `- ${n}`).join('\n')}
 
 1. A tube quote. See the mill-quantity paragraph above.
 2. Joints. ${roverCostLines(s).find(l => l.id === 'fasteners')!.name} and the labor to drill for them come to about ${money(roverCostLines(s).find(l => l.id === 'fasteners')!.batch + roverCostLines(s).find(l => l.id === 'labor')!.batch)}. Welded or riveted sub-frames, or purpose-made corner fittings, remove most of both and several kilograms. That needs a fabricator's quote.
-3. Brake and front wheel. No brake is selected; the two wheelchair wheel-lock sets that were read cost $31.85 and $110.00 a pair and are made for specific chairs. A 10 inch swivel caster at $19.99 would make steering far lighter, but it stands above the deck and needs a raised front frame.
+3. Plates. ${roverCostLines(s).find(l => l.id === 'gussets')!.name} and the hangers are the largest allowance left, about ${money(roverCostLines(s).find(l => l.id === 'gussets')!.batch + roverCostLines(s).find(l => l.id === 'hangers')!.batch)}. Uploading the DXF files to a cutting service turns that into a real number in minutes.
 4. The cover is now ${money(batch.textiles.total)}. The ramp surface, floor pad and mesh are the largest material lines left; sewing is ${money(batch.textiles.labor)}.
 
 Selling-cost lines for the provisional price, per carrier at 100: payment fee ${money(batch.fee)}, returns reserve ${money(batch.reserve)}, support ${money(batch.support)}, acquisition ${money(batch.acquisition)}. Contribution before fixed overhead: ${money(batch.contribution)}.
@@ -414,7 +420,9 @@ export function roverDrilling(s: RoverSetup): DrillRow[] {
   add('C03', 'Axle post', 2, 'side', 'bottom', w.posts.map(p => p - half), 'Axle hanger stem')
   add('C03', 'Axle post', 2, 'side', 'bottom', [w.rise - half], 'Axle sleeve', '19.25, for the 19.05 axle sleeve')
   add('C03', 'Axle post', 2, 'side', 'bottom', [s.handle - d.railZ - half], 'Handle arm lap bolt')
+  add('C03', 'Axle post', 2, 'fore-aft', 'bottom', [d.brakeZ - d.railZ - half + 35, d.brakeZ - d.railZ - half + 65], `Brake arm gussets. The arm centerline is ${mm(d.brakeZ - d.railZ - half)} up the post`)
   add('C03', 'Axle post', 2, 'side', 'top', [35 - half, 65 - half], 'Top rail gussets')
+  add('C17', 'Brake arm', 2, 'fore-aft', 'the end at the post', [50 - half, 80 - half], 'Axle post gussets, front and rear faces')
   add('C09', 'Corner post', 4, 'side', 'bottom', [50 - half, 80 - half], 'Base rail gusset, outside face')
   add('C09', 'Corner post', 4, 'side', 'top', [50 - half, 80 - half], 'Top rail gusset, outside face')
   add('C09', 'Corner post, the two rear ones only', 2, 'side', 'bottom', [s.handle - d.railZ - half], 'Handle arm lap bolt')
@@ -460,14 +468,14 @@ export function roverBuildGuide(s: RoverSetup): string {
   const d = roverDimensions(s); const c = d.counts; const t = h.tube; const q = roverPrintQuantities(s); const cover = roverCover(s)
   const heavyBars = nestRoverStock(s, 'heavy', 1, roverParcelStock.mm); const lightBars = nestRoverStock(s, 'light', 1, roverParcelStock.mm)
   const drilling = roverDrilling(s); const fasteners = c.bolts + c.handleBolts; const boxes = Math.ceil(fasteners / 100)
-  const sleeveM = Math.ceil(c.sleeves * (t + 1.5) / 100) / 10; const axleSleeves = d.swivel ? 2 : 4
+  const axleSleeves = d.swivel ? 2 : 4
   const rodMm = Math.ceil(2 * d.rearShaft + (d.swivel ? 0 : d.frontShaft) + 12)
   const bars = (list: typeof heavyBars) => list.map((b, i) => `| ${i + 1} | ${b.pieces.map(p => `${p.id} ${p.length}`).join(', ')} | ${b.offcut} |`).join('\n')
   return `# Buddy Rover r0 build guide
 
 Configuration ${roverCode(s)}. All dimensions mm unless marked. Read this once to the end before ordering anything.
 
-**What this builds.** A bench carrier for checking fit, handling and the ramp with sandbags. It has no load rating, no brake beyond wheel chocks and no test behind it. Do not put a dog in it until the release gates at the end are met.
+**What this builds.** A bench carrier for checking fit, handling and the ramp with sandbags. It has no load rating, an untested parking brake, no brake for slowing while moving, and no test behind it. Do not put a dog in it until the release gates at the end are met.
 
 ## 1. How the aluminum base gets its shape
 
@@ -485,7 +493,7 @@ The plates are cut by a laser-cutting service from the DXF files in the kit. You
 
 1. Measure the dog lying stretched out, sitting, and across the shoulders. Add room to shift position.
 2. Open https://buddywheels.org/design-studio-rover, set clear length, width and height, and download the kit. Every cut length, hole position and fabric blank below changes with those three numbers.
-3. This guide is for ${s.length} x ${s.width} x ${s.height} clear, a ${s.ramp} ramp at ${d.rampAngle.toFixed(1)} degrees, ${d.wheel.label}s${d.swivel ? ' and a swivel front caster' : ''}.
+3. This guide is for ${s.length} x ${s.width} x ${s.height} clear, a ${s.ramp} ramp at ${d.rampAngle.toFixed(1)} degrees, ${d.wheel.label} wheels${d.swivel ? ' and a swivel front caster' : ''}.
 
 ## 3. Order in this sequence
 
@@ -494,14 +502,16 @@ Order the wheel and caster first, because two dimensions in the design come from
 | Step | What | Where | Quantity | Notes |
 | --- | --- | --- | --- | --- |
 | A | Rear wheel | ${s.wheel === 'trail' ? '[Zoro Select 1NWV4](https://www.zoro.com/zoro-select-pneumatic-wheel-15-316dia-435lb-400-8-1nwv4/i/G1932594/), $32.89 each' : s.wheel === 'path' ? '[Harbor Freight 67467](https://www.harborfreight.com/13-inch-x-4-inch-pneumatic-tire-67467.html), $14.99 each' : 'Not selected. No suitable 20 inch wheel has been found'} | ${c.wheels} | When they arrive, measure the hub from bearing face to bearing face. If it is not ${s.hub}, enter the real number in the studio and download the kit again before cutting axles |
-${d.swivel ? `| A | Front caster | [Harbor Freight 63799](https://www.harborfreight.com/10-in-pneumatic-swivel-caster-63799.html), $19.99. Or [CasterHQ CB-SPC10](https://casterhq.com/products/10-swivel-pneumatic-caster-4-ply-350-lbs-capacity), $79.00, whose maker states a 12-1/4 inch height | 1 | Measure from the floor to the top of the mounting plate with the wheel trailing. This guide assumes ${s.caster}. If yours differs, enter it in the studio: it sets the nose post length |\n` : ''}| B | Gussets and hangers | A laser-cutting service. [SendCutSend](https://sendcutsend.com) lists both materials, accepts DXF, has no minimum quantity and ships laser parts in 1 to 3 days | ${c.corner} x corner_gusset.dxf and ${c.tee} x tee_gusset.dxf in 0.125 inch 6061-T6 aluminum. ${c.hanger} x ${d.wheel.hanger}.dxf in 0.125 inch 304 stainless | Upload the three DXF files from the metal folder, pick material and thickness, enter quantities. Add their deburring service or file the edges yourself |
+${d.swivel ? `| A | Front caster | [Service Caster SCC-100S3504-PNB-BSL](https://www.zoro.com/service-caster-10-inch-black-pneumatic-wheel-swivel-caster-with-bolt-swivel-lock-scc-100s3504-pnb-bsl/i/G705434817/), $64.69: 10 inch pneumatic, swivel lock, 350 lb and a 12-3/16 inch mounting height stated | 1 | Measure from the floor to the top of the mounting plate. This guide assumes ${s.caster}. If yours differs, enter it in the studio: it sets the nose post length. A [Harbor Freight 63799](https://www.harborfreight.com/10-in-pneumatic-swivel-caster-63799.html) at $19.99 also fits, with no swivel lock and no stated height |\n` : ''}| A | Parking brake | [POWERTEC 302F push-pull toggle clamp](https://www.zoro.com/powertec-toggle-clamp-300lbs-cap-302f-quick-release-pushpull-clamp-20304n/i/G714915420/), $10.70 each, and a [rubber bumper pair with a 5/16 inch stud](https://www.zoro.com/midwest-fastener-516-x-1-18-x-58-male-cylinder-bumper-mount-2pk-930876/i/G802529522/), $17.89 | 2 clamps, 1 bumper pair | Check the bumper stud threads into the clamp plunger before anything else. Eight #10 screws and lock nuts hold the clamps to their plates |
+| B | Gussets and hangers | A laser-cutting service. [SendCutSend](https://sendcutsend.com) lists both materials, accepts DXF, has no minimum quantity and ships laser parts in 1 to 3 days | ${c.corner} x corner_gusset.dxf, ${c.tee} x tee_gusset.dxf and 2 x brake_plate.dxf in 0.125 inch 6061-T6 aluminum. ${c.hanger} x ${d.wheel.hanger}.dxf in 0.125 inch 304 stainless | Upload the four DXF files from the metal folder, pick material and thickness, enter quantities. Add their deburring service or file the edges yourself |
 | C | Chassis tube, 1 x 1 x 1/8 inch 6061-T6 | [Metals Depot T3118-6061](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 8 ft at $58.08 | ${heavyBars.length} bars | 8 ft is the longest that ships by parcel. Longer bars are cheaper per foot but come by truck |
 | C | Cabin tube, 1 x 1 x 1/16 inch 6063-T52 | [Metals Depot T31116](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 8 ft at $41.60 | ${lightBars.length} bars | Do not swap this softer tube into the chassis positions |
 | D | Bolts, nuts, washers | [Bolt Depot](https://boltdepot.com/Product-Details?product=328): 1/4-20 x 2 inch grade 5 zinc hex bolt 328, lock nut 2624, SAE washer 2976 | ${boxes} boxes of 100 bolts, ${boxes} of nuts, ${Math.ceil(2 * fasteners / 100)} of washers | You need ${c.bolts} bolts, plus ${c.handleBolts} at 3 inch long for the handle${d.swivel ? ` and ${c.casterBolts} at 5/16-18 x 2-1/2 inch for the caster` : ''} |
-| D | Sleeve tube | A metal supplier: 4130 or DOM steel tube, 3/8 inch OD x .049 wall | ${sleeveM} m | Cut into ${c.sleeves} sleeves, each ${t} long. Price not verified |
-| D | Axle parts | Hardware store or metal supplier: 5/8 inch plain steel rod; 3/4 inch OD x .058 wall steel tube; 5/8 inch washers; 1/8 inch cotter pins | ${rodMm} of rod, ${Math.ceil((axleSleeves * (t + 2) + 2 * (d.spacer + 2)))} of tube, ${d.swivel ? 4 : 8} washers, ${d.swivel ? 4 : 6} cotters | Never use threaded rod as an axle. Prices not verified |
+| D | Sleeve tube | [Online Metals DOM steel tube, 3/8 inch OD x .049 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-375-od-x-0-049-wall-x-0-28-id-carbon-steel-round-tube-a513-type-5-dom/pid/7754), $11.66 per 6 ft | ${Math.ceil(c.sleeves * 26.9 / 1828.8)} lengths of 6 ft | Cut into ${c.sleeves} sleeves, each ${t} long |
+| D | Axle parts | [Online Metals DOM tube, 3/4 inch OD x .065 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-75-od-x-0-065-wall-x-0-62-id-carbon-steel-round-tube-a513-type-5-dom/pid/7765), $4.99 per foot. A 5/8 inch x 3 ft plain steel rod from a hardware store, about $20.57. [Bolt Depot](https://boltdepot.com) 5/8 inch SAE washers at $0.15 and 1/8 x 1-1/2 inch cotter pins at $0.07 | 1 ft of tube, 1 rod, ${d.swivel ? 4 : 8} washers, ${d.swivel ? 4 : 6} cotters | You need ${rodMm} of rod. Never use threaded rod as an axle |
 | E | Plywood | [Home Depot 15/32 inch ACX sanded pine](https://www.homedepot.com/b/Lumber-Composites-Plywood/15-32/N-5yc1vZbqm7Z1z0mcqq), $52.00 a sheet | ${d.topRail + s.ramp + 10 <= 2438.4 && s.width + 2 * t <= 1219.2 ? 1 : 2} | Floor ${d.topRail} x ${mm(s.width + 2 * t)} and ramp ${s.ramp} x ${d.rampWidth}. Plus exterior sealer |
-| F | Small hardware | Hardware store or online. Prices not verified | Stainless continuous hinge about ${Math.floor(d.rampWidth / 25.4 / 6) * 6} inch; 2 stainless draw latches; ${d.swivel ? 4 : 4} leveling feet 3/8-16 (2 with a 4 inch stem for the tip-stops, 2 short ones for the ramp legs); 2 threaded inserts for 1 inch square tube, 3/8-16; ${c.rampBolts} carriage bolts 1/4-20 x 2 inch; ${c.floorScrews} rivet nuts and flat-head screws 1/4-20; one 12.7 mm aluminum tube ${d.topRail} long; foam grip; 2 wheel chocks; about 9 m of 3 mm bedding tape | One 3/8-16 swivel foot with a 4 inch stem was seen at $6.49 on a search listing |
+| F | Ramp hardware | [Zoro Select 2ZFK4 stainless piano hinge, 36 inch](https://www.zoro.com/zoro-select-piano-hinge-stainless-steel-full-surface-mounting-1-in-leaf-w-x-36-in-leaf-h-stainless-steel-2zfk4/i/G1671966/), $18.19. [Southco TL-20-202-52 stainless draw latch](https://www.zoro.com/southco-toggle-style-draw-latch-small-size-concealed-mount-stainless-steel-passivated-tl-20-202-52/i/G115615363/), $11.89. [S&W BSW-1Z 3/8-16 swivel leveling mount](https://www.zoro.com/s-w-manufacturing-level-mount-swivel-stud-38-16-1-14-in-bsw-1z/i/G1257593/), $6.15 | 1 hinge, 2 latches, 2 short leveling mounts, ${c.rampBolts} carriage bolts 1/4-20 x 2 inch (Bolt Depot 2754, $0.16), 2 threaded inserts for 1 inch square tube with a 3/8-16 thread | The hinge is unpunched: cut it to ${Math.floor(d.rampWidth / 10) * 10} and drill it. Check the latch comes with its keeper. No threaded insert was found at these suppliers; a furniture-hardware supplier is the place to look |
+| F | Handle, floor and parking | The same leveling mount in its tall version, $11.59. [Harbor Freight 96479 rubber wheel chock](https://www.harborfreight.com/solid-rubber-wheel-chock-96479.html), $7.49, in store. Hardware store: 1/4-20 rivet nuts, foam grip tube for a 1 inch bar, 1/8 inch foam strip | 2 tall leveling mounts, 2 chocks, ${c.floorScrews} rivet nuts and flat-head screws 1/4-20, about ${Math.ceil((s.width - 60) / 152.4)} foam grips of 6 inch, about 9 m of foam strip, one 12.7 mm aluminum tube ${d.topRail} long | A 4 ft store tube is too short for a ${d.topRail} ridge. Rivet nut, grip and foam strip prices were seen on listings only |
 | G | Cover materials | See buy-list.md for every line with its link | | Cut list in cover-cut-schedule.csv |
 | H | Filament | Any PETG for fit trials, ASA for parts left in the sun | About 1 kg | ${Object.entries(q).filter(([id]) => roverParts.find(p => p.id === id)!.kind !== 'metal').reduce((n, [, v]) => n + v, 0)} printed pieces in all |
 
@@ -511,7 +521,7 @@ Materials for one build come to about ${money(roverBuyTotal(s))} before tax and 
 
 - Miter saw with a non-ferrous metal blade, or a hacksaw with a miter box. Two clamps. A file or deburring tool.
 - Drill press if you can get one; a hand drill with a drill guide block works. Center punch and hammer.
-- Drill bits: 1/8 inch for pilots, letter W (0.386 inch, 9.8 mm) for sleeve holes, 17/64 inch for plain bolt holes, 3/8 inch for the tip-stop stems, a 3/4 inch step bit or hole saw for the axle sleeve${d.swivel ? ', 7/16 inch for the caster bolts' : ''}.
+- Drill bits: 1/8 inch for pilots, 3/16 inch for the brake clamp screws, letter W (0.386 inch, 9.8 mm) for sleeve holes, 17/64 inch for plain bolt holes, 3/8 inch for the tip-stop stems, a 3/4 inch step bit or hole saw for the axle sleeve${d.swivel ? ', 7/16 inch for the caster bolts' : ''}.
 - Tape measure, steel rule, combination square, calipers, a fine marker and a scriber.
 - Two 7/16 inch wrenches or a wrench and socket. Rivet nut setter. Jigsaw for the plywood.
 - A 3D printer with a bed of at least 220 x 220 mm.
@@ -585,8 +595,8 @@ The base now stands on its own and has the shape in base-plan.svg.
 1. Slide each rear axle through its sleeve from inside. From the inside out the order is cotter, washer, inner hanger, post, outer hanger, spacer, wheel, washer, cotter. The stack between washer faces should be ${d.rearStack} with about 0.5 of end float. Spin the wheel. It must not rub the hanger.
 ${d.swivel ? `2. Stand the four C15 nose posts on the rail extensions at ${mm(d.casterX - h.casterAlong / 2 - d.rearX + t)} and ${mm(d.casterX + h.casterAlong / 2 - d.rearX + t)} from the rear end. Each gets a corner gusset on both side faces, the rail leg pointing away from the other post.
 3. Lay the two C16 caster beams across the post tops, ends flush with the outside of the rails. Tie each beam to its two posts with one corner gusset on the outside face.
-4. Hold the caster up under the beams on the centerline with its plate spanning both. Mark its four holes, drill 7/16 inch through each beam with a sleeve, and bolt it on.
-5. Roll the frame. It should steer by pushing the handle end sideways and the caster should swing a full circle without touching the cabin front or the posts.` : `2. Butt the two C04 fork arms against the front cross member at ${d.forkY} each side of center, a tee gusset above and below each.
+4. Hold the caster up under the beams on the centerline with its plate spanning both. Its bolt pattern is not published, so mark its four holes from the plate itself, drill 7/16 inch through each beam with a sleeve, and bolt it on. If the holes do not land on both beams, slide the front beam along the post tops before drilling its gusset holes.
+5. Roll the frame. It should steer by pushing the handle end sideways and the caster should swing a full circle without touching the cabin front or the posts. Fit the bolt-on swivel lock as its maker shows and check it holds the wheel straight.` : `2. Butt the two C04 fork arms against the front cross member at ${d.forkY} each side of center, a tee gusset above and below each.
 3. Stand a C05 stub post on each arm at the front axle with a hanger on both faces, fit the axle sleeves, and mount the front wheel on its through axle.`}
 
 ## 10. Cabin frame
@@ -615,12 +625,15 @@ ${d.swivel ? `2. Stand the four C15 nose posts on the rail extensions at ${mm(d.
 7. Stick the traction sheet between the curbs, stopping 18 short of the ground edge, and slide the three printed toes onto that edge with a bead of sealant.
 8. Raise the ramp. Fit the two draw latches to the rear posts and the safety strap as a separate, second hold.
 
-## 13. Handle, tip-stops and parking
+## 13. Handle, tip-stops and parking brake
 
 1. Bolt each C12 handle arm to the outside of a rear corner post and an axle post with one 3 inch bolt per post, ${s.handle} above the ground.
 2. Fit the C13 grip tube between the arm ends with a corner gusset above and below each end. Slide on the foam grip.
-3. Screw a leveling foot with a 4 inch stem up through each base rail at ${mm(117.3 + t)} from the rear end, a nut and washer above and below. Set the pads about 40 above the ground.
-4. There is no wheel brake. Chock both rear wheels every time the carrier is parked and before the ramp comes down.
+3. Screw a tall leveling mount up through each base rail at ${mm(117.3 + t)} from the rear end, a nut and washer above and below. Set the pads about 40 above the ground.
+4. Brake arms. Butt a C17 arm against the outside face of each axle post, ${mm(d.brakeZ - d.railZ - t / 2)} up the post, pointing outward over the tire. Put a corner gusset on the front and rear faces, long-hole leg along the arm, and bolt through. On the front, hang a brake clamp plate on the same two arm bolts, outside the gusset.
+5. Hold a toggle clamp against the plate with its plunger pointing straight down at the middle of the tread. With the handle open the pad should clear the tire by about 10; closed, it should press about 10 into it. Mark the four base holes, drill 3/16 inch through the plate, and bolt the clamp on.
+6. Thread the rubber bumper onto the plunger and set its height with the plunger lock nut. Close both clamps and try to roll the carrier. It should not move on level ground.
+7. Chock both rear wheels as well on any slope and whenever the ramp is down. The clamps are a parking brake only. Nothing slows the carrier while it is moving.
 
 ## 14. Cover
 

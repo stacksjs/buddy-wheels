@@ -165,6 +165,8 @@ The first cost-down pass was deployed natively at commit `dd57a1a` on November 1
 
 - A fourth pass added a swivel front caster on a raised nose, a step-by-step build guide, a base frame plan, a drilling schedule for every tube, a parcel-bar nesting plan and 8 ft bar pricing for one build. Totals are $1,384.07 at 100 units, $2,663.98 for one and $1,188.17 with tube by weight; materials for one build are about $1,750, of which $1,294 has a supplier page behind it. Eight Rover tests cover it, including that every drilled hole lies inside its cut piece and that rail holes in the two directions never share a station. No wheel brake exists; parking is by wheel chocks. Verified locally only; not deployed at the time of writing.
 
+- A fifth pass added a swivel caster with a swivel lock and a stated mounting height, a toggle-clamp parking brake on each rear tire with a new clamp plate profile, and supplier-page prices for most remaining hardware. Totals are $1,507.81 at 100 units, $2,777.43 for one and $1,309.43 with tube by weight; materials for one build are about $1,863, of which $1,557 has a supplier page behind it. The package has seventeen meshes and six profiles. The laser-cut plates remain an allowance, the brake is untested and nothing has been built.
+
 ## Physical product gate
 
 No production CAD/STL/3MF, qualified print specification, structural test report, veterinary fitting study, certified load rating, production inventory, supplier quotes, insurance, final return/warranty terms, live payment provider or customer order exists. Follow docs/product/validation.md before enabling sales or using a prototype on an animal.

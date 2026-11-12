@@ -1,10 +1,10 @@
 # Buddy Rover r0 bench assembly
 
-Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub101.6-trail-swivel311. All dimensions mm. BENCH DESIGN. NOT FOR ANIMAL USE. No payload, speed, distance, slope or surface rating exists. Buddy is owner-reported 140 lb; his measurements and suitability for a carrier are not established.
+Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub101.6-trail-swivel310. All dimensions mm. BENCH DESIGN. NOT FOR ANIMAL USE. No payload, speed, distance, slope or surface rating exists. Buddy is owner-reported 140 lb; his measurements and suitability for a carrier are not established.
 
 ## What this revision is
 
-A large cut-to-fit carrier built from 1 inch square aluminum tube, 1/8 inch wall 6061-T6 for the chassis and 1/16 inch wall 6063-T52 for the cabin, three repeated flat metal profiles, plywood panels and printed service parts. The tailgate is the ramp: it folds down to a 8.9 degree walk-in with no step, and stands on its own two feet so the dog's weight on the threshold goes to the ground instead of tipping the carrier. Two 15 inch trail wheel, 4.00-8s at the rear and a 10 inch swivel caster on a raised nose at the front, so it steers by pushing the handle sideways.
+A large cut-to-fit carrier built from 1 inch square aluminum tube, 1/8 inch wall 6061-T6 for the chassis and 1/16 inch wall 6063-T52 for the cabin, three repeated flat metal profiles, plywood panels and printed service parts. The tailgate is the ramp: it folds down to a 8.9 degree walk-in with no step, and stands on its own two feet so the dog's weight on the threshold goes to the ground instead of tipping the carrier. Two 15 inch trail (4.00-8) wheels at the rear and a 10 inch swivel caster on a raised nose at the front, so it steers by pushing the handle sideways.
 
 Coordinates: X forward, Y across, Z up. Origin on the ground under the rear axle.
 
@@ -19,14 +19,14 @@ Coordinates: X forward, Y across, Z up. Origin on the ground under the rear axle
 | Ramp length and width | 900 x 688 |
 | Ramp rise and incline | 139.9 rise, 8.9 degrees |
 | Rear axle ahead of the tailgate plane | 520 |
-| Front wheel | swivel caster, mounting height 311 |
+| Front wheel | swivel caster, mounting height 310 |
 | Wheelbase | 853.4 |
 | Handle height | 980 (38.6 in) |
 | Overall length, width over axle ends, height | 2020.8 x 1008.45 x 1204 |
 | Ground clearance under the base gussets | 108.125 |
-| Wheel | 15 inch trail wheel, 4.00-8 |
+| Rear wheel | 15 inch trail (4.00-8) |
 | Assumed wheel hub through-length | 101.6 |
-| Estimated empty mass, arithmetic only | 49.1 kg (108 lb) |
+| Estimated empty mass, arithmetic only | 49.8 kg (110 lb) |
 
 ## Stated geometry beside the reference trailer
 
@@ -39,14 +39,14 @@ Burley Bark Ranger XL figures are the maker's published numbers, read 2026-11-11
 | Interior height | 29.9 in | 37.4 in |
 | Interior volume ratio | 1.0 | 2.01 |
 | Entry | 9 in step-up at a tailgate | 8.9 degree ramp, no step |
-| Weight | 33 lb | about 108 lb estimated |
+| Weight | 33 lb | about 110 lb estimated |
 | Capacity | 100 lb stated by its maker | none. Untested bench design |
 
 Rover is much larger and much heavier. The mass is the price of a bolted frame and plywood panels and is the first thing a second revision should reduce.
 
 ## Planning statics, not test results
 
-With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 80 mm ahead of the rear axle and the front wheel carries about 9% of that mass. The swivel caster steers without lifting anything. Lifting the front to climb a curb takes roughly 103 N (23 lbf) down on the handle. A swivel caster can shimmy at a run and this one has no swivel lock, so this front end is for walking pace. A dog that stands at the tailgate moves the center behind the axle. The two tip-stop feet exist for that case and their setting and strength are unproven.
+With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 80 mm ahead of the rear axle and the front wheel carries about 9% of that mass. The swivel caster steers without lifting anything. Lifting the front to climb a curb takes roughly 104 N (23 lbf) down on the handle. A swivel caster can shimmy at a run, so lock the swivel with its bolt-on lock before running and steer by lifting the front as with a fixed wheel. A dog that stands at the tailgate moves the center behind the axle. The two tip-stop feet exist for that case and their setting and strength are unproven.
 
 ## Cut list
 
@@ -64,10 +64,11 @@ With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 80 
 | C12 | 2 | Handle arm | 1/16 wall 6063-T52 | 965.4 |
 | C13 | 1 | Handle grip tube | 1/16 wall 6063-T52 | 750.8 |
 | C14 | 3 | Base intermediate cross member | 1/16 wall 6063-T52 | 700 |
-| C15 | 4 | Nose post | 1/8 wall 6061-T6 | 174.3 |
+| C15 | 4 | Nose post | 1/8 wall 6061-T6 | 173.3 |
 | C16 | 2 | Caster beam | 1/8 wall 6061-T6 | 750.8 |
+| C17 | 2 | Brake arm | 1/8 wall 6061-T6 | 140 |
 
-Total 10.65 m of 1/8 inch wall 6061-T6 and 14.62 m of 1/16 inch wall 6063-T52. Base cross members sit at X = -532.7, -226.35, 95, 386.35, 692.7.
+Total 10.93 m of 1/8 inch wall 6061-T6 and 14.62 m of 1/16 inch wall 6063-T52. Base cross members sit at X = -532.7, -226.35, 95, 386.35, 692.7.
 
 ## Joint patterns
 
@@ -75,9 +76,9 @@ Every joint is a flat gusset with 1/4 inch bolts through steel crush sleeves. Ho
 
 | Profile | Qty | Holes from the joint centerline | Where |
 | --- | ---: | --- | --- |
-| Corner gusset | 40 | Leg A 50 and 80. Leg B 35 and 65 | Corner posts on the outside face only, axle-post tops both faces, rail to cross member, roof corners, handle grip, ramp legs |
+| Corner gusset | 44 | Leg A 50 and 80. Leg B 35 and 65 | Corner posts on the outside face only, axle-post tops both faces, rail to cross member, roof corners, handle grip, ramp legs |
 | Tee gusset | 8 | Bar 30 each side. Stem 35 and 60 | Intermediate base cross members, mid roof bow, fork arms top and bottom |
-| Axle hanger, 15 inch trail wheel, 4.00-8 | 4 | Bar 30 each side. Stem 105, 135. Axle bore at 68.9 | Both faces of each axle post and each fork stub |
+| Axle hanger, 15 inch trail (4.00-8) wheel | 4 | Bar 30 each side. Stem 105, 135. Axle bore at 68.9 | Both faces of each axle post and each fork stub |
 
 Legs A and B alternate where two gussets meet on one tube, so bolts cross 15 mm apart and never share a station. Tube bores are 9.725 for the sleeves, plate holes 6.75, axle sleeve bores 19.25. All are nominal. Use the three printed drill guides for pilot centers and finish with metal tooling.
 
@@ -94,7 +95,7 @@ Legs A and B alternate where two gussets meet on one tube, so bolts cross 15 mm 
 9. Ramp: panel, two curb rails on top, two ribs underneath at 40 mm and mid length, stand legs on the hinge-end rib 60 mm in from each edge. Hinge leaves on the top faces of floor and ramp.
 10. Handle arms on the outside of the rear and axle posts at Z = 980, one 3 inch bolt per post. Grip tube between the arm ends.
 11. Wheels, washers and cotters. Rear stack between outer washer faces 149.05, with 0.5 total end float.
-12. Tip-stop feet, brake, latches, safety strap. Then the cover.
+12. Tip-stop feet, the two brake arms with their plates and clamps, latches, safety strap. Then the cover.
 
 ## The ramp
 
@@ -106,7 +107,7 @@ Each rear axle end stands 14.525 mm into the cabin, about 41 mm above the deck. 
 
 ## Printing
 
-- Chassis tube cap, cap_heavy.stl, quantity 12. Closes 1/8 inch wall tube ends. End protection only.
+- Chassis tube cap, cap_heavy.stl, quantity 14. Closes 1/8 inch wall tube ends. End protection only.
 - Cabin tube cap, cap_light.stl, quantity 12. Closes .065 inch wall tube ends. End protection only.
 - Ramp threshold toe, ramp_toe.stl, quantity 3. Ground-supported bevel that removes the step at the ramp edge. It is not the ramp structure.
 - Roof ridge saddle, ridge_saddle.stl, quantity 3. Holds the ridge pole above the frame so the roof sheds water. Carries fabric tension only.
@@ -126,7 +127,7 @@ Files prefixed FIT_CHECK_ONLY are plastic copies of metal parts for checking hol
 
 1. Buddy's measurements, lying length and standing height first, and a veterinary view on whether riding suits him.
 2. Engineering review of the frame, the axle hangers, the ramp and its stand, the handle and the tip-stops, including steel-to-aluminum corrosion.
-3. A measured wheel: actual hub length, bearing fit and a rating that suits the carrier, then the brake. The 13 inch candidate is a garden-cart wheel for walking pace; a running wheel is still an open selection. Until wheel and brake are proven the running gear is a placeholder.
+3. A measured wheel: actual hub length, bearing fit and a rating that suits the carrier, then the parking brake proven on a slope with ballast. The 13 inch candidate is a garden-cart wheel for walking pace; a running wheel is still an open selection. Until wheel and brake are proven the running gear is a placeholder. There is no brake for slowing while moving.
 4. Ballast tests to an approved plan: static proof, ramp load at mid span and at the threshold, tip in every direction, curb and brake events, fatigue.
 5. Cover tests listed in materials.md.
 6. Only then a supervised, consented fit and handling study with stop rules.

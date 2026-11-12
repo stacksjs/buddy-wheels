@@ -6,16 +6,16 @@ export type RoverWheel = 'trail' | 'path' | 'run'
 export type RoverFront = 'swivel' | 'fixed'
 /** caster is the mounting height of the front swivel caster, floor to the top of its plate. It is ignored with a fixed front wheel. */
 export interface RoverSetup { length: number, width: number, height: number, ramp: number, axle: number, handle: number, hub: number, caster: number, wheel: RoverWheel, front: RoverFront }
-export const roverStart: RoverSetup = { length: 1200, width: 700, height: 950, ramp: 900, axle: 520, handle: 980, hub: 101.6, caster: 311, wheel: 'trail', front: 'swivel' }
+export const roverStart: RoverSetup = { length: 1200, width: 700, height: 950, ramp: 900, axle: 520, handle: 980, hub: 101.6, caster: 310, wheel: 'trail', front: 'swivel' }
 export const roverFronts = { swivel: '10 inch swivel caster on a raised nose', fixed: 'Fixed third wheel on a fork' } as const
 /**
  * Two wheel choices on the same 124 mm base-rail height, so the deck and ramp do not change.
  * rise is the axle height above the base-rail centerline; posts are the hanger bolt heights on the post.
  */
 export const roverWheels = {
-  trail: { label: '15 inch trail wheel, 4.00-8', od: 385.8, tire: 79.4, rim: 102, rise: 68.9, posts: [105, 135], hanger: 'axle_hanger_mid', spacer: 12.7, forkSpacer: 0, kg: 3.2, hub: 101.6 },
-  path: { label: '13 x 4 inch path wheel', od: 330.2, tire: 101.6, rim: 76, rise: 41.1, posts: [75, 105], hanger: 'axle_hanger_low', spacer: 25.4, forkSpacer: 25.4, kg: 2.13, hub: 82.55 },
-  run: { label: '20 inch run wheel', od: 508, tire: 54, rim: 212, rise: 130, posts: [60, 105, 155], hanger: 'axle_hanger', spacer: 12.7, forkSpacer: 0, kg: 2.3, hub: 75 },
+  trail: { label: '15 inch trail (4.00-8)', od: 385.8, tire: 79.4, rim: 102, rise: 68.9, posts: [105, 135], hanger: 'axle_hanger_mid', spacer: 12.7, forkSpacer: 0, kg: 3.2, hub: 101.6 },
+  path: { label: '13 x 4 inch path', od: 330.2, tire: 101.6, rim: 76, rise: 41.1, posts: [75, 105], hanger: 'axle_hanger_low', spacer: 25.4, forkSpacer: 25.4, kg: 2.13, hub: 82.55 },
+  run: { label: '20 inch run', od: 508, tire: 54, rim: 212, rise: 130, posts: [60, 105, 155], hanger: 'axle_hanger', spacer: 12.7, forkSpacer: 0, kg: 2.3, hub: 75 },
 } as const
 /** Stock bars as sold by the priced supplier. Thin wall is 1/16 inch 6063-T52, chassis wall is 1/8 inch 6061-T6. */
 export const roverTubeStock = { heavy: { mm: 7315.2, label: '24 ft', alloy: '6061-T6', wall: '1/8 inch' }, light: { mm: 6400.8, label: '21 ft', alloy: '6063-T52', wall: '1/16 inch' } } as const
@@ -28,6 +28,8 @@ export const roverHardware = {
   washer: 1.5, cotter: 3.2, reach: 380, hingeGap: 6, foot: 28, ridge: 60, pole: 12.7, forkGap: 30, forkTail: 60,
   // Front swivel caster: wheel sweep radius, wheel size, trail behind the swivel axis and plate bolt pattern along and across the carrier.
   casterSweep: 185, casterWheel: 254, casterTire: 89, casterTrail: 57, casterAlong: 85.7, casterAcross: 76.2, casterKg: 3.6,
+  // Parking brake: a short arm over each rear tire carries a push-pull toggle clamp. brakeDrop is arm centerline above the tire top.
+  brakeArm: 140, brakeDrop: 170,
 } as const
 /** Planning payload used for arithmetic only. It is not a rating. Buddy is owner-reported 140 lb. */
 export const roverPlanningDogKg = 72.6
@@ -48,6 +50,7 @@ export const roverParts = [
   { id: 'coupon', name: 'Clearance coupon', kind: 'fixture', note: 'Calibrates the actual printer before any fit is trusted. Not part of the carrier.' },
   { id: 'tee_gusset', name: 'Tee gusset', kind: 'metal', note: '1/8 inch 6061-T6 aluminum. STL is an unloaded fit-check copy.' },
   { id: 'corner_gusset', name: 'Corner gusset', kind: 'metal', note: '1/8 inch 6061-T6 aluminum, one profile used in both hands. STL is an unloaded fit-check copy.' },
+  { id: 'brake_plate', name: 'Brake clamp plate', kind: 'metal', note: '1/8 inch 6061-T6 aluminum. Hangs from the brake arm on the two gusset bolts and carries the toggle clamp. STL is an unloaded fit-check copy.' },
   { id: 'axle_hanger_mid', name: 'Axle hanger, trail wheel', kind: 'metal', note: '1/8 inch 304 stainless steel. Carries a 15 inch wheel axle 69 mm above the base rail. STL is an unloaded fit-check copy.' },
   { id: 'axle_hanger_low', name: 'Axle hanger, path wheel', kind: 'metal', note: '1/8 inch 304 stainless steel. Carries a 13 inch wheel axle 41 mm above the base rail. STL is an unloaded fit-check copy.' },
   { id: 'axle_hanger', name: 'Axle hanger, run wheel', kind: 'metal', note: '1/8 inch 304 stainless steel. Carries a 20 inch wheel axle 130 mm above the base rail. STL is an unloaded fit-check copy.' },
@@ -83,6 +86,7 @@ export function parseRoverSetup(input: Record<string, unknown>): RoverSetup {
   if (setup.ramp > setup.height) throw new Error('The ramp stows upright as the tailgate, so it cannot be longer than the cabin height.')
   if (d.rampAngle > 12) throw new Error('Ramp incline is over 12 degrees. Choose a longer ramp.')
   if (d.centerAhead < 40) throw new Error('Move the axle back toward the tailgate. A centered dog must sit at least 40 mm ahead of the rear axle.')
+  if (d.brakeZ + 90 > setup.handle - 13) throw new Error('Raise the handle or choose a smaller wheel. The parking brake arm sits too close under the handle arm.')
   if (setup.handle > d.handleMax) throw new Error(`Handle height must be ${d.handleMax} mm or lower for this cabin height.`)
   return setup
 }
@@ -115,6 +119,7 @@ export function roverDimensions(s: RoverSetup) {
   const frontStack = s.hub + 4 * h.washer + 4 * h.plate + 2 * t + 2 * w.forkSpacer; const frontShaft = frontStack + 0.5 + 2 * end
   const forkArm = h.forkGap + R + h.forkTail; const wheelbase = swivel ? casterX - h.casterTrail : frontX + t + h.forkGap + R
   const stub = w.posts.at(-1)! + 18 - t / 2
+  const brakeZ = w.od + h.brakeDrop
   const rampAngleRad = Math.asin((deck - h.panel) / s.ramp); const rampWidth = s.width - 12
   const legCut = (deck - 40 * Math.sin(rampAngleRad)) / Math.cos(rampAngleRad) - h.panel - t - h.foot
   const hingeX = rearX - t - h.hingeGap; const gripX = rearX - t - h.reach
@@ -139,13 +144,15 @@ export function roverDimensions(s: RoverSetup) {
     { id: 'C14', name: 'Base intermediate cross member', wall: 'light', qty: intermediates, length: s.width },
     { id: 'C15', name: 'Nose post', wall: 'heavy', qty: swivel ? 4 : 0, length: nosePost },
     { id: 'C16', name: 'Caster beam', wall: 'heavy', qty: swivel ? 2 : 0, length: casterBeam },
+    { id: 'C17', name: 'Brake arm', wall: 'heavy', qty: 2, length: h.brakeArm },
   ].filter(c => c.qty > 0).map(c => ({ ...c, length: mm(c.length) }))
   const counts = {
     // Swivel front: twelve more corner gussets and 32 bolts for the nose, less the fork's four tees, four hangers and 18 bolts.
-    corner: swivel ? 40 : 28, tee: 2 * intermediates + (swivel ? 2 : 6), hanger: swivel ? 4 : 8, wheels: swivel ? 2 : 3,
-    bolts: 124 + 8 * intermediates + (swivel ? 14 : 0), handleBolts: 4, sleeves: 124 + 8 * intermediates + 8 + (swivel ? 14 : 0), casterBolts: swivel ? 4 : 0,
+    // Each brake arm adds a pair of corner gussets and four bolts.
+    corner: (swivel ? 40 : 28) + 4, tee: 2 * intermediates + (swivel ? 2 : 6), hanger: swivel ? 4 : 8, wheels: swivel ? 2 : 3,
+    bolts: 132 + 8 * intermediates + (swivel ? 14 : 0), handleBolts: 4, sleeves: 132 + 8 * intermediates + 8 + (swivel ? 14 : 0), casterBolts: swivel ? 4 : 0, brakeClamps: 2,
     rampBolts: 2 * (Math.floor(s.ramp / 200) + 1) + 6, floorScrews: 2 * Math.ceil(topRail / 250) + stations.length * 3,
-    capHeavy: 12, capLight: 12, toe: Math.floor(rampWidth / 200), saddle: 3, fabricClip: 28, cableClip: 6, axleCover: swivel ? 4 : 6,
+    capHeavy: 14, capLight: 12, toe: Math.floor(rampWidth / 200), saddle: 3, fabricClip: 28, cableClip: 6, axleCover: swivel ? 4 : 6,
   }
   const heavyM = cuts.filter(c => c.wall === 'heavy').reduce((n, c) => n + c.qty * c.length, 0) / 1000
   const lightM = cuts.filter(c => c.wall === 'light').reduce((n, c) => n + c.qty * c.length, 0) / 1000
@@ -167,7 +174,7 @@ export function roverDimensions(s: RoverSetup) {
     R, wheel: w, tire: w.tire, spacer: w.spacer, forkSpacer: w.forkSpacer, tireGap: mm(w.spacer + s.hub / 2 - w.tire / 2), railZ: mm(railZ), deck: mm(deck), topZ: mm(topZ), clearance: mm(railZ - t / 2 - h.plate), rearX, frontX, rail: mm(rail), topRail: mm(topRail), post: mm(post), stations, intermediates,
     swivel, casterX: mm(casterX), nose: mm(nose), nosePost: mm(nosePost), casterBeam: mm(casterBeam),
     rearStack: mm(rearStack), rearShaft: mm(rearShaft), postY: mm(postY), inboard: mm(inboard), wheelY: mm(wheelY), cabinIntrusion: mm(inboard - t / 2),
-    forkY: mm(forkY), frontStack: mm(frontStack), frontShaft: mm(frontShaft), forkArm: mm(forkArm), stub: mm(stub), wheelbase: mm(wheelbase),
+    brakeZ: mm(brakeZ), forkY: mm(forkY), frontStack: mm(frontStack), frontShaft: mm(frontShaft), forkArm: mm(forkArm), stub: mm(stub), wheelbase: mm(wheelbase),
     rampAngle: mm(degrees(rampAngleRad)), rampAngleRad, rampWidth: mm(rampWidth), rampRise: mm(deck - h.panel), legCut: mm(legCut), hingeX: mm(hingeX), gripX: mm(gripX),
     handleArm: mm(handleArm), grip: mm(grip), handleMax, centerAhead: mm(centerAhead), roofSlope: mm(roofSlope),
     overallWidth: mm(2 * (postY - inboard + rearShaft)), tireWidth: mm(2 * wheelY + w.tire), overallLength: mm((swivel ? Math.max(casterX + h.casterSweep, frontX + t + nose) : wheelbase + R) - gripX), overallHeight: mm(topZ + t / 2 + h.ridge + h.pole + 4),

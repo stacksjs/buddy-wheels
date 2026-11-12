@@ -105,6 +105,16 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
     if (d.forkSpacer && !d.swivel) rod(`front-spacer-${side}`, h.axleSleeve / 2, d.forkSpacer, [d.wheelbase, side * (s.hub / 2 + h.washer + d.forkSpacer / 2), d.R], across, steel, h.axle / 2)
     wheel(`rear-wheel-${side}`, [0, side * d.wheelY, d.R])
     add(`rear-axle-cover-${side}`, stl('axle_cover'), accent, place(basis([0, side, 0])[0], basis([0, side, 0])[1], [0, start + side * (d.rearShaft - 6), d.R]))
+    // Parking brake: arm over the tire, a gusset on the front and rear faces of the axle post, and the clamp with its pad.
+    tube(`brake-arm-${side}`, true, h.brakeArm, [0, side * outer, d.brakeZ], [0, side, 0])
+    cap(`brake-arm-cap-${side}`, true, [0, side * (outer + h.brakeArm), d.brakeZ], [0, side, 0])
+    for (const face of [-1, 1]) gusset(`brake-gusset-${side}-${face}`, 'corner_gusset', [0, y, d.brakeZ], [face, 0, 0], [0, side, 0], [0, 0, 1])
+    // The clamp plate stacks on the front gusset and shares its two arm bolts; the clamp hangs below the arm over the tread.
+    add(`brake-plate-${side}`, stl('brake_plate'), frame, place([0, side, 0], [0, 0, 1], [t / 2 + h.plate + (side > 0 ? 0 : h.plate), y + side * 80, d.brakeZ]))
+    const padY = side * d.wheelY; const front = t / 2 + 2 * h.plate
+    slab(`brake-clamp-${side}`, [22, 56, 89], [front + 11, padY, d.brakeZ - 75], [1, 0, 0], across, steel)
+    rod(`brake-plunger-${side}`, 4, 46, [front + 11, padY, d.brakeZ - 142], [0, 0, 1], '#d5dbd6')
+    rod(`brake-pad-${side}`, 14, 16, [front + 11, padY, 2 * d.R + 10], [0, 0, 1], '#29322d')
     rod(`tip-stop-${side}`, 4.7, 100, [d.rearX + 117.3, y, d.railZ - 40], [0, 0, 1], steel)
     rod(`tip-stop-foot-${side}`, 20, 10, [d.rearX + 117.3, y, d.railZ - 90], [0, 0, 1], '#29322d')
     // Front end: either a fork for a fixed third wheel, or a raised nose for a swivel caster.

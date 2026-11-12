@@ -1,6 +1,6 @@
 # Buddy Rover r0 materials and weather system
 
-Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub101.6-trail-swivel311. Supplier pages read 2026-11-11 unless a row says otherwise. These are costing candidates and a design intent. No fabric has been bought, sewn, soaked, sun-aged or tested, and nothing here is a waterproof, UPF or temperature claim.
+Configuration rover-r0-l1200-w700-h950-r900-a520-g980-hub101.6-trail-swivel310. Supplier pages read 2026-11-11 unless a row says otherwise. These are costing candidates and a design intent. No fabric has been bought, sewn, soaked, sun-aged or tested, and nothing here is a waterproof, UPF or temperature claim.
 
 ## How the cabin handles weather
 
@@ -68,7 +68,7 @@ Cover height 1016 mm, window sill 350 mm above the base rail, window height 556 
 2. Tape the roof-to-wall seams from the inside and prove adhesion on offcuts of both fabrics first. Lap the wall corner seams so they shed outward.
 3. Bind every mesh edge inside a shell frame. Never leave a raw mesh edge where a nose or claw can reach it.
 4. Hem the roof skirt around the shock cord. Add reflective trim on both sides and the rear at wheel-top height.
-5. Bind the four cutouts where the handle arms cross the rear and axle posts so metal clamps metal.
+5. Bind the four cutouts where the handle arms cross the rear and axle posts, and a slit at each axle post for the brake arm, so metal clamps metal.
 6. The cover hangs on the frame with printed rail clips and hook-and-loop tabs. Neither is a restraint. Escape prevention, tether anchors and chew resistance need their own design review.
 
 ## Tests before any dog rides
