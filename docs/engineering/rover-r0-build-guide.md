@@ -1,6 +1,6 @@
 # Buddy Rover r0 build guide
 
-Configuration rover-r0-l1300-w700-h1000-r1000-a560-g1000-hub101.6-trail-swivel310-k350-t180-welded. All dimensions mm unless marked. Read this once to the end before ordering anything.
+Configuration rover-r0-l1300-w700-h1000-r1000-a560-g1000-hub101.6-trail-swivel310-k350-t180-welded-sprung. All dimensions mm unless marked. Read this once to the end before ordering anything.
 
 **What this builds.** A bench carrier for checking fit, handling and the ramp with sandbags. It has no load rating, an untested parking brake, no brake for slowing while moving, and no test behind it. Do not put a dog in it until the release gates at the end are met.
 
@@ -15,7 +15,7 @@ Welding thin aluminum tube is TIG work and not a first welding project. Unless y
 1. **The shop does everything.** Send them cut-list.csv, weld-schedule.csv, drilling.csv, base-plan.svg and drawing.svg, and ask for a price to supply the tube, cut it, weld it and drill it. Search for "aluminum TIG welding" or "custom metal fabrication" near you, or ask at the counter of a metal supplier who they send people to. A bicycle frame builder, a marine or race-car fabricator, a community college welding program or a makerspace with a TIG welder are all worth a call for a single frame. Ask three.
 2. **You cut, the shop welds.** Buy the bars, cut and label every piece as in section 6, and bring the shop a box of labelled tube with the same drawings. That saves their saw time and lets you check every length first. Ask before you cut whether they would rather cut the angled ends themselves.
 
-The cost study puts the welding of one frame at about $690.00. That is arithmetic on an assumed shop rate, and no shop has seen the drawings.
+The cost study puts the welding of one frame at about $840.00. That is arithmetic on an assumed shop rate, and no shop has seen the drawings.
 
 What to tell the shop:
 
@@ -43,19 +43,20 @@ Order the wheel and caster first, because two dimensions in the design come from
 | A | Rear wheel | [Zoro Select 1NWV4](https://www.zoro.com/zoro-select-pneumatic-wheel-15-316dia-435lb-400-8-1nwv4/i/G1932594/), $32.89 each | 2 | When they arrive, measure the hub from bearing face to bearing face. If it is not 101.6, enter the real number in the studio and download the kit again before cutting axles |
 | A | Front caster | [Service Caster SCC-100S3504-PNB-BSL](https://www.zoro.com/service-caster-10-inch-black-pneumatic-wheel-swivel-caster-with-bolt-swivel-lock-scc-100s3504-pnb-bsl/i/G705434817/), $64.69: 10 inch pneumatic, swivel lock, 350 lb and a 12-3/16 inch mounting height stated | 1 | Measure from the floor to the top of the mounting plate. This guide assumes 310. If yours differs, enter it in the studio: it sets the nose post length. A [Harbor Freight 63799](https://www.harborfreight.com/10-in-pneumatic-swivel-caster-63799.html) at $19.99 also fits, with no swivel lock and no stated height |
 | A | Parking brake | [POWERTEC 302F push-pull toggle clamp](https://www.zoro.com/powertec-toggle-clamp-300lbs-cap-302f-quick-release-pushpull-clamp-20304n/i/G714915420/), $10.70 each, and a [DE-STA-CO 507208 neoprene-tipped spindle, 5/16-18](https://www.zoro.com/de-sta-co-flat-tip-spindle-516-18-083-3-507208/i/G0295985/), $4.15 each | 2 clamps, 2 spindles | The spindle replaces the plain bolt that comes in the clamp plunger. Eight #10 screws and lock nuts hold the clamps to their plates |
-| B | Hangers and brake plates | A laser-cutting service. [OSH Cut](https://app.oshcut.com/cart) shows a price as soon as you drop the files in, with no account. [SendCutSend](https://sendcutsend.com) lists both materials, has no minimum quantity and ships laser parts in 1 to 3 days, and asks you to sign up first | 2 x brake_plate.dxf in 0.125 inch 6061-T6 aluminum. 4 x axle_hanger_mid.dxf in 0.125 inch 304 stainless | Upload the two DXF files from the metal folder, pick material and thickness, enter quantities. Add their deburring service or file the edges yourself |
-| C | Chassis tube, 1 x 1 x 1/8 inch 6061-T6 | [Metals Depot T3118-6061](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 8 ft at $58.08 | 5 bars | 8 ft is the longest that ships by parcel. Longer bars are cheaper per foot but come by truck |
+| B | Hangers and brake plates | A laser-cutting service. [OSH Cut](https://app.oshcut.com/cart) shows a price as soon as you drop the files in, with no account. [SendCutSend](https://sendcutsend.com) lists both materials, has no minimum quantity and ships laser parts in 1 to 3 days, and asks you to sign up first | 2 x brake_plate.dxf in 0.125 inch 6061-T6 aluminum. 0 x axle_hanger_mid.dxf in 0.125 inch 304 stainless | Upload the two DXF files from the metal folder, pick material and thickness, enter quantities. Add their deburring service or file the edges yourself |
+| C | Chassis tube, 1 x 1 x 1/8 inch 6061-T6 | [Metals Depot T3118-6061](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 8 ft at $58.08 | 6 bars | 8 ft is the longest that ships by parcel. Longer bars are cheaper per foot but come by truck |
 | C | Cabin tube, 1 x 1 x 1/16 inch 6063-T52 | [Metals Depot T31116](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 8 ft at $41.60 | 7 bars | Do not swap this softer tube into the chassis positions |
-| D | Bolts, nuts, washers | [Bolt Depot](https://boltdepot.com/Product-Details?product=328): 1/4-20 x 2 inch grade 5 zinc hex bolt 328, lock nut 2624, SAE washer 2976 | 1 box of 100 bolts, 1 of nuts, 1 of washers | You need 14 bolts and 4 at 5/16-18 x 2-1/2 inch for the caster |
-| D | Sleeve tube | [Online Metals DOM steel tube, 3/8 inch OD x .049 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-375-od-x-0-049-wall-x-0-28-id-carbon-steel-round-tube-a513-type-5-dom/pid/7754), $11.66 per 6 ft | 1 lengths of 6 ft | Cut into 14 sleeves, each 25.4 long |
-| D | Axle parts | [Online Metals DOM tube, 3/4 inch OD x .065 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-75-od-x-0-065-wall-x-0-62-id-carbon-steel-round-tube-a513-type-5-dom/pid/7765), $4.99 per foot. A 5/8 inch x 3 ft plain steel rod from a hardware store, about $20.57. [Bolt Depot](https://boltdepot.com) 5/8 inch SAE washers at $0.15 and 1/8 x 1-1/2 inch cotter pins at $0.07 | 1 ft of tube, 1 rod, 4 washers, 4 cotters | You need 350 of rod. Never use threaded rod as an axle |
+| D | Bolts, nuts, washers | [Bolt Depot](https://boltdepot.com/Product-Details?product=328): 1/4-20 x 2 inch grade 5 zinc hex bolt 328, lock nut 2624, SAE washer 2976 | 1 box of 100 bolts, 1 of nuts, 1 of washers | You need 4 bolts and 4 at 5/16-18 x 2-1/2 inch for the caster |
+| D | Sleeve tube | [Online Metals DOM steel tube, 3/8 inch OD x .049 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-375-od-x-0-049-wall-x-0-28-id-carbon-steel-round-tube-a513-type-5-dom/pid/7754), $11.66 per 6 ft | 1 lengths of 6 ft | Cut into 4 sleeves, each 25.4 long |
+| D | Axle parts | [Online Metals DOM tube, 3/4 inch OD x .065 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-75-od-x-0-065-wall-x-0-62-id-carbon-steel-round-tube-a513-type-5-dom/pid/7765), $4.99 per foot. A 5/8 inch x 3 ft plain steel rod from a hardware store, about $20.57. [Bolt Depot](https://boltdepot.com) 5/8 inch SAE washers at $0.15 and 1/8 x 1-1/2 inch cotter pins at $0.07 | 1 ft of tube, 1 rod, 4 washers, 4 cotters | You need 337 of rod. Never use threaded rod as an axle |
 | E | Plywood | [Home Depot 15/32 inch ACX sanded pine](https://www.homedepot.com/b/Lumber-Composites-Plywood/15-32/N-5yc1vZbqm7Z1z0mcqq), $52.00 a sheet | 1 | Floor 1350.8 x 750.8 and ramp 1000 x 688. Plus exterior sealer |
 | F | Ramp hardware | [Zoro Select 2ZFK4 stainless piano hinge, 36 inch](https://www.zoro.com/zoro-select-piano-hinge-stainless-steel-full-surface-mounting-1-in-leaf-w-x-36-in-leaf-h-stainless-steel-2zfk4/i/G1671966/), $18.19. [Southco TL-20-202-52 stainless draw latch](https://www.zoro.com/southco-toggle-style-draw-latch-small-size-concealed-mount-stainless-steel-passivated-tl-20-202-52/i/G115615363/), $11.89 | 1 hinge, 2 latches, 18 carriage bolts 1/4-20 x 2 inch (Bolt Depot 2754, $0.16) | The hinge is unpunched: cut it to 680 and drill it. Check the latch comes with its keeper |
 | F | Handle, floor and parking | [S&W BSW-1Z 3/8-16 swivel leveling mount](https://www.zoro.com/s-w-manufacturing-level-mount-swivel-stud-38-16-1-14-in-bsw-1z/i/G1257593/) in its tall version, $11.59. [Harbor Freight 96479 rubber wheel chock](https://www.harborfreight.com/solid-rubber-wheel-chock-96479.html), $7.49, in store. Hardware store: 1/4-20 rivet nuts, foam grip tube for a 1 inch bar, 1/8 inch foam strip | 2 tall leveling mounts, 2 chocks, 27 rivet nuts and flat-head screws 1/4-20, about 5 foam grips of 6 inch, about 9 m of foam strip, one 12.7 mm aluminum tube 1016.8582 long | A 4 ft store tube is too short for a 1016.8582 ridge. Rivet nut, grip and foam strip prices were seen on listings only |
+| D | Rear suspension | [LvTu 150 mm coil-over shock](https://www.amazon.com/LvTu-Bicycle-Absorber-Suspension-Bushing/dp/B0CH6DCCPS), $31.05, in the 450 lbs spring. [Bunting EF081008 bronze flanged bearing](https://www.zoro.com/search?q=oil+impregnated+bronze+flanged+sleeve+bearing+1%2F2+x+5%2F8+x+1%2F2), $5.29 per pack of three. [Bolt Depot 399](https://boltdepot.com/Product-Details?product=399) 1/2-13 x 4 inch bolt, $1.64, and lock nut 21807, $0.41. M8 x 50 bolts with lock nuts | 2 shocks, 2 packs of bearings, 2 pivot bolts and nuts, 4 eye bolts, 8 x shock_tab.dxf in 0.125 inch 6061-T6 | Buy the shocks before the frame is welded and give them to the shop: the tab spacing and the hole size come from the real eyes |
 | G | Cover materials | See buy-list.md for every line with its link | | Cut list in cover-cut-schedule.csv |
 | H | Filament | Any PETG for fit trials, ASA for parts left in the sun | About 1 kg | 76 printed pieces in all |
 
-Materials for one build come to about $2,255.42 before tax and shipping. buy-list.md splits that into prices read on a supplier page and allowances.
+Materials for one build come to about $2,536.08 before tax and shipping. buy-list.md splits that into prices read on a supplier page and allowances.
 
 ## 4. Tools
 
@@ -82,15 +83,16 @@ Files named FIT_CHECK_ONLY are plastic copies of the metal plates. Print one of 
 
 Cut the long pieces first. Clamp the bar, cut square, and leave the saw 3 mm per cut. Deburr both ends inside and out. Write the ID on each piece as it comes off the saw. Cut pairs to the same stop so they match each other exactly; matching matters more than the absolute length.
 
-Chassis tube, 1/8 inch wall, from 5 bars of 8 ft:
+Chassis tube, 1/8 inch wall, from 6 bars of 8 ft:
 
 | Bar | Pieces, ID and length | Offcut |
 | --- | --- | ---: |
 | 1 | C01 1678.65, C16 750.8 | 2.95 |
 | 2 | C01 1678.65, C16 750.8 | 2.95 |
-| 3 | C06 1000, C06 1000, C15 173.3, C15 173.3 | 79.8 |
-| 4 | C03 909.9122, C03 909.9122, C15 173.3, C15 173.3, C17 140, C08 107.3571 | 6.6185 |
-| 5 | C02 700, C02 700, C17 140, C08 107.3571 | 779.0429 |
+| 3 | C06 1000, C06 1000, C22 357.8103, C23 46 | 22.5897 |
+| 4 | C03 909.9122, C03 909.9122, C22 357.8103, C15 173.3, C23 46 | 26.4653 |
+| 5 | C02 700, C02 700, C15 173.3, C15 173.3, C15 173.3, C17 140, C17 140, C08 107.3571 | 107.1429 |
+| 6 | C08 107.3571 | 2328.0429 |
 
 Cabin tube, 1/16 inch wall, from 7 bars of 8 ft:
 
@@ -122,6 +124,8 @@ Cabin tube, 1/16 inch wall, from 7 bars of 8 ft:
 | C16 | Caster beam | 2 | 750.8 |
 | C17 | Brake arm | 2 | 140 |
 | C21 | Front pillar | 2 | 905.5711 |
+| C22 | Swing arm | 2 | 357.8103 |
+| C23 | Shock arm | 2 | 46 |
 
 Angled ends. Lengths are along the middle of the tube, so mark the middle of each face and cut through that mark.
 
@@ -133,7 +137,7 @@ Angled ends. Lengths are along the middle of the tube, so mark the middle of eac
 
 Cut these a little long and trim to fit against the tacked frame, or leave them to the shop.
 
-Then cut 14 sleeves 25.4 long from the 3/8 inch steel tube, 2 axle sleeves 25.4 long and 2 wheel spacers 12.7 long from the 3/4 inch tube, and the axles: 2 at 168.75. Square and deburr every one. A sleeve that is short lets the tube crush; one that is long keeps the plate from seating.
+Then cut 4 sleeves 25.4 long from the 3/8 inch steel tube, 2 axle sleeves 25.4 long and 2 wheel spacers 12.7 long from the 3/4 inch tube, and the axles: 2 at 162.4. Square and deburr every one. The linked 3/4 inch x .065 wall tube is 0.620 inch inside, a hair under the 5/8 inch axle: ream it to 5/8 or buy .058 wall instead. A sleeve that is short lets the tube crush; one that is long keeps the plate from seating.
 
 ## 7. Mark and drill
 
@@ -150,7 +154,7 @@ The base rails carry the most holes. For this configuration, from the rear end o
 | Direction | Centers from the rear end | For |
 | --- | --- | --- |
 | vertical | 142.7 | Tip-stop foot stem |
-| side | 555.4, 615.4 | Axle hanger bar |
+| side | 885.4 | Swing arm pivot bolt |
 
 Wait to drill the axle sleeve holes in the axle posts until a hanger plate is in your hand: clamp the hanger to the post, mark through its large hole, and drill to that mark.
 
@@ -165,7 +169,8 @@ This is the shop's work. The order below is what to ask for and what to check. W
 5. Nose. Stand the four C15 nose posts on the rail extensions with their centers 1512.95 and 1598.65 from the rear end. Lay the two C16 caster beams across the post tops, ends flush with the outside of the rails. W09 and W10.
 6. Handle. Lay each C12 handle arm against the outside faces of a rear post and an axle post, its centerline 888.7 above the underside of the base rail, its front end 40 past the axle post. Fit the C13 grip tube between the rear ends of the arms. W12 and W13.
 7. Brake arms. Butt a C17 arm against the outside face of each axle post, its centerline 419.1 up the post from the post's foot, pointing outward over the tire. W11.
-8. Ramp legs. Weld the two C08 stand legs square to the hinge-end C07 rib, 60 in from each end of the rib. This is a separate small piece. W14.
+8. Suspension mounts. Butt a C23 shock arm against the outside face of each axle post, its centerline 232.702 up the post from the post's foot, pointing outward. Weld two shock tabs on edge under it, 25.4 apart, with the middle of the gap 25.7 out from the post face. Weld two more on top of each C22 swing arm, one flush with each side face, holes 265 from the pivot end. Keep a bolt through each pair of tabs while tacking so the holes stay in line, and check the gap against the eye of the shock you bought. W16, W17 and W18.
+9. Ramp legs. Weld the two C08 stand legs square to the hinge-end C07 rib, 60 in from each end of the rib. This is a separate small piece. W14.
 
 When you collect the frame, check it before you pay:
 
@@ -176,13 +181,16 @@ When you collect the frame, check it before you pay:
 
 These are checks an owner can make. They say the frame is the right shape. They do not say how strong the welds are.
 
-## 9. Wheels and caster
+## 9. Suspension, wheels and caster
 
-1. Drill the bolt-on holes now, from drilling.csv. Clamp a hanger to each axle post with its bar along the rail and mark through it, so the holes match the plate you actually have.
-2. Bolt a hanger to each side face of each axle post, bar to the rail, stem to the post, a sleeve in every hole. Fit the 3/4 inch axle sleeve through hanger, post and hanger.
-3. Slide each rear axle through its sleeve from inside. From the inside out the order is cotter, washer, inner hanger, post, outer hanger, spacer, wheel, washer, cotter. The stack between washer faces should be 149.05 with about 0.5 of end float. Spin the wheel. It must not rub the hanger.
-4. The maker lists the caster plate as 4 x 4-1/2 inch with slotted holes, and the drilling schedule puts two holes in each beam, 70 apart, to land in those slots. Hold the delivered caster up under the beams on the centerline to confirm before drilling 7/16 inch through each beam with a sleeve. Bolt it on with a washer over each slot.
-5. Roll the frame. It should steer by pushing the handle end sideways and the caster should swing a full circle without touching the cabin front or the posts. Fit the bolt-on swivel lock as its maker shows and check it holds the wheel straight.
+1. Drill the swing arms and the pivot holes in the base rails from drilling.csv. Press a flanged bronze bushing into each wall of each arm at the pivot end, flanges outside, and fit a 3/4 inch axle sleeve through the other end.
+2. Hang each arm outside its base rail with the tabs on top and the axle end to the rear. From inside: 1/2 inch bolt, washer, the rail with its crush sleeve, the 13 spacer, the arm, washer, lock nut. Tighten until the arm swings freely with no side play, and no tighter.
+3. Bolt a shock between the tabs on the arm and the tabs under the shock arm with M8 bolts and lock nuts. If an eye is narrower than the gap, pack it with washers equally on both sides.
+4. Slide each rear axle through its sleeve from inside. From the inside out the order is cotter, washer, swing arm, spacer, wheel, washer, cotter. The stack between washer faces should be 142.7 with about 0.5 of end float. Spin the wheel. It must not rub the arm.
+5. Stand the frame on its wheels. Empty, it should settle about 6. With the dog's weight in sandbags it should settle about 22, out of about 59 of wheel travel. Those numbers take the seller's 450 lbs spring label at face value. If it sits much lower, or tops out with no settle at all, the spring is wrong for this load. The same shock is sold with softer and stiffer springs: change the spring, not the geometry.
+6. Push down on each rear corner and let go. It should rise once and stop. Rock the top of each wheel in and out by hand: any movement you can see is play at the pivot, and that needs fixing before a load goes in.
+7. The maker lists the caster plate as 4 x 4-1/2 inch with slotted holes, and the drilling schedule puts two holes in each beam, 70 apart, to land in those slots. Hold the delivered caster up under the beams on the centerline to confirm before drilling 7/16 inch through each beam with a sleeve. Bolt it on with a washer over each slot.
+8. Roll the frame. It should steer by pushing the handle end sideways and the caster should swing a full circle without touching the cabin front or the posts. Fit the bolt-on swivel lock as its maker shows and check it holds the wheel straight.
 
 ## 10. Ridge and finish
 
@@ -216,6 +224,7 @@ These are checks an owner can make. They say the frame is the right shape. They 
 5. Hold a toggle clamp against the plate with its plunger pointing straight down at the middle of the tread. With the handle open the pad should clear the tire by about 10; closed, it should press about 10 into it. Mark the four base holes, drill 3/16 inch through the plate, and bolt the clamp on.
 6. Swap the clamp's plain plunger bolt for the neoprene-tipped spindle and set its height with the jam nuts. Close both clamps and try to roll the carrier. It should not move on level ground.
 7. Chock both rear wheels as well on any slope and whenever the ramp is down. The clamps are a parking brake only. Nothing slows the carrier while it is moving.
+8. With sprung wheels the tire rises and falls under the pad as the load changes. Set the pad with the dog's weight aboard and expect it to grip less when the carrier is empty. This is not solved; rely on the chocks.
 
 ## 14. Cover
 

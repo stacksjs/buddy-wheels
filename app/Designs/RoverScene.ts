@@ -100,15 +100,31 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
     }
     for (const face of [-1, 1]) {
       gusset(`axle-top-${side}-${face}`, 'corner_gusset', [0, y, d.topZ], [0, face, 0], [1, 0, 0], [0, 0, -1])
-      gusset(`rear-hanger-${side}-${face}`, d.wheel.hanger, [0, y, d.railZ], [0, face, 0], [1, 0, 0], [0, 0, 1])
+      if (!d.sprung) gusset(`rear-hanger-${side}-${face}`, d.wheel.hanger, [0, y, d.railZ], [0, face, 0], [1, 0, 0], [0, 0, 1])
       if (!d.swivel) gusset(`front-hanger-${side}-${face}`, d.wheel.hanger, [d.wheelbase, side * d.forkY, d.railZ], [0, face, 0], [1, 0, 0], [0, 0, 1])
     }
     gusset(`roof-bow-tee-${side}`, 'tee_gusset', [0, y, d.topZ], [0, 0, 1], [1, 0, 0], [0, side, 0])
     d.stations.slice(1, -1).forEach((x, i) => gusset(`base-tee-${i}-${side}`, 'tee_gusset', [x, y, d.railZ], [0, 0, -1], [1, 0, 0], [0, side, 0]))
     // Rear wheel on a stub axle: cotter, washer, hanger, post, hanger, spacer, hub, washer, cotter.
-    const start = y - side * d.inboard
+    const start = side * (d.axleY - d.inboard)
+    if (d.sprung) {
+      // Swing arm outside the rail, pivot bolt through the rail, shock from tabs on the arm up to tabs under a stub on the axle post.
+      const ay = side * d.armY; const [lowX, lowZ] = d.shockLow; const run = Math.hypot(lowX, d.shockUpZ - lowZ)
+      tube(`swing-arm-${side}`, true, d.swingArm, [h.swingRun - d.swingDir[0] * h.swingEnd, ay, d.railZ - d.swingDir[2] * h.swingEnd], d.swingDir)
+      rod(`swing-pivot-${side}`, 6.35, 2 * t + h.swingGap + 24, [h.swingRun, side * (y0 + d.armY) / 2, d.railZ], across, '#d5dbd6')
+      rod(`swing-spacer-${side}`, h.axleSleeve / 2, h.swingGap, [h.swingRun, side * (outer + h.swingGap / 2), d.railZ], across, steel, 6.35)
+      tube(`shock-arm-${side}`, true, h.shockArm, [0, side * outer, d.shockArmZ], [0, side, 0])
+      const axis: V = [-lowX / run, 0, (d.shockUpZ - lowZ) / run]; const mid: V = [lowX / 2, ay, (lowZ + d.shockUpZ) / 2]
+      rod(`shock-body-${side}`, 9, run - 16, mid, axis, '#29322d')
+      rod(`shock-spring-${side}`, h.shockRadius, run * 0.6, mid, axis, accent, h.shockRadius - 5)
+      for (const face of [-1, 1]) {
+        const ty = ay + face * (t / 2 + h.plate / 2) + h.plate / 2
+        add(`shock-tab-low-${side}-${face}`, stl('shock_tab'), frame, place([1, 0, 0], [0, 0, 1], [lowX, ty, lowZ]))
+        add(`shock-tab-up-${side}-${face}`, stl('shock_tab'), frame, place([-1, 0, 0], [0, 0, -1], [0, ty, d.shockUpZ]))
+      }
+    }
     rod(`rear-axle-${side}`, h.axle / 2, d.rearShaft, [0, start + side * d.rearShaft / 2, d.R], across, '#d5dbd6')
-    rod(`rear-spacer-${side}`, h.axleSleeve / 2, d.spacer, [0, side * (outer + h.plate + d.spacer / 2), d.R], across, steel, h.axle / 2)
+    rod(`rear-spacer-${side}`, h.axleSleeve / 2, d.spacer, [0, side * (d.axleY + t / 2 + (d.sprung ? 0 : h.plate) + d.spacer / 2), d.R], across, steel, h.axle / 2)
     if (d.forkSpacer && !d.swivel) rod(`front-spacer-${side}`, h.axleSleeve / 2, d.forkSpacer, [d.wheelbase, side * (s.hub / 2 + h.washer + d.forkSpacer / 2), d.R], across, steel, h.axle / 2)
     if (d.ski) {
       // Snow kit: the post swings on the axle where the wheel was, a tube foot bolts to the ski, tee gussets tie foot to post.
@@ -166,6 +182,16 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
   // Windshield stays run up the raked front edges. They hold fabric, nothing else.
   const lean: V = [-s.rake / d.windshield, 0, (d.post + t) / d.windshield]
   if (s.rake > 0 && !d.welded) for (const side of [-1, 1]) rod(`windshield-stay-${side}`, h.pole / 2, d.windshield, [d.frontX + t / 2 - s.rake / 2, side * y0, d.railZ + (d.post + t) / 2], lean, '#d5dbd6')
+  if (d.seats) {
+    // Two-seat bench concept: a seat board on two cross tubes, the front one on two legs, and a back bar between the axle posts.
+    tube('seat-cross-rear', true, s.width, [0, -s.width / 2, d.seatTubeZ], across)
+    tube('seat-cross-front', true, s.width, [h.seatDepth, -s.width / 2, d.seatTubeZ], across)
+    tube('seat-back-bar', true, s.width, [0, -s.width / 2, d.seatBackZ], across)
+    for (const side of [-1, 1]) tube(`seat-leg-${side}`, true, d.seatLeg, [h.seatDepth, side * y0, d.railZ + t / 2], [0, 0, 1])
+    slab('seat-board', [h.seatDepth + t, s.width, h.panel], [h.seatDepth / 2, 0, d.seatTubeZ + t / 2 + h.panel / 2], [1, 0, 0], across, wood)
+    slab('seat-back-sling', [2, s.width - 40, h.seatBack - 40], [t / 2 + 1, 0, d.seatBackZ - h.seatBack / 2 + 10], [1, 0, 0], across, trim)
+    slab('seat-divider', [h.seatDepth - 40, 2, 180], [h.seatDepth / 2 + t / 2, 0, d.seatTubeZ + t / 2 + h.panel + 90], [1, 0, 0], across, trim)
+  }
   tube('handle-grip', false, d.grip, [d.gripX + t / 2, -outer, s.handle], across)
   rod('handle-foam', 17, s.width - 60, [d.gripX + t / 2, 0, s.handle], across, '#29322d', 12.9)
   slab('floor-panel', [d.floorLen, s.width + 2 * t, h.panel], [(d.rearX + d.frontX) / 2, 0, d.deck - h.panel / 2], [1, 0, 0], across, wood)

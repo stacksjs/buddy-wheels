@@ -14,7 +14,9 @@
     "wheel": "trail",
     "front": "swivel",
     "kit": "wheels",
-    "build": "welded"
+    "build": "welded",
+    "ride": "sprung",
+    "cabin": "dog"
   },
   "base": {
     "quantity": 100,
@@ -25,12 +27,12 @@
       "stockMm": 1472184
     },
     "heavy": {
-      "bars": 156,
-      "netMm": 1126663.86,
-      "kerfMm": 5400,
-      "stockMm": 1141171.2
+      "bars": 167,
+      "netMm": 1207425.92,
+      "kerfMm": 6600,
+      "stockMm": 1221638.4
     },
-    "tube": 33239,
+    "tube": 34517,
     "textiles": {
       "quantity": 100,
       "minutes": 200,
@@ -164,24 +166,24 @@
       "total": 39997,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 77205,
-    "cogs": 150441,
+    "other": 87958,
+    "cogs": 162472,
     "retail": 99900,
-    "gross": -50541,
-    "grossPercent": -50.59159159159159,
+    "gross": -62572,
+    "grossPercent": -62.63463463463464,
     "maxCogs": 69930,
-    "headroom": -80511,
+    "headroom": -92542,
     "meetsCostGate": false,
     "fee": 2927,
     "reserve": 4995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -63463,
-    "retailForGate": 215000,
-    "tubeMill": 13695,
-    "cogsMill": 130897,
-    "retailForGateMill": 187000,
-    "stainlessUpgrade": 322,
+    "contribution": -75494,
+    "retailForGate": 232200,
+    "tubeMill": 14300,
+    "cogsMill": 142255,
+    "retailForGateMill": 203300,
+    "stainlessUpgrade": 92,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
   "one": {
@@ -193,12 +195,12 @@
       "stockMm": 17068.8
     },
     "heavy": {
-      "bars": 5,
-      "netMm": 11266.6386,
-      "kerfMm": 54,
-      "stockMm": 12192
+      "bars": 6,
+      "netMm": 12074.2592,
+      "kerfMm": 66,
+      "stockMm": 14630.4
     },
-    "tube": 58160,
+    "tube": 63968,
     "textiles": {
       "quantity": 1,
       "minutes": 540,
@@ -332,24 +334,24 @@
       "total": 83006,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 155877,
-    "cogs": 297043,
+    "other": 178135,
+    "cogs": 325109,
     "retail": 99900,
-    "gross": -197143,
-    "grossPercent": -197.34034034034033,
+    "gross": -225209,
+    "grossPercent": -225.43443443443442,
     "maxCogs": 69930,
-    "headroom": -227113,
+    "headroom": -255179,
     "meetsCostGate": false,
     "fee": 2927,
     "reserve": 4995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -210065,
-    "retailForGate": 424400,
-    "tubeMill": 13695,
-    "cogsMill": 252578,
-    "retailForGateMill": 360900,
-    "stainlessUpgrade": 322,
+    "contribution": -238131,
+    "retailForGate": 464500,
+    "tubeMill": 14300,
+    "cogsMill": 275441,
+    "retailForGateMill": 393500,
+    "stainlessUpgrade": 92,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
   "lines": [
@@ -366,25 +368,14 @@
     },
     {
       "id": "welding",
-      "name": "46 TIG welded joints by a fabrication shop",
-      "batch": 20284,
-      "one": 69000,
+      "name": "56 TIG welded joints by a fabrication shop",
+      "batch": 24367,
+      "one": 84000,
       "coverage": [
         "J01"
       ],
       "evidence": "RFQ",
       "note": "No shop has quoted this. Batch: 3.5 minutes a joint on a jig at $70 a shop hour, plus a $15 share of the jig. One frame: 10 minutes a joint at $90 an hour, fit-up included. A real quote replaces all of it."
-    },
-    {
-      "id": "hangers",
-      "name": "4 stainless axle hangers",
-      "batch": 1600,
-      "one": 3600,
-      "coverage": [
-        "M03"
-      ],
-      "evidence": "RFQ",
-      "note": "One 304 stainless profile for all three wheels. Bore finishing after drawing review."
     },
     {
       "id": "wheels",
@@ -414,7 +405,7 @@
     {
       "id": "axles",
       "name": "2 stock-shaft axles, sleeves, spacers, washers and cotters",
-      "batch": 1075,
+      "batch": 1047,
       "one": 2644,
       "coverage": [
         "W02",
@@ -429,8 +420,8 @@
     },
     {
       "id": "fasteners",
-      "name": "14 sleeved bolted joints",
-      "batch": 575,
+      "name": "4 sleeved bolted joints",
+      "batch": 165,
       "one": 3620,
       "coverage": [
         "H01",
@@ -502,6 +493,22 @@
       "evidence": "Observed 2026-11-12 + screw allowance",
       "url": "https://www.zoro.com/powertec-toggle-clamp-300lbs-cap-302f-quick-release-pushpull-clamp-20304n/i/G714915420/",
       "note": "POWERTEC 302F at $10.70 each, $7.64 in a six-pack, 300 lb holding capacity and a 5/16-18 plunger thread stated. DE-STA-CO 507208 neoprene-tipped spindle, 5/16-18, at $4.15 each."
+    },
+    {
+      "id": "suspension",
+      "name": "Rear suspension: two coil-over shocks, eight welded tabs, pivot bolts, bushings and eye bolts",
+      "batch": 8708,
+      "one": 10858,
+      "coverage": [
+        "M05",
+        "U01",
+        "U02",
+        "U03",
+        "U04"
+      ],
+      "evidence": "Observed 2026-11-12 + hardware allowances",
+      "url": "https://www.amazon.com/LvTu-Bicycle-Absorber-Suspension-Bushing/dp/B0CH6DCCPS",
+      "note": "LvTu 150 mm coil-over at $31.05 each, read on its product page: 30 mm travel, 24 mm wide eyes with an 8 mm bore, springs labeled 150 to 650 lbs. The label is the seller's nominal figure with a rider-weight table, not a measured rate. Bunting EF081008 bronze flanged bearings at $5.29 per pack of three (a listing price) and 1/2-13 x 4 inch grade 5 bolts at $1.64 with $0.41 lock nuts. Tabs are a laser-cut allowance. The pivot crush sleeves, washers and M8 eye bolts are allowances. The swing arms, shock arms and their welds are counted in the tube and welding lines."
     },
     {
       "id": "prints",
@@ -647,6 +654,34 @@
       "unit": "one bundle, reference only",
       "url": "https://burley.com/products/bark-ranger-xl-ski-bundle",
       "note": "Observed $900.91 sale price. Source of the stated 36.2 x 22.4 x 29.9 inch interior, 33 lb weight and 9 inch step-up."
+    },
+    {
+      "name": "LvTu 150 mm coil-over rear shock",
+      "price": 3105,
+      "unit": "one shock",
+      "url": "https://www.amazon.com/LvTu-Bicycle-Absorber-Suspension-Bushing/dp/B0CH6DCCPS",
+      "note": "Read in a browser 2026-11-12: $31.05 on the product page, one review. The seller states 150 mm length, 30 mm travel, 24 mm eye bushings with an 8 mm bore and spring options labeled 150, 250, 350, 450 and 650 lbs. Those labels come with a rider-weight table and are not verified spring rates. Damping, life and corrosion resistance are not stated."
+    },
+    {
+      "name": "Bunting EF081008 bronze flanged sleeve bearing, 1/2 x 5/8 x 1/2 inch, pack of 3",
+      "price": 529,
+      "unit": "one pack of three",
+      "url": "https://www.zoro.com/search?q=oil+impregnated+bronze+flanged+sleeve+bearing+1%2F2+x+5%2F8+x+1%2F2",
+      "note": "Seen 2026-11-12 on a Zoro listing, not a product page: $5.29 per three. The listing says bronze and does not say oil-impregnated."
+    },
+    {
+      "name": "Bolt Depot 399, 1/2-13 x 4 inch grade 5 zinc hex bolt, and 21807 lock nut",
+      "price": 164,
+      "unit": "one bolt",
+      "url": "https://boltdepot.com/Product-Details?product=399",
+      "note": "Read in a browser 2026-11-12: bolt $1.64 each or $277.00 per 250; nylon-insert lock nut $0.41 each or $127.00 per 500. Swing arm pivots."
+    },
+    {
+      "name": "Burley D'Lite X child trailer, reference only",
+      "price": 79995,
+      "unit": "one trailer, base price shown",
+      "url": "https://burley.com/collections/strollers-skis/products/dlite-x",
+      "note": "Read 2026-11-12. The page says adjustable suspension without describing the mechanism or travel. Double model: 40 lb per child, 100 lb total, 26 inch shoulder width, 24 inch seated height, and a statement that it is designed and tested to ASTM F1975-09. This is the maker's child product. Its pet trailer page mentions neither suspension nor children."
     }
   ],
   "allowances": [
@@ -658,6 +693,8 @@
     "Still allowances: the tailgate strap hook, floor screws, the ridge pole (the 4 ft store length is too short for the starting cabin), clamp screws, and caster nuts and sleeves.",
     "Listing prices, read on a search or category page and not a product page: 5/8 inch steel rod $20.57, rivet nuts $16.87 per 100, foam grip $1.95 per 6 inches, foam strip $18.99 per 50 ft.",
     "Stainless option: the stainless bolt is an observed $30.75 per 100. Stainless nuts and washers were not priced; the $0.23 per joint upgrade includes a $0.10 allowance for them.",
+    "Sprung rear: the travel, sag and spring figures are arithmetic from the drawn arm geometry and an assumed spring rate. No shock has been fitted, no ride has been measured, and no comparison with any other product is claimed. The parking brake presses on a tire that now moves with the load, which is unresolved.",
+    "Axle sleeve fit: the linked 3/4 inch x .065 wall DOM tube is 0.620 inch inside, 0.005 under the 5/8 inch axle. Ream it to 5/8 or buy .058 wall, 0.634 inside, which the drawn numbers assume.",
     "Welded build: the welding line is arithmetic on assumed shop rates and minutes per joint. No fabricator has seen the drawings. A welded frame also ships assembled, and outbound truck freight for a carton that size is not in any total here.",
     "Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists."
   ]

@@ -1,5 +1,5 @@
 {
-  "geometryHash": "92a14b78fbca3bbfed190d0d4a5e4999936f656eb1757085ddefa9e3bace8645",
+  "geometryHash": "5d517a3f635c9743f7672c00a99049f03f12fdcf7c4ae985007cb2e986c71c3f",
   "status": "DIGITAL_GEOMETRY_ONLY",
   "envelopeMm": [
     220,
@@ -394,6 +394,34 @@
           "size": [
             110,
             168,
+            3.174999952316284
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/FIT_CHECK_ONLY_shock_tab.stl",
+      "inspection": {
+        "triangles": 288,
+        "vertices": 144,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 3266.6320870209643,
+        "boundsMm": {
+          "min": [
+            -16,
+            -18,
+            0
+          ],
+          "max": [
+            16,
+            16,
+            3.174999952316284
+          ],
+          "size": [
+            32,
+            34,
             3.174999952316284
           ]
         }

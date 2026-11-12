@@ -3,8 +3,8 @@
   "product": "Buddy Rover",
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
   "generator": "native Stacks solid kit, no external CAD executable",
-  "geometryHash": "92a14b78fbca3bbfed190d0d4a5e4999936f656eb1757085ddefa9e3bace8645",
-  "costHash": "319cd62adc4d7543f85d2ab06c2ec15f078d7d1f8851a60ccfb2f4131d3309ab",
+  "geometryHash": "5d517a3f635c9743f7672c00a99049f03f12fdcf7c4ae985007cb2e986c71c3f",
+  "costHash": "d2bb01f23bc1371ec4d14c33fcc25cca57ef4e3d87d79f3ddfd9f3bd0e696907",
   "setup": {
     "length": 1300,
     "width": 700,
@@ -19,7 +19,9 @@
     "wheel": "trail",
     "front": "swivel",
     "kit": "wheels",
-    "build": "welded"
+    "build": "welded",
+    "ride": "sprung",
+    "cabin": "dog"
   },
   "dimensions": {
     "R": 192.9,
@@ -134,6 +136,24 @@
         "joint": "Ramp leg to ramp rib",
         "qty": 2,
         "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W16",
+        "joint": "Shock arm to axle post",
+        "qty": 2,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W17",
+        "joint": "Shock tab to swing arm",
+        "qty": 4,
+        "type": "Tab on edge on the top face, fillet both sides. Two tabs 25.4 apart, holes in line"
+      },
+      {
+        "id": "W18",
+        "joint": "Shock tab to shock arm",
+        "qty": 4,
+        "type": "Tab on edge on the under face, fillet both sides. Two tabs 25.4 apart, holes in line"
       }
     ],
     "roofAngle": 10.196,
@@ -162,12 +182,39 @@
     "nose": 327.85,
     "nosePost": 173.3,
     "casterBeam": 750.8,
-    "rearStack": 149.05,
-    "rearShaft": 168.75,
+    "rearStack": 142.7,
+    "rearShaft": 162.4,
     "postY": 362.7,
-    "inboard": 27.225,
-    "wheelY": 442.075,
-    "cabinIntrusion": 14.525,
+    "inboard": 24.05,
+    "wheelY": 477.3,
+    "cabinIntrusion": 0,
+    "axleY": 401.1,
+    "sprung": true,
+    "armY": 401.1,
+    "swingLen": 307.8103,
+    "swingArm": 357.8103,
+    "swingDir": [
+      -0.9746261049409345,
+      0,
+      0.2238391287681013
+    ],
+    "shockLow": [
+      72.9616,
+      207.6424
+    ],
+    "shockUpZ": 338.702,
+    "shockArmZ": 369.402,
+    "motionRatio": 0.5123,
+    "wheelRate": 20.682,
+    "wheelTravel": 59,
+    "sag": 22,
+    "sagEmpty": 6,
+    "rearWheelKg": 46,
+    "seats": false,
+    "seatTubeZ": 327.2,
+    "seatLeg": 177.8,
+    "seatBackZ": 751.9,
+    "sittingMax": 620,
     "ski": false,
     "skiPost": 172.5,
     "towPinX": 820.4,
@@ -189,8 +236,8 @@
     "handleMax": 1010,
     "centerAhead": 90,
     "roofSlope": 382.3748,
-    "overallWidth": 1008.45,
-    "tireWidth": 963.55,
+    "overallWidth": 1078.9,
+    "tireWidth": 1034,
     "overallLength": 2120.8,
     "overallHeight": 1254,
     "cuts": [
@@ -305,17 +352,33 @@
         "wall": "light",
         "qty": 2,
         "length": 905.5711
+      },
+      {
+        "id": "C22",
+        "name": "Swing arm",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 357.8103
+      },
+      {
+        "id": "C23",
+        "name": "Shock arm",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 46
       }
     ],
     "counts": {
       "corner": 0,
       "tee": 0,
-      "hanger": 4,
+      "hanger": 0,
       "wheels": 2,
-      "weldJoints": 46,
-      "bolts": 14,
+      "weldJoints": 56,
+      "shocks": 2,
+      "shockTabs": 8,
+      "bolts": 4,
       "handleBolts": 0,
-      "sleeves": 14,
+      "sleeves": 4,
       "casterBolts": 4,
       "brakeClamps": 2,
       "rampBolts": 18,
@@ -328,22 +391,22 @@
       "cableClip": 6,
       "axleCover": 4
     },
-    "heavyM": 11.2666,
+    "heavyM": 12.0743,
     "lightM": 14.2129,
-    "tubeLb": 31.7,
+    "tubeLb": 33.1,
     "floorArea": 1.0142,
     "rampArea": 0.688,
     "mass": {
-      "tube": 14.4,
-      "plates": 1.4,
+      "tube": 15,
+      "plates": 0.4,
       "panels": 11.1,
       "wheels": 10,
-      "hardware": 2.6,
+      "hardware": 3.6,
       "softgoods": 4.2
     },
-    "carrierKg": 43.6,
+    "carrierKg": 44.3,
     "frontShare": 9.8533,
-    "tiltForceN": 106,
+    "tiltForceN": 107,
     "tiltForceLbf": 24,
     "volumeRatio": 2.2901
   },
@@ -420,6 +483,11 @@
       "bytes": 24284
     },
     {
+      "path": "parts/FIT_CHECK_ONLY_shock_tab.stl",
+      "sha256": "2811405a0aa1b4b17dcacc00c5f2a241f66875cfe2c5d48967d1985a78d1e49c",
+      "bytes": 14484
+    },
+    {
       "path": "parts/FIT_CHECK_ONLY_axle_hanger_mid.stl",
       "sha256": "cd1478920289d0682cbc2c0e36a04fea778b7c9a7ee0041d1c5e521da327ba71",
       "bytes": 58484
@@ -450,6 +518,11 @@
       "bytes": 4710
     },
     {
+      "path": "metal/shock_tab.dxf",
+      "sha256": "d96f7b68fce4fa209d14e22698616280eebe164fc52aff30606fd1fbd5b7ea95",
+      "bytes": 2789
+    },
+    {
       "path": "metal/axle_hanger_mid.dxf",
       "sha256": "97f0a7798b6d569a40226f060e857b82392330cde1dcf6f6809051cbc542f6ee",
       "bytes": 11222
@@ -466,18 +539,18 @@
     },
     {
       "path": "assembly.md",
-      "sha256": "4a3f73ae47696616ff92f33d969bd1121324e406a2854e7d1e738e9b3910c593",
-      "bytes": 11955
+      "sha256": "340818c38ae4cd22933fbd2dd40dbc9e842f59cf015362e50a35273e331dd3b1",
+      "bytes": 13554
     },
     {
       "path": "bom.csv",
-      "sha256": "e9e713eb814a293d073843863eab31c9a57e21c3e2cf32b8db3b5eced8dc33d3",
-      "bytes": 9233
+      "sha256": "2e6a02e1544c8c6887bf317addebfb593d36d025c9a0542b13b62f89e5ef46f9",
+      "bytes": 10228
     },
     {
       "path": "materials.md",
-      "sha256": "907efa29fec1f2b3cd938f5e25689e3350d6f817328e1526ee7f54628bb70c9f",
-      "bytes": 11862
+      "sha256": "6a90c437481783d8b3e9f22a777676f07758e5ed92e6d0ae3292966becbedc23",
+      "bytes": 11869
     },
     {
       "path": "cover-cut-schedule.csv",
@@ -491,58 +564,58 @@
     },
     {
       "path": "drawing.svg",
-      "sha256": "3af765fff2ee28869ef1c94f086a8c951faef44582b90467555d4615521ddb67",
-      "bytes": 5754
+      "sha256": "7bf3a4b3bc00c26b79bcaa0e33d4b80a30d92b9eeba9b7447738612640170c4e",
+      "bytes": 5760
     },
     {
       "path": "cut-list.csv",
-      "sha256": "2372cd1e2dc116836b53fe926868894e9975a70e7f8f284486ab00fa23e69aed",
-      "bytes": 1255
+      "sha256": "6ab28f7543d0d8a6dac8466c7aa769f8d6caf09b5d45518805df5e4dcbcf64d7",
+      "bytes": 1393
     },
     {
       "path": "cost-notes.md",
-      "sha256": "470ef4b2de9a4ac77441d0c4fd773f4990b6a6d32fcf497523c60d957ebc8c63",
-      "bytes": 22115
+      "sha256": "d675d00a7a1ac2e9d40ae2aef8502a95fbcb8c5d052f8d3dd71f8d7e2b9a8e7e",
+      "bytes": 25226
     },
     {
       "path": "buy-list.md",
-      "sha256": "4d2f74f5158d4f66147aaee3a8cb905c82c463ccf521eed8409f2c185188e3c1",
-      "bytes": 6135
+      "sha256": "06c3c55c453bd98fbccba75ed6a553e88c01cfcf8779f2a38f682259f1a70813",
+      "bytes": 6330
     },
     {
       "path": "build-guide.md",
-      "sha256": "0f7de9f9b34d12207ca5e2e74c6f9255d0ea91d6f3af0816fc213c0becd15b3b",
-      "bytes": 23025
+      "sha256": "3c5b0991312ef2a9765546e10aab5b58aa85917a27192e6e0b9f705760bf7f18",
+      "bytes": 25704
     },
     {
       "path": "drilling.csv",
-      "sha256": "7d42a83db25ab194038f6f671799e019e558fe45d26fa65d2c3bf168f8a9657b",
-      "bytes": 1180
+      "sha256": "08dda1f772f76e1272f5eec164481dad7c3fdaf85fb41816547fdc20375dd3b5",
+      "bytes": 1207
     },
     {
       "path": "weld-schedule.csv",
-      "sha256": "deed9d4867a5a5dc6136388cd9c2b8aea18c66c5fe136d2b139273ec8d790c7a",
-      "bytes": 1255
+      "sha256": "8da0e0855ccbb421e1924da0f5072da91a4e65c5caf21fd4f0e011d26c9f57ce",
+      "bytes": 1563
     },
     {
       "path": "base-plan.svg",
-      "sha256": "07db10f3eba9851d9270ea6cdc14056b7a6f86e637e5b23e4c917ef77ab9cbe8",
+      "sha256": "d1566bda8ca3ec2a2806dddf8520a270f25b1ac0890b6522bbfb36752d72e2bb",
       "bytes": 4999
     },
     {
       "path": "cost-model.json",
-      "sha256": "431b0e1e5b9d5c49d3950182a4951b06995f1ff8c2048f6f9dc983874284144a",
-      "bytes": 24160
+      "sha256": "643655843867b9e06d4c6e167924bfa037ae0c05916a371c3829ae7daa61eb5f",
+      "bytes": 27420
     },
     {
       "path": "setup.json",
-      "sha256": "73fe6d5c3c737f643e77d75cf0e6a0f6c3121be6ce1a6dceeeea93c832cad6a6",
-      "bytes": 7685
+      "sha256": "46969cb4eeb262f395981dc175d0921100ec1e7ed43b523a43b42828f37f823d",
+      "bytes": 9111
     },
     {
       "path": "README.md",
-      "sha256": "b3423de8dede367193a6de63cff51ade424ec17a9845c25dc5272246f9113aab",
-      "bytes": 1829
+      "sha256": "1af1fd7b073a1479f6b2ae86058c1458838e59ee857c8ba8b162777dfb7bf191",
+      "bytes": 1844
     }
   ],
   "parts": [
@@ -629,6 +702,12 @@
       "name": "Brake clamp plate",
       "kind": "metal",
       "note": "1/8 inch 6061-T6 aluminum. Hangs from the brake arm on the two gusset bolts and carries the toggle clamp. STL is an unloaded fit-check copy."
+    },
+    {
+      "id": "shock_tab",
+      "name": "Shock tab",
+      "kind": "metal",
+      "note": "1/8 inch 6061-T6 aluminum. Welded in pairs to the swing arm and the shock arm to hold each shock eye. STL is an unloaded fit-check copy."
     },
     {
       "id": "axle_hanger_mid",
