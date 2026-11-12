@@ -177,9 +177,9 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
       for (const face of [-1, 1]) gusset(`fork-tee-${side}-${face}`, 'tee_gusset', [d.frontX + t / 2, fy, d.railZ], [0, 0, face], [0, 1, 0], [-1, 0, 0])
     }
     const armY = side * (outer + t / 2)
-    tube(`handle-arm-${side}`, false, d.handleArm, [d.gripX, armY, s.handle], [1, 0, 0])
-    cap(`handle-cap-${side}`, false, [d.gripX + d.handleArm, armY, s.handle], [1, 0, 0])
-    for (const face of [-1, 1]) gusset(`grip-gusset-${side}-${face}`, 'corner_gusset', [d.gripX + t / 2, armY, s.handle], [0, 0, face], [1, 0, 0], [0, -side, 0])
+    tube(`handle-arm-${side}`, false, d.handleArm, [d.gripX, armY, d.armZ], [1, 0, 0])
+    cap(`handle-cap-${side}`, false, [d.gripX + d.handleArm, armY, d.armZ], [1, 0, 0])
+    cap(`grip-cap-${side}`, false, [d.gripX + t / 2, side * d.grip / 2, s.handle], [0, side, 0])
   }
   d.stations.forEach((x, i) => tube(`base-cross-${i}`, i === 0 || i === d.stations.length - 1, s.width, [x, -s.width / 2, d.railZ], across))
   for (const [i, x] of [d.rearX - t / 2, 0, d.frontPostX].entries()) {
@@ -198,7 +198,8 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
     slab('seat-back-sling', [2, s.width - 40, h.seatBack - 40], [t / 2 + 1, 0, d.seatBackZ - h.seatBack / 2 + 10], [1, 0, 0], across, trim)
     slab('seat-divider', [h.seatDepth - 40, 2, 180], [h.seatDepth / 2 + t / 2, 0, d.seatTubeZ + t / 2 + h.panel + 90], [1, 0, 0], across, trim)
   }
-  tube('handle-grip', false, d.grip, [d.gripX + t / 2, -outer, s.handle], across)
+  // The grip tube lies across the tops of the arm ends.
+  tube('handle-grip', false, d.grip, [d.gripX + t / 2, -d.grip / 2, s.handle], across)
   rod('handle-foam', 17, s.width - 60, [d.gripX + t / 2, 0, s.handle], across, '#29322d', 12.9)
   slab('floor-panel', [d.floorLen, s.width + 2 * t, h.panel], [(d.rearX + d.frontX) / 2, 0, d.deck - h.panel / 2], [1, 0, 0], across, wood)
   if (d.swivel) {

@@ -1,6 +1,6 @@
 # Buddy Rover r0 build guide
 
-Configuration rover-r0-l1300-w700-h1000-r1000-a560-g930-hub101.6-trail-swivel310-k350-t180-bolted-sprung. All dimensions mm unless marked. Read this once to the end before ordering anything.
+Configuration rover-r0-l1300-w700-h1000-r1000-a560-g950-hub101.6-trail-swivel310-k350-t180-bolted-sprung. All dimensions mm unless marked. Read this once to the end before ordering anything.
 
 **What this builds.** A bench carrier for checking fit, handling and the ramp with sandbags. It has no load rating, an untested parking brake, no brake for slowing while moving, and no test behind it. Do not put a dog in it until the release gates at the end are met.
 
@@ -13,7 +13,13 @@ So there are only three things to obtain: straight tube cut to length, flat plat
 1. **Cut it yourself.** Buy stock bars and cut them with a miter saw fitted with a blade for non-ferrous metal, or with a hacksaw and a miter box. This is the cheapest route and the one priced here.
 2. **Have the supplier cut it.** Online Metals says every order is cut to size, and Metals Depot offers a cut to size option. Order each line of cut-list.csv as its own cut length. You pay more per foot and receive a box of finished pieces. Their cut tolerance is looser than yours can be, so check every piece against the list when it arrives.
 3. **Hand the package to a local shop.** A metal supplier with a saw, a fabrication shop or a makerspace can cut and drill the whole frame. Give them cut-list.csv, drilling.csv, base-plan.svg, drawing.svg and the DXF files. If they offer to weld it instead, choose the welded frame in the studio and download that kit: it is the same frame with a weld schedule in place of the plates.
-4. **Have a tube laser cut and drill every tube.** The kit has a tubes folder with one 3D file for each different tube: 20 files for 39 pieces, with 239 holes already in them, angled ends and floor fastener holes included. The tubes arrive cut to length and drilled, and sections 6 and 7 shrink to a few holes. On 2026-11-12 these 20 files were uploaded to OSH Cut: every one passed its design check and the set was priced at $1,405.06 before shipping and tax, shipping in 8 business days. Bars for the same tubes cost about $639.68, so the laser costs about $765.38 more and saves the sawing and nearly all the drilling. How to order, in the fewest steps:
+4. **Have a tube laser drill every hole.** The kit has a tubes folder with 8 3D files. Each is a stick: several tubes end to end in one piece, with every hole already in it, 235 in all, floor fastener holes included. You saw each stick apart through small marker holes, 25 cuts in all, and the drilling in section 7 shrinks to a few holes. Sticks cost less than the same tubes ordered one by one, because the service charges for every piece it handles. On 2026-11-12 the files for this setup were uploaded to OSH Cut: every one passed its design check and the set was priced at $1,195.44 before shipping and tax. Bars for the same tubes cost about $639.68, so the laser costs about $555.76 more. Ordered as 20 separate tubes with nothing to saw, the same set was quoted at $1,405.06. How to order, in the fewest steps:
+   1. Open [OSH Cut](https://app.oshcut.com). No account is needed to see a price.
+   2. Drag every file in tubes/6061-T6-0.125-wall onto the page and wait until each shows Passed. Tick the box at the top left of the list to select them all, click the stacked-sheets icon beside it, and pick the one material offered: 6061-T6 aluminum square tube, 1 x 1 inch, 0.125 inch wall.
+   3. Drag every file in tubes/6063-T52-0.062-wall onto the page. Tick only those new rows, click the same icon, and pick the one material offered: 6063-T52 aluminum square tube, 1 x 1 inch, 0.062 inch wall.
+   4. Set each quantity. It is in the file name: x2 means two.
+   5. The plates can go in the same order: drag in the DXF files from the metal folder, pick 6061-T6 aluminum sheet 0.125 inch thick, and set the quantities from the ordering table in section 3.
+   6. Check the subtotal on the right, then sign in to see shipping and place the order. That step is yours.
    1. Open [OSH Cut](https://app.oshcut.com). No account is needed to see a price.
    2. Drag every file in tubes/6061-T6-0.125-wall onto the page and wait until each shows Passed. Tick the box at the top left of the list to select them all, click the stacked-sheets icon beside it, and pick the one material offered: 6061-T6 aluminum square tube, 1 x 1 inch, 0.125 inch wall.
    3. Drag every file in tubes/6063-T52-0.062-wall onto the page. Tick only those new rows, click the same icon, and pick the one material offered: 6063-T52 aluminum square tube, 1 x 1 inch, 0.062 inch wall.
@@ -37,13 +43,13 @@ Order the wheel and caster first, because two dimensions in the design come from
 | A | Rear wheel | [Zoro Select 1NWV4](https://www.zoro.com/zoro-select-pneumatic-wheel-15-316dia-435lb-400-8-1nwv4/i/G1932594/), $32.89 each | 2 | When they arrive, measure the hub from bearing face to bearing face. If it is not 101.6, enter the real number in the studio and download the kit again before cutting axles |
 | A | Front caster | [Service Caster SCC-100S3504-PNB-BSL](https://www.zoro.com/service-caster-10-inch-black-pneumatic-wheel-swivel-caster-with-bolt-swivel-lock-scc-100s3504-pnb-bsl/i/G705434817/), $64.69: 10 inch pneumatic, swivel lock, 350 lb and a 12-3/16 inch mounting height stated | 1 | Measure from the floor to the top of the mounting plate. This guide assumes 310. If yours differs, enter it in the studio: it sets the nose post length. A [Harbor Freight 63799](https://www.harborfreight.com/10-in-pneumatic-swivel-caster-63799.html) at $19.99 also fits, with no swivel lock and no stated height |
 | A | Parking brake | [POWERTEC 302F push-pull toggle clamp](https://www.zoro.com/powertec-toggle-clamp-300lbs-cap-302f-quick-release-pushpull-clamp-20304n/i/G714915420/), $10.70 each, and a [DE-STA-CO 507208 neoprene-tipped spindle, 5/16-18](https://www.zoro.com/de-sta-co-flat-tip-spindle-516-18-083-3-507208/i/G0295985/), $4.15 each | 2 clamps, 2 spindles | The spindle replaces the plain bolt that comes in the clamp plunger. Eight #10 screws and lock nuts hold the clamps to their plates |
-| B | Gussets and hangers | A laser-cutting service. [OSH Cut](https://app.oshcut.com/cart) shows a price as soon as you drop the files in, with no account. [SendCutSend](https://sendcutsend.com) lists both materials, has no minimum quantity and ships laser parts in 1 to 3 days, and asks you to sign up first | 34 x corner_gusset.dxf, 6 x roof-gusset.dxf, 2 x pillar-foot-gusset.dxf, 2 x pillar-top-gusset.dxf, 12 x tee_gusset.dxf, 2 x brake_plate.dxf, 4 x shock_plate.dxf, 4 x shock_hanger.dxf, all in 0.125 inch 6061-T6 aluminum. The roof and pillar gusset files are cut for this setup only. No hangers are needed with the sprung rear and the swivel caster.  | Upload each of those DXF files from the metal folder, pick material and thickness, enter quantities. Add their deburring service or file the edges yourself |
+| B | Gussets and hangers | A laser-cutting service. [OSH Cut](https://app.oshcut.com/cart) shows a price as soon as you drop the files in, with no account. [SendCutSend](https://sendcutsend.com) lists both materials, has no minimum quantity and ships laser parts in 1 to 3 days, and asks you to sign up first | 30 x corner_gusset.dxf, 6 x roof-gusset.dxf, 2 x pillar-foot-gusset.dxf, 2 x pillar-top-gusset.dxf, 12 x tee_gusset.dxf, 2 x brake_plate.dxf, 4 x shock_plate.dxf, 4 x shock_hanger.dxf, all in 0.125 inch 6061-T6 aluminum. The roof and pillar gusset files are cut for this setup only. No hangers are needed with the sprung rear and the swivel caster.  | Upload each of those DXF files from the metal folder, pick material and thickness, enter quantities. Add their deburring service or file the edges yourself |
 | C | Chassis tube, 1 x 1 x 1/8 inch 6061-T6 | [Metals Depot T3118-6061](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 8 ft at $58.08 | 6 bars | 8 ft is the longest that ships by parcel. Longer bars are cheaper per foot but come by truck |
 | C | Cabin tube, 1 x 1 x 1/16 inch 6063-T52 | [Metals Depot T31116](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 8 ft at $41.60 | 7 bars | Do not swap this softer tube into the chassis positions |
-| C | Or: every tube cut and drilled | [OSH Cut](https://app.oshcut.com) tube laser, from the files in the tubes folder | 20 files, quantities in tube-order.csv | Replaces both tube rows above and most of sections 6 and 7. Quoted at $1,405.06 on 2026-11-12, before shipping and tax |
-| D | Bolts, nuts, washers | [Bolt Depot](https://boltdepot.com/Product-Details?product=328): 1/4-20 x 2 inch grade 5 zinc hex bolt 328, lock nut 2624, SAE washer 2976 | 2 boxes of 100 bolts, 2 of nuts, 4 of washers | You need 174 bolts, plus 4 at 3 inch long for the handle and 4 at 5/16-18 x 2-1/2 inch for the caster |
-| D | Sleeve tube | [Online Metals DOM steel tube, 3/8 inch OD x .049 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-375-od-x-0-049-wall-x-0-28-id-carbon-steel-round-tube-a513-type-5-dom/pid/7754), $11.66 per 6 ft | 3 lengths of 6 ft | Cut into 190 sleeves, each 25.4 long |
-| D | Or: sleeves ready cut | [Mutual Screw FC1198-25-S-12](https://mutualscrew.com/products/spacers-3-8-od-x-1-1-4-hole-steel-clear-zinc_fc1198-25-s-12), 3/8 OD x 1/4 ID x 1 inch steel spacers, $184.32 per 250 | 1 pack | Replaces the sleeve tube and 190 saw cuts. Check that a 1/4 inch bolt slides through one before trusting the rest |
+| C | Or: tubes laser drilled, as sticks | [OSH Cut](https://app.oshcut.com) tube laser, from the files in the tubes folder | 8 files, quantity in each file name | Replaces both tube rows above and nearly all of section 7. Quoted at $1,195.44 on 2026-11-12, before shipping and tax |
+| D | Bolts, nuts, washers | [Bolt Depot](https://boltdepot.com/Product-Details?product=328): 1/4-20 x 2 inch grade 5 zinc hex bolt 328, lock nut 2624, SAE washer 2976 | 2 boxes of 100 bolts, 2 of nuts, 4 of washers | You need 166 bolts, plus 6 at 3 inch long for the handle and 4 at 5/16-18 x 2-1/2 inch for the caster |
+| D | Sleeve tube | [Online Metals DOM steel tube, 3/8 inch OD x .049 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-375-od-x-0-049-wall-x-0-28-id-carbon-steel-round-tube-a513-type-5-dom/pid/7754), $11.66 per 6 ft | 3 lengths of 6 ft | Cut into 186 sleeves, each 25.4 long |
+| D | Or: sleeves ready cut | [Mutual Screw FC1198-25-S-12](https://mutualscrew.com/products/spacers-3-8-od-x-1-1-4-hole-steel-clear-zinc_fc1198-25-s-12), 3/8 OD x 1/4 ID x 1 inch steel spacers, $184.32 per 250 | 1 pack | Replaces the sleeve tube and 186 saw cuts. Check that a 1/4 inch bolt slides through one before trusting the rest |
 | D | Axle parts | [Online Metals DOM tube, 3/4 inch OD x .065 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-75-od-x-0-065-wall-x-0-62-id-carbon-steel-round-tube-a513-type-5-dom/pid/7765), $4.99 per foot. A 5/8 inch x 3 ft plain steel rod from a hardware store, about $20.57. [Bolt Depot](https://boltdepot.com) 5/8 inch SAE washers at $0.15 and 1/8 x 1-1/2 inch cotter pins at $0.07 | 1 ft of tube, 1 rod, 4 washers, 4 cotters | You need 337 of rod. Never use threaded rod as an axle |
 | E | Plywood | [Home Depot 15/32 inch ACX sanded pine](https://www.homedepot.com/b/Lumber-Composites-Plywood/15-32/N-5yc1vZbqm7Z1z0mcqq), $52.00 a sheet | 1 | Floor 1350.8 x 750.8 and ramp 1000 x 688. Plus exterior sealer |
 | F | Ramp hardware | [Zoro Select 2ZFK4 stainless piano hinge, 36 inch](https://www.zoro.com/zoro-select-piano-hinge-stainless-steel-full-surface-mounting-1-in-leaf-w-x-36-in-leaf-h-stainless-steel-2zfk4/i/G1671966/), $18.19. [Southco TL-20-202-52 stainless draw latch](https://www.zoro.com/southco-toggle-style-draw-latch-small-size-concealed-mount-stainless-steel-passivated-tl-20-202-52/i/G115615363/), $11.89 | 1 hinge, 2 latches, 18 carriage bolts 1/4-20 x 2 inch (Bolt Depot 2754, $0.16) | The hinge is unpunched: cut it to 680 and drill it. Check the latch comes with its keeper |
@@ -52,7 +58,7 @@ Order the wheel and caster first, because two dimensions in the design come from
 | G | Cover materials | See buy-list.md for every line with its link | | Cut list in cover-cut-schedule.csv |
 | H | Filament | Any PETG for fit trials, ASA for parts left in the sun | About 1 kg | 76 printed pieces in all |
 
-Materials for one build come to about $2,017.50 before tax and shipping. buy-list.md splits that into prices read on a supplier page and allowances.
+Materials for one build come to about $2,272.80 before tax and shipping. buy-list.md splits that into prices read on a supplier page and allowances.
 
 ## 4. Tools
 
@@ -77,7 +83,7 @@ Files named FIT_CHECK_ONLY are plastic copies of the metal plates. Print one of 
 
 ## 6. Cut the tube
 
-If your tubes came from a tube laser, check each one against the list below and skip to the sleeves at the end of this section.
+If your tubes came as laser sticks, saw each one apart through its marker holes: tube-order.csv lists which tubes are in each stick and where the 25 cuts fall. Split each marker hole with the blade, check every piece against the list below, then skip to the sleeves at the end of this section.
 
 Cut the long pieces first. Clamp the bar, cut square, and leave the saw 3 mm per cut. Deburr both ends inside and out. Write the ID on each piece as it comes off the saw. Cut pairs to the same stop so they match each other exactly; matching matters more than the absolute length.
 
@@ -100,7 +106,7 @@ Cabin tube, 1/16 inch wall, from 7 bars of 8 ft:
 | 2 | C09 1015.2, C09 1015.2 | 402 |
 | 3 | C12 1005.4, C12 1005.4 | 421.6 |
 | 4 | C21 905.5711, C21 905.5711 | 621.2578 |
-| 5 | C13 750.8, C11 700, C11 700 | 278.6 |
+| 5 | C13 801.6, C11 700, C11 700 | 227.8 |
 | 6 | C11 700, C14 700, C14 700 | 329.4 |
 | 7 | C14 700, C07 688, C07 688 | 353.4 |
 
@@ -116,7 +122,7 @@ Cabin tube, 1/16 inch wall, from 7 bars of 8 ft:
 | C10 | Top side rail | 2 | 1016.8582 |
 | C11 | Top cross tube | 3 | 700 |
 | C12 | Handle arm | 2 | 1005.4 |
-| C13 | Handle grip tube | 1 | 750.8 |
+| C13 | Handle grip tube | 1 | 801.6 |
 | C14 | Base intermediate cross member | 3 | 700 |
 | C15 | Nose post | 4 | 173.3 |
 | C16 | Caster beam | 2 | 750.8 |
@@ -135,11 +141,11 @@ Angled ends. Lengths are along the middle of the tube, so mark the middle of eac
 
 Set the miter saw to each angle and cut a test piece from an offcut first. A degree either way is taken up by the plate; a gap you can see daylight through is not.
 
-Then cut 190 sleeves 25.4 long from the 3/8 inch steel tube, 2 axle sleeves 25.4 long and 2 wheel spacers 12.7 long from the 3/4 inch tube, and the axles: 2 at 162.4. Square and deburr every one. The linked 3/4 inch x .065 wall tube is 0.620 inch inside, a hair under the 5/8 inch axle: ream it to 5/8 or buy .058 wall instead. A sleeve that is short lets the tube crush; one that is long keeps the plate from seating.
+Then cut 186 sleeves 25.4 long from the 3/8 inch steel tube, 2 axle sleeves 25.4 long and 2 wheel spacers 12.7 long from the 3/4 inch tube, and the axles: 2 at 162.4. Square and deburr every one. The linked 3/4 inch x .065 wall tube is 0.620 inch inside, a hair under the 5/8 inch axle: ream it to 5/8 or buy .058 wall instead. A sleeve that is short lets the tube crush; one that is long keeps the plate from seating.
 
 ## 7. Mark and drill
 
-If your tubes came from a tube laser, only this is left to drill: C16: drill 2 holes for: Caster plate bolts. Mark from the delivered plate before drilling; C22: open the 5 mm pilot hole to 19.25 mm with a step bit for: Axle sleeve. The floor fasteners in section 11 are drilled on assembly either way.
+If your tubes came as laser sticks, only this is left to drill: C16: drill 2 holes for: Caster plate bolts. Mark from the delivered plate before drilling; C22: open the 5 mm pilot hole to 19.25 mm with a step bit for: Axle sleeve. The floor fasteners in section 11 are drilled on assembly either way.
 
 Every hole is in drilling.csv, measured from a named end of a named piece. "Side" means through the two vertical faces of the tube as it sits in the carrier. "Vertical" means through top and bottom. "Fore-aft" means front to back.
 
@@ -186,7 +192,7 @@ The base now stands on its own and has the shape in base-plan.svg.
 4. Hang two shock hangers from each axle post, ears down. From outside, each 3-1/2 inch bolt passes through the outer hanger, the C23 spacer tube, the inner hanger, a 9.8 spacer, then the post, with a washer and lock nut inside the cabin. The spacer tube stands upright between the two hangers.
 5. Bolt a shock between the plates on the arm and the hangers on the post with M8 bolts and lock nuts. If an eye is narrower than the gap, pack it with washers equally on both sides.
 6. Slide each rear axle through its sleeve from inside. From the inside out the order is cotter, washer, swing arm, spacer, wheel, washer, cotter. The stack between washer faces should be 142.7 with about 0.5 of end float. Spin the wheel. It must not rub the arm.
-7. Stand the frame on its wheels. Empty, it should settle about 8. With the dog's weight in sandbags it should settle about 23, out of about 59 of wheel travel. Those numbers take the seller's 450 lbs spring label at face value. If it sits much lower, or tops out with no settle at all, the spring is wrong for this load. The same shock is sold with softer and stiffer springs: change the spring, not the geometry.
+7. Stand the frame on its wheels. Empty, it should settle about 7. With the dog's weight in sandbags it should settle about 23, out of about 59 of wheel travel. Those numbers take the seller's 450 lbs spring label at face value. If it sits much lower, or tops out with no settle at all, the spring is wrong for this load. The same shock is sold with softer and stiffer springs: change the spring, not the geometry.
 8. Push down on each rear corner and let go. It should rise once and stop. Rock the top of each wheel in and out by hand: any movement you can see is play at the pivot, and that needs fixing before a load goes in.
 9. Stand the four C15 nose posts on the rail extensions at 1512.95 and 1598.65 from the rear end. Each gets a corner gusset on both side faces, the rail leg pointing away from the other post.
 10. Lay the two C16 caster beams across the post tops, ends flush with the outside of the rails. Tie each beam to its two posts with one corner gusset on the outside face.
@@ -222,8 +228,8 @@ The base now stands on its own and has the shape in base-plan.svg.
 
 ## 13. Handle, tip-stops and parking brake
 
-1. Bolt each C12 handle arm to the outside of a rear corner post and an axle post with one 3 inch bolt per post, 930 above the ground.
-2. Fit the C13 grip tube between the arm ends with a corner gusset above and below each end. Slide on the foam grip.
+1. Bolt each C12 handle arm to the outside of a rear corner post and an axle post with one 3 inch bolt per post, 924.6 above the ground.
+2. Slide the foam grip onto the C13 grip tube, then lay the tube across the tops of the two arm ends, its ends flush with their outside faces. Drop one 3 inch bolt down through the grip tube and the arm at each end, a sleeve in each tube. The grip is then 950 above the ground. No plates are needed here.
 3. Screw a tall leveling mount up through each base rail at 142.7 from the rear end, a nut and washer above and below. Set the pads about 40 above the ground.
 4. Brake arms. Butt a C17 arm against the outside face of each axle post, 419.1 up the post, pointing outward over the tire. Put a corner gusset on the front and rear faces, long-hole leg along the arm, and bolt through. On the front, hang a brake clamp plate on the same two arm bolts, outside the gusset.
 5. Hold a toggle clamp against the plate with its plunger pointing straight down at the middle of the tread. With the handle open the pad should clear the tire by about 10; closed, it should press about 10 into it. Mark the four base holes, drill 3/16 inch through the plate, and bolt the clamp on.

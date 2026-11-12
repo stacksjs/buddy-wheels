@@ -15,7 +15,7 @@ export type RoverCabin = 'dog' | 'seats'
 /** caster is the mounting height of the front swivel caster, floor to the top of its plate. It is ignored with a fixed front wheel. */
 /** rake is how far the top of the front wall leans back from the bottom. taper is how far the roof drops from rear to front. Zero for both gives a square box. */
 export interface RoverSetup { length: number, width: number, height: number, ramp: number, axle: number, handle: number, hub: number, caster: number, rake: number, taper: number, wheel: RoverWheel, front: RoverFront, kit: RoverKit, build: RoverBuild, ride: RoverRide, cabin: RoverCabin }
-export const roverStart: RoverSetup = { length: 1300, width: 700, height: 1000, ramp: 1000, axle: 560, handle: 930, hub: 101.6, caster: 310, rake: 350, taper: 180, wheel: 'trail', front: 'swivel', kit: 'wheels', build: 'bolted', ride: 'sprung', cabin: 'dog' }
+export const roverStart: RoverSetup = { length: 1300, width: 700, height: 1000, ramp: 1000, axle: 560, handle: 950, hub: 101.6, caster: 310, rake: 350, taper: 180, wheel: 'trail', front: 'swivel', kit: 'wheels', build: 'bolted', ride: 'sprung', cabin: 'dog' }
 export const roverBuilds = { welded: 'Welded frame, made by a fabrication shop', bolted: 'Bolted frame, built at home with a saw and a drill' } as const
 export const roverRides = { sprung: 'Sprung rear wheels on swing arms', rigid: 'Rigid rear axle on hangers' } as const
 export const roverCabins = { dog: 'Open floor for a dog', seats: 'Two-seat bench, concept only' } as const
@@ -137,7 +137,7 @@ export function parseRoverSetup(input: Record<string, unknown>): RoverSetup {
   if (setup.ramp > setup.height) throw new Error('The ramp stows upright as the tailgate, so it cannot be longer than the cabin height.')
   if (d.rampAngle > 12) throw new Error('Ramp incline is over 12 degrees. Choose a longer ramp.')
   if (d.centerAhead < 40) throw new Error('Move the axle back toward the tailgate. A centered dog must sit at least 40 mm ahead of the rear axle.')
-  if (d.brakeZ + 90 > setup.handle - 13) throw new Error('Raise the handle or choose a smaller wheel. The parking brake arm sits too close under the handle arm.')
+  if (d.brakeZ + 90 > d.armZ - 13) throw new Error('Raise the handle or choose a smaller wheel. The parking brake arm sits too close under the handle arm.')
   if (setup.handle > d.handleMax) throw new Error(`Handle height must be ${d.handleMax} mm or lower for this cabin height and roof taper.${setup.build === 'bolted' ? ' The bolted roof plates sit below the roof on the axle post. A taller cabin, less taper or the welded frame allows a higher handle.' : ''}`)
   return setup
 }
@@ -211,8 +211,10 @@ export function roverDimensions(s: RoverSetup) {
   const rampAngleRad = Math.asin((deck - h.panel) / s.ramp); const rampWidth = s.width - 12
   const legCut = (deck - 40 * Math.sin(rampAngleRad)) / Math.cos(rampAngleRad) - h.panel - t - h.foot
   const hingeX = rearX - t - h.hingeGap; const gripX = rearX - t - h.reach
-  const handleArm = 40 + s.axle + t + h.reach; const grip = s.width + 2 * t
-  const handleMax = Math.floor((deck + s.height - taperAtAxle - (welded ? 30 : 110)) / 10) * 10
+  // The grip tube lies across the tops of the two arm ends, one bolt down through each crossing, so the joint needs no plates.
+  // Handle height is the grip. The arms run one tube lower.
+  const handleArm = 40 + s.axle + t + h.reach; const grip = s.width + 4 * t; const armZ = s.handle - t
+  const handleMax = Math.floor((deck + s.height - taperAtAxle - (welded ? 30 : 110) + t) / 10) * 10
   const centerAhead = s.length / 2 - s.axle
   const roofSlope = Math.hypot(s.width / 2 + t, h.ridge + h.pole)
   const cuts = [
@@ -259,7 +261,7 @@ export function roverDimensions(s: RoverSetup) {
       : [{ id: 'W09', joint: 'Fork arm to front cross member', qty: 2, type: square }, { id: 'W10', joint: 'Fork stub to fork arm', qty: 2, type: square }]),
     { id: 'W11', joint: 'Brake arm to axle post', qty: 2, type: square },
     { id: 'W12', joint: 'Handle arm to rear corner post and to axle post', qty: 4, type: lap },
-    { id: 'W13', joint: 'Handle grip tube to handle arm', qty: 2, type: square },
+    { id: 'W13', joint: 'Handle grip tube to handle arm', qty: 2, type: 'Grip tube across the top of the arm end, fillet both sides' },
     { id: 'W14', joint: 'Ramp leg to ramp rib', qty: 2, type: square },
     ...(ski ? [{ id: 'W15', joint: 'Ski foot to ski post', qty: 2, type: square }] : []),
   ])
@@ -277,13 +279,13 @@ export function roverDimensions(s: RoverSetup) {
   const hangerBolts = 2 + w.posts.length
   // Sprung: the rear hangers go, and each swing arm gains two bolts for its pair of shock plates.
   // Bolted and sprung: a pair of tee gussets takes the place of each pair of rear hangers at the axle post foot, on the same number of bolts.
-  const frameBolts = (welded ? (swivel ? 0 : 2) * hangerBolts + (sprung ? 0 : 2 * hangerBolts) + 4 : 132 + 8 * intermediates + (swivel ? 14 : 0) + (ski ? 8 : 0)) + (sprung ? 4 : 0)
+  const frameBolts = (welded ? (swivel ? 0 : 2) * hangerBolts + (sprung ? 0 : 2 * hangerBolts) + 4 : 124 + 8 * intermediates + (swivel ? 14 : 0) + (ski ? 8 : 0)) + (sprung ? 4 : 0)
   const counts = {
-    // Bolted, swivel front: twelve more corner gussets and 32 bolts for the nose, less the fork's four tees, four hangers and 18 bolts.
+    // The handle needs no gussets: six lap bolts, two tubes each. Bolted, swivel front: twelve more corner gussets and 32 bolts for the nose, less the fork's four tees, four hangers and 18 bolts.
     // Each brake arm adds a pair of corner gussets and four bolts. The ski kit adds a pair of tee gussets and four bolts at each ski.
-    corner: welded ? 0 : (swivel ? 40 : 28) + 4 - angled, angle: angled, tee: welded ? 0 : 2 * intermediates + (swivel ? 2 : 6) + (ski ? 4 : 0) + (sprung ? 4 : 0), hanger: (swivel ? 4 : 8) - (sprung ? 4 : 0), wheels: swivel ? 2 : 3, weldJoints,
+    corner: welded ? 0 : (swivel ? 36 : 24) + 4 - angled, angle: angled, tee: welded ? 0 : 2 * intermediates + (swivel ? 2 : 6) + (ski ? 4 : 0) + (sprung ? 4 : 0), hanger: (swivel ? 4 : 8) - (sprung ? 4 : 0), wheels: swivel ? 2 : 3, weldJoints,
     shocks: sprung ? 2 : 0, shockPlates: sprung ? 4 : 0, shockHangers: sprung ? 4 : 0, shockBolts: sprung ? 4 : 0,
-    bolts: frameBolts, handleBolts: welded ? 0 : 4, sleeves: frameBolts + (welded ? 0 : 8) + (sprung ? 8 : 0), casterBolts: swivel ? 4 : 0, brakeClamps: 2,
+    bolts: frameBolts, handleBolts: welded ? 0 : 6, sleeves: frameBolts + (welded ? 0 : 12) + (sprung ? 8 : 0), casterBolts: swivel ? 4 : 0, brakeClamps: 2,
     rampBolts: 2 * (Math.floor(s.ramp / 200) + 1) + 6, floorScrews: 2 * Math.ceil(floorLen / 250) + stations.length * 3,
     // Two of the chassis caps are the ramp leg feet.
     capHeavy: 16 + (ski ? 6 : 0), capLight: 12 + (ski ? 4 : 0), toe: Math.floor(rampWidth / 200), saddle: 3, fabricClip: 28, cableClip: 6, axleCover: swivel ? 4 : 6,
@@ -317,7 +319,7 @@ export function roverDimensions(s: RoverSetup) {
     seats, seatTubeZ: mm(seatTubeZ), seatLeg: mm(seatLeg), seatBackZ: mm(seatBackZ), sittingMax,
     ski, skiPost: mm(skiPost), towPinX: mm(towPinX), brakeZ: mm(brakeZ), forkY: mm(forkY), frontStack: mm(frontStack), frontShaft: mm(frontShaft), forkArm: mm(forkArm), stub: mm(stub), wheelbase: mm(wheelbase),
     rampAngle: mm(degrees(rampAngleRad)), rampAngleRad, rampWidth: mm(rampWidth), rampRise: mm(deck - h.panel), legCut: mm(legCut), hingeX: mm(hingeX), gripX: mm(gripX),
-    handleArm: mm(handleArm), grip: mm(grip), handleMax, centerAhead: mm(centerAhead), roofSlope: mm(roofSlope),
+    handleArm: mm(handleArm), grip: mm(grip), armZ: mm(armZ), handleMax, centerAhead: mm(centerAhead), roofSlope: mm(roofSlope),
     overallWidth: mm(2 * (axleY - inboard + rearShaft)), tireWidth: mm(2 * wheelY + w.tire), overallLength: mm((swivel ? Math.max(casterX + h.casterSweep, frontX + t + nose) : wheelbase + R) - gripX), overallHeight: mm(topZ + t / 2 + h.ridge + h.pole + 4),
     cuts, counts, heavyM: mm(heavyM), lightM: mm(lightM), tubeLb: Math.round((heavyM * 0.762 + lightM * 0.408) * 2.2046 * 10) / 10, floorArea: mm(floorArea), rampArea: mm(rampArea),
     mass: Object.fromEntries(Object.entries(mass).map(([k, v]) => [k, Math.round(v * 10) / 10])) as Record<keyof typeof mass, number>, carrierKg: Math.round(carrierKg * 10) / 10,

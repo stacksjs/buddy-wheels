@@ -1,6 +1,6 @@
 # Buddy Rover r0 materials and weather system
 
-Configuration rover-r0-l1300-w700-h1000-r1000-a560-g930-hub101.6-trail-swivel310-k350-t180-bolted-sprung. Supplier pages read 2026-11-11 unless a row says otherwise. These are costing candidates and a design intent. No fabric has been bought, sewn, soaked, sun-aged or tested, and nothing here is a waterproof, UPF or temperature claim.
+Configuration rover-r0-l1300-w700-h1000-r1000-a560-g950-hub101.6-trail-swivel310-k350-t180-bolted-sprung. Supplier pages read 2026-11-11 unless a row says otherwise. These are costing candidates and a design intent. No fabric has been bought, sewn, soaked, sun-aged or tested, and nothing here is a waterproof, UPF or temperature claim.
 
 ## How the cabin handles weather
 

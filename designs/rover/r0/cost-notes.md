@@ -1,14 +1,14 @@
 # Buddy Rover r0 cost study
 
-Checked 2026-11-12, USD, integer cents, native Bun arithmetic. Configuration rover-r0-l1300-w700-h1000-r1000-a560-g930-hub101.6-trail-swivel310-k350-t180-bolted-sprung. This prices the r0 bench architecture. It is not a supplier quote, a production cost or a selling price, and nothing has been bought.
+Checked 2026-11-12, USD, integer cents, native Bun arithmetic. Configuration rover-r0-l1300-w700-h1000-r1000-a560-g950-hub101.6-trail-swivel310-k350-t180-bolted-sprung. This prices the r0 bench architecture. It is not a supplier quote, a production cost or a selling price, and nothing has been bought.
 
 ## Result
 
-At 100 carriers the modeled landed manufacturing cost is **$1,607.79 each** at listed prices. A single build at retail quantities is **$2,932.51**. The first count of this design, on November 11, was $2,037.93 and $3,254.89, with 20 inch wheels, the original cover and most prices as allowances.
+At 100 carriers the modeled landed manufacturing cost is **$1,600.05 each** at listed prices. A single build at retail quantities is **$3,187.81**. The first count of this design, on November 11, was $2,037.93 and $3,254.89, with 20 inch wheels, the original cover and most prices as allowances.
 
-The owner set the Run price to $999.00 on November 12, 2026. At the counted cost that is $608.79 below cost on every carrier, before card fees, returns, support or freight. A 30% gross margin at that price needs the cost at $699.30 or less, so $908.49 has to come out. At today's cost the price that would carry a 30% margin is about $2,297.00.
+The owner set the Run price to $999.00 on November 12, 2026. At the counted cost that is $601.05 below cost on every carrier, before card fees, returns, support or freight. A 30% gross margin at that price needs the cost at $699.30 or less, so $900.75 has to come out. At today's cost the price that would carry a 30% margin is about $2,286.00.
 
-If the tube is bought by weight, it drops again. $346.33 of the total is 33.1 lb of aluminum tube priced as 21 ft and 24 ft stock bars at $3.13 and $4.84 per foot. A 100-carrier batch is about 1.7 tons of two extrusions and would be bought from a mill or distributor. At an assumed $4.00 per pound with 8% scrap the tube line falls to $143.00 and the total to **$1,404.46**, which a price near $2,007.00 would carry. That rate is an assumption with no quote behind it.
+If the tube is bought by weight, it drops again. $346.99 of the total is 33.2 lb of aluminum tube priced as 21 ft and 24 ft stock bars at $3.13 and $4.84 per foot. A 100-carrier batch is about 1.7 tons of two extrusions and would be bought from a mill or distributor. At an assumed $4.00 per pound with 8% scrap the tube line falls to $143.43 and the total to **$1,396.49**, which a price near $1,995.00 would carry. That rate is an assumption with no quote behind it.
 
 For scale, the reference trailer sold for $729.95 at one retailer on the check date, with a 100 lb stated capacity and a 36.2 x 22.4 x 29.9 inch interior. Rover's cabin is about twice that volume. Rover does not reach that price in either scenario.
 
@@ -18,29 +18,33 @@ The same carrier can be built two ways: the same tubes, the same shape and the s
 
 | | Welded | Bolted |
 | --- | ---: | ---: |
-| Counted cost each, at 100 | $1,591.46 | $1,607.79 |
-| Counted cost of one | $3,105.09 | $2,932.51 |
+| Counted cost each, at 100 | $1,592.12 | $1,600.05 |
+| Counted cost of one | $3,130.55 | $3,187.81 |
 | Welded joints | 46 | 0 |
-| Bolted joints | 8 | 178 |
-| Plates to cut | 10 | 66 |
-| Planning mass, kg | 44.7 | 52.7 |
+| Bolted joints | 8 | 172 |
+| Plates to cut | 10 | 62 |
+| Planning mass, kg | 44.7 | 52.3 |
 | Ships | Assembled, by truck | Flat, in cartons |
 | Who can build it | A shop with a TIG welder | One person at home with a saw and a drill, plates by mail order |
 
-Welding in a United States shop does not make the carrier cheaper. It trades about $239.17 of plates, bolts, sleeves and drilling time for $202.84 of welding and $20.00 more packaging, and for one carrier the shop's time costs more than the drilling it replaces. What welding buys is about 8.0 kg less mass, a cleaner look with no plates, and joints with no bolt clearance to work loose. What bolting buys is that nothing leaves the house except the plate order. The welding figure is arithmetic on an assumed shop rate; no fabricator has quoted it. Outbound freight for an assembled frame is not in either column.
+Welding in a United States shop does not make the carrier cheaper. It trades about $230.77 of plates, bolts, sleeves and drilling time for $202.84 of welding and $20.00 more packaging, and for one carrier the shop's time costs more than the drilling it replaces. What welding buys is about 7.6 kg less mass, a cleaner look with no plates, and joints with no bolt clearance to work loose. What bolting buys is that nothing leaves the house except the plate order. The welding figure is arithmetic on an assumed shop rate; no fabricator has quoted it. Outbound freight for an assembled frame is not in either column.
 
 ## Cutting it yourself against having it cut
 
-The counted totals assume stock bars sawn and drilled by hand, which is the cheapest way to get the tubes. The kit also carries a 3D file for every tube so a tube laser service can do it.
+The counted totals assume stock bars sawn and drilled by hand, which is the cheapest way to get the tubes. The kit also carries 3D files so a tube laser service can drill them.
 
-| For one carrier | Bars, sawn and drilled at home | Tubes from a tube laser |
-| --- | ---: | ---: |
-| Tube cost | $639.68 | $1,405.06 |
-| Saw cuts | 39 | 0 |
-| Tube walls to drill | 451 | A few holes to finish, listed in tube-order.csv |
-| Wait | Parcel delivery of the bars | 8 business days to ship at the standard rate |
+| For one carrier | Bars, sawn and drilled at home | Laser sticks, sawn apart at home | Every tube laser cut on its own |
+| --- | ---: | ---: | ---: |
+| Tube cost | $639.68 | $1,195.44 | $1,405.06 |
+| Saw cuts | 39 | 25 | 0 |
+| Tube walls to drill | 443 | A few, listed in tube-order.csv | A few |
+| Files to upload | 0 | 8 | 20 |
 
-The laser figure is OSH Cut's instant quote for the starting setup on 2026-11-12, after all 20 files passed its design check: $1,405.06 before shipping and tax, or $1,896.81 and $2,037.35 for faster lead times. Nothing was ordered. Most of that price is handling: a 60 mm spacer tube with two holes is quoted at about $18, so the cost follows the number of different parts more than their size, and it would fall per carrier in a batch. Ready-cut bolt sleeves are the other paid shortcut, $184.32 for a pack of 250 against about $34.98 of tube and 190 saw cuts.
+The laser figures are OSH Cut's instant quotes for the starting setup on 2026-11-12, after every file passed its design check, before shipping and tax. Nothing was ordered. Packing the tubes into sticks was tried in the hope that the price was mostly a charge per piece. It is not: it took the set from $1,405.06 to $1,195.44, and what is left is mostly the service's price for the metal, about twice what the same tube costs as bars. So the laser buys time, not money: about $555.76 more than bars to skip the drilling. Ready-cut bolt sleeves are the other paid shortcut, $184.32 for a pack of 250 against about $34.98 of tube and 186 saw cuts.
+
+## What the plate quote showed
+
+The plates were the largest unquoted line. Quoted for one carrier in 6061-T6 they come to $551.22, about double the allowance carried until now, at $9.47 for a corner gusset and $8.19 for a tee. Sticks and plates together, the whole metal order was quoted at $1,746.66 shipping in 7 business days. The same plates in 5052-H32 were quoted at $383.84. One joint was simplified in response: the handle grip now lies across the tops of the arm ends on two bolts, which removed four gussets and eight bolts. The 100-carrier figure still uses an unquoted allowance for plates and is probably low.
 
 ## What changed since the first count
 
@@ -50,7 +54,7 @@ The laser figure is OSH Cut's instant quote for the starting setup on 2026-11-12
 | Hook and loop instead of six zippers; roof liner made optional; corner seams lapped, not taped | about -$55 | Storm panels are slower to close; less sun insulation unless the liner is added |
 | Listed quantity tiers used where the batch reaches them: wall fabric, liner, clear panel rolls | about -$20 | None. They are published prices |
 | Sewing time 240 to 200 minutes | -$20.00 | An assumption either way |
-| Zinc-plated grade 5 hardware for Run, at prices read on the supplier page; stainless becomes the salt-use upgrade | about -$81 | Add $40.94 for stainless before beach use. Cut sleeves are still an allowance |
+| Zinc-plated grade 5 hardware for Run, at prices read on the supplier page; stainless becomes the salt-use upgrade | about -$81 | Add $39.56 for stainless before beach use. Cut sleeves are still an allowance |
 | Exterior ACX plywood at an observed $52.00 a sheet instead of marine | -$73.00 | Marine plywood returns for salt use |
 | Intermediate cross members and ramp ribs in thin-wall tube | about -$40 | Members checked by hand arithmetic only |
 | One gusset instead of two at the eight corner-post joints | -$12.80 | Corner posts carry the cover, not the dog |
@@ -65,17 +69,17 @@ The laser figure is OSH Cut's instant quote for the starting setup on 2026-11-12
 
 | Line | One carrier | 100-carrier allocation | Evidence |
 | --- | ---: | ---: | --- |
-| Aluminum tube, whole stock bars with kerf | $639.68 | $346.33 | Observed 2026-11-12 |
-| 34 corner gussets, 10 gussets cut to this setup's angles, 12 tee gussets and 2 brake plates, laser cut 1/8 inch 6061 | $271.00 | $96.80 | RFQ |
+| Aluminum tube, whole stock bars with kerf | $639.68 | $346.99 | Observed 2026-11-12 |
+| 30 corner gussets, 10 gussets cut to this setup's angles, 12 tee gussets and 2 brake plates, laser cut 1/8 inch 6061 | $515.62 | $90.40 | One carrier: quoted 2026-11-12. Batch: allowance |
 | 2 pneumatic trail wheels, 15 inch 4.00-8 | $65.78 | $65.78 | Observed 2026-11-12 |
 | Front swivel caster with swivel lock, 10 inch pneumatic, and four bolts | $67.69 | $66.89 | Observed 2026-11-12 + nut and sleeve allowance |
 | 2 stock-shaft axles, sleeves, spacers, washers and cotters | $26.44 | $10.47 | Observed 2026-11-12, rod from a listing |
-| 178 sleeved bolted joints | $91.62 | $75.23 | Observed 2026-11-12 |
+| 172 sleeved bolted joints | $92.30 | $73.23 | Observed 2026-11-12 |
 | Floor and ramp panels, sealed 15/32 inch ACX plywood | $77.00 | $64.00 | Observed 2026-11-12 + sealing allowance |
 | Hinge, two latches, carriage bolts and strap hardware | $51.19 | $48.99 | Observed 2026-11-12 + strap allowance |
 | Wheel chocks, grip, tip-stop feet, floor fasteners, bedding tape and ridge pole | $105.77 | $83.77 | Observed 2026-11-12, partly from listings |
 | Parking brake: two push-pull toggle clamps with neoprene-tipped spindles | $31.70 | $25.58 | Observed 2026-11-12 + screw allowance |
-| Rear suspension: two coil-over shocks, eight bolt-on mount plates, pivot bolts, bushings and mount bolts | $112.58 | $90.48 | Observed 2026-11-12 + hardware allowances |
+| Rear suspension: two coil-over shocks, eight bolt-on mount plates, pivot bolts, bushings and mount bolts | $122.58 | $90.48 | Observed 2026-11-12 + hardware allowances |
 | Printed service parts and fixtures | $27.00 | $23.00 | Computed volume + allowance |
 | Cutting, drilling, deburring and assembly labor | $375.00 | $137.50 | RFQ |
 | Per-carrier inspection | $25.00 | $12.00 | RFQ |
@@ -83,18 +87,18 @@ The laser figure is OSH Cut's instant quote for the starting setup on 2026-11-12
 | Inbound freight allocation | $90.00 | $30.00 | RFQ |
 | Machine wear and shop consumables | $10.00 | $6.00 | RFQ |
 | Weather cover, floor set and ramp surface | $830.06 | $399.97 | Listed materials + assumed sewing |
-| **Landed manufacturing** | **$2,932.51** | **$1,607.79** | Mostly unquoted |
+| **Landed manufacturing** | **$3,187.81** | **$1,600.05** | Mostly unquoted |
 
-- **34 corner gussets, 10 gussets cut to this setup's angles, 12 tee gussets and 2 brake plates, laser cut 1/8 inch 6061:** Six aluminum profiles, three of them cut to the roof and pillar angles of this setup. Includes material, cutting and deburring. No quote was run; upload the DXF files to a cutting service for a real price.
+- **30 corner gussets, 10 gussets cut to this setup's angles, 12 tee gussets and 2 brake plates, laser cut 1/8 inch 6061:** Six aluminum profiles, three of them cut to the roof and pillar angles of this setup. For one carrier these are OSH Cut's instant-quote prices in 6061-T6: $9.47 a corner gusset, $8.19 a tee gusset, $10.15 to $12.43 for the angled ones and $12.23 a brake plate, about double the earlier allowance. The same plates in softer 5052-H32 were quoted $163.94 lower. The batch figure is still an allowance of $1.60 to $2.00 a plate with no quote behind it, and the one-carrier quote suggests it is low.
 - **2 pneumatic trail wheels, 15 inch 4.00-8:** $32.89 each, no bulk discount assumed. Ball bearings, 5/8 inch bore and a 4 inch hub are stated by the supplier.
 - **Front swivel caster with swivel lock, 10 inch pneumatic, and four bolts:** Service Caster SCC-100S3504-PNB-BSL at $64.69: 12-3/16 inch mounting height and 350 lb stated, with a bolt-on swivel lock. Plate size and bolt pattern are not on the page.
 - **2 stock-shaft axles, sleeves, spacers, washers and cotters:** One 5/8 inch x 3 ft plain steel rod at $20.57 (store listing), 12 inches of 3/4 inch DOM tube at $4.99, 5/8 inch washers at $0.15 and cotters at $0.07.
-- **178 sleeved bolted joints:** Zinc-plated grade 5 bolts, lock nuts and washers at Bolt Depot prices: per 1,000 for the batch, whole boxes of 100 for one build. Sleeves are cut from 3/8 inch x .049 DOM steel tube at $11.66 per 6 ft.
+- **172 sleeved bolted joints:** Zinc-plated grade 5 bolts, lock nuts and washers at Bolt Depot prices: per 1,000 for the batch, whole boxes of 100 for one build. Sleeves are cut from 3/8 inch x .049 DOM steel tube at $11.66 per 6 ft.
 - **Floor and ramp panels, sealed 15/32 inch ACX plywood:** 1 sheet at $52.00 plus edge and face sealing. Offcuts are charged.
 - **Hinge, two latches, carriage bolts and strap hardware:** Stainless piano hinge 2ZFK4 at $18.19, two Southco TL-20-202-52 stainless draw latches at $11.89, carriage bolts at $0.16. The ramp legs end in printed caps, so they need no feet or inserts. The strap hook is a $4.00 allowance.
 - **Wheel chocks, grip, tip-stop feet, floor fasteners, bedding tape and ridge pole:** Two rubber chocks at $7.49, foam grip tube at $1.95 per 6 inches, two tall leveling mounts at $11.59, rivet nuts at $16.87 per 100, foam strip at $18.99 per 50 ft. Floor screws and the ridge pole are allowances.
 - **Parking brake: two push-pull toggle clamps with neoprene-tipped spindles:** POWERTEC 302F at $10.70 each, $7.64 in a six-pack, 300 lb holding capacity and a 5/16-18 plunger thread stated. DE-STA-CO 507208 neoprene-tipped spindle, 5/16-18, at $4.15 each.
-- **Rear suspension: two coil-over shocks, eight bolt-on mount plates, pivot bolts, bushings and mount bolts:** LvTu 150 mm coil-over at $31.05 each, read on its product page: 30 mm travel, 24 mm wide eyes with an 8 mm bore, springs labeled 150 to 650 lbs. The label is the seller's nominal figure with a rider-weight table, not a measured rate. Bunting EF081008 bronze flanged bearings at $5.29 per pack of three (a listing price) and 1/2-13 x 4 inch grade 5 bolts at $1.64 with $0.41 lock nuts. The mount plates are a laser-cut allowance. The pivot crush sleeves, washers, M8 eye bolts and long hanger bolts are allowances. The swing arms and spacer tubes are counted in the tube line.
+- **Rear suspension: two coil-over shocks, eight bolt-on mount plates, pivot bolts, bushings and mount bolts:** LvTu 150 mm coil-over at $31.05 each, read on its product page: 30 mm travel, 24 mm wide eyes with an 8 mm bore, springs labeled 150 to 650 lbs. The label is the seller's nominal figure with a rider-weight table, not a measured rate. Bunting EF081008 bronze flanged bearings at $5.29 per pack of three (a listing price) and 1/2-13 x 4 inch grade 5 bolts at $1.64 with $0.41 lock nuts. The mount plates are priced from the one-carrier laser quote, about $4.45 each, and are an allowance in the batch. The pivot crush sleeves, washers, M8 eye bolts and long hanger bolts are allowances. The swing arms and spacer tubes are counted in the tube line.
 - **Printed service parts and fixtures:** About 1.3 liters of solid part volume, most of it the three ramp toes. Priced as consumed filament with a reject reserve, not a printer.
 - **Cutting, drilling, deburring and assembly labor:** Batch: 5.5 h at $25/h. One-off: 15 h. Roughly 300 tube-wall holes per carrier. Timing assumptions, not observed.
 - **Per-carrier inspection:** Does not replace engineering qualification.
@@ -102,7 +106,7 @@ The laser figure is OSH Cut's instant quote for the starting setup on 2026-11-12
 - **Inbound freight allocation:** Truck freight for long bars in a batch; parcel shipping for one build. Unquoted.
 - **Machine wear and shop consumables:** Drill bits, blades, jig wear.
 
-Tube packing at 100 carriers: 230 bars of 1/16 inch wall, 21 ft each, and 168 bars of 1/8 inch wall, 24 ft each. One carrier needs 7 and 6 whole bars.
+Tube packing at 100 carriers: 231 bars of 1/16 inch wall, 21 ft each, and 168 bars of 1/8 inch wall, 24 ft each. One carrier needs 7 and 6 whole bars.
 
 ## Cover and soft goods detail
 
@@ -147,7 +151,8 @@ Material prices are the listed prices in [the materials sheet](../product/rover-
 - [Bunting EF081008 bronze flanged sleeve bearing, 1/2 x 5/8 x 1/2 inch, pack of 3](https://www.zoro.com/search?q=oil+impregnated+bronze+flanged+sleeve+bearing+1%2F2+x+5%2F8+x+1%2F2): **$5.29**, one pack of three. Seen 2026-11-12 on a Zoro listing, not a product page: $5.29 per three. The listing says bronze and does not say oil-impregnated.
 - [Bolt Depot 399, 1/2-13 x 4 inch grade 5 zinc hex bolt, and 21807 lock nut](https://boltdepot.com/Product-Details?product=399): **$1.64**, one bolt. Read in a browser 2026-11-12: bolt $1.64 each or $277.00 per 250; nylon-insert lock nut $0.41 each or $127.00 per 500. Swing arm pivots.
 - [Burley D'Lite X child trailer, reference only](https://burley.com/collections/strollers-skis/products/dlite-x): **$799.95**, one trailer, base price shown. Read 2026-11-12. The page says adjustable suspension without describing the mechanism or travel. Double model: 40 lb per child, 100 lb total, 26 inch shoulder width, 24 inch seated height, and a statement that it is designed and tested to ASTM F1975-09. This is the maker's child product. Its pet trailer page mentions neither suspension nor children.
-- [OSH Cut tube laser, all 39 frame tubes of the starting bolted setup, cut and drilled](https://app.oshcut.com): **$1,405.06**, one set of 39 tubes in 20 different parts, standard lead. Read 2026-11-12 on the instant-quote page after uploading the 20 STEP files from the kit: every file was recognized as a tube and passed the design check, and the two materials were matched automatically. Subtotal $1,405.06 shipping in 8 business days, $1,896.81 in 7, $2,037.35 in 6, before shipping and tax, which the page shows only after sign-in. $788.46 of it is the ten thick-wall parts and $616.60 the ten thin-wall parts. Nothing was ordered.
+- [OSH Cut tube laser, all 39 frame tubes of the starting bolted setup, cut and drilled](https://app.oshcut.com): **$1,195.44**, one set, as 8 sticks to saw apart, standard lead. Read 2026-11-12 on the instant-quote page after uploading the STEP files from the kit. Every file was recognized as a tube, passed the design check and was matched to its material automatically. As 20 separate tubes the set was quoted at $1,405.06. Packed into 8 sticks with the same holes, to be sawn apart at 25 marked lines, it was quoted at $1,195.44. Subtotals before shipping and tax, which the page shows only after sign-in. Bars for the same tubes cost $639.68. Nothing was ordered.
+- [OSH Cut laser-cut plates for one starting bolted carrier, 1/8 inch 6061-T6](https://app.oshcut.com): **$551.22**, all 62 aluminum plates. Read 2026-11-12 on the same page after uploading the eight DXF files: 30 corner gussets at $9.47, 12 tee gussets at $8.19, 10 angled gussets at $10.15 to $12.43, 2 brake plates at $12.23 and 8 shock mount plates at about $4.45. All passed the design check. The same plates in 5052-H32 came to $383.84. With the eight tube sticks the whole metal order was $1,746.66 at the standard lead of 7 business days, $2,357.87 at 6 and $2,532.72 at 5, before shipping and tax. Nothing was ordered.
 - [Mutual Screw FC1198-25-S-12 round spacer, 3/8 OD x 1/4 ID x 1 inch, clear zinc steel, pack of 250](https://mutualscrew.com/products/spacers-3-8-od-x-1-1-4-hole-steel-clear-zinc_fc1198-25-s-12): **$184.32**, one pack of 250. Read in a browser 2026-11-12: $184.32 per 250, $0.74 each. The same size as the bolt sleeves, ready cut. The page gives the hole as 1/4 inch with no tolerance, so check that a 1/4 inch bolt slides through before relying on it.
 
 - Tube for one build: the supplier ships bars over 8 ft by truck, so the one-carrier scenario buys 8 ft bars at $58.08 for the 1/8 inch 6061-T6 and $41.60 for the 1/16 inch 6063-T52, both read on the supplier page. The batch buys 24 ft and 21 ft bars.
@@ -160,7 +165,7 @@ Material prices are the listed prices in [the materials sheet](../product/rover-
 - Stainless option: the stainless bolt is an observed $30.75 per 100. Stainless nuts and washers were not priced; the $0.23 per joint upgrade includes a $0.10 allowance for them.
 - Sprung rear: the travel, sag and spring figures are arithmetic from the drawn arm geometry and an assumed spring rate. No shock has been fitted, no ride has been measured, and no comparison with any other product is claimed. The parking brake presses on a tire that now moves with the load, which is unresolved.
 - Axle sleeve fit: the linked 3/4 inch x .065 wall DOM tube is 0.620 inch inside, 0.005 under the 5/8 inch axle. Ream it to 5/8 or buy .058 wall, 0.634 inside, which the drawn numbers assume.
-- Tube laser route: the bolted kit includes a 3D file for every tube. On 2026-11-12 the 20 files for the starting setup were uploaded to OSH Cut: all passed its design check and the set was quoted at $1,405.06 before shipping and tax. That is a quote for one set on one day, nothing was ordered, and no other setup has been uploaded. Every counted total still assumes stock bars cut and drilled by hand, because that is the cheaper route.
+- Laser quotes: on 2026-11-12 the tube and plate files for the starting bolted setup were uploaded to OSH Cut with the owner's permission. All passed its design check. These are quotes for one carrier on one day, before shipping and tax, and nothing was ordered. No other setup, and no batch quantity, has been quoted. The counted one-carrier total uses the quoted plate prices and still assumes stock bars cut and drilled by hand, because that is the cheaper way to get the tubes.
 - Welded build: the welding line is arithmetic on assumed shop rates and minutes per joint. No fabricator has seen the drawings. A welded frame also ships assembled, and outbound truck freight for a carton that size is not in any total here.
 - Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists.
 
@@ -171,32 +176,32 @@ This section is reasoning from general practice in consumer goods. None of its n
 A trailer that retails near $730 is typically built for a small fraction of that. The retailer and the brand each take a margin, so a common rule of thumb puts factory cost at a quarter to a third of the shelf price. Makers reach that with:
 
 - **Volume and a contract factory.** Thousands of units a run, made where assembly labor costs a few dollars an hour, shipped flat in containers.
-- **A frame that is bent and welded on jigs.** A handful of tubes, bent once and welded, with almost no fasteners. This design has about 178 bolted joints and 48 plates.
+- **A frame that is bent and welded on jigs.** A handful of tubes, bent once and welded, with almost no fasteners. This design has about 172 bolted joints and 44 plates.
 - **Fabric as the body.** The cabin walls and often the floor are sewn fabric hung on that frame, sewn at the same low labor rate from fabric bought by the roll.
 - **Tooling spread over many units.** Molded hubs, joints and wheels cost cents each once the mold is paid for.
 - **Material bought by the ton.** Aluminum extrusion at mill prices by weight, not cut bars at $3 to $5 a foot.
 
 Rover r0 is the opposite on every point: one-off architecture, retail material prices, United States labor rates and a rigid box cabin twice the size.
 
-What each lever would do to the $1,607.79 counted cost, as estimates:
+What each lever would do to the $1,600.05 counted cost, as estimates:
 
 | Lever | Estimated effect | What it needs |
 | --- | ---: | --- |
-| Tube bought by weight from a mill or distributor | about -$203.33 | A quote. The study assumes $4.00 per pound |
+| Tube bought by weight from a mill or distributor | about -$203.56 | A quote. The study assumes $4.00 per pound |
 | Have the cover cut and sewn by a contract shop from roll goods | about -$135 | A sewing quote on a sample |
 | Front caster without a swivel lock, from its maker at $41.38 | -$23.31 | Accepting walking pace only |
 | 13 inch wheels at $14.99 | -$35.80 | Accepting a rougher roll |
-| **All of the above** | **about $1,210.35** | |
+| **All of the above** | **about $1,202.38** | |
 
-That is about the $999.00 price with no margin left. Getting to $699.30, a 30% margin, takes about another $511.05 out. On this architecture there is no obvious place to find it. The realistic route is the one the cheaper products take: a bent and welded folding frame with fabric sides, made by a contract factory, keeping the two things that make Rover different, the size and the walk-in ramp. That is a new design and needs factory quotes, not a revision of this one.
+That is about the $999.00 price with no margin left. Getting to $699.30, a 30% margin, takes about another $503.08 out. On this architecture there is no obvious place to find it. The realistic route is the one the cheaper products take: a bent and welded folding frame with fabric sides, made by a contract factory, keeping the two things that make Rover different, the size and the walk-in ramp. That is a new design and needs factory quotes, not a revision of this one.
 
 ## What would bring it down further
 
 1. A tube quote. See the mill-quantity paragraph above.
-2. Joints. 178 sleeved bolted joints and the labor to drill for them come to about $212.73. Welded or riveted sub-frames, or purpose-made corner fittings, remove most of both and several kilograms. That needs a fabricator's quote.
-3. Plates. 34 corner gussets, 10 gussets cut to this setup's angles, 12 tee gussets and 2 brake plates, laser cut 1/8 inch 6061 are an allowance, about $96.80. Uploading the DXF files to a cutting service turns that into a real number in minutes.
+2. Joints. 172 sleeved bolted joints and the labor to drill for them come to about $210.73. Welded or riveted sub-frames, or purpose-made corner fittings, remove most of both and several kilograms. That needs a fabricator's quote.
+3. Plates. 30 corner gussets, 10 gussets cut to this setup's angles, 12 tee gussets and 2 brake plates, laser cut 1/8 inch 6061 are an allowance, about $90.40. Uploading the DXF files to a cutting service turns that into a real number in minutes.
 4. The cover is now $399.97. The ramp surface, floor pad and mesh are the largest material lines left; sewing is $100.00.
 
-Selling-cost lines at the current price, per carrier at 100: payment fee $29.27, returns reserve $49.95, support $15.00, acquisition $35.00. Contribution before fixed overhead: -$738.01.
+Selling-cost lines at the current price, per carrier at 100: payment fee $29.27, returns reserve $49.95, support $15.00, acquisition $35.00. Contribution before fixed overhead: -$730.27.
 
 Rebuild with `./buddy design:rover`. Inspect at https://buddywheels.org/design-studio-rover.

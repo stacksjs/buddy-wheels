@@ -1,6 +1,6 @@
 # Buddy Rover r0 bench assembly
 
-Configuration rover-r0-l1300-w700-h1000-r1000-a560-g930-hub101.6-trail-swivel310-k350-t180-bolted-sprung. All dimensions mm. BENCH DESIGN. NOT FOR ANIMAL USE. No payload, speed, distance, slope or surface rating exists. Buddy is owner-reported 140 lb; his measurements and suitability for a carrier are not established.
+Configuration rover-r0-l1300-w700-h1000-r1000-a560-g950-hub101.6-trail-swivel310-k350-t180-bolted-sprung. All dimensions mm. BENCH DESIGN. NOT FOR ANIMAL USE. No payload, speed, distance, slope or surface rating exists. Buddy is owner-reported 140 lb; his measurements and suitability for a carrier are not established.
 
 ## What this revision is
 
@@ -23,12 +23,12 @@ Coordinates: X forward, Y across, Z up. Origin on the ground under the rear axle
 | Front wheel | swivel caster, mounting height 310 |
 | Kit | on wheels |
 | Wheelbase | 913.4 |
-| Handle height | 930 (36.6 in) |
+| Handle height | 950 (37.4 in) |
 | Overall length, width over axle ends, height | 2120.8 x 1078.9 x 1254 |
 | Ground clearance under the base gussets | 108.125 |
 | Rear wheel | 15 inch trail (4.00-8) |
 | Assumed wheel hub through-length | 101.6 |
-| Estimated empty mass, arithmetic only | 52.7 kg (116 lb) |
+| Estimated empty mass, arithmetic only | 52.3 kg (115 lb) |
 
 ## Stated geometry beside the reference trailer
 
@@ -41,14 +41,14 @@ Burley Bark Ranger XL figures are the maker's published numbers, read 2026-11-11
 | Interior height | 29.9 in | 39.4 in |
 | Interior volume ratio | 1.0 | 2.29 |
 | Entry | 9 in step-up at a tailgate | 8.0 degree ramp, no step |
-| Weight | 33 lb | about 116 lb estimated |
+| Weight | 33 lb | about 115 lb estimated |
 | Capacity | 100 lb stated by its maker | none. Untested bench design |
 
 Rover is much larger and much heavier. The mass is the price of a bolted frame and plywood panels and is the first thing a second revision should reduce.
 
 ## Planning statics, not test results
 
-With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 90 mm ahead of the rear axle and the front wheel carries about 10% of that mass. The swivel caster steers without lifting anything. Lifting the front to climb a curb takes roughly 115 N (26 lbf) down on the handle. A swivel caster can shimmy at a run, so lock the swivel with its bolt-on lock before running and steer by lifting the front as with a fixed wheel. A dog that stands at the tailgate moves the center behind the axle. The two tip-stop feet exist for that case and their setting and strength are unproven.
+With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 90 mm ahead of the rear axle and the front wheel carries about 10% of that mass. The swivel caster steers without lifting anything. Lifting the front to climb a curb takes roughly 114 N (26 lbf) down on the handle. A swivel caster can shimmy at a run, so lock the swivel with its bolt-on lock before running and steer by lifting the front as with a fixed wheel. A dog that stands at the tailgate moves the center behind the axle. The two tip-stop feet exist for that case and their setting and strength are unproven.
 
 ## Cut list
 
@@ -64,7 +64,7 @@ With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 90 
 | C10 | 2 | Top side rail | 1/16 wall 6063-T52 | 1016.8582 |
 | C11 | 3 | Top cross tube | 1/16 wall 6063-T52 | 700 |
 | C12 | 2 | Handle arm | 1/16 wall 6063-T52 | 1005.4 |
-| C13 | 1 | Handle grip tube | 1/16 wall 6063-T52 | 750.8 |
+| C13 | 1 | Handle grip tube | 1/16 wall 6063-T52 | 801.6 |
 | C14 | 3 | Base intermediate cross member | 1/16 wall 6063-T52 | 700 |
 | C15 | 4 | Nose post | 1/8 wall 6061-T6 | 173.3 |
 | C16 | 2 | Caster beam | 1/8 wall 6061-T6 | 750.8 |
@@ -73,7 +73,7 @@ With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 90 
 | C22 | 2 | Swing arm | 1/8 wall 6061-T6 | 357.8103 |
 | C23 | 2 | Shock spacer tube | 1/8 wall 6061-T6 | 60 |
 
-Total 12.10 m of 1/8 inch wall 6061-T6 and 14.21 m of 1/16 inch wall 6063-T52. Base cross members sit at X = -572.7, -241.35, 95, 421.35, 752.7.
+Total 12.10 m of 1/8 inch wall 6061-T6 and 14.26 m of 1/16 inch wall 6063-T52. Base cross members sit at X = -572.7, -241.35, 95, 421.35, 752.7.
 
 ## Joint patterns
 
@@ -81,7 +81,7 @@ Every joint is a flat gusset with 1/4 inch bolts through steel crush sleeves. Ho
 
 | Profile | Qty | Holes from the joint centerline | Where |
 | --- | ---: | --- | --- |
-| Corner gusset | 34 | Leg A 50 and 80. Leg B 35 and 65 | Rear post feet on the outside face, rail to cross member, roof corners on top, handle grip, brake arms, ramp legs, nose posts |
+| Corner gusset | 30 | Leg A 50 and 80. Leg B 35 and 65 | Rear post feet on the outside face, rail to cross member, roof corners on top, brake arms, ramp legs, nose posts |
 | Roof gusset, 79.8 degrees between legs | 6 | Leg A 50 and 80. Leg B 35 and 65 | Rear post tops on the outside face, axle post tops on both faces |
 | Pillar foot gusset, 67.3 degrees between legs | 2 | Leg A 50 and 80. Leg B 35 and 65 | Pillar foot to base rail, outside face |
 | Pillar top gusset, 122.9 degrees between legs | 2 | Leg A 50 and 80. Leg B 35 and 65 | Pillar top to top rail, outside face |
@@ -100,7 +100,7 @@ Legs A and B alternate where two gussets meet on one tube, so bolts cross 15 mm 
 7. Nose: the base rails run 327.85 past the front cross member. Stand four nose posts on them at X = 927.55 and 1013.25, each with a pair of corner gussets, the rail leg pointing away from the other post. Lay the two caster beams across the post tops and tie each to its posts with one corner gusset on the outside face. Hold the caster plate up under the beams at the centerline, mark its four holes, drill, and bolt it with sleeves.
 8. Floor panel on bedding tape, fastened to the frame.
 9. Ramp: panel, two curb rails on top, two ribs underneath at 40 mm and mid length, stand legs on the hinge-end rib 60 mm in from each edge. Hinge leaves on the top faces of floor and ramp.
-10. Handle arms on the outside of the rear and axle posts at Z = 930, one 3 inch bolt per post. Grip tube between the arm ends.
+10. Handle arms on the outside of the rear and axle posts at Z = 924.6, one 3 inch bolt per post. Grip tube across the tops of the arm ends at Z = 950, one 3 inch bolt down through each crossing.
 11. Swing arms on their pivot bolts, shock plates and hangers, shocks, then wheels, washers and cotters. Rear stack between outer washer faces 142.7, with 0.5 total end float.
 12. Tip-stop feet, the two brake arms with their plates and clamps, latches, safety strap. Then the cover.
 
@@ -123,8 +123,8 @@ Each rear wheel hangs on a trailing swing arm outside the base rail. The arm piv
 | Shock movement per unit of wheel movement | 0.51 |
 | Rate at the wheel | 20.7 N/mm (118 lb/in) |
 | Wheel travel | about 59 mm |
-| Settles under its own weight | about 8 mm |
-| Settles with the 72.6 kg planning mass | about 23 mm, on 48.5 kg per rear wheel |
+| Settles under its own weight | about 7 mm |
+| Settles with the 72.6 kg planning mass | about 23 mm, on 48.4 kg per rear wheel |
 
 These are arithmetic from the drawn geometry and one candidate shock, taking the seller's spring label as pounds per inch, which nobody has checked. No shock has been fitted or measured, and the tires add their own give on top. The same shock is sold with softer and stiffer springs, so the settle can be tuned once a real one is on the frame. There is no ride measurement and no comparison with any other carrier. Open points: side play at a single-bolt pivot, the parking brake pad on a tire that now moves with the load, and the unsprung front caster.
 

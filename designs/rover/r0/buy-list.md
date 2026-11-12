@@ -1,8 +1,8 @@
 # Buddy Rover r0 buy list for one carrier
 
-Configuration rover-r0-l1300-w700-h1000-r1000-a560-g930-hub101.6-trail-swivel310-k350-t180-bolted-sprung. Checked 2026-11-12, USD, before tax and shipping. This is what one builder buys for one bench carrier, in whole bars, sheets, yards and packs, so it is more than the material the carrier consumes. It is a bench build. Nothing here is rated or approved for carrying an animal.
+Configuration rover-r0-l1300-w700-h1000-r1000-a560-g950-hub101.6-trail-swivel310-k350-t180-bolted-sprung. Checked 2026-11-12, USD, before tax and shipping. This is what one builder buys for one bench carrier, in whole bars, sheets, yards and packs, so it is more than the material the carrier consumes. It is a bench build. Nothing here is rated or approved for carrying an animal.
 
-**Materials to buy: about $2,017.50.** $1,719.50 of that has a supplier page behind it. The remaining $298.00 is allowance and needs a quote or a shop visit. Your own time is extra: the study assumes about 15 hours of cutting, drilling and assembly and 9 hours of sewing.
+**Materials to buy: about $2,272.80.** $2,245.80 of that has a supplier page behind it. The remaining $27.00 is allowance and needs a quote or a shop visit. Your own time is extra: the study assumes about 15 hours of cutting, drilling and assembly and 9 hours of sewing.
 
 ## Frame, running gear and hardware
 
@@ -10,20 +10,20 @@ Configuration rover-r0-l1300-w700-h1000-r1000-a560-g930-hub101.6-trail-swivel310
 | --- | ---: | --- |
 | [7 bars of 1 x 1 x 1/16 inch 6063-T52 square tube, 8 ft each](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube) | $291.20 | Observed 2026-11-12 |
 | [6 bars of 1 x 1 x 1/8 inch 6061-T6 square tube, 8 ft each](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube) | $348.48 | Observed 2026-11-12 |
-| 34 corner gussets, 10 gussets cut to this setup's angles, 12 tee gussets and 2 brake plates, laser cut 1/8 inch 6061 | $271.00 | RFQ |
+| [30 corner gussets, 10 gussets cut to this setup's angles, 12 tee gussets and 2 brake plates, laser cut 1/8 inch 6061](https://app.oshcut.com) | $515.62 | One carrier: quoted 2026-11-12. Batch: allowance |
 | [2 pneumatic trail wheels, 15 inch 4.00-8](https://www.zoro.com/zoro-select-pneumatic-wheel-15-316dia-435lb-400-8-1nwv4/i/G1932594/) | $65.78 | Observed 2026-11-12 |
 | [Front swivel caster with swivel lock, 10 inch pneumatic, and four bolts](https://www.zoro.com/service-caster-10-inch-black-pneumatic-wheel-swivel-caster-with-bolt-swivel-lock-scc-100s3504-pnb-bsl/i/G705434817/) | $67.69 | Observed 2026-11-12 + nut and sleeve allowance |
 | [2 stock-shaft axles, sleeves, spacers, washers and cotters](https://www.onlinemetals.com/en/buy/carbon-steel/0-75-od-x-0-065-wall-x-0-62-id-carbon-steel-round-tube-a513-type-5-dom/pid/7765) | $26.44 | Observed 2026-11-12, rod from a listing |
-| [178 sleeved bolted joints](https://boltdepot.com/Product-Details?product=328) | $91.62 | Observed 2026-11-12 |
+| [172 sleeved bolted joints](https://boltdepot.com/Product-Details?product=328) | $92.30 | Observed 2026-11-12 |
 | [Floor and ramp panels, sealed 15/32 inch ACX plywood](https://www.homedepot.com/b/Lumber-Composites-Plywood/15-32/N-5yc1vZbqm7Z1z0mcqq) | $77.00 | Observed 2026-11-12 + sealing allowance |
 | [Hinge, two latches, carriage bolts and strap hardware](https://www.zoro.com/zoro-select-piano-hinge-stainless-steel-full-surface-mounting-1-in-leaf-w-x-36-in-leaf-h-stainless-steel-2zfk4/i/G1671966/) | $51.19 | Observed 2026-11-12 + strap allowance |
 | [Wheel chocks, grip, tip-stop feet, floor fasteners, bedding tape and ridge pole](https://www.harborfreight.com/solid-rubber-wheel-chock-96479.html) | $105.77 | Observed 2026-11-12, partly from listings |
 | [Parking brake: two push-pull toggle clamps with neoprene-tipped spindles](https://www.zoro.com/powertec-toggle-clamp-300lbs-cap-302f-quick-release-pushpull-clamp-20304n/i/G714915420/) | $31.70 | Observed 2026-11-12 + screw allowance |
-| [Rear suspension: two coil-over shocks, eight bolt-on mount plates, pivot bolts, bushings and mount bolts](https://www.amazon.com/LvTu-Bicycle-Absorber-Suspension-Bushing/dp/B0CH6DCCPS) | $112.58 | Observed 2026-11-12 + hardware allowances |
+| [Rear suspension: two coil-over shocks, eight bolt-on mount plates, pivot bolts, bushings and mount bolts](https://www.amazon.com/LvTu-Bicycle-Absorber-Suspension-Bushing/dp/B0CH6DCCPS) | $122.58 | Observed 2026-11-12 + hardware allowances |
 | Printed service parts and fixtures | $27.00 | Computed volume + allowance |
-| **Subtotal** | **$1,567.45** | |
+| **Subtotal** | **$1,822.75** | |
 
-Cut from the bars with cut-list.csv. Send metal/*.dxf to a laser or waterjet shop for the 34 corner gussets, 12 tee gussets and 0 axle hangers. The parts list in bom.csv has every specification.
+Cut from the bars with cut-list.csv. Send metal/*.dxf to a laser or waterjet shop for the 30 corner gussets, 10 angled gussets, 12 tee gussets and the brake and shock plates. The plate prices above are a real quote for one carrier. The parts list in bom.csv has every specification.
 
 ## Cover, floor and ramp surface
 
@@ -48,14 +48,26 @@ Cut from the bars with cut-list.csv. Send metal/*.dxf to a laser or waterjet sho
 
 Cut from cover-cut-schedule.csv. A 10% allowance for sewing mistakes is not in this subtotal.
 
-## Two shortcuts that cost more and save time
+## Ways to lower this total
+
+Each line is a choice with a real price behind it. None is applied above.
+
+| Choice | Saves about | What you give up |
+| --- | ---: | --- |
+| Buy the tube as full-length bars from a local metal supplier and have them cut in half to carry | $210.17 | A trip, or truck freight. $429.51 for 2 bars of 24 ft and 3 of 21 ft at the listed long-bar prices, against $639.68 in 8 ft parcel bars |
+| Have the plates cut in 5052-H32 instead of 6061-T6 | $167.38 | Strength. 5052-H32 is the softer alloy. Nothing here has been calculated in either, so this is an engineer's call |
+| The same front caster without a swivel lock, from its maker | $23.31 | The lock that holds the wheel straight for running |
+| Leave out the clear storm panels | $89.35 | Wind and rain protection at the windows. They can be added later |
+| Rigid rear axle instead of sprung wheels | $177.42 | The suspension |
+
+## Ways to save time that cost more
 
 | Shortcut | Cost | Instead of | What it saves |
 | --- | ---: | --- | --- |
-| Every tube cut and drilled by a tube laser, from the tubes folder | $1,405.06, quoted 2026-11-12 before shipping and tax | $639.68 of bars | 39 saw cuts and 451 drilled tube walls |
-| Bolt sleeves ready cut, [Mutual Screw FC1198-25-S-12](https://mutualscrew.com/products/spacers-3-8-od-x-1-1-4-hole-steel-clear-zinc_fc1198-25-s-12) | $184.32 | $34.98 of sleeve tube | 190 saw cuts and their deburring |
+| Tubes laser drilled, as sticks from the tubes folder | $1,195.44, quoted 2026-11-12 before shipping and tax | $639.68 of bars | 443 drilled tube walls and 14 of the 39 saw cuts |
+| Bolt sleeves ready cut, [Mutual Screw FC1198-25-S-12](https://mutualscrew.com/products/spacers-3-8-od-x-1-1-4-hole-steel-clear-zinc_fc1198-25-s-12) | $184.32 | $34.98 of sleeve tube | 186 saw cuts and their deburring |
 
-Neither is in the total above. With both, what is left is bolting it together, a handful of holes listed in tube-order.csv, the panels and the cover.
+Neither is in the total above.
 
 ## Before you order
 

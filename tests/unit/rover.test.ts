@@ -5,8 +5,8 @@ import { join } from 'node:path'
 import { transformModelPoint } from '@stacksjs/browser/model-viewer'
 import { nestRoverStock, packRoverStock, parseRoverSetup, referenceCarrier, roverActivities, roverDimensions, roverParcelStock, roverParts, roverPartFile, roverQuery, roverStart, roverWheels } from '../../app/Designs/Rover'
 import { inspectRoverGeometry, roverGeometry, roverPrintVolumeCm3, roverPublicPath, sha256 } from '../../app/Designs/RoverBuild'
-import { roverCostLines, roverEconomics } from '../../app/Designs/RoverCost'
-import { roverBom, roverDocuments, roverDrilling, roverPrintQuantities, roverTubes } from '../../app/Designs/RoverDocuments'
+import { roverCostLines, roverEconomics, roverPlateCost, roverTubeQuote } from '../../app/Designs/RoverCost'
+import { roverBom, roverDocuments, roverDrilling, roverPrintQuantities, roverSticks, roverTubes } from '../../app/Designs/RoverDocuments'
 import { roverDownload } from '../../app/Designs/RoverDownloads'
 import { angleGusset, metalProfile } from '../../app/Designs/RoverParts'
 import { roverScene } from '../../app/Designs/RoverScene'
@@ -66,7 +66,7 @@ test('Rover setup accepts cut-to-fit sizes, rejects unknown or unsafe combinatio
   expect(d.topRail).toBe(d.floorLen - roverStart.rake)
   expect(d.windshield).toBeCloseTo(Math.hypot(roverStart.rake, d.post + 25.4 - roverStart.taper), 3)
   // Welded is the starting build: a sloped roof, raked pillars, no gussets, and a weld list that adds up.
-  expect(roverStart).toMatchObject({ build: 'bolted', taper: 180, ride: 'sprung', cabin: 'dog', handle: 930 })
+  expect(roverStart).toMatchObject({ build: 'bolted', taper: 180, ride: 'sprung', cabin: 'dog', handle: 950 })
   expect(weldedStart).toEqual({ ...roverStart, build: 'welded' })
   expect(d.counts).toMatchObject({ corner: 0, angle: 0, tee: 0, weldJoints: 46, bolts: 8, handleBolts: 0, hanger: 0, shocks: 2, shockPlates: 4, shockHangers: 4, shockBolts: 4 })
   const rigid = roverDimensions(wp({ ride: 'rigid' }))
@@ -86,7 +86,12 @@ test('Rover setup accepts cut-to-fit sizes, rejects unknown or unsafe combinatio
   expect(d.stations.every(x => Math.abs(x - 300) >= 45)).toBe(true)
   expect(wp({ wheel: 'run', hub: 75 }).ride).toBe('rigid')
   // The bolted frame is the same carrier: sloped roof, pillars and sprung wheels, with the handle brought down under the roof gussets.
-  expect(parseRoverSetup({ build: 'bolted' })).toMatchObject({ ride: 'sprung', taper: 180, handle: 930 })
+  expect(parseRoverSetup({ build: 'bolted' })).toMatchObject({ ride: 'sprung', taper: 180, handle: 950 })
+  // The grip lies across the arm ends on two bolts, one tube above the arms, so the handle joint needs no plates.
+  const home = roverDimensions(roverStart)
+  expect(home.grip).toBe(roverStart.width + 4 * 25.4)
+  expect(home.armZ).toBe(roverStart.handle - 25.4)
+  expect(home.handleMax).toBe(960)
   for (const invalid of [{ build: 'bolted', handle: 1000 }, { wheel: 'run', hub: 75, ride: 'sprung' }, { ride: 'air' }, { cabin: 'kids' }, { cabin: 'seats', length: 1000, axle: 650 }]) expect(() => parseRoverSetup(invalid), JSON.stringify(invalid)).toThrow()
   // Two-seat concept: tubes in the cut list, room to sit, nothing welded or bolted by design.
   const seats = roverDimensions(wp({ cabin: 'seats' }))
@@ -104,7 +109,7 @@ test('Rover setup accepts cut-to-fit sizes, rejects unknown or unsafe combinatio
   expect(bolted.windshield).toBe(d.windshield)
   expect(bolted.welds).toEqual([])
   expect(bolted.cuts.map(c => `${c.id} ${c.qty} ${c.length}`)).toEqual(d.cuts.map(c => `${c.id} ${c.qty} ${c.length}`))
-  expect(bolted.counts).toMatchObject({ corner: 34, angle: 10, tee: 12, weldJoints: 0, bolts: 174, handleBolts: 4, hanger: 0, shockPlates: 4 })
+  expect(bolted.counts).toMatchObject({ corner: 30, angle: 10, tee: 12, weldJoints: 0, bolts: 166, handleBolts: 6, hanger: 0, shockPlates: 4 })
   expect(bolted.carrierKg - d.carrierKg).toBeGreaterThan(6)
   // Three plates are cut to this setup's angles, and the pillar joint datums sit on the rail centerlines.
   expect(bolted.angles.map(a => [a.file, a.qty])).toEqual([['roof-gusset', 6], ['pillar-foot-gusset', 2], ['pillar-top-gusset', 2]])
@@ -124,7 +129,7 @@ test('Rover setup accepts cut-to-fit sizes, rejects unknown or unsafe combinatio
   const box = roverDimensions(wp({ rake: 0 }))
   expect(box.topRail).toBe(box.floorLen)
   expect(box.frontPostX).toBe(box.frontX + 12.7)
-  expect(fixed.counts).toMatchObject({ corner: 22, angle: 10, hanger: 8, wheels: 3 })
+  expect(fixed.counts).toMatchObject({ corner: 18, angle: 10, hanger: 8, wheels: 3 })
   expect(d.counts).toMatchObject({ hanger: 0, wheels: 2, casterBolts: 4, brakeClamps: 2 })
   expect(d.brakeZ).toBeGreaterThan(2 * d.R + 150)
   expect(d.brakeZ + 90).toBeLessThan(roverStart.handle)
@@ -211,12 +216,12 @@ test('Rover cost study charges whole stock, every parts-list line and paid labor
   expect(packRoverStock(weldedStart, 'light', 1).bars).toBe(3)
   for (const q of [0, 0.5, Infinity, 1001]) expect(() => packRoverStock(roverStart, 'light', q)).toThrow()
   const base = roverEconomics(weldedStart); const one = roverEconomics(weldedStart, 1)
-  expect(base.cogs).toBe(159146)
-  expect(one.cogs).toBe(310509)
-  expect(base.cogsMill).toBe(138813)
-  expect(roverEconomics(wp({ wheel: 'run', hub: 75 })).cogs).toBe(155744)
-  expect(roverEconomics(wp({ wheel: 'path', hub: 82.55 })).cogs).toBe(155421)
-  expect(roverEconomics(wp({ front: 'fixed' })).cogs).toBe(153261)
+  expect(base.cogs).toBe(159212)
+  expect(one.cogs).toBe(313055)
+  expect(base.cogsMill).toBe(138856)
+  expect(roverEconomics(wp({ wheel: 'run', hub: 75 })).cogs).toBe(155810)
+  expect(roverEconomics(wp({ wheel: 'path', hub: 82.55 })).cogs).toBe(155487)
+  expect(roverEconomics(wp({ front: 'fixed' })).cogs).toBe(153327)
   expect(roverEconomics(wp({ kit: 'ski' })).cogs).toBe(180226)
   expect(roverEconomics(wp({ rake: 0 })).cogs).toBe(162193)
   expect(one.heavy.bars).toBe(6)
@@ -227,28 +232,34 @@ test('Rover cost study charges whole stock, every parts-list line and paid labor
   expect(base.maxCogs).toBe(69930)
   expect(base.gross).toBeLessThan(0)
   expect(base.meetsCostGate).toBe(false)
-  expect(base.retailForGate).toBe(227400)
+  expect(base.retailForGate).toBe(227500)
   expect(base.retailForGateMill).toBe(198400)
   expect(base.contribution).toBeLessThan(0)
   expect(() => roverEconomics(roverStart, 2)).toThrow()
   // The starting setup is the bolted home build, so the default study is that one.
-  expect(roverEconomics().cogs).toBe(160779)
-  expect(roverEconomics(roverStart, 1).cogs).toBe(293251)
+  expect(roverEconomics().cogs).toBe(160005)
+  expect(roverEconomics(roverStart, 1).cogs).toBe(318781)
   // The bolted build keeps its own counted cost. Welding does not make the carrier cheaper in a batch and costs more for one.
   const boltedSetup = parseRoverSetup({ build: 'bolted' }); const bolted = roverEconomics(boltedSetup); const boltedOne = roverEconomics(boltedSetup, 1)
-  expect(bolted.cogs).toBe(160779)
-  expect(boltedOne.cogs).toBe(293251)
-  expect(bolted.stainlessUpgrade).toBe(4094)
+  expect(bolted.cogs).toBe(160005)
+  expect(boltedOne.cogs).toBe(318781)
+  expect(bolted.stainlessUpgrade).toBe(3956)
   expect(Math.abs(bolted.cogs - base.cogs)).toBeLessThan(5000)
-  expect(one.cogs).toBeGreaterThan(boltedOne.cogs)
-  expect(roverEconomics(parseRoverSetup({ build: 'bolted', ride: 'rigid' })).cogs).toBe(151024)
+  // The one-carrier plate line is the real laser quote, and the softer alloy is priced only as an option.
+  expect(roverPlateCost(roverStart)).toEqual({ frame: 51562, suspension: 3560, total: 55122 })
+  expect(roverPlateCost(roverStart, 'h32').total).toBe(38384)
+  expect(roverCostLines(roverStart).find(l => l.id === 'gussets')!.one).toBe(51562)
+  expect(roverTubeQuote.metal.standard).toBe(roverTubeQuote.sticks.standard + roverPlateCost(roverStart).total)
+  expect(roverTubeQuote.sticks.standard).toBeLessThan(roverTubeQuote.single.standard)
+  expect(roverTubeQuote.sticks.standard).toBeGreaterThan(boltedOne.tube)
+  expect(roverEconomics(parseRoverSetup({ build: 'bolted', ride: 'rigid' })).cogs).toBe(150250)
   expect(roverCostLines(weldedStart).find(l => l.id === 'welding')).toMatchObject({ batch: 20284, one: 69000 })
   expect(roverCostLines(boltedSetup).some(l => l.id === 'welding')).toBe(false)
   // Suspension is a counted line with a real shock price, and the rigid welded build keeps its own total.
-  expect(roverCostLines(weldedStart).find(l => l.id === 'suspension')).toMatchObject({ batch: 9048, one: 11258 })
+  expect(roverCostLines(weldedStart).find(l => l.id === 'suspension')).toMatchObject({ batch: 9048, one: 12258 })
   expect(roverCostLines(weldedStart).some(l => l.id === 'hangers')).toBe(false)
-  expect(roverEconomics(wp({ ride: 'rigid' })).cogs).toBe(150358)
-  expect(roverEconomics(wp({ cabin: 'seats' })).cogs).toBe(171980)
+  expect(roverEconomics(wp({ ride: 'rigid' })).cogs).toBe(150424)
+  expect(roverEconomics(wp({ cabin: 'seats' })).cogs).toBe(172045)
   const coverage = roverCostLines(weldedStart).flatMap(line => line.coverage)
   expect(coverage.length).toBe(new Set(coverage).size)
   const ids = roverBom(weldedStart).trim().split('\n').slice(1).map(row => row.split('","')[0]!.replace('"', ''))
@@ -360,13 +371,51 @@ test('Rover tube files are closed solids that agree with the cut list and the dr
   expect(steep.spec.tan1).toBe(0)
   expect(steep.hand.join(' ')).toContain('Saw the top end')
   expect(roverTubes(weldedStart)).toEqual([])
+  // Sticks: the same tubes packed end to end into fewer laser parts, sawn apart at marker holes.
+  for (const setup of [roverStart, parseRoverSetup({ front: 'fixed', kit: 'ski', cabin: 'seats' }), parseRoverSetup({ ride: 'rigid', wheel: 'path', hub: 82.55 }), parseRoverSetup({ rake: 500, taper: 300, length: 1400, axle: 300, height: 1100 })]) {
+    const tubes = roverTubes(setup); const sticks = roverSticks(setup)
+    // Every tube is in the sticks exactly as many times as the cut list asks for.
+    for (const id of new Set(tubes.map(t => t.id))) expect(sticks.reduce((n, st) => n + st.qty * st.pieces.filter(p => p.id === id).length, 0), id).toBe(tubes.filter(t => t.id === id).reduce((n, t) => n + t.qty, 0))
+    expect(sticks.reduce((n, st) => n + st.pieces.length, 0)).toBeLessThan(tubes.reduce((n, t) => n + t.qty, 0))
+    expect(new Set(sticks.map(st => st.file)).size).toBe(sticks.length)
+    for (const st of sticks) {
+      expect(st.length, st.file).toBeLessThanOrEqual(2438.4)
+      expect(st.cuts.length).toBe(st.pieces.length - 1)
+      // Pieces sit end to end with one blade width between them, and each cut has its marker hole in one wall.
+      st.pieces.slice(1).forEach((piece, i) => { expect(piece.from - st.pieces[i]!.to).toBeCloseTo(3.2, 6); expect(st.cuts[i]).toBeCloseTo(st.pieces[i]!.to + 1.6, 3) })
+      for (const cut of st.cuts) expect(st.spec.holes.filter(hole => hole.wall === 1 && hole.diameter === 3.2 && Math.abs(hole.z - cut) < 0.001).length, st.file).toBe(1)
+      const check = inspectBrep(tubeBrep(st.spec))
+      expect(check.problems, st.file).toEqual([])
+      expect(check.genus, st.file).toBe(1 + st.pierces)
+      const wallArea = 25.4 ** 2 - (25.4 - 2 * st.spec.wall) ** 2; const cut = st.spec.holes.reduce((n, hole) => n + (hole.wall ? 1 : 2) * Math.PI * (hole.diameter / 2) ** 2 * st.spec.wall, 0)
+      expect(Math.abs(brepVolume(tubeBrep(st.spec)) - (wallArea * st.length - cut)), st.file).toBeLessThan(0.002 * wallArea * st.length)
+      // No hole of one tube strays into its neighbor or the blade gap.
+      for (const hole of st.spec.holes.filter(h => h.diameter !== 3.2)) expect(st.pieces.some(p => hole.z - hole.diameter / 2 > p.from && hole.z + hole.diameter / 2 < p.to), `${st.file} hole at ${hole.z}`).toBe(true)
+    }
+  }
+  const startSticks = roverSticks(roverStart)
+  expect(startSticks.length).toBe(8)
+  expect(startSticks.reduce((n, st) => n + st.qty, 0)).toBe(14)
+  expect(startSticks.reduce((n, st) => n + st.qty * st.cuts.length, 0)).toBe(25)
+  expect(startSticks[0]).toMatchObject({ file: 'tubes/6061-T6-0.125-wall/S01-x2-C01-C16.step', qty: 2, cuts: [1680.25] })
+  // A tube with one angled end sits at an end of its stick so the laser cuts the angle; the pillar, with two, stays on its own.
+  const pillarStick = startSticks.find(st => st.pieces.some(p => p.id === 'C21'))!
+  expect(pillarStick.pieces.length).toBe(1)
+  expect(pillarStick.spec.tan0).toBeGreaterThan(0)
+  expect(startSticks.find(st => st.pieces[0]!.id === 'C03')!.spec.tan0).toBeCloseTo(Math.tan(d.roofAngle * Math.PI / 180), 6)
   const docs = roverDocuments(roverStart)
-  for (const t of start) expect(docs[t.file]!.startsWith('ISO-10303-21;'), t.file).toBe(true)
+  for (const st of startSticks) expect(docs[st.file]!.startsWith('ISO-10303-21;'), st.file).toBe(true)
+  expect(Object.keys(docs).filter(k => k.endsWith('.step')).length).toBe(8)
+  expect(docs['tube-order.csv']).toContain('"Saw at these marks, mm from the start"')
   expect(docs['tube-order.csv']).toContain('6063-T52 aluminum square tube, 1 x 1 inch, 0.062 inch wall')
-  expect(docs['build-guide.md']).toContain('Have a tube laser cut and drill every tube')
-  expect(docs['build-guide.md']).toContain('every one passed its design check and the set was priced at $1,405.06')
+  expect(docs['build-guide.md']).toContain('Have a tube laser drill every hole')
+  expect(docs['build-guide.md']).toContain('every one passed its design check and the set was priced at $1,195.44')
+  expect(docs['build-guide.md']).toContain('the same set was quoted at $1,405.06')
   expect(docs['build-guide.md']).toContain('Or: sleeves ready cut')
-  expect(docs['buy-list.md']).toContain('## Two shortcuts that cost more and save time')
+  expect(docs['buy-list.md']).toContain('## Ways to lower this total')
+  expect(docs['buy-list.md']).toContain('| Have the plates cut in 5052-H32 instead of 6061-T6 | $167.38 |')
+  expect(docs['buy-list.md']).toContain('## Ways to save time that cost more')
+  expect(docs['cost-notes.md']).toContain('## What the plate quote showed')
   expect(docs['cost-notes.md']).toContain('## Cutting it yourself against having it cut')
   // A size that was never uploaded does not borrow the quote as its own.
   const otherSize = roverDocuments(parseRoverSetup({ width: 760 }))
@@ -475,9 +524,9 @@ test('Rover configured kit matches published geometry and rejects stale or tampe
   const home = parseRoverSetup({ length: 1300, width: 760, ramp: 900 })
   const homeFiles = await new Bun.Archive(await (await roverDownload(designRoot, 'kit', home)).arrayBuffer()).files()
   expect([...homeFiles.keys()].filter(f => f.endsWith('.dxf')).length).toBe(11)
-  expect([...homeFiles.keys()].filter(f => f.startsWith('tubes/') && f.endsWith('.step')).length).toBe(roverTubes(home).length)
-  expect(await homeFiles.get('tubes/6061-T6-0.125-wall/C01-x2-base-side-rail.step')!.text()).toContain('MANIFOLD_SOLID_BREP')
-  expect(await (await roverDownload(designRoot, 'tubeorder', home)).text()).toContain('"tubes/6061-T6-0.125-wall/C01-x2-base-side-rail.step","C01","Base side rail","2"')
+  expect([...homeFiles.keys()].filter(f => f.startsWith('tubes/') && f.endsWith('.step')).length).toBe(roverSticks(home).length)
+  expect(await homeFiles.get(roverSticks(home)[0]!.file)!.text()).toContain('MANIFOLD_SOLID_BREP')
+  expect(await (await roverDownload(designRoot, 'tubeorder', home)).text()).toContain(`"${roverSticks(home)[0]!.file}","2","6061-T6 aluminum square tube, 1 x 1 inch, 0.125 inch wall"`)
   expect((await roverDownload(designRoot, 'welds', home)).status).toBe(404)
   expect(await (await roverDownload(designRoot, 'cuts', s)).text()).toContain('"C01","2","Base side rail"')
   const temp = await mkdtemp(join(tmpdir(), 'buddy-rover-'))

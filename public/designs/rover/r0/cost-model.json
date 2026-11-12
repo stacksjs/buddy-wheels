@@ -6,7 +6,7 @@
     "height": 1000,
     "ramp": 1000,
     "axle": 560,
-    "handle": 930,
+    "handle": 950,
     "hub": 101.6,
     "caster": 310,
     "rake": 350,
@@ -21,10 +21,10 @@
   "base": {
     "quantity": 100,
     "light": {
-      "bars": 230,
-      "netMm": 1421285.86,
+      "bars": 231,
+      "netMm": 1426365.86,
       "kerfMm": 5100,
-      "stockMm": 1472184
+      "stockMm": 1478584.8
     },
     "heavy": {
       "bars": 168,
@@ -32,7 +32,7 @@
       "kerfMm": 6600,
       "stockMm": 1228953.6
     },
-    "tube": 34633,
+    "tube": 34699,
     "textiles": {
       "quantity": 100,
       "minutes": 200,
@@ -166,31 +166,31 @@
       "total": 39997,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 86149,
-    "cogs": 160779,
+    "other": 85309,
+    "cogs": 160005,
     "retail": 99900,
-    "gross": -60879,
-    "grossPercent": -60.93993993993993,
+    "gross": -60105,
+    "grossPercent": -60.16516516516517,
     "maxCogs": 69930,
-    "headroom": -90849,
+    "headroom": -90075,
     "meetsCostGate": false,
     "fee": 2927,
     "reserve": 4995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -73801,
-    "retailForGate": 229700,
-    "tubeMill": 14300,
-    "cogsMill": 140446,
-    "retailForGateMill": 200700,
-    "stainlessUpgrade": 4094,
+    "contribution": -73027,
+    "retailForGate": 228600,
+    "tubeMill": 14343,
+    "cogsMill": 139649,
+    "retailForGateMill": 199500,
+    "stainlessUpgrade": 3956,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
   "one": {
     "quantity": 1,
     "light": {
       "bars": 7,
-      "netMm": 14212.8586,
+      "netMm": 14263.6586,
       "kerfMm": 51,
       "stockMm": 17068.8
     },
@@ -334,32 +334,32 @@
       "total": 83006,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 146277,
-    "cogs": 293251,
+    "other": 171807,
+    "cogs": 318781,
     "retail": 99900,
-    "gross": -193351,
-    "grossPercent": -193.54454454454455,
+    "gross": -218881,
+    "grossPercent": -219.1001001001001,
     "maxCogs": 69930,
-    "headroom": -223321,
+    "headroom": -248851,
     "meetsCostGate": false,
     "fee": 2927,
     "reserve": 4995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -206273,
-    "retailForGate": 419000,
-    "tubeMill": 14300,
-    "cogsMill": 243583,
-    "retailForGateMill": 348000,
-    "stainlessUpgrade": 4094,
+    "contribution": -231803,
+    "retailForGate": 455500,
+    "tubeMill": 14343,
+    "cogsMill": 269156,
+    "retailForGateMill": 384600,
+    "stainlessUpgrade": 3956,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
   "lines": [
     {
       "id": "gussets",
-      "name": "34 corner gussets, 10 gussets cut to this setup's angles, 12 tee gussets and 2 brake plates, laser cut 1/8 inch 6061",
-      "batch": 9680,
-      "one": 27100,
+      "name": "30 corner gussets, 10 gussets cut to this setup's angles, 12 tee gussets and 2 brake plates, laser cut 1/8 inch 6061",
+      "batch": 9040,
+      "one": 51562,
       "coverage": [
         "M01",
         "M02",
@@ -368,8 +368,9 @@
         "M07",
         "M08"
       ],
-      "evidence": "RFQ",
-      "note": "Six aluminum profiles, three of them cut to the roof and pillar angles of this setup. Includes material, cutting and deburring. No quote was run; upload the DXF files to a cutting service for a real price."
+      "evidence": "One carrier: quoted 2026-11-12. Batch: allowance",
+      "url": "https://app.oshcut.com",
+      "note": "Six aluminum profiles, three of them cut to the roof and pillar angles of this setup. For one carrier these are OSH Cut's instant-quote prices in 6061-T6: $9.47 a corner gusset, $8.19 a tee gusset, $10.15 to $12.43 for the angled ones and $12.23 a brake plate, about double the earlier allowance. The same plates in softer 5052-H32 were quoted $163.94 lower. The batch figure is still an allowance of $1.60 to $2.00 a plate with no quote behind it, and the one-carrier quote suggests it is low."
     },
     {
       "id": "wheels",
@@ -414,9 +415,9 @@
     },
     {
       "id": "fasteners",
-      "name": "178 sleeved bolted joints",
-      "batch": 7523,
-      "one": 9162,
+      "name": "172 sleeved bolted joints",
+      "batch": 7323,
+      "one": 9230,
       "coverage": [
         "H01",
         "H02",
@@ -492,7 +493,7 @@
       "id": "suspension",
       "name": "Rear suspension: two coil-over shocks, eight bolt-on mount plates, pivot bolts, bushings and mount bolts",
       "batch": 9048,
-      "one": 11258,
+      "one": 12258,
       "coverage": [
         "M05",
         "M09",
@@ -504,7 +505,7 @@
       ],
       "evidence": "Observed 2026-11-12 + hardware allowances",
       "url": "https://www.amazon.com/LvTu-Bicycle-Absorber-Suspension-Bushing/dp/B0CH6DCCPS",
-      "note": "LvTu 150 mm coil-over at $31.05 each, read on its product page: 30 mm travel, 24 mm wide eyes with an 8 mm bore, springs labeled 150 to 650 lbs. The label is the seller's nominal figure with a rider-weight table, not a measured rate. Bunting EF081008 bronze flanged bearings at $5.29 per pack of three (a listing price) and 1/2-13 x 4 inch grade 5 bolts at $1.64 with $0.41 lock nuts. The mount plates are a laser-cut allowance. The pivot crush sleeves, washers, M8 eye bolts and long hanger bolts are allowances. The swing arms and spacer tubes are counted in the tube line."
+      "note": "LvTu 150 mm coil-over at $31.05 each, read on its product page: 30 mm travel, 24 mm wide eyes with an 8 mm bore, springs labeled 150 to 650 lbs. The label is the seller's nominal figure with a rider-weight table, not a measured rate. Bunting EF081008 bronze flanged bearings at $5.29 per pack of three (a listing price) and 1/2-13 x 4 inch grade 5 bolts at $1.64 with $0.41 lock nuts. The mount plates are priced from the one-carrier laser quote, about $4.45 each, and are an allowance in the batch. The pivot crush sleeves, washers, M8 eye bolts and long hanger bolts are allowances. The swing arms and spacer tubes are counted in the tube line."
     },
     {
       "id": "prints",
@@ -681,10 +682,17 @@
     },
     {
       "name": "OSH Cut tube laser, all 39 frame tubes of the starting bolted setup, cut and drilled",
-      "price": 140506,
-      "unit": "one set of 39 tubes in 20 different parts, standard lead",
+      "price": 119544,
+      "unit": "one set, as 8 sticks to saw apart, standard lead",
       "url": "https://app.oshcut.com",
-      "note": "Read 2026-11-12 on the instant-quote page after uploading the 20 STEP files from the kit: every file was recognized as a tube and passed the design check, and the two materials were matched automatically. Subtotal $1,405.06 shipping in 8 business days, $1,896.81 in 7, $2,037.35 in 6, before shipping and tax, which the page shows only after sign-in. $788.46 of it is the ten thick-wall parts and $616.60 the ten thin-wall parts. Nothing was ordered."
+      "note": "Read 2026-11-12 on the instant-quote page after uploading the STEP files from the kit. Every file was recognized as a tube, passed the design check and was matched to its material automatically. As 20 separate tubes the set was quoted at $1,405.06. Packed into 8 sticks with the same holes, to be sawn apart at 25 marked lines, it was quoted at $1,195.44. Subtotals before shipping and tax, which the page shows only after sign-in. Bars for the same tubes cost $639.68. Nothing was ordered."
+    },
+    {
+      "name": "OSH Cut laser-cut plates for one starting bolted carrier, 1/8 inch 6061-T6",
+      "price": 55122,
+      "unit": "all 62 aluminum plates",
+      "url": "https://app.oshcut.com",
+      "note": "Read 2026-11-12 on the same page after uploading the eight DXF files: 30 corner gussets at $9.47, 12 tee gussets at $8.19, 10 angled gussets at $10.15 to $12.43, 2 brake plates at $12.23 and 8 shock mount plates at about $4.45. All passed the design check. The same plates in 5052-H32 came to $383.84. With the eight tube sticks the whole metal order was $1,746.66 at the standard lead of 7 business days, $2,357.87 at 6 and $2,532.72 at 5, before shipping and tax. Nothing was ordered."
     },
     {
       "name": "Mutual Screw FC1198-25-S-12 round spacer, 3/8 OD x 1/4 ID x 1 inch, clear zinc steel, pack of 250",
@@ -705,7 +713,7 @@
     "Stainless option: the stainless bolt is an observed $30.75 per 100. Stainless nuts and washers were not priced; the $0.23 per joint upgrade includes a $0.10 allowance for them.",
     "Sprung rear: the travel, sag and spring figures are arithmetic from the drawn arm geometry and an assumed spring rate. No shock has been fitted, no ride has been measured, and no comparison with any other product is claimed. The parking brake presses on a tire that now moves with the load, which is unresolved.",
     "Axle sleeve fit: the linked 3/4 inch x .065 wall DOM tube is 0.620 inch inside, 0.005 under the 5/8 inch axle. Ream it to 5/8 or buy .058 wall, 0.634 inside, which the drawn numbers assume.",
-    "Tube laser route: the bolted kit includes a 3D file for every tube. On 2026-11-12 the 20 files for the starting setup were uploaded to OSH Cut: all passed its design check and the set was quoted at $1,405.06 before shipping and tax. That is a quote for one set on one day, nothing was ordered, and no other setup has been uploaded. Every counted total still assumes stock bars cut and drilled by hand, because that is the cheaper route.",
+    "Laser quotes: on 2026-11-12 the tube and plate files for the starting bolted setup were uploaded to OSH Cut with the owner's permission. All passed its design check. These are quotes for one carrier on one day, before shipping and tax, and nothing was ordered. No other setup, and no batch quantity, has been quoted. The counted one-carrier total uses the quoted plate prices and still assumes stock bars cut and drilled by hand, because that is the cheaper way to get the tubes.",
     "Welded build: the welding line is arithmetic on assumed shop rates and minutes per joint. No fabricator has seen the drawings. A welded frame also ships assembled, and outbound truck freight for a carton that size is not in any total here.",
     "Mill-quantity tube: the second total prices tube by weight at $4.00 per pound plus 8% scrap. That rate is an assumption with no quote behind it. The listed-price total stays the headline until a mill or distributor quote exists."
   ]

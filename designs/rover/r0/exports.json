@@ -4,14 +4,14 @@
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
   "generator": "native Stacks solid kit, no external CAD executable",
   "geometryHash": "77c855e62b909b518ab655607c022b458bb8eb0a1e3f6155e9ace3935b860849",
-  "costHash": "40ba934978f65f21601132d7c0966f622362a2dcd40a116bb59b0cd6291be027",
+  "costHash": "6126dc0fbff22934317b2cb9dbe5bd8443cd69026976d5c795733e483b02e915",
   "setup": {
     "length": 1300,
     "width": 700,
     "height": 1000,
     "ramp": 1000,
     "axle": 560,
-    "handle": 930,
+    "handle": 950,
     "hub": 101.6,
     "caster": 310,
     "rake": 350,
@@ -149,8 +149,8 @@
     "wheelRate": 20.682,
     "wheelTravel": 59,
     "sag": 23,
-    "sagEmpty": 8,
-    "rearWheelKg": 48.5,
+    "sagEmpty": 7,
+    "rearWheelKg": 48.4,
     "seats": false,
     "seatTubeZ": 327.2,
     "seatLeg": 177.8,
@@ -173,8 +173,9 @@
     "hingeX": -591.4,
     "gripX": -965.4,
     "handleArm": 1005.4,
-    "grip": 750.8,
-    "handleMax": 930,
+    "grip": 801.6,
+    "armZ": 924.6,
+    "handleMax": 960,
     "centerAhead": 90,
     "roofSlope": 382.3748,
     "overallWidth": 1078.9,
@@ -257,7 +258,7 @@
         "name": "Handle grip tube",
         "wall": "light",
         "qty": 1,
-        "length": 750.8
+        "length": 801.6
       },
       {
         "id": "C14",
@@ -310,7 +311,7 @@
       }
     ],
     "counts": {
-      "corner": 34,
+      "corner": 30,
       "angle": 10,
       "tee": 12,
       "hanger": 0,
@@ -320,9 +321,9 @@
       "shockPlates": 4,
       "shockHangers": 4,
       "shockBolts": 4,
-      "bolts": 174,
-      "handleBolts": 4,
-      "sleeves": 190,
+      "bolts": 166,
+      "handleBolts": 6,
+      "sleeves": 186,
       "casterBolts": 4,
       "brakeClamps": 2,
       "rampBolts": 18,
@@ -336,21 +337,21 @@
       "axleCover": 4
     },
     "heavyM": 12.1023,
-    "lightM": 14.2129,
-    "tubeLb": 33.1,
+    "lightM": 14.2637,
+    "tubeLb": 33.2,
     "floorArea": 1.0142,
     "rampArea": 0.688,
     "mass": {
       "tube": 15,
-      "plates": 4,
+      "plates": 3.8,
       "panels": 11.1,
       "wheels": 10,
-      "hardware": 8.4,
+      "hardware": 8.3,
       "softgoods": 4.2
     },
-    "carrierKg": 52.7,
+    "carrierKg": 52.3,
     "frontShare": 9.8533,
-    "tiltForceN": 115,
+    "tiltForceN": 114,
     "tiltForceLbf": 26,
     "volumeRatio": 2.2901
   },
@@ -493,17 +494,17 @@
     },
     {
       "path": "assembly.md",
-      "sha256": "b3f630cb909e97c164a45ed7db5f7c8352d4e04d05b943482cc3ce98237cc336",
-      "bytes": 13290
+      "sha256": "0ee69568452e141ef7e78c74938756b88f5cefd0553c0245495433f4c6081e4c",
+      "bytes": 13345
     },
     {
       "path": "bom.csv",
-      "sha256": "c05055405b225ac99ccda323174c0c96ff6df54baef91306cc8c61395da82b6e",
-      "bytes": 11491
+      "sha256": "447f12b707ce7b907605149e744b5c8862511d6786675849dc6366125f4c301d",
+      "bytes": 11539
     },
     {
       "path": "materials.md",
-      "sha256": "4e9222a5afc8bcb0a583d3e3c1288634ae376099270f3e2bd5a3b47d4d9115b9",
+      "sha256": "2619c8edc3524cafcb58fc1c0ed0a6323cb9a0967a12bada4a5dadbcf3a3a9dc",
       "bytes": 11868
     },
     {
@@ -518,33 +519,33 @@
     },
     {
       "path": "drawing.svg",
-      "sha256": "c42551552bd9dfe0b4671b0df538d53c1718c1875e92e860223020fdad46bcd9",
-      "bytes": 5858
+      "sha256": "49171291e07c3be9954e4cf751e1b6018c62cc0a515de97293609d2d41fb835d",
+      "bytes": 5960
     },
     {
       "path": "cut-list.csv",
-      "sha256": "d9397fa047389a39e51ff42cd636e83ed51035fbdf1798ac76b6c3d2c3d91650",
+      "sha256": "3950a9627076f4349700198116996aca636338756cfa53fc9da0e11c3dd1584c",
       "bytes": 1401
     },
     {
       "path": "cost-notes.md",
-      "sha256": "7ca2e751d90fb2f88097bb981490f7c41d41d69b8c1830cb9b0f94221cc887f6",
-      "bytes": 27439
+      "sha256": "ff21228907ee53ee048b78e56c904cb3353fad37932f89c15ccc855fb591910f",
+      "bytes": 29250
     },
     {
       "path": "buy-list.md",
-      "sha256": "02b194fe7a8d36f323eb00749fa1f6559845d1e80746a62b7e5809176d53da4d",
-      "bytes": 6903
+      "sha256": "f52f15ed4beb1ee9b66f00dffd99116710529f7eb4c0e9cee7228d5d6ba844c5",
+      "bytes": 7839
     },
     {
       "path": "build-guide.md",
-      "sha256": "9b31da0262688c41b970502d77eaa651c61f842c4b8f3a44eb2f1633c5b49e0f",
-      "bytes": 28329
+      "sha256": "b3382a50ed4b729c4205579484dbc1ac7a1313925005960ff40e9f2cde382515",
+      "bytes": 29797
     },
     {
       "path": "drilling.csv",
-      "sha256": "9b0251879c98d31bb7f2ca12be62859c2dc8b44132d6373039c3b7103ce1a7f7",
-      "bytes": 6793
+      "sha256": "7bc3498ce0193a89b29b4d0ca9dae75d8720eaa7a0df758a59c287077c6fc0fd",
+      "bytes": 6809
     },
     {
       "path": "metal/roof-gusset.dxf",
@@ -563,108 +564,48 @@
     },
     {
       "path": "tube-order.csv",
-      "sha256": "d3df0a85040ef9c60223ce07ee4383443e327c18808e7ad5e00ccaa9782b488c",
-      "bytes": 3629
+      "sha256": "be6cc7739737fb35a9e6ba44b85688f2d2c1c2edb278cbf92b18a09046499c0c",
+      "bytes": 2226
     },
     {
-      "path": "tubes/6061-T6-0.125-wall/C01-x2-base-side-rail.step",
-      "sha256": "a18e2880c1db69adcc9eb69c264a886d60e7cb5ad834461a02dfb05cb44b23ab",
-      "bytes": 159842
+      "path": "tubes/6061-T6-0.125-wall/S01-x2-C01-C16.step",
+      "sha256": "ed8e76f1ae3ccad26f844bff91020e5ef2895e8804c55d56077260fa8fcb5ce4",
+      "bytes": 186823
     },
     {
-      "path": "tubes/6061-T6-0.125-wall/C02-x2-base-end-cross-member.step",
-      "sha256": "5a2db59802c8133a67e4ba77ecad3edb92b868ff892cb60e757470494b4ed6bb",
-      "bytes": 43359
+      "path": "tubes/6061-T6-0.125-wall/S02-x2-C03-C06-C22-C17.step",
+      "sha256": "2ada7976c1d6f811e12e6e8e811878c670da49d38cb0691a02b1c8771011a0aa",
+      "bytes": 146642
     },
     {
-      "path": "tubes/6061-T6-0.125-wall/C03-x2-axle-post.step",
-      "sha256": "7f17bb1788bfad4aed1a35acdf665c17a1e381abc74c26955d378a435fc91bc1",
-      "bytes": 64399
+      "path": "tubes/6061-T6-0.125-wall/S03-x2-C02-C15-C08-C23.step",
+      "sha256": "d685c8afad847c906168720b49e28c3dea21a28ae521a104c21a2d2a52fbaa94",
+      "bytes": 127153
     },
     {
-      "path": "tubes/6061-T6-0.125-wall/C06-x2-ramp-side-curb-rail.step",
-      "sha256": "eaa822652dfeff97b7cbae5d1ee758403e9ee110c5d6e2081085c5d43d289532",
-      "bytes": 46748
+      "path": "tubes/6063-T52-0.062-wall/S04-x2-C09-C10.step",
+      "sha256": "1b98a3532485cac60a1fafdefbc600e1ea14bec6233d8b136ddc43a5b82842e6",
+      "bytes": 116028
     },
     {
-      "path": "tubes/6063-T52-0.062-wall/C07-x1-ramp-under-rib-hinge-end-one-only.step",
-      "sha256": "c1091a34c1bbdbbf2528b9bf5651f9ef02a8895fd6d0088a219e0a49529ce500",
-      "bytes": 46573
+      "path": "tubes/6063-T52-0.062-wall/S05-x2-C12-C11-C14.step",
+      "sha256": "8ee23eb39e3b5f196f483c54f08a3ab76df90fcbf0cc6ac83f82d43d0387b416",
+      "bytes": 91459
     },
     {
-      "path": "tubes/6063-T52-0.062-wall/C07-x1-ramp-under-rib.step",
-      "sha256": "beb9b9fb45507ed6650598bcf31a96e710d5bc44cb50c9ff68d7f512227d31f4",
-      "bytes": 23488
+      "path": "tubes/6063-T52-0.062-wall/S06-x2-C21.step",
+      "sha256": "5049a419021777a190cc2d2bf591574b68080f92505f801c91503a51c49f97bd",
+      "bytes": 35322
     },
     {
-      "path": "tubes/6061-T6-0.125-wall/C08-x2-ramp-stand-leg.step",
-      "sha256": "7bdf00e771c42c062611768d62d8ba4164f7ce5dacd256888e2ffd6fc3aa59e6",
-      "bytes": 23484
+      "path": "tubes/6063-T52-0.062-wall/S07-x1-C13-C11-C14.step",
+      "sha256": "42ede87ae3f80f137669f4065c719b40ea28e9de324321dc5701631a5c001d9b",
+      "bytes": 85414
     },
     {
-      "path": "tubes/6063-T52-0.062-wall/C09-x2-rear-corner-post.step",
-      "sha256": "dce1a22301efb70f76f6da1f98db6d9d36fb656ab0175dbb3addae00709efe9b",
-      "bytes": 40623
-    },
-    {
-      "path": "tubes/6063-T52-0.062-wall/C10-x2-top-side-rail.step",
-      "sha256": "8d4499c59f20f1f81b942f60a6a87ae50a011b2b1f7560290356006113e56026",
-      "bytes": 82683
-    },
-    {
-      "path": "tubes/6063-T52-0.062-wall/C11-x2-top-cross-tube-front-and-rear.step",
-      "sha256": "8b4e3b34dd09420cbb6be7bf3248b9e0b58f2527ab103ff5ed1e872e7a70d3c9",
-      "bytes": 34792
-    },
-    {
-      "path": "tubes/6063-T52-0.062-wall/C11-x1-top-cross-tube-middle-bow.step",
-      "sha256": "6d1a754730883812788e2480b3b7d0254e6c3f6998e3bf5cbc56c661e32d89be",
-      "bytes": 34768
-    },
-    {
-      "path": "tubes/6063-T52-0.062-wall/C12-x2-handle-arm.step",
-      "sha256": "5edfe9f8daa00e460f6b85b66c24af201c0833192eb80b21f6692c8d196fa869",
-      "bytes": 34706
-    },
-    {
-      "path": "tubes/6063-T52-0.062-wall/C13-x1-handle-grip-tube.step",
-      "sha256": "e7bad94f7cddd80f6b6c3dc325a562cf90ea43ff236ffbd761000d5f1bd6f3c8",
-      "bytes": 34725
-    },
-    {
-      "path": "tubes/6063-T52-0.062-wall/C14-x3-base-intermediate-cross-member.step",
-      "sha256": "4212c5f46f9917318ea1ff872ed1a08e7852d63b05f7cfe04ccfbe7f5f1ece56",
-      "bytes": 43589
-    },
-    {
-      "path": "tubes/6061-T6-0.125-wall/C15-x4-nose-post.step",
-      "sha256": "bff58ef20ce81ce30f489dcd6f6c2a57c405012a2683d88a2af6f12b8851c478",
-      "bytes": 34507
-    },
-    {
-      "path": "tubes/6061-T6-0.125-wall/C16-x2-caster-beam.step",
-      "sha256": "a8cc004fa9687c9483181d9ac7861c3daad5836c14fa637033f0f87ee3b90f9d",
-      "bytes": 34531
-    },
-    {
-      "path": "tubes/6061-T6-0.125-wall/C17-x2-brake-arm.step",
-      "sha256": "90077df242204c40d66ec18a1e8d7f30dd4de04a81d3f5756508245a355f2495",
-      "bytes": 23242
-    },
-    {
-      "path": "tubes/6063-T52-0.062-wall/C21-x2-front-pillar.step",
-      "sha256": "0fc90b96daa4003cc74093e507a08d8dada3ef470be42e9afab8d55f3ca59b95",
-      "bytes": 35358
-    },
-    {
-      "path": "tubes/6061-T6-0.125-wall/C22-x2-swing-arm.step",
-      "sha256": "dff7ffcab315e1d2096b924b95f581334598cdbd7a5fd867bcd2d233e028d026",
-      "bytes": 34666
-    },
-    {
-      "path": "tubes/6061-T6-0.125-wall/C23-x2-shock-spacer-tube.step",
-      "sha256": "cba5339d047f6193118b9da8f8362e498e50d712a4097c242b09524bae82d41b",
-      "bytes": 23249
+      "path": "tubes/6063-T52-0.062-wall/S08-x1-C07.step",
+      "sha256": "8d4a55bd5cdb8d789e35f22578675c4faaddaef4ebc3cb2c66e8dfc4f64d9c7b",
+      "bytes": 61438
     },
     {
       "path": "base-plan.svg",
@@ -673,13 +614,13 @@
     },
     {
       "path": "cost-model.json",
-      "sha256": "b885038abd5aab888394dab9ddab4c369d5419003bf2f5338fd48dd80dac24ca",
-      "bytes": 28765
+      "sha256": "1ee0003c22fe976893e1474d3c5b324e7b4eb05cec46eb251b518c639e036d54",
+      "bytes": 29994
     },
     {
       "path": "setup.json",
-      "sha256": "7400488784fc71508739a1c8778379c15047e273dc0c1de574b2e05aef8fe6fd",
-      "bytes": 7312
+      "sha256": "704c8806d7df65a62b85b483d2467f6ee74a5b1f688bf23cf1f5b5e01c01a4cb",
+      "bytes": 7333
     },
     {
       "path": "README.md",
