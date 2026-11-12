@@ -1,0 +1,115 @@
+@extends('layouts/buddy')
+@section('title', 'Buddy Rover r0 | Walk-in carrier 3D studio')
+@section('description', 'Inspect the Buddy Rover bench design: a large cabin with a fold-down walk-in ramp, a rain, wind and sun cover, printable service parts, a complete parts list and an honest cost study.')
+@section('social_image', 'https://buddywheels.org/images/buddy-rover.webp')
+<script server>
+import { splitFinish as splitServerFinish, finishQuery as serverFinishQuery, defaultFinish as serverDefaultFinish } from '~/app/Storefront/Finish'
+export let initialFinish = serverDefaultFinish
+try { initialFinish = splitServerFinish(requestContext.query()).finish } catch {}
+const finishForm = 'rover-download'
+import { publicPath } from '@stacksjs/path'
+import { parseRoverSetup as parseSetup, roverStart as serverStart, roverParts as parts, roverPartFile as partFile, roverQuery as queryString, roverLimits as limits, referenceCarrier as reference } from '~/app/Designs/Rover'
+import { roverPriceEvidence as evidence, roverAllowanceNotes as allowances } from '~/app/Designs/RoverCost'
+import { roverMaterials as materials } from '~/app/Designs/RoverSoftGoods'
+import { roverPrintQuantities as quantities } from '~/app/Designs/RoverDocuments'
+const designManifest = await Bun.file(publicPath('designs/rover/r0/manifest.json')).json()
+export const revision = designManifest.geometryHash.slice(0, 16)
+const assetRevision = (path: string) => designManifest.assets.find((asset: { path: string, sha256: string }) => asset.path === path).sha256.slice(0, 16)
+export const poster = '/designs/rover/r0/drawing.svg?v=' + assetRevision('drawing.svg')
+const costRevision = assetRevision('cost-notes.md')
+const materialRevision = assetRevision('materials.md')
+export let initialSetup = serverStart
+export let initialError = ''
+try { initialSetup = parseSetup(splitServerFinish(requestContext.query()).configuration) }
+catch { initialError = 'Those dimensions could not be loaded. The starting bench configuration is shown.' }
+const initialQuery = queryString(initialSetup) + '&' + serverFinishQuery(initialFinish)
+const startQuantities = quantities(serverStart)
+const printParts = parts.filter(p => p.kind !== 'metal').map(p => ({ ...p, qty: startQuantities[p.id] }))
+const metalParts = parts.filter(p => p.kind === 'metal').map(p => ({ ...p, qty: startQuantities[p.id] }))
+defineClientPayload({ initialFinish, revision, poster, initialSetup, initialError })
+</script>
+<script client>
+import { finishQuery } from '~/app/Storefront/Finish'
+import { roverStart, roverDimensions, parseRoverSetup, roverQuery, referenceCarrier } from '~/app/Designs/Rover'
+import { roverScene } from '~/app/Designs/RoverScene'
+import { roverEconomics } from '~/app/Designs/RoverCost'
+import { signedMoney as money } from '~/app/Storefront/Catalog'
+const accent = state(initialFinish.accent)
+const trim = state(initialFinish.trim)
+const finish = derived(() => ({ accent: accent(), trim: trim() }))
+const length = state(initialSetup.length)
+const width = state(initialSetup.width)
+const height = state(initialSetup.height)
+const ramp = state(initialSetup.ramp)
+const axle = state(initialSetup.axle)
+const handle = state(initialSetup.handle)
+const hub = state(initialSetup.hub)
+const focus = state('assembly')
+const rampDown = state(true)
+const showCover = state(false)
+const batchQuantity = state(true)
+const modelArea = useRef('roverModel')
+const parsed = derived(() => {
+  try { return { setup: parseRoverSetup({ length: length(), width: width(), height: height(), ramp: ramp(), axle: axle(), handle: handle(), hub: hub() }), error: '' } }
+  catch (e) { return { setup: null, error: e instanceof Error ? e.message : 'Check the dimensions.' } }
+})
+const lastValid = state(initialSetup)
+effect(() => { if (parsed().setup) lastValid.set(parsed().setup!) })
+const scene = derived(() => roverScene(lastValid(), { focus: focus(), rampDown: rampDown(), cover: showCover(), accent: accent(), trim: trim(), revision }))
+const dimensions = derived(() => roverDimensions(lastValid()))
+const economics = derived(() => roverEconomics(lastValid(), batchQuantity() ? 100 : 1))
+const setupQuery = derived(() => roverQuery(lastValid()) + '&' + finishQuery(finish()))
+const fileUrl = (artifact: string) => '/api/designs/rover/' + artifact + '?' + setupQuery()
+const inches = (value: number) => (value / 25.4).toFixed(1)
+function inspect(id: string): void {
+  focus.set(id)
+  void nextTick(() => { modelArea.current?.scrollIntoView({ block: 'start', behavior: 'instant' }); modelArea.current?.focus({ preventScroll: true }) })
+}
+function reset(): void { batch(() => { length.set(roverStart.length); width.set(roverStart.width); height.set(roverStart.height); ramp.set(roverStart.ramp); axle.set(roverStart.axle); handle.set(roverStart.handle); hub.set(roverStart.hub); focus.set('assembly'); rampDown.set(true); showCover.set(false) }) }
+</script>
+@section('content')
+<div class="design-studio shell standard-studio">
+  <header class="studio-heading"><a href="/rover" :href="'/rover?' + finishQuery(finish())" class="studio-back"><i class="i-hugeicons-arrow-left-01" aria-hidden="true"></i>Back to Buddy Rover</a><h1>Walk in.<br>Ride along.</h1><p class="muted">A bigger cabin with a tailgate that folds down into a gentle ramp, for the dog who can no longer step up.</p><div class="studio-context"><span>Rover r0 · walk-in ramp</span><span>Buddy · 140 lb, owner reported</span><span>Bench design, not animal ready</span></div></header>
+  <p class="studio-query-note" :if="initialError">{{ initialError }}</p>
+  <div class="standard-brief"><strong>No step. About {{ dimensions().rampAngle.toFixed(0) }} degrees.</strong><p>The tailgate is the ramp. It stands on its own two feet, so weight on the threshold goes to the ground. The reference trailer lists a {{ referenceCarrier.stepUpIn }} inch step-up at its tailgate; here the deck is {{ inches(dimensions().deck) }} inches up and the ramp takes it away. Nothing has been built or tested.</p></div>
+  <div class="studio-workbench">
+    <section class="studio-visual" ref="roverModel" tabindex="-1" aria-label="Buddy Rover 3D inspection">
+      <div class="studio-view-heading"><h2>{{ focus() === 'assembly' ? 'The whole carrier' : focus() === 'ramp' ? 'Ramp, stand feet and threshold' : 'Actual part mesh' }}</h2><label class="studio-check"><input type="checkbox" x-model="rampDown" :disabled="focus() !== 'assembly' && focus() !== 'ramp'">Ramp lowered</label></div>
+      <ModelViewer :scene="scene()" label="Buddy Rover r0 walk-in carrier bench design" poster="{{ poster }}" className="buddy-model" />
+      <noscript><img src="{{ poster }}" alt="Side and top drawing of the Buddy Rover frame with its ramp lowered" width="1358" height="1272" class="studio-noscript"><p>Enable JavaScript to inspect configured geometry. <a href="/api/designs/rover/kit?{{ initialQuery }}">Download the starting-design kit</a>, or use the configured form below.</p></noscript>
+      <label class="studio-check"><input type="checkbox" x-model="showCover" :disabled="focus() !== 'assembly'">Show weather cover</label>
+      <div class="studio-view-options" role="group" aria-label="Inspection scope"><button type="button" :aria-pressed="focus() === 'assembly'" @click="focus.set('assembly')">Whole carrier</button><button type="button" :aria-pressed="focus() === 'ramp'" @click="focus.set('ramp')">Ramp detail</button></div>
+      <dl class="studio-readout"><div><dt>Ramp incline</dt><dd><strong data-rover-angle>{{ dimensions().rampAngle.toFixed(1) }}</strong> <span>degrees, no step</span></dd></div><div><dt>Clear cabin</dt><dd><strong>{{ inches(lastValid().length) }} x {{ inches(lastValid().width) }} x {{ inches(lastValid().height) }}</strong> <span>in</span></dd></div><div><dt>Cabin volume beside the reference</dt><dd><strong data-rover-volume>{{ dimensions().volumeRatio.toFixed(1) }}x</strong> <span>{{ referenceCarrier.interiorIn[0] }} x {{ referenceCarrier.interiorIn[1] }} x {{ referenceCarrier.interiorIn[2] }} in stated</span></dd></div></dl>
+      <dl class="studio-readout"><div><dt>Estimated empty mass</dt><dd><strong>{{ (dimensions().carrierKg * 2.2046).toFixed(0) }}</strong> <span>lb, arithmetic only</span></dd></div><div><dt>Over axle ends</dt><dd><strong>{{ inches(dimensions().overallWidth) }}</strong> <span>in wide</span></dd></div><div><dt>Handle push-down to lift the front wheel</dt><dd><strong>{{ dimensions().tiltForceLbf }}</strong> <span>lbf, 160 lb centered, statics only</span></dd></div></dl>
+      <p class="muted studio-model-note">Aluminum frame, plywood deck and ramp, three matching 20 inch wheels and the printed service parts. The reference figures are another maker's published numbers and describe that product only. No load, cloth or motion simulation is shown, and no capacity is claimed.</p>
+    </section>
+    <aside class="studio-controls" aria-label="Buddy Rover configuration">
+      <div class="studio-control-heading"><h2>Size it around them.</h2><button type="button" class="studio-reset" @click="reset()">Reset setup</button></div><p class="muted studio-intro">Cut-to-fit bench dimensions. Measure lying length and standing height first; Buddy's numbers are still pending.</p>
+      <fieldset class="studio-fieldset"><legend>Cabin</legend>
+        <div class="studio-field"><div class="studio-field-title"><label for="rover-length">Clear length</label><div class="studio-number"><input id="rover-length" value="{{ initialSetup.length }}" name="length" form="rover-download" type="number" min="{{ limits.length[0] }}" max="{{ limits.length[1] }}" step="10" required x-model.number="length"><span>mm</span></div></div><input type="range" min="{{ limits.length[0] }}" max="{{ limits.length[1] }}" step="10" aria-label="Cabin length slider" x-model.number="length"><p><span>{{ limits.length[0] }}-{{ limits.length[1] }} mm</span><span>{{ inches(length()) }} in</span></p></div>
+        <div class="studio-field"><div class="studio-field-title"><label for="rover-width">Clear width</label><div class="studio-number"><input id="rover-width" value="{{ initialSetup.width }}" name="width" form="rover-download" type="number" min="{{ limits.width[0] }}" max="{{ limits.width[1] }}" step="10" required x-model.number="width"><span>mm</span></div></div><input type="range" min="{{ limits.width[0] }}" max="{{ limits.width[1] }}" step="10" aria-label="Cabin width slider" x-model.number="width"><p><span>{{ limits.width[0] }}-{{ limits.width[1] }} mm</span><span>{{ inches(width()) }} in</span></p></div>
+        <div class="studio-field"><div class="studio-field-title"><label for="rover-height">Clear height</label><div class="studio-number"><input id="rover-height" value="{{ initialSetup.height }}" name="height" form="rover-download" type="number" min="{{ limits.height[0] }}" max="{{ limits.height[1] }}" step="10" required x-model.number="height"><span>mm</span></div></div><input type="range" min="{{ limits.height[0] }}" max="{{ limits.height[1] }}" step="10" aria-label="Cabin height slider" x-model.number="height"><p><span>{{ limits.height[0] }}-{{ limits.height[1] }} mm</span><span>{{ inches(height()) }} in</span></p></div>
+      </fieldset>
+      <fieldset class="studio-fieldset"><legend>Entry and handling</legend>
+        <div class="studio-field"><div class="studio-field-title"><label for="rover-ramp">Ramp length</label><div class="studio-number"><input id="rover-ramp" value="{{ initialSetup.ramp }}" name="ramp" form="rover-download" type="number" min="{{ limits.ramp[0] }}" max="{{ limits.ramp[1] }}" step="10" required x-model.number="ramp"><span>mm</span></div></div><input type="range" min="{{ limits.ramp[0] }}" max="{{ limits.ramp[1] }}" step="10" aria-label="Ramp length slider" x-model.number="ramp"><p><span>Longer is gentler</span><span>{{ dimensions().rampAngle.toFixed(1) }} degrees</span></p></div>
+        <div class="studio-field"><div class="studio-field-title"><label for="rover-axle">Rear axle ahead of the tailgate</label><div class="studio-number"><input id="rover-axle" value="{{ initialSetup.axle }}" name="axle" form="rover-download" type="number" min="{{ limits.axle[0] }}" max="{{ limits.axle[1] }}" step="10" required x-model.number="axle"><span>mm</span></div></div><input type="range" min="{{ limits.axle[0] }}" max="{{ limits.axle[1] }}" step="10" aria-label="Axle position slider" x-model.number="axle"><p><span>Further forward steers lighter</span><span>{{ dimensions().centerAhead }} mm balance</span></p></div>
+        <div class="studio-field"><div class="studio-field-title"><label for="rover-handle">Handle height</label><div class="studio-number"><input id="rover-handle" value="{{ initialSetup.handle }}" name="handle" form="rover-download" type="number" min="{{ limits.handle[0] }}" max="{{ limits.handle[1] }}" step="10" required x-model.number="handle"><span>mm</span></div></div><input type="range" min="{{ limits.handle[0] }}" max="{{ limits.handle[1] }}" step="10" aria-label="Handle height slider" x-model.number="handle"><p><span>Up to {{ dimensions().handleMax }} mm here</span><span>{{ inches(handle()) }} in</span></p></div>
+        <div class="standard-hub studio-field"><div class="studio-field-title"><label for="rover-hub">Wheel hub through-length</label><div class="studio-number"><input id="rover-hub" value="{{ initialSetup.hub }}" name="hub" form="rover-download" type="number" min="{{ limits.hub[0] }}" max="{{ limits.hub[1] }}" step="0.05" required x-model.number="hub"><span>mm</span></div></div><p>75 mm is a placeholder. No wheel has been chosen. Measure the real hubs before cutting an axle.</p></div>
+      </fieldset>
+      @include('../partials/finish-controls')
+      <p class="studio-validation" role="alert" :if="parsed().error">{{ parsed().error }} Preview and links keep the last valid setup.</p>
+      <form id="rover-download" class="studio-download" action="/api/designs/rover/kit" method="GET"><Button type="submit" variant="bare" class="w-full button-primary" :disabled="!parsed().setup"><i class="i-hugeicons-download-01" aria-hidden="true"></i>Download this Rover setup</Button></form>
+      <p class="muted studio-download-note">Fourteen STL files, three metal DXFs, a dimensioned drawing, cut list, parts list, cover cut schedule, materials sheet and cost study, all matching these dimensions.</p><div class="studio-file-links"><a href="/api/designs/rover/assembly?{{ initialQuery }}" :href="fileUrl('assembly')">Assembly notes</a><a href="/api/designs/rover/bom?{{ initialQuery }}" :href="fileUrl('bom')">Parts list</a><a href="/api/designs/rover/drawing?{{ initialQuery }}" :href="fileUrl('drawing')">Drawing</a><a href="/api/designs/rover/materials?{{ initialQuery }}" :href="fileUrl('materials')">Materials</a><a href="/api/designs/rover/cover?{{ initialQuery }}" :href="fileUrl('cover')">Cover cut schedule</a><a href="/api/designs/rover/profile?{{ initialQuery }}" :href="fileUrl('profile')">Setup JSON</a></div>
+    </aside>
+  </div>
+  <section class="standard-sources" aria-labelledby="rover-weather-heading"><h2 id="rover-weather-heading">Rain, wind and sun, layer by layer.</h2><p>A one-piece roof pitched over a ridge so water runs off. Clear panels that roll down against wind. Mesh that shades and breathes. Supplier pages read November 11, 2026. None of this has been sewn or tested, so there is no waterproof, UPF or temperature claim. <a href="/designs/rover/r0/materials.md?v={{ materialRevision }}" download>Full materials sheet (.md)</a></p><ul>@foreach (materials as item)<li><a href="{{ item.url }}">{{ item.layer }}: {{ item.name }}</a><span>{{ item.guards }}. {{ item.facts }} {{ item.caveat }}</span></li>@endforeach</ul></section>
+  <section class="standard-economics" aria-labelledby="rover-cost-heading"><div><span class="eyebrow">What this design costs to build</span><h2 id="rover-cost-heading">Counted, not hoped.</h2><p class="muted">Every tube, gusset, bolt, panel and yard of fabric is in the count. Fabric uses listed prices; most hardware and all labor are allowances. This bolted bench frame costs far more than the provisional catalog price, and the study says so.</p><fieldset class="standard-cost-toggle"><legend>Build scenario</legend><label><input type="radio" name="cost-quantity" :checked="batchQuantity()" @change="batchQuantity.set(true)"><span>100-carrier batch</span></label><label><input type="radio" name="cost-quantity" :checked="!batchQuantity()" @change="batchQuantity.set(false)"><span>One carrier</span></label></fieldset><a href="/designs/rover/r0/cost-notes.md?v={{ costRevision }}" class="button-text" download>Full cost study (.md)</a></div>
+    <div class="standard-cost-panel"><dl><div><dt>Modeled landed manufacturing</dt><dd data-rover-cogs>{{ money(economics().cogs) }}<small>per carrier, unquoted bench study</small></dd></div><div><dt>Provisional Run price</dt><dd>{{ money(economics().retail) }}</dd></div><div><dt>Frame tube</dt><dd>{{ money(economics().tube) }}</dd></div><div><dt>Cover, floor set and ramp surface</dt><dd>{{ money(economics().textiles.total) }}</dd></div><div><dt>Price that would pass a 30% margin gate</dt><dd data-rover-gate-price>{{ money(economics().retailForGate) }}</dd></div></dl><p class="standard-gate" role="status" data-rover-gate>{{ economics().meetsCostGate ? 'Meets the numerical 30% gross-margin gate. Quotes still pending.' : 'Does not fit the provisional price. The price, the architecture or both have to change.' }}</p><p>Welded or riveted joints, a lighter deck and a simpler wall fabric are the three levers. The catalog price is unchanged until that decision is made.</p><p class="standard-stock">{{ economics().light.bars }} bars of thin-wall and {{ economics().heavy.bars }} bars of chassis tube for {{ economics().quantity }} carrier{{ economics().quantity === 1 ? '' : 's' }}, whole 12-foot bars with kerf.</p></div>
+  </section>
+  <section class="studio-parts"><div class="studio-section-heading"><h2>What you can print today.</h2><p class="muted">Printed pieces finish, guide and protect. Metal, plywood and sewn webbing carry the dog. Quantities are for the starting size.</p></div><div class="studio-parts-grid">@foreach (printParts as part)
+    <article class="studio-part"><div><span class="studio-part-category">{{ part.kind === 'fixture' ? 'Bench fixture' : 'Service print' }} · Qty {{ part.qty }}</span><h3>{{ part.name }}</h3><p>{{ part.note }}</p></div><div class="studio-part-actions"><button type="button" @click="inspect('{{ part.id }}')">Inspect in 3D</button><a href="/designs/rover/r0/parts/{{ partFile(part.id) }}?v={{ revision }}" download>STL<i class="i-hugeicons-download-01" aria-hidden="true"></i></a></div></article>
+  @endforeach</div><details class="studio-metal"><summary>Three metal profiles and their fit-check copies</summary><p>Two aluminum gussets and one stainless axle hanger make every joint. DXFs are in the kit. The STL copies are unloaded hole-pattern checks.</p><div class="studio-parts-grid">@foreach (metalParts as part)<article class="studio-part"><div><span class="studio-part-category">Metal · Qty {{ part.qty }}</span><h3>{{ part.name }}</h3><p>{{ part.note }}</p></div><div class="studio-part-actions"><button type="button" @click="inspect('{{ part.id }}')">Inspect in 3D</button><a href="/designs/rover/r0/parts/{{ partFile(part.id) }}?v={{ revision }}" download>Fit-check STL</a></div></article>@endforeach</div></details></section>
+  <section class="standard-sources"><h2>Checked prices, visible gaps.</h2><p>Reference figures and observed prices from November 2026. A listing is not a quote, a stock promise or a rating.</p><ul>@foreach (evidence as item)<li><a href="{{ item.url }}">{{ item.name }}</a><span>{{ item.note }}</span></li>@endforeach @foreach (allowances as note)<li><strong>Allowance</strong><span>{{ note }}</span></li>@endforeach</ul></section>
+  <section class="studio-build-note"><h2>Designed for an easy way in. Still a bench design.</h2><div><p>Buddy's measurements, a real wheel and brake, the ramp and stand under load, tip behavior with a dog at the tailgate, and every cover test are still ahead. No payload, speed, distance or weather rating is claimed.</p><p>The frame is heavy and the handle is fixed-wheel. Both are honest limits of this first revision, and both are on the list for the next one.</p><a href="/fit-guide#rover" class="button-text">Measure them for a carrier</a></div></section>
+</div>
+@endsection

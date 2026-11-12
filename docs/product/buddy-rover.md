@@ -1,6 +1,23 @@
 # Buddy Rover product and launch brief
 
-November 8, 2026. Second product family: a repairable large-dog adventure carrier. This is a design specification and commercial hypothesis, not a qualified physical product, load rating or use guide. The software catalog and basket work; orders remain gated.
+November 8, 2026, updated November 11. Second product family: a repairable large-dog adventure carrier. This is a design specification and commercial hypothesis, not a qualified physical product, load rating or use guide. The software catalog and basket work; orders remain gated.
+
+## r0 bench design, November 11, 2026
+
+The first Rover design package now exists: [assembly and cut list](../engineering/rover-r0-assembly.md), [materials and weather system](rover-materials.md), [cost study](../business/rover-r0-costs.md), [scope and verification](../engineering/rover-r0-plan.md), the [design files](../../designs/rover/r0/README.md) and an interactive [Rover studio](https://buddywheels.org/design-studio-rover). It is a bench design. Nothing has been built, loaded, sewn or tested.
+
+What changed from the brief:
+
+- **Entry.** Buddy can no longer step up, so the tailgate is the ramp. At the starting size it is 900 mm long and rises 140 mm to a 152 mm deck, about 9 degrees, with curb rails, a grip surface and printed threshold toes so there is no lip at the ground. The ramp stands on its own two feet under the threshold, so a dog's weight there goes to the ground instead of tipping the carrier. Ramp length is configurable and the design refuses anything steeper than 12 degrees.
+- **Size.** The starting cabin is 1200 x 700 x 950 mm clear (47.2 x 27.6 x 37.4 in), about twice the stated interior volume of the reference trailer, and it is cut-to-fit from 1000 to 1400 mm long.
+- **Weather.** A one-piece pitched roof, taped seams, roll-down clear storm panels, shaded mesh windows, a high rear vent, a reflective roof liner and a floor tub liner, each with a named, priced candidate material and the tests it still owes.
+- **Running gear.** Three matching 20 inch wheels on one repeated stainless hanger profile. The wheel itself and the brake are open selections.
+- **Printing.** Eleven printable service and fixture types plus three fit-check copies of the metal profiles, generated natively and checked as closed single-body meshes.
+
+Two findings need a decision before more design work:
+
+1. **Cost.** The counted bill of materials comes to about $2,038 per carrier at 100 units and $3,255 for one, against the provisional $399 Run price. The earlier $210 cost figure was a target with nothing behind it. A bolted frame with about 150 sleeved joints, retail-quantity fabric and plywood panels is the wrong production architecture at that price. The catalog price is unchanged until the owner decides between a higher price, a cheaper architecture, or both.
+2. **Mass and handling.** The estimate is about 47 kg (104 lb) empty, three times the reference trailer. A fixed front wheel under a 140 lb dog needs roughly 23 lbf down on the handle to steer even with the dog balanced close to the axle, and a dog standing at the tailgate shifts the balance behind the axle. Tip-stop feet are drawn but unproven. A lockable swivel front wheel and a lighter frame are the obvious next revision.
 
 ## Customer and product job
 
@@ -10,7 +27,7 @@ Buddy's size makes cabin space and caregiver handling central. Interview runners
 
 ## Reference research
 
-The founder identified the [Burley Bark Ranger XL Ski Bundle](https://burley.com/products/bark-ranger-xl-ski-bundle) as a reference. Its page displayed $900.91 on November 8, 2026, a 100 lb XL pet-and-cargo capacity and 20-inch wheels. Burley's [Ski Kit](https://burley.com/products/ski-kit) describes cross-country skiing and snowshoeing conversion and lists Bark Ranger XL compatibility. These facts describe Burley's products only. Do not transfer their ratings, compatibility, instructions, reviews or certifications to Rover.
+The founder identified the [Burley Bark Ranger XL Ski Bundle](https://burley.com/products/bark-ranger-xl-ski-bundle) as a reference. Its page displayed $900.91 on November 8, 2026, a 100 lb XL pet-and-cargo capacity and 20-inch wheels. Burley's [Ski Kit](https://burley.com/products/ski-kit) describes cross-country skiing and snowshoeing conversion and lists Bark Ranger XL compatibility. On November 11, 2026 the same Burley page listed an interior of 36.2 x 22.4 x 29.9 inches, a 33 lb trailer weight, a 33 inch maximum pet length, a 9 inch step-up at the tailgate, a 6.5 inch trailer drop and overall dimensions of 36.5 x 32.8 x 37.3 inches. Tree Fort Bikes listed the XL trailer alone at $729.95. Burley's standard-size figures could not be read that day and are not quoted. These facts describe Burley's products only. Do not transfer their ratings, compatibility, instructions, reviews or certifications to Rover.
 
 Differentiate through large-dog cabin discovery, long-run handling, beach-serviceable running gear, repair architecture and total delivered cost. Independently engineer the chassis, conversion mounts and restraint system. Bicycle towing is a possible later module requiring separate hitch and dynamic validation; it is not included in the current Rover offer.
 

@@ -7,6 +7,7 @@
 export const actions = {
   'Actions/Designs/DownloadDesignAction': '../../../app/Actions/Designs/DownloadDesignAction.ts',
   'Actions/Designs/DownloadDesignPartAction': '../../../app/Actions/Designs/DownloadDesignPartAction.ts',
+  'Actions/Designs/DownloadRoverAction': '../../../app/Actions/Designs/DownloadRoverAction.ts',
   'Actions/Designs/DownloadXLSpringAction': '../../../app/Actions/Designs/DownloadXLSpringAction.ts',
   'Actions/Designs/DownloadXLStandardAction': '../../../app/Actions/Designs/DownloadXLStandardAction.ts',
   'Actions/NotifyUser': '../../../app/Actions/NotifyUser.ts',

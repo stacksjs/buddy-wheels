@@ -45,3 +45,9 @@ The catalog's weight and height bands are planning inputs, not proven load ratin
 
 - [Complete XL per-unit cost and the $299 decision](business/xl-complete-unit-costs.md)
 - [Checked textile supplier SKUs, prices and availability](business/textile-supplier-research.md)
+
+- [Rover r0 bench assembly, cut list and joint patterns](engineering/rover-r0-assembly.md)
+- [Rover r0 scope, native geometry kit and verification](engineering/rover-r0-plan.md)
+- [Rover materials and weather system: rain, wind, sun, sand and snow](product/rover-materials.md)
+- [Rover r0 cost study and the $399 finding](business/rover-r0-costs.md)
+- [Rover r0 design files](../designs/rover/r0/README.md)

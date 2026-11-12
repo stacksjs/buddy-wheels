@@ -1,0 +1,577 @@
+{
+  "checked": "2026-11-11",
+  "setup": {
+    "length": 1200,
+    "width": 700,
+    "height": 950,
+    "ramp": 900,
+    "axle": 520,
+    "handle": 980,
+    "hub": 75
+  },
+  "base": {
+    "quantity": 100,
+    "light": {
+      "bars": 319,
+      "netMm": 1114400,
+      "kerfMm": 3600,
+      "stockMm": 1166774.4
+    },
+    "heavy": {
+      "bars": 341,
+      "netMm": 1228074.96,
+      "kerfMm": 5700,
+      "stockMm": 1247241.6
+    },
+    "tube": 53250,
+    "textiles": {
+      "quantity": 100,
+      "minutes": 240,
+      "hourlyCents": 3000,
+      "rows": [
+        {
+          "id": "shell",
+          "name": "Shell: roof, walls, header and gussets",
+          "purchase": 1231030,
+          "units": 514,
+          "unit": "whole linear yards",
+          "allocation": 12311
+        },
+        {
+          "id": "mesh",
+          "name": "Mesh: three windows and the rear vent",
+          "purchase": 288995,
+          "units": 161,
+          "unit": "whole linear yards",
+          "allocation": 2890
+        },
+        {
+          "id": "clear",
+          "name": "Clear storm panels",
+          "purchase": 151895,
+          "units": 17,
+          "unit": "10-yard rolls",
+          "allocation": 1519
+        },
+        {
+          "id": "liner",
+          "name": "Floor tub liner and threshold flap",
+          "purchase": 149400,
+          "units": 150,
+          "unit": "whole linear yards",
+          "allocation": 1494
+        },
+        {
+          "id": "roofLiner",
+          "name": "Reflective roof liner",
+          "purchase": 127650,
+          "units": 138,
+          "unit": "whole linear yards",
+          "allocation": 1277
+        },
+        {
+          "id": "pad",
+          "name": "Two floor pad halves",
+          "purchase": 315000,
+          "units": 100,
+          "unit": "39 x 51 inch sheets",
+          "allocation": 3150
+        },
+        {
+          "id": "traction",
+          "name": "Ramp traction surface",
+          "purchase": 454750,
+          "units": 50,
+          "unit": "27 x 94 inch sheets",
+          "allocation": 4548
+        },
+        {
+          "id": "zipper",
+          "name": "Six storm-panel zippers",
+          "purchase": 180000,
+          "units": 300,
+          "unit": "5-foot chain pieces",
+          "allocation": 1800
+        },
+        {
+          "id": "slider",
+          "name": "Six locking sliders",
+          "purchase": 135000,
+          "units": 120,
+          "unit": "packs of 5",
+          "allocation": 1350
+        },
+        {
+          "id": "hook",
+          "name": "Hook tape",
+          "purchase": 151200,
+          "units": 216,
+          "unit": "10-foot pieces",
+          "allocation": 1512
+        },
+        {
+          "id": "loop",
+          "name": "Loop tape",
+          "purchase": 151200,
+          "units": 216,
+          "unit": "10-foot pieces",
+          "allocation": 1512
+        },
+        {
+          "id": "seam",
+          "name": "Seam tape",
+          "purchase": 233223,
+          "units": 807,
+          "unit": "meters",
+          "allocation": 2333
+        },
+        {
+          "id": "reflective",
+          "name": "Reflective trim",
+          "purchase": 59000,
+          "units": 200,
+          "unit": "2.2-yard packs",
+          "allocation": 590
+        },
+        {
+          "id": "cord",
+          "name": "Roof hem shock cord",
+          "purchase": 50440,
+          "units": 485,
+          "unit": "yards",
+          "allocation": 505
+        },
+        {
+          "id": "dring",
+          "name": "Four stainless D-rings",
+          "purchase": 62000,
+          "units": 400,
+          "unit": "each",
+          "allocation": 620
+        },
+        {
+          "id": "webbing",
+          "name": "Tether, grab loop, ties and wrist strap",
+          "purchase": 123856,
+          "units": 16,
+          "unit": "120-foot rolls",
+          "allocation": 1239
+        },
+        {
+          "id": "thread",
+          "name": "Thread allowance",
+          "purchase": 27115,
+          "units": 17,
+          "unit": "cones",
+          "allocation": 272
+        }
+      ],
+      "materials": 38922,
+      "rejects": 3893,
+      "labor": 12000,
+      "freight": 900,
+      "total": 55715,
+      "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
+    },
+    "other": 94828,
+    "cogs": 203793,
+    "retail": 39900,
+    "gross": -163893,
+    "grossPercent": -410.75939849624064,
+    "maxCogs": 27930,
+    "headroom": -175863,
+    "meetsCostGate": false,
+    "fee": 1187,
+    "reserve": 1995,
+    "support": 1500,
+    "acquisition": 3500,
+    "contribution": -172075,
+    "retailForGate": 291200,
+    "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
+  },
+  "one": {
+    "quantity": 1,
+    "light": {
+      "bars": 4,
+      "netMm": 11144,
+      "kerfMm": 36,
+      "stockMm": 14630.4
+    },
+    "heavy": {
+      "bars": 4,
+      "netMm": 12280.7496,
+      "kerfMm": 57,
+      "stockMm": 14630.4
+    },
+    "tube": 64012,
+    "textiles": {
+      "quantity": 1,
+      "minutes": 600,
+      "hourlyCents": 3000,
+      "rows": [
+        {
+          "id": "shell",
+          "name": "Shell: roof, walls, header and gussets",
+          "purchase": 14370,
+          "units": 6,
+          "unit": "whole linear yards",
+          "allocation": 14370
+        },
+        {
+          "id": "mesh",
+          "name": "Mesh: three windows and the rear vent",
+          "purchase": 5385,
+          "units": 3,
+          "unit": "whole linear yards",
+          "allocation": 5385
+        },
+        {
+          "id": "clear",
+          "name": "Clear storm panels",
+          "purchase": 8935,
+          "units": 1,
+          "unit": "10-yard rolls",
+          "allocation": 8935
+        },
+        {
+          "id": "liner",
+          "name": "Floor tub liner and threshold flap",
+          "purchase": 1992,
+          "units": 2,
+          "unit": "whole linear yards",
+          "allocation": 1992
+        },
+        {
+          "id": "roofLiner",
+          "name": "Reflective roof liner",
+          "purchase": 1850,
+          "units": 2,
+          "unit": "whole linear yards",
+          "allocation": 1850
+        },
+        {
+          "id": "pad",
+          "name": "Two floor pad halves",
+          "purchase": 3150,
+          "units": 1,
+          "unit": "39 x 51 inch sheets",
+          "allocation": 3150
+        },
+        {
+          "id": "traction",
+          "name": "Ramp traction surface",
+          "purchase": 9095,
+          "units": 1,
+          "unit": "27 x 94 inch sheets",
+          "allocation": 9095
+        },
+        {
+          "id": "zipper",
+          "name": "Six storm-panel zippers",
+          "purchase": 1800,
+          "units": 3,
+          "unit": "5-foot chain pieces",
+          "allocation": 1800
+        },
+        {
+          "id": "slider",
+          "name": "Six locking sliders",
+          "purchase": 2250,
+          "units": 2,
+          "unit": "packs of 5",
+          "allocation": 2250
+        },
+        {
+          "id": "hook",
+          "name": "Hook tape",
+          "purchase": 2100,
+          "units": 3,
+          "unit": "10-foot pieces",
+          "allocation": 2100
+        },
+        {
+          "id": "loop",
+          "name": "Loop tape",
+          "purchase": 2100,
+          "units": 3,
+          "unit": "10-foot pieces",
+          "allocation": 2100
+        },
+        {
+          "id": "seam",
+          "name": "Seam tape",
+          "purchase": 2601,
+          "units": 9,
+          "unit": "meters",
+          "allocation": 2601
+        },
+        {
+          "id": "reflective",
+          "name": "Reflective trim",
+          "purchase": 590,
+          "units": 2,
+          "unit": "2.2-yard packs",
+          "allocation": 590
+        },
+        {
+          "id": "cord",
+          "name": "Roof hem shock cord",
+          "purchase": 520,
+          "units": 5,
+          "unit": "yards",
+          "allocation": 520
+        },
+        {
+          "id": "dring",
+          "name": "Four stainless D-rings",
+          "purchase": 620,
+          "units": 4,
+          "unit": "each",
+          "allocation": 620
+        },
+        {
+          "id": "webbing",
+          "name": "Tether, grab loop, ties and wrist strap",
+          "purchase": 1480,
+          "units": 20,
+          "unit": "feet",
+          "allocation": 1480
+        },
+        {
+          "id": "thread",
+          "name": "Thread allowance",
+          "purchase": 1595,
+          "units": 1,
+          "unit": "cones",
+          "allocation": 1595
+        }
+      ],
+      "materials": 60433,
+      "rejects": 6044,
+      "labor": 30000,
+      "freight": 6500,
+      "total": 102977,
+      "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
+    },
+    "other": 158500,
+    "cogs": 325489,
+    "retail": 39900,
+    "gross": -285589,
+    "grossPercent": -715.7619047619048,
+    "maxCogs": 27930,
+    "headroom": -297559,
+    "meetsCostGate": false,
+    "fee": 1187,
+    "reserve": 1995,
+    "support": 1500,
+    "acquisition": 3500,
+    "contribution": -293771,
+    "retailForGate": 465000,
+    "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
+  },
+  "lines": [
+    {
+      "id": "gussets",
+      "name": "36 corner and 12 tee gussets, laser cut 1/8 inch 6061",
+      "batch": 7680,
+      "one": 21600,
+      "coverage": [
+        "M01",
+        "M02"
+      ],
+      "evidence": "RFQ",
+      "note": "Two repeated aluminum profiles. Includes material, cutting and deburring."
+    },
+    {
+      "id": "hangers",
+      "name": "8 stainless axle hangers",
+      "batch": 3200,
+      "one": 7200,
+      "coverage": [
+        "M03"
+      ],
+      "evidence": "RFQ",
+      "note": "One 304 stainless profile for all three wheels. Bore finishing after drawing review."
+    },
+    {
+      "id": "wheels",
+      "name": "Three matching 20 inch pneumatic wheels",
+      "batch": 18000,
+      "one": 18000,
+      "coverage": [
+        "W01"
+      ],
+      "evidence": "Allowance",
+      "note": "No verified wheel candidate yet. See the allowance notes."
+    },
+    {
+      "id": "axles",
+      "name": "Three stock-shaft axles, sleeves, spacers, washers and cotters",
+      "batch": 1800,
+      "one": 4000,
+      "coverage": [
+        "W02",
+        "W03",
+        "W04",
+        "W05",
+        "W06"
+      ],
+      "evidence": "RFQ",
+      "note": "Plain 5/8 inch shaft cut and cross-drilled. No threaded journals."
+    },
+    {
+      "id": "fasteners",
+      "name": "152 sleeved stainless joints",
+      "batch": 15048,
+      "one": 19000,
+      "coverage": [
+        "H01",
+        "H02",
+        "H03",
+        "H04",
+        "H05"
+      ],
+      "evidence": "Allowance",
+      "note": "The largest hardware line. It follows directly from a bolted frame with no welding."
+    },
+    {
+      "id": "panels",
+      "name": "Floor and ramp panels, sealed 12 mm marine plywood",
+      "batch": 13700,
+      "one": 15000,
+      "coverage": [
+        "F01",
+        "R01"
+      ],
+      "evidence": "Allowance",
+      "note": "1 sheet per carrier plus edge sealing. Offcuts are charged."
+    },
+    {
+      "id": "ramp",
+      "name": "Hinge, two latches, safety strap hardware and stand feet",
+      "batch": 4600,
+      "one": 6500,
+      "coverage": [
+        "R02",
+        "R03",
+        "R04",
+        "R05",
+        "R06"
+      ],
+      "evidence": "Allowance",
+      "note": "Stainless continuous hinge, two draw latches, two leveling feet with tube inserts, carriage bolts."
+    },
+    {
+      "id": "controls",
+      "name": "Brake set, grip, tip-stop feet and floor fasteners",
+      "batch": 6200,
+      "one": 8500,
+      "coverage": [
+        "B01",
+        "B02",
+        "S01",
+        "F02",
+        "F03",
+        "X01"
+      ],
+      "evidence": "Allowance",
+      "note": "Lever, cable and two wheel brakes are unselected. The allowance is not a brake design."
+    },
+    {
+      "id": "prints",
+      "name": "Printed service parts and fixtures",
+      "batch": 2300,
+      "one": 2700,
+      "coverage": [
+        "P-cap_heavy",
+        "P-cap_light",
+        "P-ramp_toe",
+        "P-ridge_saddle",
+        "P-fabric_clip",
+        "P-cable_clip",
+        "P-axle_cover",
+        "P-guide_butt",
+        "P-guide_run",
+        "P-guide_tee",
+        "P-coupon"
+      ],
+      "evidence": "Computed volume + allowance",
+      "note": "About 1.3 liters of solid part volume, most of it the three ramp toes. Priced as consumed filament with a reject reserve, not a printer."
+    },
+    {
+      "id": "labor",
+      "name": "Cutting, drilling, deburring and assembly labor",
+      "batch": 15000,
+      "one": 40000,
+      "coverage": [],
+      "evidence": "RFQ",
+      "note": "Batch: 6 h at $25/h. One-off: 16 h. Roughly 300 tube-wall holes per carrier. Timing assumptions, not observed."
+    },
+    {
+      "id": "qa",
+      "name": "Per-carrier inspection",
+      "batch": 1200,
+      "one": 2500,
+      "coverage": [],
+      "evidence": "RFQ",
+      "note": "Does not replace engineering qualification."
+    },
+    {
+      "id": "pack",
+      "name": "Packaging",
+      "batch": 2500,
+      "one": 3500,
+      "coverage": [],
+      "evidence": "RFQ",
+      "note": "Large flat-pack carton set. Outbound freight is separate."
+    },
+    {
+      "id": "freight",
+      "name": "Inbound freight allocation",
+      "batch": 3000,
+      "one": 9000,
+      "coverage": [],
+      "evidence": "RFQ",
+      "note": "Long stock and sheet goods. Unquoted."
+    },
+    {
+      "id": "machine",
+      "name": "Machine wear and shop consumables",
+      "batch": 600,
+      "one": 1000,
+      "coverage": [],
+      "evidence": "RFQ",
+      "note": "Drill bits, blades, jig wear."
+    }
+  ],
+  "evidence": [
+    {
+      "name": "6061-T6 square tube 20737, 1 x .065 inch",
+      "price": 6003,
+      "unit": "one 144 inch bar",
+      "url": "https://www.onlinemetals.com/en/buy/aluminum/1-x-0-065-aluminum-square-tube-6061-t6-extruded/pid/20737",
+      "note": "Observed 2026-11-08 at $60.03. The page blocked a recheck on 2026-11-11. Cabin tubes only."
+    },
+    {
+      "name": "Burley Bark Ranger XL at Tree Fort Bikes",
+      "price": 72995,
+      "unit": "one complete trailer, reference only",
+      "url": "https://www.treefortbikes.com/Burley-Bark-Ranger-XL-Pet-Bike-Trailer",
+      "note": "Observed $729.95. A bike trailer with a stroller kit, 100 lb stated capacity. A market reference, never a Rover cost input."
+    },
+    {
+      "name": "Burley Bark Ranger XL Ski Bundle",
+      "price": 90091,
+      "unit": "one bundle, reference only",
+      "url": "https://burley.com/products/bark-ranger-xl-ski-bundle",
+      "note": "Observed $900.91 sale price. Source of the stated 36.2 x 22.4 x 29.9 inch interior, 33 lb weight and 9 inch step-up."
+    }
+  ],
+  "allowances": [
+    "Chassis tube, 1 x 1 x .125 inch 6061-T6: $100 per 144 inch bar is an allowance scaled from the observed .065 wall bar by metal mass. No fetched price.",
+    "Wheels: $60 each is an allowance. Search results showed 20 inch spoked cart wheels at $54.95 to $62.99 with 3/4 inch bores and an 88 lb tire rating. No 5/8 inch bore 20 inch pneumatic wheel with a suitable rating was found, so the wheel is an open selection, not a candidate.",
+    "Marine plywood, 12 mm, 4 x 8 ft: $125 per sheet is an allowance from an unverified search result. BS1088 okoume results ran $209 to $278.",
+    "Stainless hardware: $0.99 per sleeved joint in a batch covers an 18-8 bolt, locknut, two washers and a cut steel sleeve. Search results showed about $0.36 per bolt and $0.26 per nut; neither page was fetched.",
+    "Hinge, latches, brake set, leveling feet, grip, rivet nuts, ridge pole and bedding tape are allowances with no supplier page behind them."
+  ]
+}

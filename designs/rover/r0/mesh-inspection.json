@@ -1,0 +1,403 @@
+{
+  "geometryHash": "472d9fea60e619628f8090eaa4da4d81f566440f7ac3dd6a1294970d6e210ac7",
+  "status": "DIGITAL_GEOMETRY_ONLY",
+  "envelopeMm": [
+    220,
+    220,
+    100
+  ],
+  "meshes": [
+    {
+      "file": "parts/cap_heavy.stl",
+      "inspection": {
+        "triangles": 236,
+        "vertices": 120,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 4160.4194508991795,
+        "boundsMm": {
+          "min": [
+            -14.699999809265137,
+            -14.699999809265137,
+            0
+          ],
+          "max": [
+            14.699999809265137,
+            14.699999809265137,
+            15
+          ],
+          "size": [
+            29.399999618530273,
+            29.399999618530273,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/cap_light.stl",
+      "inspection": {
+        "triangles": 236,
+        "vertices": 120,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 4453.027799393469,
+        "boundsMm": {
+          "min": [
+            -14.699999809265137,
+            -14.699999809265137,
+            0
+          ],
+          "max": [
+            14.699999809265137,
+            14.699999809265137,
+            15
+          ],
+          "size": [
+            29.399999618530273,
+            29.399999618530273,
+            15
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/ramp_toe.stl",
+      "inspection": {
+        "triangles": 32,
+        "vertices": 18,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 256540.01269340515,
+        "boundsMm": {
+          "min": [
+            -18,
+            -200,
+            0
+          ],
+          "max": [
+            110,
+            0,
+            19.700000762939453
+          ],
+          "size": [
+            128,
+            200,
+            19.700000762939453
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/ridge_saddle.stl",
+      "inspection": {
+        "triangles": 284,
+        "vertices": 144,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 33393.39892988834,
+        "boundsMm": {
+          "min": [
+            -17,
+            -13,
+            0
+          ],
+          "max": [
+            17,
+            13,
+            97
+          ],
+          "size": [
+            34,
+            26,
+            97
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/fabric_clip.stl",
+      "inspection": {
+        "triangles": 188,
+        "vertices": 96,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 7643.956872982368,
+        "boundsMm": {
+          "min": [
+            -16.200000762939453,
+            -16.200000762939453,
+            0
+          ],
+          "max": [
+            16.200000762939453,
+            16.200000762939453,
+            30
+          ],
+          "size": [
+            32.400001525878906,
+            32.400001525878906,
+            30
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/cable_clip.stl",
+      "inspection": {
+        "triangles": 288,
+        "vertices": 144,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 5448.1063803942725,
+        "boundsMm": {
+          "min": [
+            -16.200000762939453,
+            -16.200000762939453,
+            0
+          ],
+          "max": [
+            16.200000762939453,
+            23.100000381469727,
+            12
+          ],
+          "size": [
+            32.400001525878906,
+            39.30000114440918,
+            12
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/axle_cover.stl",
+      "inspection": {
+        "triangles": 572,
+        "vertices": 288,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 8733.768431841487,
+        "boundsMm": {
+          "min": [
+            -20,
+            -20,
+            0
+          ],
+          "max": [
+            20,
+            20,
+            12
+          ],
+          "size": [
+            40,
+            40,
+            12
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/guide_butt.stl",
+      "inspection": {
+        "triangles": 436,
+        "vertices": 212,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 12319.110085007265,
+        "boundsMm": {
+          "min": [
+            -3,
+            -15.699999809265137,
+            0
+          ],
+          "max": [
+            82,
+            12.699999809265137,
+            14
+          ],
+          "size": [
+            85,
+            28.399999618530273,
+            14
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/guide_run.stl",
+      "inspection": {
+        "triangles": 436,
+        "vertices": 212,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 15796.610070958282,
+        "boundsMm": {
+          "min": [
+            -3,
+            -15.699999809265137,
+            0
+          ],
+          "max": [
+            107,
+            12.699999809265137,
+            14
+          ],
+          "size": [
+            110,
+            28.399999618530273,
+            14
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/guide_tee.stl",
+      "inspection": {
+        "triangles": 380,
+        "vertices": 188,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 13221.412197807642,
+        "boundsMm": {
+          "min": [
+            -48,
+            -15.699999809265137,
+            0
+          ],
+          "max": [
+            48,
+            12.699999809265137,
+            14
+          ],
+          "size": [
+            96,
+            28.399999618530273,
+            14
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/coupon.stl",
+      "inspection": {
+        "triangles": 1028,
+        "vertices": 504,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 25596.02541951227,
+        "boundsMm": {
+          "min": [
+            -65,
+            -18,
+            0
+          ],
+          "max": [
+            65,
+            18,
+            6
+          ],
+          "size": [
+            130,
+            36,
+            6
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/FIT_CHECK_ONLY_tee_gusset.stl",
+      "inspection": {
+        "triangles": 972,
+        "vertices": 480,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 19222.686717917957,
+        "boundsMm": {
+          "min": [
+            -50,
+            -75,
+            0
+          ],
+          "max": [
+            50,
+            20,
+            3.174999952316284
+          ],
+          "size": [
+            100,
+            95,
+            3.174999952316284
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/FIT_CHECK_ONLY_corner_gusset.stl",
+      "inspection": {
+        "triangles": 924,
+        "vertices": 456,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 23667.686663823544,
+        "boundsMm": {
+          "min": [
+            -20,
+            -20,
+            0
+          ],
+          "max": [
+            95,
+            95,
+            3.174999952316284
+          ],
+          "size": [
+            115,
+            115,
+            3.174999952316284
+          ]
+        }
+      }
+    },
+    {
+      "file": "parts/FIT_CHECK_ONLY_axle_hanger.stl",
+      "inspection": {
+        "triangles": 1364,
+        "vertices": 672,
+        "closed": true,
+        "consistentlyOriented": true,
+        "components": 1,
+        "signedVolumeMm3": 33264.15169969801,
+        "boundsMm": {
+          "min": [
+            -50,
+            -20,
+            0
+          ],
+          "max": [
+            50,
+            178,
+            3.174999952316284
+          ],
+          "size": [
+            100,
+            198,
+            3.174999952316284
+          ]
+        }
+      }
+    }
+  ]
+}

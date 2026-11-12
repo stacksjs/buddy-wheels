@@ -1,0 +1,419 @@
+{
+  "revision": "r0",
+  "product": "Buddy Rover",
+  "status": "BENCH_ONLY_NOT_ANIMAL_USE",
+  "generator": "native Stacks solid kit, no external CAD executable",
+  "geometryHash": "472d9fea60e619628f8090eaa4da4d81f566440f7ac3dd6a1294970d6e210ac7",
+  "costHash": "05a8cbc52065390bf6c544bd31aab6ea70a639c7fb6ee7bbcf5d0be3b6d9f9de",
+  "setup": {
+    "length": 1200,
+    "width": 700,
+    "height": 950,
+    "ramp": 900,
+    "axle": 520,
+    "handle": 980,
+    "hub": 75
+  },
+  "dimensions": {
+    "R": 254,
+    "railZ": 124,
+    "deck": 151.9,
+    "topZ": 1114.6,
+    "clearance": 108.125,
+    "rearX": -520,
+    "frontX": 680,
+    "rail": 1250.8,
+    "post": 965.2,
+    "stations": [
+      -532.7,
+      -226.35,
+      95,
+      386.35,
+      692.7
+    ],
+    "intermediates": 3,
+    "rearStack": 122.45,
+    "rearShaft": 142.15,
+    "postY": 362.7,
+    "inboard": 27.225,
+    "wheelY": 428.775,
+    "cabinIntrusion": 14.525,
+    "forkY": 54.875,
+    "frontStack": 144.5,
+    "frontShaft": 164.2,
+    "forkArm": 344,
+    "stub": 167.3,
+    "wheelbase": 989.4,
+    "rampAngle": 8.9426,
+    "rampWidth": 688,
+    "rampRise": 139.9,
+    "legCut": 75.0748,
+    "hingeX": -551.4,
+    "gripX": -925.4,
+    "handleArm": 965.4,
+    "grip": 750.8,
+    "handleMax": 990,
+    "centerAhead": 80,
+    "roofSlope": 382.3748,
+    "overallWidth": 955.25,
+    "tireWidth": 911.55,
+    "overallLength": 2168.8,
+    "overallHeight": 1204,
+    "cuts": [
+      {
+        "id": "C01",
+        "name": "Base side rail",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 1250.8
+      },
+      {
+        "id": "C02",
+        "name": "Base cross member",
+        "wall": "heavy",
+        "qty": 5,
+        "length": 700
+      },
+      {
+        "id": "C03",
+        "name": "Axle post",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 965.2
+      },
+      {
+        "id": "C04",
+        "name": "Fork arm",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 344
+      },
+      {
+        "id": "C05",
+        "name": "Fork stub post",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 167.3
+      },
+      {
+        "id": "C06",
+        "name": "Ramp side curb rail",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 900
+      },
+      {
+        "id": "C07",
+        "name": "Ramp under rib",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 688
+      },
+      {
+        "id": "C08",
+        "name": "Ramp stand leg",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 75.0748
+      },
+      {
+        "id": "C09",
+        "name": "Corner post",
+        "wall": "light",
+        "qty": 4,
+        "length": 965.2
+      },
+      {
+        "id": "C10",
+        "name": "Top side rail",
+        "wall": "light",
+        "qty": 2,
+        "length": 1250.8
+      },
+      {
+        "id": "C11",
+        "name": "Top cross tube",
+        "wall": "light",
+        "qty": 3,
+        "length": 700
+      },
+      {
+        "id": "C12",
+        "name": "Handle arm",
+        "wall": "light",
+        "qty": 2,
+        "length": 965.4
+      },
+      {
+        "id": "C13",
+        "name": "Handle grip tube",
+        "wall": "light",
+        "qty": 1,
+        "length": 750.8
+      }
+    ],
+    "counts": {
+      "corner": 36,
+      "tee": 12,
+      "hanger": 8,
+      "bolts": 148,
+      "handleBolts": 4,
+      "sleeves": 156,
+      "rampBolts": 16,
+      "floorScrews": 27,
+      "capHeavy": 16,
+      "capLight": 8,
+      "toe": 3,
+      "saddle": 3,
+      "fabricClip": 28,
+      "cableClip": 6,
+      "axleCover": 6
+    },
+    "heavyM": 12.2807,
+    "lightM": 11.144,
+    "floorArea": 0.9391,
+    "rampArea": 0.6192,
+    "mass": {
+      "tube": 14.1,
+      "plates": 5.1,
+      "panels": 10.1,
+      "wheels": 6.9,
+      "hardware": 6.3,
+      "softgoods": 4.5
+    },
+    "carrierKg": 47.1,
+    "frontShare": 8.0857,
+    "tiltForceN": 101,
+    "tiltForceLbf": 23,
+    "volumeRatio": 2.0082
+  },
+  "printVolumeCm3": 1338,
+  "assets": [
+    {
+      "path": "parts/cap_heavy.stl",
+      "sha256": "2fda1624115e60d82c57c1ae45bf656bb281749c13c5e2a8005e429e4c2ad5c1",
+      "bytes": 11884
+    },
+    {
+      "path": "parts/cap_light.stl",
+      "sha256": "ae78877a384c6a5eecb8e4bff0ed8fa36ee979bb5b6167b1c575f639142680d9",
+      "bytes": 11884
+    },
+    {
+      "path": "parts/ramp_toe.stl",
+      "sha256": "dadaa374d9a42d79d468a4b4c11a84156d7706cfbf8b0233e090055ea5845f5b",
+      "bytes": 1684
+    },
+    {
+      "path": "parts/ridge_saddle.stl",
+      "sha256": "efb623ec6dbb222c52ec1910b6cd67d4886af986235f5ccce934b1cc37f0c840",
+      "bytes": 14284
+    },
+    {
+      "path": "parts/fabric_clip.stl",
+      "sha256": "8f63ace7f63521da8e0fd56798cf3be5ff901f4cdc133a2156a81ac60c536d48",
+      "bytes": 9484
+    },
+    {
+      "path": "parts/cable_clip.stl",
+      "sha256": "7af3e3403600626190769fbc88c9c77a3b210f95f0128ebe7427ab3725c18fb3",
+      "bytes": 14484
+    },
+    {
+      "path": "parts/axle_cover.stl",
+      "sha256": "2a45109bc5540adffe697862fa86c1e1f11b1fb7f2eb2d07d80e93f4964ddd63",
+      "bytes": 28684
+    },
+    {
+      "path": "parts/guide_butt.stl",
+      "sha256": "1b41b1f4eae6792985c7a4d38a0a0327a586cdf2124fa0f1a2f8b85c3778d8d4",
+      "bytes": 21884
+    },
+    {
+      "path": "parts/guide_run.stl",
+      "sha256": "6429a9a1d80913353c1cbbcc412ec61ec5b192dd8dc46bd7b7a128d9320e2112",
+      "bytes": 21884
+    },
+    {
+      "path": "parts/guide_tee.stl",
+      "sha256": "aedc0ab8f25eb475685013a7ddd88db5d25a772252f08d6c83cb059a1ae4835a",
+      "bytes": 19084
+    },
+    {
+      "path": "parts/coupon.stl",
+      "sha256": "978714d11c8f1f18e300adb398e651532d6c48f3b01328335b30b48e75ec362d",
+      "bytes": 51484
+    },
+    {
+      "path": "parts/FIT_CHECK_ONLY_tee_gusset.stl",
+      "sha256": "d9f13df8cce6e3bcf19b19eab3feff721deb649581c6f31b62af392007044c89",
+      "bytes": 48684
+    },
+    {
+      "path": "parts/FIT_CHECK_ONLY_corner_gusset.stl",
+      "sha256": "f512371f2d18559b0579fb4555c702b9039a4acb617cef4f5e600ce7def6a5f7",
+      "bytes": 46284
+    },
+    {
+      "path": "parts/FIT_CHECK_ONLY_axle_hanger.stl",
+      "sha256": "8b02f08c0ae539355495e08a00287c23c4129de8813d79050a3882cd5435f671",
+      "bytes": 68284
+    },
+    {
+      "path": "metal/tee_gusset.dxf",
+      "sha256": "8e0d369bc7e6108b663332cfe5de5f8be1ed6c7ccf503bc6e0a502ce2db2d5eb",
+      "bytes": 9385
+    },
+    {
+      "path": "metal/corner_gusset.dxf",
+      "sha256": "9ea4f93f9994df8a870f43f001e74f83eed91abb54a935bab6fab1c1ac130d8f",
+      "bytes": 8785
+    },
+    {
+      "path": "metal/axle_hanger.dxf",
+      "sha256": "67d882851994e2fd07406d0dbbdc7355baf27643ca9220adadf78fef14deb0b6",
+      "bytes": 13111
+    },
+    {
+      "path": "assembly.md",
+      "sha256": "b01989925af37dca1007d9385e7bcb51f846bc4ec646226d933e6560c1511b60",
+      "bytes": 9826
+    },
+    {
+      "path": "bom.csv",
+      "sha256": "7a9996c1732691d4365a65b0802c4cf458c7d2ad431847db4dfd907bddcfe547",
+      "bytes": 7352
+    },
+    {
+      "path": "materials.md",
+      "sha256": "9c61eb82ffeefd04d412e17a7e66ba520d64d76945ff19af6dfe49803f4b1b53",
+      "bytes": 11452
+    },
+    {
+      "path": "cover-cut-schedule.csv",
+      "sha256": "401a2ef59932f374d957b345142cfec2fb16bea0615c4eef9233d227d5f1af48",
+      "bytes": 2704
+    },
+    {
+      "path": "cover-panels.svg",
+      "sha256": "5e22e0814379a36cdc14665fadd05d7df3899f2eb58b81aacfe395a4ccc057bf",
+      "bytes": 4737
+    },
+    {
+      "path": "drawing.svg",
+      "sha256": "950983ecb26f359e01ffb7d8aa7ab25a9674d1484e9966a80f40374a9f47c2c8",
+      "bytes": 5513
+    },
+    {
+      "path": "cut-list.csv",
+      "sha256": "5cdddb4f1069214acf3f148e637a0b688d6a07c58931c3508177462475b4108f",
+      "bytes": 1002
+    },
+    {
+      "path": "cost-notes.md",
+      "sha256": "7732cb84ed93e1bba4df1225d8d61fe85658c772714d6a44912c29d0ca08791a",
+      "bytes": 8686
+    },
+    {
+      "path": "cost-model.json",
+      "sha256": "37a689feda077ad831f989fe98fa1c529bffe46e07f5f39a338ab54955471654",
+      "bytes": 15731
+    },
+    {
+      "path": "setup.json",
+      "sha256": "bcd08412f90763940a41df308573ed57743bde00a83ad7fc08267d9ce0b48602",
+      "bytes": 3744
+    },
+    {
+      "path": "README.md",
+      "sha256": "3b6e4928e8010da72677109f4dc047ffc00555514c70229f102d0192e029c923",
+      "bytes": 1318
+    }
+  ],
+  "parts": [
+    {
+      "id": "cap_heavy",
+      "name": "Chassis tube cap",
+      "kind": "print",
+      "note": "Closes 1/8 inch wall tube ends. End protection only."
+    },
+    {
+      "id": "cap_light",
+      "name": "Cabin tube cap",
+      "kind": "print",
+      "note": "Closes .065 inch wall tube ends. End protection only."
+    },
+    {
+      "id": "ramp_toe",
+      "name": "Ramp threshold toe",
+      "kind": "print",
+      "note": "Ground-supported bevel that removes the step at the ramp edge. It is not the ramp structure."
+    },
+    {
+      "id": "ridge_saddle",
+      "name": "Roof ridge saddle",
+      "kind": "print",
+      "note": "Holds the ridge pole above the frame so the roof sheds water. Carries fabric tension only."
+    },
+    {
+      "id": "fabric_clip",
+      "name": "Cover rail clip",
+      "kind": "print",
+      "note": "Snaps a cover hem onto a frame tube. No restraint or structural function."
+    },
+    {
+      "id": "cable_clip",
+      "name": "Brake cable clip",
+      "kind": "print",
+      "note": "Routes one brake cable housing along a tube. Not a brake anchor."
+    },
+    {
+      "id": "axle_cover",
+      "name": "Axle end cover",
+      "kind": "print",
+      "note": "Covers a shaft end and cotter. Never a shaft retainer or a complete fur guard."
+    },
+    {
+      "id": "guide_butt",
+      "name": "Drill guide, butt ends",
+      "kind": "fixture",
+      "note": "Pilot centers 22.3, 37.3, 52.3 and 67.3 mm from a cut end. Layout aid only."
+    },
+    {
+      "id": "guide_run",
+      "name": "Drill guide, corner runs",
+      "kind": "fixture",
+      "note": "Pilot centers 47.7, 62.7, 77.7 and 92.7 mm from a rail end. Layout aid only."
+    },
+    {
+      "id": "guide_tee",
+      "name": "Drill guide, tee pattern",
+      "kind": "fixture",
+      "note": "Pilot centers 30 mm each side of a scribed joint line. Layout aid only."
+    },
+    {
+      "id": "coupon",
+      "name": "Clearance coupon",
+      "kind": "fixture",
+      "note": "Calibrates the actual printer before any fit is trusted. Not part of the carrier."
+    },
+    {
+      "id": "tee_gusset",
+      "name": "Tee gusset",
+      "kind": "metal",
+      "note": "1/8 inch 6061-T6 aluminum. STL is an unloaded fit-check copy."
+    },
+    {
+      "id": "corner_gusset",
+      "name": "Corner gusset",
+      "kind": "metal",
+      "note": "1/8 inch 6061-T6 aluminum, one profile used in both hands. STL is an unloaded fit-check copy."
+    },
+    {
+      "id": "axle_hanger",
+      "name": "Axle hanger",
+      "kind": "metal",
+      "note": "1/8 inch 304 stainless steel. Carries a wheel axle. STL is an unloaded fit-check copy."
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "revision": "r0",
+  "product": "Buddy Rover",
+  "length": 1200,
+  "width": 700,
+  "height": 950,
+  "ramp": 900,
+  "axle": 520,
+  "handle": 980,
+  "hub": 75,
+  "dimensions": {
+    "R": 254,
+    "railZ": 124,
+    "deck": 151.9,
+    "topZ": 1114.6,
+    "clearance": 108.125,
+    "rearX": -520,
+    "frontX": 680,
+    "rail": 1250.8,
+    "post": 965.2,
+    "stations": [
+      -532.7,
+      -226.35,
+      95,
+      386.35,
+      692.7
+    ],
+    "intermediates": 3,
+    "rearStack": 122.45,
+    "rearShaft": 142.15,
+    "postY": 362.7,
+    "inboard": 27.225,
+    "wheelY": 428.775,
+    "cabinIntrusion": 14.525,
+    "forkY": 54.875,
+    "frontStack": 144.5,
+    "frontShaft": 164.2,
+    "forkArm": 344,
+    "stub": 167.3,
+    "wheelbase": 989.4,
+    "rampAngle": 8.9426,
+    "rampWidth": 688,
+    "rampRise": 139.9,
+    "legCut": 75.0748,
+    "hingeX": -551.4,
+    "gripX": -925.4,
+    "handleArm": 965.4,
+    "grip": 750.8,
+    "handleMax": 990,
+    "centerAhead": 80,
+    "roofSlope": 382.3748,
+    "overallWidth": 955.25,
+    "tireWidth": 911.55,
+    "overallLength": 2168.8,
+    "overallHeight": 1204,
+    "cuts": [
+      {
+        "id": "C01",
+        "name": "Base side rail",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 1250.8
+      },
+      {
+        "id": "C02",
+        "name": "Base cross member",
+        "wall": "heavy",
+        "qty": 5,
+        "length": 700
+      },
+      {
+        "id": "C03",
+        "name": "Axle post",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 965.2
+      },
+      {
+        "id": "C04",
+        "name": "Fork arm",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 344
+      },
+      {
+        "id": "C05",
+        "name": "Fork stub post",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 167.3
+      },
+      {
+        "id": "C06",
+        "name": "Ramp side curb rail",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 900
+      },
+      {
+        "id": "C07",
+        "name": "Ramp under rib",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 688
+      },
+      {
+        "id": "C08",
+        "name": "Ramp stand leg",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 75.0748
+      },
+      {
+        "id": "C09",
+        "name": "Corner post",
+        "wall": "light",
+        "qty": 4,
+        "length": 965.2
+      },
+      {
+        "id": "C10",
+        "name": "Top side rail",
+        "wall": "light",
+        "qty": 2,
+        "length": 1250.8
+      },
+      {
+        "id": "C11",
+        "name": "Top cross tube",
+        "wall": "light",
+        "qty": 3,
+        "length": 700
+      },
+      {
+        "id": "C12",
+        "name": "Handle arm",
+        "wall": "light",
+        "qty": 2,
+        "length": 965.4
+      },
+      {
+        "id": "C13",
+        "name": "Handle grip tube",
+        "wall": "light",
+        "qty": 1,
+        "length": 750.8
+      }
+    ],
+    "counts": {
+      "corner": 36,
+      "tee": 12,
+      "hanger": 8,
+      "bolts": 148,
+      "handleBolts": 4,
+      "sleeves": 156,
+      "rampBolts": 16,
+      "floorScrews": 27,
+      "capHeavy": 16,
+      "capLight": 8,
+      "toe": 3,
+      "saddle": 3,
+      "fabricClip": 28,
+      "cableClip": 6,
+      "axleCover": 6
+    },
+    "heavyM": 12.2807,
+    "lightM": 11.144,
+    "floorArea": 0.9391,
+    "rampArea": 0.6192,
+    "mass": {
+      "tube": 14.1,
+      "plates": 5.1,
+      "panels": 10.1,
+      "wheels": 6.9,
+      "hardware": 6.3,
+      "softgoods": 4.5
+    },
+    "carrierKg": 47.1,
+    "frontShare": 8.0857,
+    "tiltForceN": 101,
+    "tiltForceLbf": 23,
+    "volumeRatio": 2.0082
+  },
+  "status": "BENCH_ONLY_NOT_ANIMAL_USE",
+  "ownerReportedWeightLb": 140,
+  "fitted": false,
+  "loadRated": false
+}
