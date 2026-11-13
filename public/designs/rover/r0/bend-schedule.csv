@@ -1,0 +1,4 @@
+"Tube ID","Name","Quantity","Stock","Straight length before bending mm","Centerline bend radius mm","Runs in order from one end: straight mm, then bend degrees","Shape"
+"C26","Side hoop","2","6063-T52 1 x 1 x 1/16 inch square tube","2848.9582","114.3","straight 888.9243 / bend 100.2 / straight 785.3122 / bend 57.1 / straight 860.9953","Rear post, roof run and front pillar in one. Both bends turn the same way. All bends in one plane"
+"C27","Handle bar","1","6063-T52 1 x 1 x 1/16 inch square tube","2663.484","114.3","straight 878.4 / bend 90.0 / straight 547.6 / bend 90.0 / straight 878.4","A flat U: two arms and the grip between them. All bends in one plane"
+"C28","Nose hoop","2","6061-T6 1 x 1 x 1/8 inch square tube","999.284","114.3","straight 71.7 / bend 90.0 / straight 496.8 / bend 90.0 / straight 71.7","An upside-down U across the carrier that carries the caster. All bends in one plane"

@@ -4,14 +4,14 @@
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
   "generator": "native Stacks solid kit, no external CAD executable",
   "geometryHash": "77c855e62b909b518ab655607c022b458bb8eb0a1e3f6155e9ace3935b860849",
-  "costHash": "e059c3afa0c231e6ec5a1520340b5d5b66fde3c123d9ca06a72b23ab9873657f",
+  "costHash": "9a2c9cdfb93e41391da4a0ceb8c067ec1fa99745eed588006ffc16b583a58d1b",
   "setup": {
     "length": 1300,
     "width": 700,
     "height": 1000,
     "ramp": 1000,
     "axle": 560,
-    "handle": 950,
+    "handle": 1000,
     "hub": 101.6,
     "caster": 310,
     "rake": 350,
@@ -19,7 +19,7 @@
     "wheel": "trail",
     "front": "swivel",
     "kit": "wheels",
-    "build": "bolted",
+    "build": "welded",
     "ride": "sprung",
     "cabin": "dog"
   },
@@ -51,37 +51,70 @@
     "clearance": 108.125,
     "rearX": -560,
     "frontX": 740,
-    "welded": false,
-    "welds": [],
-    "angles": [
+    "welded": true,
+    "welds": [
       {
-        "id": "roof",
-        "file": "roof-gusset",
-        "name": "Roof gusset",
-        "angle": 79.804,
-        "shift": 0,
+        "id": "W01",
+        "joint": "Base cross member to base side rail",
+        "qty": 10,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W02",
+        "joint": "Side hoop rear foot to base side rail",
+        "qty": 2,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W04",
+        "joint": "Side hoop front foot to base side rail",
+        "qty": 2,
+        "type": "Tee, foot cut 22.7 degrees off square so the pillar leans back, fillet all round"
+      },
+      {
+        "id": "W06",
+        "joint": "Axle post to base side rail",
+        "qty": 2,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W07",
+        "joint": "Axle post to the roof run of the side hoop",
+        "qty": 2,
+        "type": "Tee, post top cut 10.2 degrees off square, fillet all round"
+      },
+      {
+        "id": "W08",
+        "joint": "Top cross tube to the roof run of the side hoop",
         "qty": 6,
-        "where": "Rear post tops on the outside face, axle post tops on both faces"
+        "type": "Square tee, fillet all round"
       },
       {
-        "id": "foot",
-        "file": "pillar-foot-gusset",
-        "name": "Pillar foot gusset",
-        "angle": 67.2633,
-        "shift": 5.3221,
-        "qty": 2,
-        "where": "Pillar foot to base rail, outside face"
+        "id": "W09",
+        "joint": "Nose hoop foot to base side rail",
+        "qty": 4,
+        "type": "Square tee, fillet all round"
       },
       {
-        "id": "top",
-        "file": "pillar-top-gusset",
-        "name": "Pillar top gusset",
-        "angle": 122.9327,
-        "shift": -7.1039,
+        "id": "W11",
+        "joint": "Brake arm to axle post",
         "qty": 2,
-        "where": "Pillar top to top rail, outside face"
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W12",
+        "joint": "Handle bar to rear post and to axle post",
+        "qty": 4,
+        "type": "Lap, fillet both long edges"
+      },
+      {
+        "id": "W14",
+        "joint": "Ramp leg to ramp rib",
+        "qty": 2,
+        "type": "Square tee, fillet all round"
       }
     ],
+    "angles": [],
     "pillarDir": [
       -0.38649642764100844,
       0,
@@ -148,9 +181,9 @@
     "motionRatio": 0.5123,
     "wheelRate": 20.682,
     "wheelTravel": 59,
-    "sag": 23,
-    "sagEmpty": 7,
-    "rearWheelKg": 48.4,
+    "sag": 22,
+    "sagEmpty": 6,
+    "rearWheelKg": 46.1,
     "seats": false,
     "seatTubeZ": 327.2,
     "seatLeg": 177.8,
@@ -174,8 +207,230 @@
     "gripX": -965.4,
     "handleArm": 1005.4,
     "grip": 801.6,
-    "armZ": 924.6,
-    "handleMax": 960,
+    "armZ": 1000,
+    "bent": [
+      {
+        "id": "C26",
+        "name": "Side hoop",
+        "wall": "light",
+        "qty": 2,
+        "path": {
+          "points": [
+            [
+              -572.7,
+              136.7
+            ],
+            [
+              -572.7,
+              1162.3158273381296
+            ],
+            [
+              395.9088598396912,
+              988.1056007482571
+            ],
+            [
+              752.7,
+              136.7
+            ]
+          ],
+          "radius": 114.3,
+          "developed": 2848.9582,
+          "runs": [
+            {
+              "straight": 888.9243
+            },
+            {
+              "angle": 100.196
+            },
+            {
+              "straight": 785.3122
+            },
+            {
+              "angle": 57.0673
+            },
+            {
+              "straight": 860.9953
+            }
+          ],
+          "arcs": [
+            {
+              "from": [
+                -572.7,
+                1025.6242860016819
+              ],
+              "to": [
+                -438.16709083805495,
+                1138.1192609420964
+              ],
+              "angle": 1.748749892204697
+            },
+            {
+              "from": [
+                334.7434481095889,
+                999.1065740810093
+              ],
+              "to": [
+                419.9283892636654,
+                930.7881408199621
+              ],
+              "angle": 0.9960129777977003
+            }
+          ],
+          "shortest": 785.3122
+        },
+        "shape": "Rear post, roof run and front pillar in one. Both bends turn the same way"
+      },
+      {
+        "id": "C27",
+        "name": "Handle bar",
+        "wall": "light",
+        "qty": 1,
+        "path": {
+          "points": [
+            [
+              40,
+              388.09999999999997
+            ],
+            [
+              -952.6999999999999,
+              388.09999999999997
+            ],
+            [
+              -952.6999999999999,
+              -388.09999999999997
+            ],
+            [
+              40,
+              -388.09999999999997
+            ]
+          ],
+          "radius": 114.3,
+          "developed": 2663.484,
+          "runs": [
+            {
+              "straight": 878.4
+            },
+            {
+              "angle": 90
+            },
+            {
+              "straight": 547.6
+            },
+            {
+              "angle": 90
+            },
+            {
+              "straight": 878.4
+            }
+          ],
+          "arcs": [
+            {
+              "from": [
+                -838.4,
+                388.09999999999997
+              ],
+              "to": [
+                -952.6999999999999,
+                273.79999999999995
+              ],
+              "angle": 1.5707963267948966
+            },
+            {
+              "from": [
+                -952.6999999999999,
+                -273.79999999999995
+              ],
+              "to": [
+                -838.4,
+                -388.09999999999997
+              ],
+              "angle": 1.5707963267948966
+            }
+          ],
+          "shortest": 547.6
+        },
+        "shape": "A flat U: two arms and the grip between them"
+      },
+      {
+        "id": "C28",
+        "name": "Nose hoop",
+        "wall": "heavy",
+        "qty": 2,
+        "path": {
+          "points": [
+            [
+              362.7,
+              136.7
+            ],
+            [
+              362.7,
+              322.7
+            ],
+            [
+              -362.7,
+              322.7
+            ],
+            [
+              -362.7,
+              136.7
+            ]
+          ],
+          "radius": 114.3,
+          "developed": 999.284,
+          "runs": [
+            {
+              "straight": 71.7
+            },
+            {
+              "angle": 90
+            },
+            {
+              "straight": 496.8
+            },
+            {
+              "angle": 90
+            },
+            {
+              "straight": 71.7
+            }
+          ],
+          "arcs": [
+            {
+              "from": [
+                362.7,
+                208.4
+              ],
+              "to": [
+                248.4,
+                322.7
+              ],
+              "angle": 1.5707963267948966
+            },
+            {
+              "from": [
+                -248.4,
+                322.7
+              ],
+              "to": [
+                -362.7,
+                208.4
+              ],
+              "angle": 1.5707963267948966
+            }
+          ],
+          "shortest": 71.7
+        },
+        "shape": "An upside-down U across the carrier that carries the caster"
+      }
+    ],
+    "topCross": [
+      -412.7671,
+      0,
+      309.3434
+    ],
+    "noseBeamZ": 322.7,
+    "barY": 388.1,
+    "handleMax": 1010,
     "centerAhead": 90,
     "roofSlope": 382.3748,
     "overallWidth": 1078.9,
@@ -226,39 +481,11 @@
         "length": 107.3571
       },
       {
-        "id": "C09",
-        "name": "Rear corner post",
-        "wall": "light",
-        "qty": 2,
-        "length": 1015.2
-      },
-      {
-        "id": "C10",
-        "name": "Top side rail",
-        "wall": "light",
-        "qty": 2,
-        "length": 1016.8582
-      },
-      {
         "id": "C11",
         "name": "Top cross tube",
         "wall": "light",
         "qty": 3,
         "length": 700
-      },
-      {
-        "id": "C12",
-        "name": "Handle arm",
-        "wall": "light",
-        "qty": 2,
-        "length": 1005.4
-      },
-      {
-        "id": "C13",
-        "name": "Handle grip tube",
-        "wall": "light",
-        "qty": 1,
-        "length": 801.6
       },
       {
         "id": "C14",
@@ -268,20 +495,6 @@
         "length": 700
       },
       {
-        "id": "C15",
-        "name": "Nose post",
-        "wall": "heavy",
-        "qty": 4,
-        "length": 173.3
-      },
-      {
-        "id": "C16",
-        "name": "Caster beam",
-        "wall": "heavy",
-        "qty": 2,
-        "length": 750.8
-      },
-      {
         "id": "C17",
         "name": "Brake arm",
         "wall": "heavy",
@@ -289,11 +502,25 @@
         "length": 140
       },
       {
-        "id": "C21",
-        "name": "Front pillar",
+        "id": "C26",
+        "name": "Side hoop",
         "wall": "light",
         "qty": 2,
-        "length": 905.5711
+        "length": 2848.9582
+      },
+      {
+        "id": "C27",
+        "name": "Handle bar",
+        "wall": "light",
+        "qty": 1,
+        "length": 2663.484
+      },
+      {
+        "id": "C28",
+        "name": "Nose hoop",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 999.284
       },
       {
         "id": "C22",
@@ -311,19 +538,20 @@
       }
     ],
     "counts": {
-      "corner": 30,
-      "angle": 10,
-      "tee": 12,
+      "corner": 0,
+      "angle": 0,
+      "tee": 0,
       "hanger": 0,
       "wheels": 2,
-      "weldJoints": 0,
+      "weldJoints": 36,
+      "bends": 10,
       "shocks": 2,
       "shockPlates": 4,
       "shockHangers": 4,
       "shockBolts": 4,
-      "bolts": 166,
-      "handleBolts": 6,
-      "sleeves": 186,
+      "bolts": 8,
+      "handleBolts": 0,
+      "sleeves": 16,
       "casterBolts": 4,
       "brakeClamps": 2,
       "rampBolts": 18,
@@ -336,23 +564,23 @@
       "cableClip": 6,
       "axleCover": 4
     },
-    "heavyM": 12.1023,
-    "lightM": 14.2637,
-    "tubeLb": 33.2,
+    "heavyM": 11.906,
+    "lightM": 13.9374,
+    "tubeLb": 32.5,
     "floorArea": 1.0142,
     "rampArea": 0.688,
     "mass": {
-      "tube": 15,
-      "plates": 3.8,
+      "tube": 14.8,
+      "plates": 0.6,
       "panels": 11.1,
       "wheels": 10,
-      "hardware": 8.3,
+      "hardware": 3.8,
       "softgoods": 4.2
     },
-    "carrierKg": 52.3,
+    "carrierKg": 44.4,
     "frontShare": 9.8533,
-    "tiltForceN": 114,
-    "tiltForceLbf": 26,
+    "tiltForceN": 107,
+    "tiltForceLbf": 24,
     "volumeRatio": 2.2901
   },
   "printVolumeCm3": 1339,
@@ -494,18 +722,18 @@
     },
     {
       "path": "assembly.md",
-      "sha256": "0ee69568452e141ef7e78c74938756b88f5cefd0553c0245495433f4c6081e4c",
-      "bytes": 13345
+      "sha256": "11207f0abdc79e2274f347e851517a349507e3e63391fa8cf9b7cef1656ff98c",
+      "bytes": 13585
     },
     {
       "path": "bom.csv",
-      "sha256": "447f12b707ce7b907605149e744b5c8862511d6786675849dc6366125f4c301d",
-      "bytes": 11539
+      "sha256": "488034ad4443fad0a44ef42725b35c28c312051b7b70ccf2c0895b7bda5fcb8c",
+      "bytes": 10409
     },
     {
       "path": "materials.md",
-      "sha256": "2619c8edc3524cafcb58fc1c0ed0a6323cb9a0967a12bada4a5dadbcf3a3a9dc",
-      "bytes": 11868
+      "sha256": "6a90c437481783d8b3e9f22a777676f07758e5ed92e6d0ae3292966becbedc23",
+      "bytes": 11869
     },
     {
       "path": "cover-cut-schedule.csv",
@@ -519,113 +747,63 @@
     },
     {
       "path": "drawing.svg",
-      "sha256": "49171291e07c3be9954e4cf751e1b6018c62cc0a515de97293609d2d41fb835d",
-      "bytes": 5960
+      "sha256": "8f410e5e3c1afd8e972f3043e9c33294bcb727c78c6f209a3b04d52f598813fc",
+      "bytes": 5677
     },
     {
       "path": "cut-list.csv",
-      "sha256": "3950a9627076f4349700198116996aca636338756cfa53fc9da0e11c3dd1584c",
-      "bytes": 1401
+      "sha256": "20a78941c912b4b5642159bbddfeb86a1e711d4d196267594fbf04884a517ac2",
+      "bytes": 1096
     },
     {
       "path": "cost-notes.md",
-      "sha256": "4a7dee54fcf17cb398f1fa78929afced04497df07fde617361aec168047cead5",
-      "bytes": 29789
+      "sha256": "ca6cf4e1e4c7789befbcb582ab74c65adc22ef2e61e4e7a7ef1bd2d903aacbbe",
+      "bytes": 28951
     },
     {
       "path": "buy-list.md",
-      "sha256": "be9679d4f397ab823d8164bf6acf1933ae1b8e2d8c34cf3564a912dc77de2424",
-      "bytes": 7939
+      "sha256": "81ea3e4a6fc7d384162d264e367aff7e61a4949ad74a96ce8a390ef8249fc4b2",
+      "bytes": 6692
     },
     {
       "path": "build-guide.md",
-      "sha256": "eec4703bf7151ca100521a1e39e11d4b39470707b7632f813085c971261de3ab",
-      "bytes": 30078
+      "sha256": "0bc7d951375918bccf9327a2b73d62198397002b1d1def74d65fa5344a17ba6f",
+      "bytes": 28204
     },
     {
       "path": "drilling.csv",
-      "sha256": "7bc3498ce0193a89b29b4d0ca9dae75d8720eaa7a0df758a59c287077c6fc0fd",
-      "bytes": 6809
+      "sha256": "5b7474e01adbdcb22db91dc89b9e98682904c33083608dfdd0c8489e5b4cfd5c",
+      "bytes": 2121
     },
     {
-      "path": "metal/roof-gusset.dxf",
-      "sha256": "624f4f9bc46d76daaeddafda164b7f7c1fdb892a013dcd3be99502f03ee1ce1e",
-      "bytes": 8927
+      "path": "weld-schedule.csv",
+      "sha256": "d8316c76e89042ecabf920a17d35dc96adf2e4ee8317ba90a85a32a299c5372b",
+      "bytes": 898
     },
     {
-      "path": "metal/pillar-foot-gusset.dxf",
-      "sha256": "e5cda235e951f004b25ed877a04c2bfb6cf68ec97898b6200deb1b92f90e23c2",
-      "bytes": 9028
-    },
-    {
-      "path": "metal/pillar-top-gusset.dxf",
-      "sha256": "7ec33dec6ac8ce214ea38e670512f9bdc44fa7e50312574ac1c897a4118a49ce",
-      "bytes": 9107
-    },
-    {
-      "path": "tube-order.csv",
-      "sha256": "be6cc7739737fb35a9e6ba44b85688f2d2c1c2edb278cbf92b18a09046499c0c",
-      "bytes": 2226
-    },
-    {
-      "path": "tubes/6061-T6-0.125-wall/S01-x2-C01-C16.step",
-      "sha256": "ed8e76f1ae3ccad26f844bff91020e5ef2895e8804c55d56077260fa8fcb5ce4",
-      "bytes": 186823
-    },
-    {
-      "path": "tubes/6061-T6-0.125-wall/S02-x2-C03-C06-C22-C17.step",
-      "sha256": "2ada7976c1d6f811e12e6e8e811878c670da49d38cb0691a02b1c8771011a0aa",
-      "bytes": 146642
-    },
-    {
-      "path": "tubes/6061-T6-0.125-wall/S03-x2-C02-C15-C08-C23.step",
-      "sha256": "d685c8afad847c906168720b49e28c3dea21a28ae521a104c21a2d2a52fbaa94",
-      "bytes": 127153
-    },
-    {
-      "path": "tubes/6063-T52-0.062-wall/S04-x2-C09-C10.step",
-      "sha256": "1b98a3532485cac60a1fafdefbc600e1ea14bec6233d8b136ddc43a5b82842e6",
-      "bytes": 116028
-    },
-    {
-      "path": "tubes/6063-T52-0.062-wall/S05-x2-C12-C11-C14.step",
-      "sha256": "8ee23eb39e3b5f196f483c54f08a3ab76df90fcbf0cc6ac83f82d43d0387b416",
-      "bytes": 91459
-    },
-    {
-      "path": "tubes/6063-T52-0.062-wall/S06-x2-C21.step",
-      "sha256": "5049a419021777a190cc2d2bf591574b68080f92505f801c91503a51c49f97bd",
-      "bytes": 35322
-    },
-    {
-      "path": "tubes/6063-T52-0.062-wall/S07-x1-C13-C11-C14.step",
-      "sha256": "42ede87ae3f80f137669f4065c719b40ea28e9de324321dc5701631a5c001d9b",
-      "bytes": 85414
-    },
-    {
-      "path": "tubes/6063-T52-0.062-wall/S08-x1-C07.step",
-      "sha256": "8d4a55bd5cdb8d789e35f22578675c4faaddaef4ebc3cb2c66e8dfc4f64d9c7b",
-      "bytes": 61438
+      "path": "bend-schedule.csv",
+      "sha256": "a958ad50d346ee82a343c25dbf524c33dc42b55ac02a2fa5b6c095205f2427b3",
+      "bytes": 904
     },
     {
       "path": "base-plan.svg",
-      "sha256": "6d75af585ef9689b7380eb1b9cd315f35cae65d21ceab3437037547c0d990882",
-      "bytes": 4995
+      "sha256": "d1566bda8ca3ec2a2806dddf8520a270f25b1ac0890b6522bbfb36752d72e2bb",
+      "bytes": 4999
     },
     {
       "path": "cost-model.json",
-      "sha256": "ab7c5880576e28033f95ab5e594f1717d4dfcbf873d67496cdf908bebe276d1e",
-      "bytes": 34752
+      "sha256": "a41b82853c10416879d1ed8c3e08004dc2d8be4190ced8deff0044aedb9be1c0",
+      "bytes": 34691
     },
     {
       "path": "setup.json",
-      "sha256": "704c8806d7df65a62b85b483d2467f6ee74a5b1f688bf23cf1f5b5e01c01a4cb",
-      "bytes": 7333
+      "sha256": "05a376b4ef2d0548b672e7faa7bc75ec4fe8cb93cfeab985fbfcbe8971085c2d",
+      "bytes": 12535
     },
     {
       "path": "README.md",
-      "sha256": "387acacca59de7ceed61cb959ba7eb852999673638f2bf6fab6eb8152ac0e280",
-      "bytes": 2424
+      "sha256": "dfe3399ef5ef4252ba65eec43025cd37647fa1469c5502589c05bc062f7d68e6",
+      "bytes": 2929
     }
   ],
   "parts": [

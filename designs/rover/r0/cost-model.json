@@ -6,7 +6,7 @@
     "height": 1000,
     "ramp": 1000,
     "axle": 560,
-    "handle": 950,
+    "handle": 1000,
     "hub": 101.6,
     "caster": 310,
     "rake": 350,
@@ -14,26 +14,26 @@
     "wheel": "trail",
     "front": "swivel",
     "kit": "wheels",
-    "build": "bolted",
+    "build": "welded",
     "ride": "sprung",
     "cabin": "dog"
   },
   "base": {
     "quantity": 100,
     "light": {
-      "bars": 231,
-      "netMm": 1426365.86,
-      "kerfMm": 5100,
-      "stockMm": 1478584.8
+      "bars": 223,
+      "netMm": 1393740.04,
+      "kerfMm": 3300,
+      "stockMm": 1427378.4
     },
     "heavy": {
-      "bars": 168,
-      "netMm": 1210225.92,
-      "kerfMm": 6600,
-      "stockMm": 1228953.6
+      "bars": 164,
+      "netMm": 1190602.72,
+      "kerfMm": 5400,
+      "stockMm": 1199692.8
     },
-    "tube": 34699,
-    "tubeParcel": 34699,
+    "tube": 33709,
+    "tubeParcel": 33709,
     "textiles": {
       "quantity": 100,
       "minutes": 200,
@@ -167,24 +167,24 @@
       "total": 39997,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 85309,
-    "cogs": 160005,
+    "other": 82732,
+    "cogs": 156438,
     "retail": 99900,
-    "gross": -60105,
-    "grossPercent": -60.16516516516517,
+    "gross": -56538,
+    "grossPercent": -56.5945945945946,
     "maxCogs": 69930,
-    "headroom": -90075,
+    "headroom": -86508,
     "meetsCostGate": false,
     "fee": 2927,
     "reserve": 4995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -73027,
-    "retailForGate": 228600,
-    "tubeMill": 14343,
-    "cogsMill": 139649,
-    "retailForGateMill": 199500,
-    "stainlessUpgrade": 3956,
+    "contribution": -69460,
+    "retailForGate": 223500,
+    "tubeMill": 14040,
+    "cogsMill": 136769,
+    "retailForGateMill": 195400,
+    "stainlessUpgrade": 184,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
   "one": {
@@ -195,53 +195,29 @@
         {
           "pieces": [
             {
-              "id": "C10",
-              "length": 1016.8582
-            },
-            {
-              "id": "C10",
-              "length": 1016.8582
-            },
-            {
-              "id": "C09",
-              "length": 1015.2
+              "id": "C26",
+              "length": 2848.9582
             }
           ],
-          "offcut": 140.5836
+          "offcut": 346.5418
         },
         {
           "pieces": [
             {
-              "id": "C09",
-              "length": 1015.2
-            },
-            {
-              "id": "C12",
-              "length": 1005.4
-            },
-            {
-              "id": "C12",
-              "length": 1005.4
+              "id": "C26",
+              "length": 2848.9582
             }
           ],
-          "offcut": 163.5
+          "offcut": 346.5418
         },
         {
           "pieces": [
             {
-              "id": "C21",
-              "length": 905.5711
-            },
-            {
-              "id": "C21",
-              "length": 905.5711
-            },
-            {
-              "id": "C13",
-              "length": 801.6
+              "id": "C27",
+              "length": 2663.484
             }
           ],
-          "offcut": 576.7578
+          "offcut": 532.016
         },
         {
           "pieces": [
@@ -286,8 +262,8 @@
           "offcut": 410.5
         }
       ],
-      "netMm": 14263.6586,
-      "kerfMm": 51,
+      "netMm": 13937.4004,
+      "kerfMm": 33,
       "stockMm": 19202.4
     },
     "heavy": {
@@ -304,15 +280,15 @@
               "length": 1678.65
             },
             {
-              "id": "C15",
-              "length": 173.3
+              "id": "C17",
+              "length": 140
             },
             {
-              "id": "C08",
-              "length": 107.3571
+              "id": "C17",
+              "length": 140
             }
           ],
-          "offcut": 6.0429
+          "offcut": 6.7
         },
         {
           "pieces": [
@@ -325,66 +301,16 @@
               "length": 1000
             },
             {
-              "id": "C03",
-              "length": 909.9122
-            },
-            {
-              "id": "C02",
-              "length": 700
-            }
-          ],
-          "offcut": 34.0878
-        },
-        {
-          "pieces": [
-            {
-              "id": "C03",
-              "length": 909.9122
-            },
-            {
-              "id": "C16",
-              "length": 750.8
-            },
-            {
-              "id": "C16",
-              "length": 750.8
-            },
-            {
-              "id": "C02",
-              "length": 700
+              "id": "C28",
+              "length": 999.284
             },
             {
               "id": "C22",
               "length": 357.8103
             },
             {
-              "id": "C17",
-              "length": 140
-            }
-          ],
-          "offcut": 28.6775
-        },
-        {
-          "pieces": [
-            {
-              "id": "C22",
-              "length": 357.8103
-            },
-            {
-              "id": "C15",
-              "length": 173.3
-            },
-            {
-              "id": "C15",
-              "length": 173.3
-            },
-            {
-              "id": "C15",
-              "length": 173.3
-            },
-            {
-              "id": "C17",
-              "length": 140
+              "id": "C08",
+              "length": 107.3571
             },
             {
               "id": "C08",
@@ -393,21 +319,55 @@
             {
               "id": "C23",
               "length": 60
+            }
+          ],
+          "offcut": 3.1915
+        },
+        {
+          "pieces": [
+            {
+              "id": "C28",
+              "length": 999.284
+            },
+            {
+              "id": "C03",
+              "length": 909.9122
+            },
+            {
+              "id": "C03",
+              "length": 909.9122
+            },
+            {
+              "id": "C02",
+              "length": 700
             },
             {
               "id": "C23",
               "length": 60
             }
           ],
-          "offcut": 2386.9326
+          "offcut": 61.8916
+        },
+        {
+          "pieces": [
+            {
+              "id": "C02",
+              "length": 700
+            },
+            {
+              "id": "C22",
+              "length": 357.8103
+            }
+          ],
+          "offcut": 2592.1897
         }
       ],
-      "netMm": 12102.2592,
-      "kerfMm": 66,
+      "netMm": 11906.0272,
+      "kerfMm": 54,
       "stockMm": 14630.4
     },
     "tube": 42951,
-    "tubeParcel": 63968,
+    "tubeParcel": 42951,
     "textiles": {
       "quantity": 1,
       "minutes": 540,
@@ -541,43 +501,60 @@
       "total": 83006,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 171807,
-    "cogs": 297764,
+    "other": 169081,
+    "cogs": 295038,
     "retail": 99900,
-    "gross": -197864,
-    "grossPercent": -198.06206206206207,
+    "gross": -195138,
+    "grossPercent": -195.33333333333334,
     "maxCogs": 69930,
-    "headroom": -227834,
+    "headroom": -225108,
     "meetsCostGate": false,
     "fee": 2927,
     "reserve": 4995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -210786,
-    "retailForGate": 425400,
-    "tubeMill": 14343,
-    "cogsMill": 269156,
-    "retailForGateMill": 384600,
-    "stainlessUpgrade": 3956,
+    "contribution": -208060,
+    "retailForGate": 421500,
+    "tubeMill": 14040,
+    "cogsMill": 266127,
+    "retailForGateMill": 380200,
+    "stainlessUpgrade": 184,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
   "lines": [
     {
       "id": "gussets",
-      "name": "30 corner gussets, 10 gussets cut to this setup's angles, 12 tee gussets and 2 brake plates, laser cut 1/8 inch 6061",
-      "batch": 9040,
-      "one": 51562,
+      "name": "2 brake clamp plates, laser cut 1/8 inch 6061",
+      "batch": 320,
+      "one": 2446,
       "coverage": [
-        "M01",
-        "M02",
-        "M04",
-        "M06",
-        "M07",
-        "M08"
+        "M04"
       ],
       "evidence": "One carrier: quoted 2026-11-12. Batch: allowance",
       "url": "https://app.oshcut.com",
-      "note": "Six aluminum profiles, three of them cut to the roof and pillar angles of this setup. For one carrier these are OSH Cut's instant-quote prices in 6061-T6: $9.47 a corner gusset, $8.19 a tee gusset, $10.15 to $12.43 for the angled ones and $12.23 a brake plate, about double the earlier allowance. The same plates in softer 5052-H32 were quoted $163.94 lower. The batch figure is still an allowance of $1.60 to $2.00 a plate with no quote behind it, and the one-carrier quote suggests it is low."
+      "note": "One aluminum profile. The welded frame has no gussets. No quote was run; upload the DXF file to a cutting service for a real price."
+    },
+    {
+      "id": "welding",
+      "name": "36 TIG welded joints by a fabrication shop",
+      "batch": 16200,
+      "one": 54000,
+      "coverage": [
+        "J01"
+      ],
+      "evidence": "RFQ",
+      "note": "No shop has quoted this. Batch: 3.5 minutes a joint on a jig at $70 a shop hour, plus a $15 share of the jig. One frame: 10 minutes a joint at $90 an hour, fit-up included. A real quote replaces all of it."
+    },
+    {
+      "id": "bending",
+      "name": "10 tube bends at one radius, by the same shop",
+      "batch": 2300,
+      "one": 18000,
+      "coverage": [
+        "J02"
+      ],
+      "evidence": "RFQ",
+      "note": "No shop has quoted this. Batch: $1.50 a bend plus an $8 share of tooling and setup. One frame: $12 a bend plus $60 of setup. The bends are drawn at a 4.5 inch centerline radius, the tightest with a published clean result for 1 inch square aluminum with a 1/8 inch wall. Whether a shop can bend the 6061-T6 nose hoops at it without cracking, or the 1/16 inch wall side hoops and handle bar without wrinkling them, is its call; it may ask for a softer temper, a thicker wall or a larger radius."
     },
     {
       "id": "wheels",
@@ -622,9 +599,9 @@
     },
     {
       "id": "fasteners",
-      "name": "172 sleeved bolted joints",
-      "batch": 7323,
-      "one": 9230,
+      "name": "8 sleeved bolted joints",
+      "batch": 466,
+      "one": 3620,
       "coverage": [
         "H01",
         "H02",
@@ -737,12 +714,12 @@
     },
     {
       "id": "labor",
-      "name": "Cutting, drilling, deburring and assembly labor",
-      "batch": 13750,
-      "one": 37500,
+      "name": "Cutting, the few drilled holes, deburring and assembly labor",
+      "batch": 6250,
+      "one": 15000,
       "coverage": [],
       "evidence": "RFQ",
-      "note": "Batch: 5.5 h at $25/h. One-off: 15 h. Roughly 300 tube-wall holes per carrier. Timing assumptions, not observed."
+      "note": "Batch: 2.5 h at $25/h. One-off: 6 h. Angled cuts on six pieces, about 40 tube-wall holes, then the bolt-on parts. Welding is its own line. Timing assumptions, not observed."
     },
     {
       "id": "qa",
@@ -756,11 +733,11 @@
     {
       "id": "pack",
       "name": "Packaging",
-      "batch": 2500,
-      "one": 3500,
+      "batch": 4500,
+      "one": 6000,
       "coverage": [],
       "evidence": "RFQ",
-      "note": "Large flat-pack carton set. Outbound freight is separate."
+      "note": "A welded frame does not pack flat: one carton about the size of the cabin. Outbound freight is separate and for a box this size it is truck freight, not parcel."
     },
     {
       "id": "freight",

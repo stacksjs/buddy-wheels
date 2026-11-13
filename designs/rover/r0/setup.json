@@ -6,7 +6,7 @@
   "height": 1000,
   "ramp": 1000,
   "axle": 560,
-  "handle": 950,
+  "handle": 1000,
   "hub": 101.6,
   "caster": 310,
   "rake": 350,
@@ -14,7 +14,7 @@
   "wheel": "trail",
   "front": "swivel",
   "kit": "wheels",
-  "build": "bolted",
+  "build": "welded",
   "ride": "sprung",
   "cabin": "dog",
   "dimensions": {
@@ -45,37 +45,70 @@
     "clearance": 108.125,
     "rearX": -560,
     "frontX": 740,
-    "welded": false,
-    "welds": [],
-    "angles": [
+    "welded": true,
+    "welds": [
       {
-        "id": "roof",
-        "file": "roof-gusset",
-        "name": "Roof gusset",
-        "angle": 79.804,
-        "shift": 0,
+        "id": "W01",
+        "joint": "Base cross member to base side rail",
+        "qty": 10,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W02",
+        "joint": "Side hoop rear foot to base side rail",
+        "qty": 2,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W04",
+        "joint": "Side hoop front foot to base side rail",
+        "qty": 2,
+        "type": "Tee, foot cut 22.7 degrees off square so the pillar leans back, fillet all round"
+      },
+      {
+        "id": "W06",
+        "joint": "Axle post to base side rail",
+        "qty": 2,
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W07",
+        "joint": "Axle post to the roof run of the side hoop",
+        "qty": 2,
+        "type": "Tee, post top cut 10.2 degrees off square, fillet all round"
+      },
+      {
+        "id": "W08",
+        "joint": "Top cross tube to the roof run of the side hoop",
         "qty": 6,
-        "where": "Rear post tops on the outside face, axle post tops on both faces"
+        "type": "Square tee, fillet all round"
       },
       {
-        "id": "foot",
-        "file": "pillar-foot-gusset",
-        "name": "Pillar foot gusset",
-        "angle": 67.2633,
-        "shift": 5.3221,
-        "qty": 2,
-        "where": "Pillar foot to base rail, outside face"
+        "id": "W09",
+        "joint": "Nose hoop foot to base side rail",
+        "qty": 4,
+        "type": "Square tee, fillet all round"
       },
       {
-        "id": "top",
-        "file": "pillar-top-gusset",
-        "name": "Pillar top gusset",
-        "angle": 122.9327,
-        "shift": -7.1039,
+        "id": "W11",
+        "joint": "Brake arm to axle post",
         "qty": 2,
-        "where": "Pillar top to top rail, outside face"
+        "type": "Square tee, fillet all round"
+      },
+      {
+        "id": "W12",
+        "joint": "Handle bar to rear post and to axle post",
+        "qty": 4,
+        "type": "Lap, fillet both long edges"
+      },
+      {
+        "id": "W14",
+        "joint": "Ramp leg to ramp rib",
+        "qty": 2,
+        "type": "Square tee, fillet all round"
       }
     ],
+    "angles": [],
     "pillarDir": [
       -0.38649642764100844,
       0,
@@ -142,9 +175,9 @@
     "motionRatio": 0.5123,
     "wheelRate": 20.682,
     "wheelTravel": 59,
-    "sag": 23,
-    "sagEmpty": 7,
-    "rearWheelKg": 48.4,
+    "sag": 22,
+    "sagEmpty": 6,
+    "rearWheelKg": 46.1,
     "seats": false,
     "seatTubeZ": 327.2,
     "seatLeg": 177.8,
@@ -168,8 +201,230 @@
     "gripX": -965.4,
     "handleArm": 1005.4,
     "grip": 801.6,
-    "armZ": 924.6,
-    "handleMax": 960,
+    "armZ": 1000,
+    "bent": [
+      {
+        "id": "C26",
+        "name": "Side hoop",
+        "wall": "light",
+        "qty": 2,
+        "path": {
+          "points": [
+            [
+              -572.7,
+              136.7
+            ],
+            [
+              -572.7,
+              1162.3158273381296
+            ],
+            [
+              395.9088598396912,
+              988.1056007482571
+            ],
+            [
+              752.7,
+              136.7
+            ]
+          ],
+          "radius": 114.3,
+          "developed": 2848.9582,
+          "runs": [
+            {
+              "straight": 888.9243
+            },
+            {
+              "angle": 100.196
+            },
+            {
+              "straight": 785.3122
+            },
+            {
+              "angle": 57.0673
+            },
+            {
+              "straight": 860.9953
+            }
+          ],
+          "arcs": [
+            {
+              "from": [
+                -572.7,
+                1025.6242860016819
+              ],
+              "to": [
+                -438.16709083805495,
+                1138.1192609420964
+              ],
+              "angle": 1.748749892204697
+            },
+            {
+              "from": [
+                334.7434481095889,
+                999.1065740810093
+              ],
+              "to": [
+                419.9283892636654,
+                930.7881408199621
+              ],
+              "angle": 0.9960129777977003
+            }
+          ],
+          "shortest": 785.3122
+        },
+        "shape": "Rear post, roof run and front pillar in one. Both bends turn the same way"
+      },
+      {
+        "id": "C27",
+        "name": "Handle bar",
+        "wall": "light",
+        "qty": 1,
+        "path": {
+          "points": [
+            [
+              40,
+              388.09999999999997
+            ],
+            [
+              -952.6999999999999,
+              388.09999999999997
+            ],
+            [
+              -952.6999999999999,
+              -388.09999999999997
+            ],
+            [
+              40,
+              -388.09999999999997
+            ]
+          ],
+          "radius": 114.3,
+          "developed": 2663.484,
+          "runs": [
+            {
+              "straight": 878.4
+            },
+            {
+              "angle": 90
+            },
+            {
+              "straight": 547.6
+            },
+            {
+              "angle": 90
+            },
+            {
+              "straight": 878.4
+            }
+          ],
+          "arcs": [
+            {
+              "from": [
+                -838.4,
+                388.09999999999997
+              ],
+              "to": [
+                -952.6999999999999,
+                273.79999999999995
+              ],
+              "angle": 1.5707963267948966
+            },
+            {
+              "from": [
+                -952.6999999999999,
+                -273.79999999999995
+              ],
+              "to": [
+                -838.4,
+                -388.09999999999997
+              ],
+              "angle": 1.5707963267948966
+            }
+          ],
+          "shortest": 547.6
+        },
+        "shape": "A flat U: two arms and the grip between them"
+      },
+      {
+        "id": "C28",
+        "name": "Nose hoop",
+        "wall": "heavy",
+        "qty": 2,
+        "path": {
+          "points": [
+            [
+              362.7,
+              136.7
+            ],
+            [
+              362.7,
+              322.7
+            ],
+            [
+              -362.7,
+              322.7
+            ],
+            [
+              -362.7,
+              136.7
+            ]
+          ],
+          "radius": 114.3,
+          "developed": 999.284,
+          "runs": [
+            {
+              "straight": 71.7
+            },
+            {
+              "angle": 90
+            },
+            {
+              "straight": 496.8
+            },
+            {
+              "angle": 90
+            },
+            {
+              "straight": 71.7
+            }
+          ],
+          "arcs": [
+            {
+              "from": [
+                362.7,
+                208.4
+              ],
+              "to": [
+                248.4,
+                322.7
+              ],
+              "angle": 1.5707963267948966
+            },
+            {
+              "from": [
+                -248.4,
+                322.7
+              ],
+              "to": [
+                -362.7,
+                208.4
+              ],
+              "angle": 1.5707963267948966
+            }
+          ],
+          "shortest": 71.7
+        },
+        "shape": "An upside-down U across the carrier that carries the caster"
+      }
+    ],
+    "topCross": [
+      -412.7671,
+      0,
+      309.3434
+    ],
+    "noseBeamZ": 322.7,
+    "barY": 388.1,
+    "handleMax": 1010,
     "centerAhead": 90,
     "roofSlope": 382.3748,
     "overallWidth": 1078.9,
@@ -220,39 +475,11 @@
         "length": 107.3571
       },
       {
-        "id": "C09",
-        "name": "Rear corner post",
-        "wall": "light",
-        "qty": 2,
-        "length": 1015.2
-      },
-      {
-        "id": "C10",
-        "name": "Top side rail",
-        "wall": "light",
-        "qty": 2,
-        "length": 1016.8582
-      },
-      {
         "id": "C11",
         "name": "Top cross tube",
         "wall": "light",
         "qty": 3,
         "length": 700
-      },
-      {
-        "id": "C12",
-        "name": "Handle arm",
-        "wall": "light",
-        "qty": 2,
-        "length": 1005.4
-      },
-      {
-        "id": "C13",
-        "name": "Handle grip tube",
-        "wall": "light",
-        "qty": 1,
-        "length": 801.6
       },
       {
         "id": "C14",
@@ -262,20 +489,6 @@
         "length": 700
       },
       {
-        "id": "C15",
-        "name": "Nose post",
-        "wall": "heavy",
-        "qty": 4,
-        "length": 173.3
-      },
-      {
-        "id": "C16",
-        "name": "Caster beam",
-        "wall": "heavy",
-        "qty": 2,
-        "length": 750.8
-      },
-      {
         "id": "C17",
         "name": "Brake arm",
         "wall": "heavy",
@@ -283,11 +496,25 @@
         "length": 140
       },
       {
-        "id": "C21",
-        "name": "Front pillar",
+        "id": "C26",
+        "name": "Side hoop",
         "wall": "light",
         "qty": 2,
-        "length": 905.5711
+        "length": 2848.9582
+      },
+      {
+        "id": "C27",
+        "name": "Handle bar",
+        "wall": "light",
+        "qty": 1,
+        "length": 2663.484
+      },
+      {
+        "id": "C28",
+        "name": "Nose hoop",
+        "wall": "heavy",
+        "qty": 2,
+        "length": 999.284
       },
       {
         "id": "C22",
@@ -305,19 +532,20 @@
       }
     ],
     "counts": {
-      "corner": 30,
-      "angle": 10,
-      "tee": 12,
+      "corner": 0,
+      "angle": 0,
+      "tee": 0,
       "hanger": 0,
       "wheels": 2,
-      "weldJoints": 0,
+      "weldJoints": 36,
+      "bends": 10,
       "shocks": 2,
       "shockPlates": 4,
       "shockHangers": 4,
       "shockBolts": 4,
-      "bolts": 166,
-      "handleBolts": 6,
-      "sleeves": 186,
+      "bolts": 8,
+      "handleBolts": 0,
+      "sleeves": 16,
       "casterBolts": 4,
       "brakeClamps": 2,
       "rampBolts": 18,
@@ -330,23 +558,23 @@
       "cableClip": 6,
       "axleCover": 4
     },
-    "heavyM": 12.1023,
-    "lightM": 14.2637,
-    "tubeLb": 33.2,
+    "heavyM": 11.906,
+    "lightM": 13.9374,
+    "tubeLb": 32.5,
     "floorArea": 1.0142,
     "rampArea": 0.688,
     "mass": {
-      "tube": 15,
-      "plates": 3.8,
+      "tube": 14.8,
+      "plates": 0.6,
       "panels": 11.1,
       "wheels": 10,
-      "hardware": 8.3,
+      "hardware": 3.8,
       "softgoods": 4.2
     },
-    "carrierKg": 52.3,
+    "carrierKg": 44.4,
     "frontShare": 9.8533,
-    "tiltForceN": 114,
-    "tiltForceLbf": 26,
+    "tiltForceN": 107,
+    "tiltForceLbf": 24,
     "volumeRatio": 2.2901
   },
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",

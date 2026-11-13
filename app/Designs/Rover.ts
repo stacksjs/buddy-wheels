@@ -6,7 +6,11 @@ export type RoverWheel = 'trail' | 'path' | 'run'
 export type RoverFront = 'swivel' | 'fixed'
 /** ski adds the snow conversion: the wheels and the front wheel come off, skis go on the rear axles and two tow shafts pin to the front. */
 export type RoverKit = 'wheels' | 'ski'
-/** The same frame joined two ways. welded goes to a fabrication shop. bolted is built at home with a saw and a drill: every joint is a flat plate, cut by a mail-order laser service, bolted through steel sleeves. */
+/**
+ * The same carrier made two ways. welded goes to a fabrication shop: the cabin sides, the handle and the nose hoops are each bent from one tube,
+ * and the frame arrives welded in one piece. bolted is built at home with a saw and a drill: every tube is straight and every joint is a flat plate,
+ * cut by a mail-order laser service, bolted through steel sleeves.
+ */
 export type RoverBuild = 'welded' | 'bolted'
 /** sprung hangs each rear wheel on a trailing swing arm with a coil-over shock. rigid bolts the axle to the frame on hangers. */
 export type RoverRide = 'sprung' | 'rigid'
@@ -15,8 +19,8 @@ export type RoverCabin = 'dog' | 'seats'
 /** caster is the mounting height of the front swivel caster, floor to the top of its plate. It is ignored with a fixed front wheel. */
 /** rake is how far the top of the front wall leans back from the bottom. taper is how far the roof drops from rear to front. Zero for both gives a square box. */
 export interface RoverSetup { length: number, width: number, height: number, ramp: number, axle: number, handle: number, hub: number, caster: number, rake: number, taper: number, wheel: RoverWheel, front: RoverFront, kit: RoverKit, build: RoverBuild, ride: RoverRide, cabin: RoverCabin }
-export const roverStart: RoverSetup = { length: 1300, width: 700, height: 1000, ramp: 1000, axle: 560, handle: 950, hub: 101.6, caster: 310, rake: 350, taper: 180, wheel: 'trail', front: 'swivel', kit: 'wheels', build: 'bolted', ride: 'sprung', cabin: 'dog' }
-export const roverBuilds = { welded: 'Welded frame, made by a fabrication shop', bolted: 'Bolted frame, built at home with a saw and a drill' } as const
+export const roverStart: RoverSetup = { length: 1300, width: 700, height: 1000, ramp: 1000, axle: 560, handle: 1000, hub: 101.6, caster: 310, rake: 350, taper: 180, wheel: 'trail', front: 'swivel', kit: 'wheels', build: 'welded', ride: 'sprung', cabin: 'dog' }
+export const roverBuilds = { welded: 'Bent and welded frame, made by a fabrication shop and delivered in one piece', bolted: 'Bolted frame, built at home with a saw and a drill' } as const
 export const roverRides = { sprung: 'Sprung rear wheels on swing arms', rigid: 'Rigid rear axle on hangers' } as const
 export const roverCabins = { dog: 'Open floor for a dog', seats: 'Two-seat bench, concept only' } as const
 export const roverKits = { wheels: 'On wheels', ski: 'Snow conversion on skis' } as const
@@ -68,6 +72,9 @@ export const roverHardware = {
   swingRun: 300, swingGap: 13, swingEnd: 25, shockAt: 240, tabUp: 30.7, shockSpacer: 60, hangerUp: 30, plateStep: 30, shockLength: 150, shockStroke: 30, shockRate: 450, shockRadius: 22, shockKg: 0.45,
   // Two-seat bench concept: seat top above the deck, seat depth ahead of the axle posts, back bar above the seat.
   seatHeight: 200, seatDepth: 260, seatBack: 400,
+  // Bent tubes of the welded build: one centerline radius for every bend. 4.5 inch is the tightest radius found with a published clean result
+  // for 1 inch square aluminum tube with a 1/8 inch wall. Tighter is reported as risky in 6061-T6. The shop may ask for another.
+  bendRadius: 114.3,
   skiLength: 1100, skiWidth: 60, skiThick: 25, skiFoot: 400, skiAbove: 30, towShaft: 2400, hipHeight: 900,
 } as const
 /** Planning payload used for arithmetic only. It is not a rating. Buddy is owner-reported 140 lb. */
@@ -106,6 +113,28 @@ export function roverPartFile(id: string): string {
 export const mm = (n: number) => Math.round(n * 10000) / 10000
 const degrees = (radians: number) => radians * 180 / Math.PI
 
+export type BendRun = { straight: number } | { angle: number }
+/**
+ * A tube bent along a flat polyline with one centerline radius at every inner corner. Returns its developed length, the straight and bend
+ * runs in order as a shop reads them, and where each bend starts and ends, for drawing.
+ */
+export function bendPath(points: [number, number][], radius: number) {
+  const runs: BendRun[] = []; const arcs: { from: [number, number], to: [number, number], angle: number }[] = []; let developed = 0; let before = 0
+  for (let i = 0; i + 1 < points.length; i++) {
+    const a = points[i]!; const b = points[i + 1]!; const length = Math.hypot(b[0] - a[0], b[1] - a[1]); const d1 = [(b[0] - a[0]) / length, (b[1] - a[1]) / length]
+    let after = 0; let angle = 0
+    if (i + 2 < points.length) {
+      const c = points[i + 2]!; const next = Math.hypot(c[0] - b[0], c[1] - b[1]); const d2 = [(c[0] - b[0]) / next, (c[1] - b[1]) / next]
+      angle = Math.acos(Math.max(-1, Math.min(1, d1[0]! * d2[0]! + d1[1]! * d2[1]!))); after = radius * Math.tan(angle / 2)
+      arcs.push({ from: [b[0] - d1[0]! * after, b[1] - d1[1]! * after], to: [b[0] + d2[0]! * after, b[1] + d2[1]! * after], angle })
+    }
+    const straight = length - before - after; runs.push({ straight: mm(straight) }); developed += straight
+    if (angle > 0) { runs.push({ angle: mm(degrees(angle)) }); developed += radius * angle }
+    before = after
+  }
+  return { points, radius, developed: mm(developed), runs, arcs, shortest: Math.min(...runs.flatMap(run => 'straight' in run ? [run.straight] : [])) }
+}
+
 export function parseRoverSetup(input: Record<string, unknown>): RoverSetup {
   for (const key of Object.keys(input)) if (!Object.hasOwn(roverStart, key)) throw new Error(`Unknown Rover setup field: ${key}`)
   const setup = { ...roverStart }
@@ -138,6 +167,7 @@ export function parseRoverSetup(input: Record<string, unknown>): RoverSetup {
   // An unstated handle height comes down to what this frame allows: the bolted roof gussets sit lower on the axle post than a weld does.
   if (input.handle === undefined) setup.handle = Math.min(setup.handle, roverDimensions(setup).handleMax)
   const d = roverDimensions(setup)
+  if (d.bent.some(part => part.path.shortest < 15)) throw new Error('A bent tube has no straight left between its bends at this size. Raise the caster height or lengthen the cabin.')
   if (d.sprung && d.motionRatio < 0.4) throw new Error('The sprung rear is not drawn for this wheel: the swing arm would be too steep for the shock. Choose rigid wheels or a smaller wheel.')
   if (d.seats && setup.length - setup.axle - roverHardware.seatDepth < 300) throw new Error('Not enough room ahead of the seat. Move the axle back or lengthen the cabin.')
   if (d.seats && d.sittingMax < 500) throw new Error('The cabin is too low over the seat. Raise the cabin or reduce the roof taper.')
@@ -223,8 +253,24 @@ export function roverDimensions(s: RoverSetup) {
   const hingeX = rearX - t - h.hingeGap; const gripX = rearX - t - h.reach
   // The grip tube lies across the tops of the two arm ends, one bolt down through each crossing, so the joint needs no plates.
   // Handle height is the grip. The arms run one tube lower.
-  const handleArm = 40 + s.axle + t + h.reach; const grip = s.width + 4 * t; const armZ = s.handle - t
-  const handleMax = Math.floor((deck + s.height - taperAtAxle - (welded ? 30 : 110) + t) / 10) * 10
+  const handleArm = 40 + s.axle + t + h.reach; const grip = s.width + 4 * t
+  // Welded: the handle is one bent bar in a single plane. Bolted: the arms run one tube below the grip.
+  const armZ = welded ? s.handle : s.handle - t
+  const handleMax = Math.floor((deck + s.height - taperAtAxle - (welded ? 30 : 110 - t)) / 10) * 10
+  // Bent tubes of the welded build. Each replaces two or three straight tubes and the joints between them.
+  const bendR = h.bendRadius
+  const hoopPoints: [number, number][] = [[rearX - t / 2, railZ + t / 2], [rearX - t / 2, topZ - s.taper * (t / 2) / topRail], [pillarTopX, pillarTopZ], [frontX + t / 2, railZ + t / 2]]
+  const barY = s.width / 2 + t + t / 2; const noseBeamZ = s.caster + t / 2
+  const sideHoop = bendPath(hoopPoints, bendR)
+  const handleBar = bendPath([[gripX + handleArm, barY], [gripX + t / 2, barY], [gripX + t / 2, -barY], [gripX + handleArm, -barY]], bendR)
+  const noseHoop = bendPath([[s.width / 2 + t / 2, railZ + t / 2], [s.width / 2 + t / 2, noseBeamZ], [-s.width / 2 - t / 2, noseBeamZ], [-s.width / 2 - t / 2, railZ + t / 2]], bendR)
+  const bent = !welded ? [] : [
+    { id: 'C26', name: 'Side hoop', wall: 'light' as const, qty: 2, path: sideHoop, shape: 'Rear post, roof run and front pillar in one. Both bends turn the same way' },
+    { id: 'C27', name: 'Handle bar', wall: 'light' as const, qty: 1, path: handleBar, shape: 'A flat U: two arms and the grip between them' },
+    ...(swivel ? [{ id: 'C28', name: 'Nose hoop', wall: 'heavy' as const, qty: 2, path: noseHoop, shape: 'An upside-down U across the carrier that carries the caster' }] : []),
+  ]
+  // Top cross tubes: on the bent hoop they move in from the corners to the straight roof run.
+  const topCross = welded ? [mm(sideHoop.arcs[0]!.to[0] + t), 0, mm(sideHoop.arcs[1]!.from[0] - t)] : [rearX - t / 2, 0, frontPostX]
   const centerAhead = s.length / 2 - s.axle
   const roofSlope = Math.hypot(s.width / 2 + t, h.ridge + h.pole)
   const cuts = [
@@ -236,19 +282,21 @@ export function roverDimensions(s: RoverSetup) {
     { id: 'C06', name: 'Ramp side curb rail', wall: 'heavy', qty: 2, length: s.ramp },
     { id: 'C07', name: 'Ramp under rib', wall: 'light', qty: 2, length: rampWidth },
     { id: 'C08', name: 'Ramp stand leg', wall: 'heavy', qty: 2, length: legCut },
-    { id: 'C09', name: 'Rear corner post', wall: 'light', qty: 2, length: post },
-    { id: 'C10', name: 'Top side rail', wall: 'light', qty: 2, length: topRailCut },
+    { id: 'C09', name: 'Rear corner post', wall: 'light', qty: welded ? 0 : 2, length: post },
+    { id: 'C10', name: 'Top side rail', wall: 'light', qty: welded ? 0 : 2, length: topRailCut },
     { id: 'C11', name: 'Top cross tube', wall: 'light', qty: 3, length: s.width },
-    { id: 'C12', name: 'Handle arm', wall: 'light', qty: 2, length: handleArm },
-    { id: 'C13', name: 'Handle grip tube', wall: 'light', qty: 1, length: grip },
+    { id: 'C12', name: 'Handle arm', wall: 'light', qty: welded ? 0 : 2, length: handleArm },
+    { id: 'C13', name: 'Handle grip tube', wall: 'light', qty: welded ? 0 : 1, length: grip },
     { id: 'C14', name: 'Base intermediate cross member', wall: 'light', qty: intermediates, length: s.width },
-    { id: 'C15', name: 'Nose post', wall: 'heavy', qty: swivel ? 4 : 0, length: nosePost },
-    { id: 'C16', name: 'Caster beam', wall: 'heavy', qty: swivel ? 2 : 0, length: casterBeam },
+    { id: 'C15', name: 'Nose post', wall: 'heavy', qty: swivel && !welded ? 4 : 0, length: nosePost },
+    { id: 'C16', name: 'Caster beam', wall: 'heavy', qty: swivel && !welded ? 2 : 0, length: casterBeam },
     { id: 'C17', name: 'Brake arm', wall: 'heavy', qty: 2, length: h.brakeArm },
     { id: 'C18', name: 'Ski post', wall: 'heavy', qty: ski ? 2 : 0, length: skiPost },
     { id: 'C19', name: 'Ski foot', wall: 'heavy', qty: ski ? 2 : 0, length: h.skiFoot },
     { id: 'C20', name: 'Tow shaft', wall: 'light', qty: ski ? 2 : 0, length: h.towShaft },
-    { id: 'C21', name: 'Front pillar', wall: 'light', qty: 2, length: pillar },
+    { id: 'C21', name: 'Front pillar', wall: 'light', qty: welded ? 0 : 2, length: pillar },
+    // Bent tubes: the length is the developed length, the straight tube before bending.
+    ...bent.map(part => ({ id: part.id, name: part.name, wall: part.wall as string, qty: part.qty, length: part.path.developed })),
     { id: 'C22', name: 'Swing arm', wall: 'heavy', qty: sprung ? 2 : 0, length: swingArm },
     { id: 'C23', name: 'Shock spacer tube', wall: 'heavy', qty: sprung ? 2 : 0, length: h.shockSpacer },
     { id: 'C24', name: 'Seat cross tube', wall: 'heavy', qty: seats ? 3 : 0, length: s.width },
@@ -259,19 +307,16 @@ export function roverDimensions(s: RoverSetup) {
   const square = 'Square tee, fillet all round'; const lap = 'Lap, fillet both long edges'
   const welds = (!welded ? [] : [
     { id: 'W01', joint: 'Base cross member to base side rail', qty: 2 * stations.length, type: square },
-    { id: 'W02', joint: 'Rear corner post to base side rail', qty: 2, type: square },
-    { id: 'W03', joint: 'Rear corner post to top side rail', qty: 2, type: `Tee, post top cut ${roofAngle.toFixed(1)} degrees off square, fillet all round` },
-    { id: 'W04', joint: 'Front pillar to base side rail', qty: 2, type: `Tee, foot cut ${pillarAngle.toFixed(1)} degrees off square so the pillar leans back, fillet all round` },
-    { id: 'W05', joint: 'Front pillar to top side rail', qty: 2, type: `Pillar under the front end of the rail, top cut ${(pillarAngle + roofAngle).toFixed(1)} degrees off square, fillet all round` },
+    { id: 'W02', joint: 'Side hoop rear foot to base side rail', qty: 2, type: square },
+    { id: 'W04', joint: 'Side hoop front foot to base side rail', qty: 2, type: `Tee, foot cut ${pillarAngle.toFixed(1)} degrees off square so the pillar leans back, fillet all round` },
     { id: 'W06', joint: 'Axle post to base side rail', qty: 2, type: square },
-    { id: 'W07', joint: 'Axle post to top side rail', qty: 2, type: `Tee, post top cut ${roofAngle.toFixed(1)} degrees off square, fillet all round` },
-    { id: 'W08', joint: 'Top cross tube to top side rail', qty: 6, type: square },
+    { id: 'W07', joint: 'Axle post to the roof run of the side hoop', qty: 2, type: `Tee, post top cut ${roofAngle.toFixed(1)} degrees off square, fillet all round` },
+    { id: 'W08', joint: 'Top cross tube to the roof run of the side hoop', qty: 6, type: square },
     ...(swivel
-      ? [{ id: 'W09', joint: 'Nose post to base side rail', qty: 4, type: square }, { id: 'W10', joint: 'Caster beam to nose post', qty: 4, type: 'Beam across the post top, fillet all round' }]
+      ? [{ id: 'W09', joint: 'Nose hoop foot to base side rail', qty: 4, type: square }]
       : [{ id: 'W09', joint: 'Fork arm to front cross member', qty: 2, type: square }, { id: 'W10', joint: 'Fork stub to fork arm', qty: 2, type: square }]),
     { id: 'W11', joint: 'Brake arm to axle post', qty: 2, type: square },
-    { id: 'W12', joint: 'Handle arm to rear corner post and to axle post', qty: 4, type: lap },
-    { id: 'W13', joint: 'Handle grip tube to handle arm', qty: 2, type: 'Grip tube across the top of the arm end, fillet both sides' },
+    { id: 'W12', joint: 'Handle bar to rear post and to axle post', qty: 4, type: lap },
     { id: 'W14', joint: 'Ramp leg to ramp rib', qty: 2, type: square },
     ...(ski ? [{ id: 'W15', joint: 'Ski foot to ski post', qty: 2, type: square }] : []),
   ])
@@ -294,7 +339,7 @@ export function roverDimensions(s: RoverSetup) {
     // The handle needs no gussets: six lap bolts, two tubes each. Bolted, swivel front: twelve more corner gussets and 32 bolts for the nose, less the fork's four tees, four hangers and 18 bolts.
     // Each brake arm adds a pair of corner gussets and four bolts. The ski kit adds a pair of tee gussets and four bolts at each ski.
     corner: welded ? 0 : (swivel ? 36 : 24) + 4 - angled, angle: angled, tee: welded ? 0 : 2 * intermediates + (swivel ? 2 : 6) + (ski ? 4 : 0) + (sprung ? 4 : 0), hanger: (swivel ? 4 : 8) - (sprung ? 4 : 0), wheels: swivel ? 2 : 3, weldJoints,
-    shocks: sprung ? 2 : 0, shockPlates: sprung ? 4 : 0, shockHangers: sprung ? 4 : 0, shockBolts: sprung ? 4 : 0,
+    bends: bent.reduce((n, part) => n + part.qty * part.path.arcs.length, 0), shocks: sprung ? 2 : 0, shockPlates: sprung ? 4 : 0, shockHangers: sprung ? 4 : 0, shockBolts: sprung ? 4 : 0,
     bolts: frameBolts, handleBolts: welded ? 0 : 6, sleeves: frameBolts + (welded ? 0 : 12) + (sprung ? 8 : 0), casterBolts: swivel ? 4 : 0, brakeClamps: 2,
     rampBolts: 2 * (Math.floor(s.ramp / 200) + 1) + 6, floorScrews: 2 * Math.ceil(floorLen / 250) + stations.length * 3,
     // Two of the chassis caps are the ramp leg feet.
@@ -329,7 +374,7 @@ export function roverDimensions(s: RoverSetup) {
     seats, seatTubeZ: mm(seatTubeZ), seatLeg: mm(seatLeg), seatBackZ: mm(seatBackZ), sittingMax,
     ski, skiPost: mm(skiPost), towPinX: mm(towPinX), brakeZ: mm(brakeZ), forkY: mm(forkY), frontStack: mm(frontStack), frontShaft: mm(frontShaft), forkArm: mm(forkArm), stub: mm(stub), wheelbase: mm(wheelbase),
     rampAngle: mm(degrees(rampAngleRad)), rampAngleRad, rampWidth: mm(rampWidth), rampRise: mm(deck - h.panel), legCut: mm(legCut), hingeX: mm(hingeX), gripX: mm(gripX),
-    handleArm: mm(handleArm), grip: mm(grip), armZ: mm(armZ), handleMax, centerAhead: mm(centerAhead), roofSlope: mm(roofSlope),
+    handleArm: mm(handleArm), grip: mm(grip), armZ: mm(armZ), bent, topCross, noseBeamZ: mm(noseBeamZ), barY: mm(barY), handleMax, centerAhead: mm(centerAhead), roofSlope: mm(roofSlope),
     overallWidth: mm(2 * (axleY - inboard + rearShaft)), tireWidth: mm(2 * wheelY + w.tire), overallLength: mm((swivel ? Math.max(casterX + h.casterSweep, frontX + t + nose) : wheelbase + R) - gripX), overallHeight: mm(topZ + t / 2 + h.ridge + h.pole + 4),
     cuts, counts, heavyM: mm(heavyM), lightM: mm(lightM), tubeLb: Math.round((heavyM * 0.762 + lightM * 0.408) * 2.2046 * 10) / 10, floorArea: mm(floorArea), rampArea: mm(rampArea),
     mass: Object.fromEntries(Object.entries(mass).map(([k, v]) => [k, Math.round(v * 10) / 10])) as Record<keyof typeof mass, number>, carrierKg: Math.round(carrierKg * 10) / 10,
