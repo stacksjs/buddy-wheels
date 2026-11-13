@@ -1,7 +1,7 @@
 "Member ID","Member","Quantity","Hole direction","Measure from","Hole centers mm","Drill mm","What it is for"
 "C01","Base side rail","2","vertical","rear end","142.7","10.0, for a 3/8 inch stem","Tip-stop foot stem"
 "C17","Brake arm","2","fore-aft","the end at the post","37.3 / 67.3","9.8 (letter W), for a 9.525 sleeve","Brake clamp plate bolts, plate on the front face"
-"C28","Nose hoop, top run","2","vertical","the middle","-35 / 35","11.2 (7/16 inch), for a 7/16 inch sleeve","Caster plate bolts. Mark from the delivered plate before drilling"
+"C28","Nose hoop, top run","2","vertical","the middle","-35 / 35","11.2 (7/16 inch), for a 7/16 inch sleeve","Caster plate bolts. Mark from the delivered plate before drilling. The tube is round: hold it in a V-block and drill on its top centerline"
 "C06","Ramp side curb rail","2","vertical","hinge end","83.3333 / 250 / 416.6667 / 583.3333 / 750 / 916.6667","6.75, no sleeve","Carriage bolts down through the curb and the ramp panel"
 "C07","Ramp under rib","2","vertical","each end","80","6.75, no sleeve","Carriage bolt up through the panel; add one at the middle"
 "C01","Base side rail","2","side","rear end","885.4","16.1, for a 5/8 inch OD crush sleeve on the 1/2 inch bolt","Swing arm pivot bolt"

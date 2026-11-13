@@ -71,6 +71,22 @@ export function roverPlateCost(s: RoverSetup = roverStart, alloy: 't6' | 'h32' =
   const suspension = c.shockPlates * p.shockPlate + c.shockHangers * p.shockHanger
   return { frame, suspension, total: frame + suspension }
 }
+/**
+ * OSH Cut instant quote for the bent tubes of the welded frame at the starting setup, read 2026-11-12 with nobody signed in:
+ * 1 inch OD x 1/8 inch wall round 6063-T52, cut and bent at a 3 inch centerline radius, every part past the design check.
+ * Cents each at the quantity one carrier needs and at the quantity 100 carriers need, with the ordered length each was priced at.
+ * Before shipping and tax. Standard lead time was 9 business days with the rest of that cart.
+ */
+export const roverBendQuote = {
+  checked: '2026-11-12', url: 'https://app.oshcut.com', days: 9, plug: 150,
+  parts: { C26: { mm: 2882.2637, one: 10050, batch: 6145 }, C27: { mm: 2696.1894, one: 11609, batch: 5804 }, C28: { mm: 1031.9894, one: 6165, batch: 2843 } },
+} as const
+/** What one carrier's bent tubes cost. The starting setup is the quote itself; any other size is that quote scaled by ordered length, which is an approximation. */
+export function roverBentCost(s: RoverSetup = roverStart) {
+  const bent = roverDimensions(s).bent; const quote = (id: string) => roverBendQuote.parts[id as keyof typeof roverBendQuote.parts]
+  const sum = (key: 'one' | 'batch') => bent.reduce((n, part) => n + part.qty * Math.round(quote(part.id)[key] * part.length / quote(part.id).mm), 0)
+  return { one: sum('one'), batch: sum('batch'), quoted: bent.every(part => Math.abs(part.length - quote(part.id).mm) < 0.01) }
+}
 /** Ready-cut bolt sleeves, as an alternative to sawing them from tube. */
 export const roverSpacers = { cents: 18432, pack: 250, url: 'https://mutualscrew.com/products/spacers-3-8-od-x-1-1-4-hole-steel-clear-zinc_fc1198-25-s-12' } as const
 /** Planning shock and pivot bushing. Updated from supplier pages where one was read; the basis says which. */
@@ -90,7 +106,7 @@ export function roverCostLines(s: RoverSetup = roverStart) {
   const hundreds = (n: number) => Math.ceil(n / 100); const fasteners = c.bolts + c.handleBolts
   // Sleeve stock in 6 ft bars, and the axle parts that scale with the number of plain wheels.
   const sleeveBars = c.sleeves * 26.9 / 1828.8; const shaftMm = 2 * d.rearShaft + (d.swivel ? 0 : d.frontShaft) + 6; const axleWashers = d.swivel ? 4 : 8; const axleCotters = d.swivel ? 4 : 6
-  const w = d.welded; const plates = roverPlateCost(s)
+  const w = d.welded; const plates = roverPlateCost(s); const bentCost = roverBentCost(s)
   const money = (cents: number) => `$${(cents / 100).toFixed(2)}`
   const sheets = d.floorLen + s.ramp + 10 <= 2438.4 && s.width + 50.8 <= 1219.2 ? 1 : 2
   return [
@@ -98,7 +114,7 @@ export function roverCostLines(s: RoverSetup = roverStart) {
       ? { id: 'gussets', name: '2 brake clamp plates, laser cut 1/8 inch 6061', batch: 2 * 160, one: plates.frame, coverage: ['M04'], evidence: 'One carrier: quoted 2026-11-12. Batch: allowance', url: roverPlateQuote.url, note: 'One aluminum profile. The welded frame has no gussets. No quote was run; upload the DXF file to a cutting service for a real price.' }
       : { id: 'gussets', name: `${c.corner} corner gussets, ${c.angle} gussets cut to this setup's angles, ${c.tee} tee gussets and 2 brake plates, laser cut 1/8 inch 6061`, batch: (c.corner + c.tee + 2) * 160 + c.angle * 200, one: plates.frame, coverage: ['M01', 'M02', 'M04', 'M06', 'M07', 'M08'], evidence: 'One carrier: quoted 2026-11-12. Batch: allowance', url: roverPlateQuote.url, note: `Six aluminum profiles, three of them cut to the roof and pillar angles of this setup. For one carrier these are OSH Cut's instant-quote prices in 6061-T6: $9.47 a corner gusset, $8.19 a tee gusset, $10.15 to $12.43 for the angled ones and $12.23 a brake plate, about double the earlier allowance. The same plates in softer 5052-H32 were quoted ${money(plates.frame - roverPlateCost(s, 'h32').frame)} lower. The batch figure is still an allowance of $1.60 to $2.00 a plate with no quote behind it, and the one-carrier quote suggests it is low.` },
     ...(w ? [{ id: 'welding', name: `${c.weldJoints} TIG welded joints by a fabrication shop`, batch: Math.ceil(c.weldJoints * 3.5 * 7000 / 60) + 1500, one: c.weldJoints * 1500, coverage: ['J01'], evidence: 'RFQ', note: 'No shop has quoted this. Batch: 3.5 minutes a joint on a jig at $70 a shop hour, plus a $15 share of the jig. One frame: 10 minutes a joint at $90 an hour, fit-up included. A real quote replaces all of it.' }] : []),
-    ...(w && c.bends ? [{ id: 'bending', name: `${c.bends} tube bends at one radius, by the same shop`, batch: c.bends * 150 + 800, one: c.bends * 1200 + 6000, coverage: ['J02'], evidence: 'RFQ', note: 'No shop has quoted this. Batch: $1.50 a bend plus an $8 share of tooling and setup. One frame: $12 a bend plus $60 of setup. The bends are drawn at a 4.5 inch centerline radius, the tightest with a published clean result for 1 inch square aluminum with a 1/8 inch wall. Whether a shop can bend the 6061-T6 nose hoops at it without cracking, or the 1/16 inch wall side hoops and handle bar without wrinkling them, is its call; it may ask for a softer temper, a thicker wall or a larger radius.' }] : []),
+    ...(w && c.bends ? [{ id: 'bending', name: `${d.bent.reduce((n, part) => n + part.qty, 0)} round tubes cut and bent by a mail-order service, ${c.bends} bends, and ${c.plugs} end plugs`, batch: bentCost.batch + c.plugs * roverBendQuote.plug, one: bentCost.one + c.plugs * roverBendQuote.plug, coverage: ['J02', 'H07'], evidence: bentCost.quoted ? `Quoted ${roverBendQuote.checked}` : `Scaled from the ${roverBendQuote.checked} quote`, url: roverBendQuote.url, note: `OSH Cut's instant quote for the starting setup, read ${roverBendQuote.checked}: the tube itself in 1 inch OD x 1/8 inch wall round 6063-T52, cut and bent at a 3 inch centerline radius. For one carrier: $100.50 a side hoop, $116.09 for the handle bar and $61.65 a nose hoop. At the quantities for 100 carriers: $61.45, $58.04 and $28.43. Every part passed the service's design check; nothing was ordered. Other sizes are that quote scaled by tube length, not quoted. A production tube bender would be asked for a batch price. The two end plugs for the handle bar are a $1.50 allowance each.` }] : []),
     ...(c.hanger ? [{ id: 'hangers', name: `${c.hanger} stainless axle hangers`, batch: c.hanger * 400, one: c.hanger * 900, coverage: ['M03'], evidence: 'RFQ', note: 'One 304 stainless profile for all three wheels. Bore finishing after drawing review.' }] : []),
     s.wheel === 'trail'
       ? { id: 'wheels', name: `${c.wheels} pneumatic trail wheels, 15 inch 4.00-8`, batch: c.wheels * 3289, one: c.wheels * 3289, coverage: ['W01'], evidence: 'Observed 2026-11-12', url: 'https://www.zoro.com/zoro-select-pneumatic-wheel-15-316dia-435lb-400-8-1nwv4/i/G1932594/', note: '$32.89 each, no bulk discount assumed. Ball bearings, 5/8 inch bore and a 4 inch hub are stated by the supplier.' }
@@ -133,8 +149,8 @@ export function roverEconomics(s: RoverSetup = roverStart, quantity = 100) {
   const light = quantity === 1 ? homeRoverStock(s, 'light') : packRoverStock(s, 'light', quantity); const heavy = quantity === 1 ? homeRoverStock(s, 'heavy') : packRoverStock(s, 'heavy', quantity)
   const tube = Math.ceil((light.bars * TUBE_LIGHT + heavy.bars * TUBE_HEAVY) / quantity)
   // The same tube as 8 ft bars delivered by parcel, for anyone without a metal supplier nearby.
-  // The bent tubes of the welded build are longer than a parcel bar, so that build has no parcel alternative.
-  const fitsParcel = roverDimensions(s).cuts.every(c => c.length + 3 <= roverParcelStock.mm)
+  // The round bent tubes of the welded build are bought cut and bent, so they are not part of the bar purchase.
+  const fitsParcel = roverDimensions(s).cuts.every(c => c.wall === 'round' || c.length + 3 <= roverParcelStock.mm)
   const tubeParcel = quantity === 1 && fitsParcel ? packRoverStock(s, 'light', 1, roverParcelStock.mm).bars * roverParcelPrices.light + packRoverStock(s, 'heavy', 1, roverParcelStock.mm).bars * roverParcelPrices.heavy : tube
   const textiles = roverTextileCost(s, quantity)
   const other = roverCostLines(s).reduce((total, row) => total + row[quantity === 1 ? 'one' : 'batch'], 0)

@@ -4,7 +4,7 @@
   "status": "BENCH_ONLY_NOT_ANIMAL_USE",
   "generator": "native Stacks solid kit, no external CAD executable",
   "geometryHash": "77c855e62b909b518ab655607c022b458bb8eb0a1e3f6155e9ace3935b860849",
-  "costHash": "9a2c9cdfb93e41391da4a0ceb8c067ec1fa99745eed588006ffc16b583a58d1b",
+  "costHash": "f5a7b1f6981a42d80ebfef674080d60fa7033e0dd1b648bc061453139b551776",
   "setup": {
     "length": 1300,
     "width": 700,
@@ -63,13 +63,13 @@
         "id": "W02",
         "joint": "Side hoop rear foot to base side rail",
         "qty": 2,
-        "type": "Square tee, fillet all round"
+        "type": "Round tube cut square, standing on the top face of the rail, fillet all round"
       },
       {
         "id": "W04",
         "joint": "Side hoop front foot to base side rail",
         "qty": 2,
-        "type": "Tee, foot cut 22.7 degrees off square so the pillar leans back, fillet all round"
+        "type": "Round tube standing on the top face of the rail, foot sawn 22.7 degrees off square so the pillar leans back, fillet all round"
       },
       {
         "id": "W06",
@@ -81,19 +81,19 @@
         "id": "W07",
         "joint": "Axle post to the roof run of the side hoop",
         "qty": 2,
-        "type": "Tee, post top cut 10.2 degrees off square, fillet all round"
+        "type": "Tee onto round tube: post top cut 10.2 degrees off square and notched (coped) to the 25.4 round tube, fillet all round"
       },
       {
         "id": "W08",
         "joint": "Top cross tube to the roof run of the side hoop",
         "qty": 6,
-        "type": "Square tee, fillet all round"
+        "type": "Tee onto round tube: end notched (coped) to the 25.4 round tube, fillet all round"
       },
       {
         "id": "W09",
         "joint": "Nose hoop foot to base side rail",
         "qty": 4,
-        "type": "Square tee, fillet all round"
+        "type": "Round tube cut square, standing on the top face of the rail, fillet all round"
       },
       {
         "id": "W11",
@@ -103,9 +103,9 @@
       },
       {
         "id": "W12",
-        "joint": "Handle bar to rear post and to axle post",
+        "joint": "Handle bar arm to the rear leg of the side hoop and to the axle post",
         "qty": 4,
-        "type": "Lap, fillet both long edges"
+        "type": "Crossing lap: the round arm lies against the outside of the hoop leg (round on round) and of the axle post (round on flat). Fillet round each contact. A small weld; the shop may add a through bolt"
       },
       {
         "id": "W14",
@@ -134,6 +134,8 @@
     "pillarAngle": 22.7367,
     "topRailCut": 1016.8582,
     "axlePost": 909.9122,
+    "axlePostCut": 922.6122,
+    "topCrossCut": 725.4,
     "pillar": 905.5711,
     "taperAtAxle": 105.2878,
     "rail": 1678.65,
@@ -182,8 +184,8 @@
     "wheelRate": 20.682,
     "wheelTravel": 59,
     "sag": 22,
-    "sagEmpty": 6,
-    "rearWheelKg": 46.1,
+    "sagEmpty": 7,
+    "rearWheelKg": 46.5,
     "seats": false,
     "seatTubeZ": 327.2,
     "seatLeg": 177.8,
@@ -212,7 +214,6 @@
       {
         "id": "C26",
         "name": "Side hoop",
-        "wall": "light",
         "qty": 2,
         "path": {
           "points": [
@@ -233,57 +234,77 @@
               136.7
             ]
           ],
-          "radius": 114.3,
-          "developed": 2848.9582,
+          "radius": 76.2,
+          "developed": 2876.9416,
           "runs": [
             {
-              "straight": 888.9243
+              "straight": 934.4881
             },
             {
               "angle": 100.196
             },
             {
-              "straight": 785.3122
+              "straight": 851.5916
             },
             {
               "angle": 57.0673
             },
             {
-              "straight": 860.9953
+              "straight": 881.7109
             }
           ],
           "arcs": [
             {
               "from": [
                 -572.7,
-                1025.6242860016819
+                1071.188133113831
               ],
               "to": [
-                -438.16709083805495,
-                1138.1192609420964
+                -483.01139389203666,
+                1146.1847830741074
               ],
               "angle": 1.748749892204697
             },
             {
               "from": [
-                334.7434481095889,
-                999.1065740810093
+                355.1319186862897,
+                995.4395829700919
               ],
               "to": [
-                419.9283892636654,
-                930.7881408199621
+                411.921879455674,
+                949.8939607960604
               ],
               "angle": 0.9960129777977003
             }
           ],
-          "shortest": 785.3122
+          "shortest": 851.5916
         },
-        "shape": "Rear post, roof run and front pillar in one. Both bends turn the same way"
+        "trim": 5.3221,
+        "shape": "Rear post, roof run and front pillar in one. Both bends turn the same way",
+        "wall": "round",
+        "length": 2882.2637,
+        "order": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            1025.6158
+          ],
+          [
+            968.6089,
+            851.4056
+          ],
+          [
+            1327.457,
+            -4.9085
+          ]
+        ]
       },
       {
         "id": "C27",
         "name": "Handle bar",
-        "wall": "light",
         "qty": 1,
         "path": {
           "points": [
@@ -304,57 +325,77 @@
               -388.09999999999997
             ]
           ],
-          "radius": 114.3,
-          "developed": 2663.484,
+          "radius": 76.2,
+          "developed": 2696.1894,
           "runs": [
             {
-              "straight": 878.4
+              "straight": 916.5
             },
             {
               "angle": 90
             },
             {
-              "straight": 547.6
+              "straight": 623.8
             },
             {
               "angle": 90
             },
             {
-              "straight": 878.4
+              "straight": 916.5
             }
           ],
           "arcs": [
             {
               "from": [
-                -838.4,
+                -876.5,
                 388.09999999999997
               ],
               "to": [
                 -952.6999999999999,
-                273.79999999999995
+                311.9
               ],
               "angle": 1.5707963267948966
             },
             {
               "from": [
                 -952.6999999999999,
-                -273.79999999999995
+                -311.9
               ],
               "to": [
-                -838.4,
+                -876.5,
                 -388.09999999999997
               ],
               "angle": 1.5707963267948966
             }
           ],
-          "shortest": 547.6
+          "shortest": 623.8
         },
-        "shape": "A flat U: two arms and the grip between them"
+        "trim": 0,
+        "shape": "A flat U: two arms and the grip between them",
+        "wall": "round",
+        "length": 2696.1894,
+        "order": [
+          [
+            0,
+            0
+          ],
+          [
+            -992.7,
+            0
+          ],
+          [
+            -992.7,
+            -776.2
+          ],
+          [
+            0,
+            -776.2
+          ]
+        ]
       },
       {
         "id": "C28",
         "name": "Nose hoop",
-        "wall": "heavy",
         "qty": 2,
         "path": {
           "points": [
@@ -375,58 +416,79 @@
               136.7
             ]
           ],
-          "radius": 114.3,
-          "developed": 999.284,
+          "radius": 76.2,
+          "developed": 1031.9894,
           "runs": [
             {
-              "straight": 71.7
+              "straight": 109.8
             },
             {
               "angle": 90
             },
             {
-              "straight": 496.8
+              "straight": 573
             },
             {
               "angle": 90
             },
             {
-              "straight": 71.7
+              "straight": 109.8
             }
           ],
           "arcs": [
             {
               "from": [
                 362.7,
-                208.4
+                246.5
               ],
               "to": [
-                248.4,
+                286.5,
                 322.7
               ],
               "angle": 1.5707963267948966
             },
             {
               "from": [
-                -248.4,
+                -286.5,
                 322.7
               ],
               "to": [
                 -362.7,
-                208.4
+                246.5
               ],
               "angle": 1.5707963267948966
             }
           ],
-          "shortest": 71.7
+          "shortest": 109.8
         },
-        "shape": "An upside-down U across the carrier that carries the caster"
+        "trim": 0,
+        "shape": "An upside-down U across the carrier that carries the caster",
+        "wall": "round",
+        "length": 1031.9894,
+        "order": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            186
+          ],
+          [
+            -725.4,
+            186
+          ],
+          [
+            -725.4,
+            0
+          ]
+        ]
       }
     ],
     "topCross": [
-      -412.7671,
+      -457.6114,
       0,
-      309.3434
+      329.7319
     ],
     "noseBeamZ": 322.7,
     "barY": 388.1,
@@ -457,7 +519,7 @@
         "name": "Axle post",
         "wall": "heavy",
         "qty": 2,
-        "length": 909.9122
+        "length": 922.6122
       },
       {
         "id": "C06",
@@ -485,7 +547,7 @@
         "name": "Top cross tube",
         "wall": "light",
         "qty": 3,
-        "length": 700
+        "length": 725.4
       },
       {
         "id": "C14",
@@ -504,23 +566,23 @@
       {
         "id": "C26",
         "name": "Side hoop",
-        "wall": "light",
+        "wall": "round",
         "qty": 2,
-        "length": 2848.9582
+        "length": 2882.2637
       },
       {
         "id": "C27",
         "name": "Handle bar",
-        "wall": "light",
+        "wall": "round",
         "qty": 1,
-        "length": 2663.484
+        "length": 2696.1894
       },
       {
         "id": "C28",
         "name": "Nose hoop",
-        "wall": "heavy",
+        "wall": "round",
         "qty": 2,
-        "length": 999.284
+        "length": 1031.9894
       },
       {
         "id": "C22",
@@ -557,33 +619,35 @@
       "rampBolts": 18,
       "floorScrews": 27,
       "capHeavy": 16,
-      "capLight": 12,
+      "capLight": 0,
+      "plugs": 2,
       "toe": 3,
       "saddle": 3,
       "fabricClip": 28,
       "cableClip": 6,
       "axleCover": 4
     },
-    "heavyM": 11.906,
-    "lightM": 13.9374,
-    "tubeLb": 32.5,
+    "heavyM": 9.9329,
+    "lightM": 5.6522,
+    "roundM": 10.5247,
+    "tubeLb": 21.8,
     "floorArea": 1.0142,
     "rampArea": 0.688,
     "mass": {
-      "tube": 14.8,
+      "tube": 16.2,
       "plates": 0.6,
       "panels": 11.1,
       "wheels": 10,
       "hardware": 3.8,
       "softgoods": 4.2
     },
-    "carrierKg": 44.4,
+    "carrierKg": 45.9,
     "frontShare": 9.8533,
-    "tiltForceN": 107,
+    "tiltForceN": 108,
     "tiltForceLbf": 24,
     "volumeRatio": 2.2901
   },
-  "printVolumeCm3": 1339,
+  "printVolumeCm3": 1285,
   "assets": [
     {
       "path": "parts/cap_heavy.stl",
@@ -722,13 +786,13 @@
     },
     {
       "path": "assembly.md",
-      "sha256": "11207f0abdc79e2274f347e851517a349507e3e63391fa8cf9b7cef1656ff98c",
-      "bytes": 13585
+      "sha256": "83998b97565f46826391a9f597516929d99d6df197263d473798a58d36efd08b",
+      "bytes": 14184
     },
     {
       "path": "bom.csv",
-      "sha256": "488034ad4443fad0a44ef42725b35c28c312051b7b70ccf2c0895b7bda5fcb8c",
-      "bytes": 10409
+      "sha256": "076488685e930777c4c33c1aec7bdc9b2625c95e1291b61d4c9f8761252158f2",
+      "bytes": 10784
     },
     {
       "path": "materials.md",
@@ -747,43 +811,43 @@
     },
     {
       "path": "drawing.svg",
-      "sha256": "8f410e5e3c1afd8e972f3043e9c33294bcb727c78c6f209a3b04d52f598813fc",
+      "sha256": "f52d620fc49e078d7a7cfc077176a03e31ed698388858a14f8f03ffd4533a173",
       "bytes": 5677
     },
     {
       "path": "cut-list.csv",
-      "sha256": "20a78941c912b4b5642159bbddfeb86a1e711d4d196267594fbf04884a517ac2",
-      "bytes": 1096
+      "sha256": "041dbed9329071b61f4b7bbd71cc98c16c37d0d62f2c6469ead25379407b18ab",
+      "bytes": 1124
     },
     {
       "path": "cost-notes.md",
-      "sha256": "ca6cf4e1e4c7789befbcb582ab74c65adc22ef2e61e4e7a7ef1bd2d903aacbbe",
-      "bytes": 28951
+      "sha256": "e6ef9bfcea967f4bdbb32bb048139d5a611eb268debd63af10c205cfee01fbeb",
+      "bytes": 29279
     },
     {
       "path": "buy-list.md",
-      "sha256": "81ea3e4a6fc7d384162d264e367aff7e61a4949ad74a96ce8a390ef8249fc4b2",
-      "bytes": 6692
+      "sha256": "cf1e72191a08774f3cc2cb19518c3573dd801362ee8ad350335176d9aedc91f3",
+      "bytes": 6763
     },
     {
       "path": "build-guide.md",
-      "sha256": "0bc7d951375918bccf9327a2b73d62198397002b1d1def74d65fa5344a17ba6f",
-      "bytes": 28204
+      "sha256": "05bc8f3259d919825888edec5efce80d33afdbe0e90e72cf28b2f38e8a0ac849",
+      "bytes": 29896
     },
     {
       "path": "drilling.csv",
-      "sha256": "5b7474e01adbdcb22db91dc89b9e98682904c33083608dfdd0c8489e5b4cfd5c",
-      "bytes": 2121
+      "sha256": "58da71b1faefda603fe723ef3697be31c01ae76845d95eb1071ab3415e4ab99f",
+      "bytes": 2194
     },
     {
       "path": "weld-schedule.csv",
-      "sha256": "d8316c76e89042ecabf920a17d35dc96adf2e4ee8317ba90a85a32a299c5372b",
-      "bytes": 898
+      "sha256": "171a7295327f3afc8e1c724ef569d90005946e088aca4e90ea0b3b66e6c9738e",
+      "bytes": 1350
     },
     {
       "path": "bend-schedule.csv",
-      "sha256": "a958ad50d346ee82a343c25dbf524c33dc42b55ac02a2fa5b6c095205f2427b3",
-      "bytes": 904
+      "sha256": "c29450ad5d9828a6e2e6be4b875daff93b1675798ec8a6970ba5b79998382984",
+      "bytes": 1344
     },
     {
       "path": "base-plan.svg",
@@ -792,18 +856,18 @@
     },
     {
       "path": "cost-model.json",
-      "sha256": "a41b82853c10416879d1ed8c3e08004dc2d8be4190ced8deff0044aedb9be1c0",
-      "bytes": 34691
+      "sha256": "a1ac04c962dd6cc90185b9cea93a88aa60a6664acbb4d0fa8eb04724939bcb40",
+      "bytes": 34087
     },
     {
       "path": "setup.json",
-      "sha256": "05a376b4ef2d0548b672e7faa7bc75ec4fe8cb93cfeab985fbfcbe8971085c2d",
-      "bytes": 12535
+      "sha256": "4ac5172e58b7542fec523fb96d6f185bc648c569d6d99f5f97b096d26cc22145",
+      "bytes": 14012
     },
     {
       "path": "README.md",
-      "sha256": "dfe3399ef5ef4252ba65eec43025cd37647fa1469c5502589c05bc062f7d68e6",
-      "bytes": 2929
+      "sha256": "9658354627329ba1fea973a7e7868915dbd9e050066863d022dc79b6a1b08d01",
+      "bytes": 3171
     }
   ],
   "parts": [

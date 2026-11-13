@@ -1,6 +1,6 @@
 import type { RoverSetup } from './Rover'
 import { homeRoverStock, mm, parseRoverSetup, referenceCarrier as ref, roverCode, roverDimensions, roverHardware as h, roverPartFile, roverParts, roverPlanningDogKg } from './Rover'
-import { roverAllowanceNotes, roverCostLines, roverPlateCost, roverPlateQuote, roverShock, roverSpacers, roverTubeQuote, roverCostModel, roverEconomics, roverPriceDate, roverPriceEvidence, roverTubePrices } from './RoverCost'
+import { roverAllowanceNotes, roverCostLines, roverPlateCost, roverBendQuote, roverPlateQuote, roverShock, roverSpacers, roverTubeQuote, roverCostModel, roverEconomics, roverPriceDate, roverPriceEvidence, roverTubePrices } from './RoverCost'
 import type { TubeHole, TubeSpec } from './Step'
 import { angleGussetDxf } from './RoverParts'
 import { stepFile, tubeBrep } from './Step'
@@ -12,7 +12,8 @@ const quotedCode = roverCode(parseRoverSetup({ build: 'bolted' }))
 
 const csv = (rows: (string | number)[][]) => rows.map(row => row.map(v => `"${String(v).replaceAll('"', '""')}"`).join(',')).join('\n') + '\n'
 const inch = (n: number) => (n / 25.4).toFixed(1)
-const WALL = { heavy: '6061-T6 1 x 1 x 1/8 inch square tube', light: '6063-T52 1 x 1 x 1/16 inch square tube' } as const
+const WALL = { heavy: '6061-T6 1 x 1 x 1/8 inch square tube', light: '6063-T52 1 x 1 x 1/16 inch square tube', round: '6063-T52 1 inch OD x 1/8 inch wall round tube' } as const
+const WALLSHORT = { heavy: '1/8 wall 6061-T6', light: '1/16 wall 6063-T52', round: '1 inch round, 1/8 wall 6063-T52' } as const
 
 export function roverPrintQuantities(s: RoverSetup): Record<string, number> {
   const c = roverDimensions(s).counts
@@ -22,8 +23,8 @@ export function roverBom(s: RoverSetup): string {
   const d = roverDimensions(s); const c = d.counts; const q = roverPrintQuantities(s); const w = d.wheel
   return csv([
     ['ID', 'Quantity', 'Part', 'Specification', 'Status'],
-    ...d.cuts.map(cut => [cut.id, cut.qty, cut.name, `${WALL[cut.wall as 'heavy' | 'light']}; cut ${cut.length} mm`, 'Cut to fit. Not telescoping']),
-    ...(d.welded ? [['J02', c.bends, 'Tube bend', `${h.bendRadius} mm (4.5 inch) centerline radius in 1 inch square tube, see bend-schedule.csv`, 'The shop may ask for another radius; every bent length changes with it. No bend sample exists'], ['J01', c.weldJoints, 'Welded joint', 'TIG, 4043 or 5356 filler at the shop\'s choice, fillet all round unless weld-schedule.csv says otherwise', 'No weld procedure, sample or strength figure exists. The metal beside every weld is softer than the tube it joins']] : [
+    ...d.cuts.map(cut => [cut.id, cut.qty, cut.name, `${WALL[cut.wall as keyof typeof WALL]}; ${cut.wall === 'round' ? 'ordered' : 'cut'} ${cut.length} mm`, cut.wall === 'round' ? 'Cut and bent by a mail-order service. See bend-schedule.csv' : 'Cut to fit. Not telescoping']),
+    ...(d.welded ? [['J02', c.bends, 'Tube bend', `${h.bendRadius} mm (3 inch) centerline radius in the round tubes, bent by a mail-order service; see bend-schedule.csv`, 'The radius and the straight needed beside each bend are one service\'s rules. Every bent tube passed its design check on 2026-11-12. None has been ordered or bent'], ['H07', c.plugs, 'Handle bar end plug', 'Plastic plug for 1 inch OD x 1/8 inch wall round tube, 3/4 inch inside', 'Closes the two open ends of the handle bar'], ['J01', c.weldJoints, 'Welded joint', 'TIG, 4043 or 5356 filler at the shop\'s choice, fillet all round unless weld-schedule.csv says otherwise', 'No weld procedure, sample or strength figure exists. The metal beside every weld is softer than the tube it joins']] : [
       ['M01', c.corner, 'Corner gusset', '6061-T6 3.175 mm, metal/corner_gusset.dxf', 'One profile, flipped for the opposite hand. Single outside plate at the eight corner-post joints. Fatigue and bearing review pending'],
       ['M02', c.tee, 'Tee gusset', '6061-T6 3.175 mm, metal/tee_gusset.dxf', 'Single-sided at base cross members and roof bow; paired at the fork'],
       ...d.angles.map((a, i) => [`M0${6 + i}`, a.qty, a.name, `6061-T6 3.175 mm, metal/${a.file}.dxf, legs at ${a.angle.toFixed(1)} degrees`, `${a.where}. Cut for this setup only: a different rake, taper or height needs new files`]),
@@ -64,7 +65,7 @@ export function roverBom(s: RoverSetup): string {
     ['F03', c.floorScrews, 'Floor fastener set', '1/4-20 stainless countersunk screw with rivet nut in the tube top wall', 'Rivet nut pull-out in .125 wall to be tested'],
     ['R01', 1, 'Ramp panel', `15/32 inch (12 mm) ACX exterior plywood ${s.ramp} x ${d.rampWidth} mm, sealed all faces and edges, toe edge fitted with printed threshold toes`, 'Curb rails on top, two ribs underneath'],
     ['R02', 1, 'Continuous hinge', `Stainless piano hinge, 1 inch leaf, 36 inch, cut to ${Math.floor(d.rampWidth / 10) * 10} mm; Zoro Select 2ZFK4 candidate, unpunched`, 'Leaves on the top faces, knuckle in the 6 mm gap. Drill and countersink for flat-head screws. Pinch review pending'],
-    ['R03', 2, 'Draw latch with keeper', 'Stainless toggle-style draw latch; Southco TL-20-202-52 candidate', 'Holds the raised ramp to both rear posts. The supplier page does not say a keeper is included'],
+    ['R03', 2, 'Draw latch with keeper', 'Stainless toggle-style draw latch; Southco TL-20-202-52 candidate', `Holds the raised ramp to both rear posts. The supplier page does not say a keeper is included${d.welded ? '. The rear posts are round on this frame, so each keeper needs a flat pad or a curved shim, not yet drawn' : ''}`],
     ['R04', 1, 'Tailgate safety strap', '1 inch webbing with a metal hook, independent of both latches', 'Second retention path if a latch opens'],
     ['R05', c.rampBolts, 'Ramp carriage bolt', '1/4-20 x 2 inch stainless carriage bolt, washer and locknut', 'Smooth heads on the walking side'],
     ['R06', 2, 'Ramp stand leg cap', 'Printed cap_heavy.stl pressed into the bottom of each stand leg', `Leg cut ${d.legCut} mm puts the capped end on level ground with the ramp lowered. Fixed length: shim on uneven ground`],
@@ -85,7 +86,7 @@ export function roverBom(s: RoverSetup): string {
     ['T02', 1, 'Floor set', 'Two EVA pad halves under a vinyl tub liner with a threshold flap', 'Removable for washing'],
     ['T03', 1, 'Ramp traction surface', `5 mm adhesive EVA, ${d.rampWidth - 2 * h.tube} x ${s.ramp} mm between the curbs`, 'Wet grip unproven'],
     ['T04', 2, 'Interior tether loop', '1 inch webbing loop around a base rail with a 316 D-ring', 'Positioning aid only. Not a restraint rating'],
-    ...roverParts.filter(p => p.kind !== 'metal').map(p => [`P-${p.id}`, q[p.id]!, p.name, roverPartFile(p.id), p.note]),
+    ...roverParts.filter(p => p.kind !== 'metal' && q[p.id]! > 0).map(p => [`P-${p.id}`, q[p.id]!, p.name, roverPartFile(p.id), p.note]),
   ])
 }
 export function roverCoverCsv(s: RoverSetup): string {
@@ -201,11 +202,11 @@ ${d.swivel ? `7. Nose: the base rails run ${d.nose} past the front cross member.
 12. Tip-stop feet, the two brake arms with their plates and clamps, latches, safety strap. Then the cover.`
   const weldedText = `## Joints
 
-The frame is bent and welded by a fabrication shop and arrives in one piece: ${d.cuts.reduce((n, x) => n + x.qty, 0)} tubes, ${c.bends} bends and ${c.weldJoints} welded joints, with no gussets. Each cabin side is one hoop bent from a single tube: up the rear, along the roof, which falls ${s.taper} from rear to front, ${d.roofAngle.toFixed(1)} degrees, and down the front pillar, which leans back ${d.pillarAngle.toFixed(1)} degrees from upright. The handle is one bent bar${d.swivel ? ' and the caster hangs from two bent hoops across the nose' : ''}.
+The frame is welded by a fabrication shop and arrives in one piece: ${d.cuts.reduce((n, x) => n + x.qty, 0)} tubes, ${c.bends} bends and ${c.weldJoints} welded joints, with no gussets. The base, posts and cross tubes are square tube. The bent tubes are round, 1 inch across with a 1/8 inch wall, so a mail-order service can cut and bend them. Each cabin side is one hoop bent from a single tube: up the rear, along the roof, which falls ${s.taper} from rear to front, ${d.roofAngle.toFixed(1)} degrees, and down the front pillar, which leans back ${d.pillarAngle.toFixed(1)} degrees from upright. The handle is one bent bar${d.swivel ? ' and the caster hangs from two bent hoops across the nose' : ''}.
 
-| Bent tube | Qty | Straight length before bending | Bends, all at ${h.bendRadius} mm (4.5 inch) centerline radius | Shape |
+| Bent tube | Qty | Ordered length | Bends, all at ${h.bendRadius} mm (3 inch) centerline radius | Shape |
 | --- | ---: | ---: | --- | --- |
-${d.bent.map(x => `| ${x.id} ${x.name} | ${x.qty} | ${x.path.developed} | ${x.path.runs.flatMap(run => 'angle' in run ? [`${run.angle.toFixed(1)} degrees`] : []).join(', ')} | ${x.shape} |`).join('\n')}
+${d.bent.map(x => `| ${x.id} ${x.name} | ${x.qty} | ${x.length} | ${x.path.runs.flatMap(run => 'angle' in run ? [`${run.angle.toFixed(1)} degrees`] : []).join(', ')} | ${x.shape} |`).join('\n')}
 
 The welds are listed in weld-schedule.csv and the bends in bend-schedule.csv.
 
@@ -286,9 +287,9 @@ With a ${roverPlanningDogKg} kg (160 lb) planning mass centered in the cabin, it
 
 | ID | Qty | Member | Stock | Cut |
 | --- | ---: | --- | --- | ---: |
-${d.cuts.map(cut => `| ${cut.id} | ${cut.qty} | ${cut.name} | ${cut.wall === 'heavy' ? '1/8 wall 6061-T6' : '1/16 wall 6063-T52'} | ${cut.length} |`).join('\n')}
+${d.cuts.map(cut => `| ${cut.id} | ${cut.qty} | ${cut.name} | ${WALLSHORT[cut.wall as keyof typeof WALLSHORT]} | ${cut.length} |`).join('\n')}
 
-Total ${d.heavyM.toFixed(2)} m of 1/8 inch wall 6061-T6 and ${d.lightM.toFixed(2)} m of 1/16 inch wall 6063-T52. Base cross members sit at X = ${d.stations.join(', ')}.
+Total ${d.heavyM.toFixed(2)} m of 1/8 inch wall 6061-T6 and ${d.lightM.toFixed(2)} m of 1/16 inch wall 6063-T52 square tube${d.roundM ? `, and ${d.roundM.toFixed(2)} m of 1 inch round 6063-T52 in the bent tubes` : ''}. Base cross members sit at X = ${d.stations.join(', ')}.
 
 ${d.welded ? weldedText : boltedText}
 
@@ -302,7 +303,7 @@ ${d.sprung ? `The rear axles sit in the swing arms outside the frame, so nothing
 
 ## Printing
 
-${roverParts.filter(p => p.kind !== 'metal').map(p => `- ${p.name}, ${roverPartFile(p.id)}, quantity ${q[p.id]}. ${p.note}`).join('\n')}
+${roverParts.filter(p => p.kind !== 'metal' && q[p.id]! > 0).map(p => `- ${p.name}, ${roverPartFile(p.id)}, quantity ${q[p.id]}. ${p.note}`).join('\n')}
 
 Meshes are exported in print orientation at 1:1 in millimeters and fit a 220 x 220 x 100 mm envelope. Never scale one to fit. Use PETG for indoor fit trials and ASA for parts that will live in sun. Starting point only: 0.4 mm nozzle, 0.2 mm layers, four walls, 30% infill; five walls and 50% for the ramp toes, which carry paw load against the ground. Print clips on end so the snap flexes along the layers. The ramp toe slot is an 18 mm overhang and needs support or a slower bridge. Record filament, settings, measured fit, grams and failures.
 
@@ -428,7 +429,7 @@ For scale, the reference trailer sold for ${money(roverPriceEvidence[9].price)} 
 
 ## Welded against bolted
 
-The same carrier can be built two ways, with the same shape and the same running gear. The welded frame goes to a shop: each cabin side, the handle and each nose hoop is bent from one tube and the rest is welded. The bolted frame is the home build: every tube is straight and every joint is a pair of flat plates. Both are counted with the same rules.
+The same carrier can be built two ways, with the same shape and the same running gear. The welded frame goes to a shop: each cabin side, the handle and each nose hoop is one round tube, cut and bent by a mail-order service, and the shop welds them to a square-tube base. The bolted frame is the home build: every tube is straight and every joint is a pair of flat plates. Both are counted with the same rules.
 
 | | Welded | Bolted |
 | --- | ---: | ---: |
@@ -441,9 +442,9 @@ The same carrier can be built two ways, with the same shape and the same running
 | Plates to cut | ${weldedDims.counts.hanger + 2 + weldedDims.counts.shockPlates + weldedDims.counts.shockHangers} | ${boltedDims.counts.corner + boltedDims.counts.angle + boltedDims.counts.tee + boltedDims.counts.hanger + 2 + boltedDims.counts.shockPlates + boltedDims.counts.shockHangers} |
 | Planning mass, kg | ${weldedDims.carrierKg} | ${boltedDims.carrierKg} |
 | Ships | Assembled, by truck | Flat, in cartons |
-| Who can build it | A shop that bends tube and TIG welds | One person at home with a saw and a drill, plates by mail order |
+| Who can build it | A shop with a TIG welder, from mail-order bent tubes | One person at home with a saw and a drill, plates by mail order |
 
-On these counts the two builds cost about the same. The welded frame comes out ${money(Math.abs(boltedBatch.cogs - weldedBatch.cogs))} ${weldedBatch.cogs <= boltedBatch.cogs ? 'less' : 'more'} each at 100 and ${money(Math.abs(boltedOne.cogs - weldedOne.cogs))} ${weldedOne.cogs <= boltedOne.cogs ? 'less' : 'more'} for one, which is well inside the error of shop figures nobody has quoted. At 100 it trades about ${money(['gussets', 'fasteners', 'labor'].reduce((n, id) => n + lineBatch(boltedSetup, id) - lineBatch(weldedSetup, id), 0))} of plates, bolts, sleeves and drilling time for ${money(lineBatch(weldedSetup, 'welding'))} of welding, ${money(lineBatch(weldedSetup, 'bending'))} of bending and ${money(lineBatch(weldedSetup, 'pack') - lineBatch(boltedSetup, 'pack'))} more packaging. What the shop build buys is about ${(boltedDims.carrierKg - weldedDims.carrierKg).toFixed(1)} kg less mass, ${boltedDims.cuts.reduce((n, cut) => n + cut.qty, 0) - weldedDims.cuts.reduce((n, cut) => n + cut.qty, 0)} fewer tubes, no plates, joints with no bolt clearance to work loose, and a frame that arrives in one piece. What bolting buys is that nothing leaves the house except the plate order. The welding and bending figures are arithmetic on assumed shop rates; no fabricator has quoted them, and the bend radius is unproven for this tube. Outbound freight for an assembled frame is not in either column.
+On these counts the welded frame comes out ${money(Math.abs(boltedBatch.cogs - weldedBatch.cogs))} ${weldedBatch.cogs <= boltedBatch.cogs ? 'less' : 'more'} each at 100 and ${money(Math.abs(boltedOne.cogs - weldedOne.cogs))} ${weldedOne.cogs <= boltedOne.cogs ? 'less' : 'more'} for one. That gap is smaller than the uncertainty in the welding figure, which nobody has quoted. At 100 it trades about ${money(['gussets', 'fasteners', 'labor'].reduce((n, id) => n + lineBatch(boltedSetup, id) - lineBatch(weldedSetup, id), 0))} of plates, bolts, sleeves and drilling time, and ${money(boltedBatch.tube - weldedBatch.tube)} of bar stock, for ${money(lineBatch(weldedSetup, 'welding'))} of welding, ${money(lineBatch(weldedSetup, 'bending'))} of bent tubes and ${money(lineBatch(weldedSetup, 'pack') - lineBatch(boltedSetup, 'pack'))} more packaging. What the shop build buys is about ${(boltedDims.carrierKg - weldedDims.carrierKg).toFixed(1)} kg less mass, ${boltedDims.cuts.reduce((n, cut) => n + cut.qty, 0) - weldedDims.cuts.reduce((n, cut) => n + cut.qty, 0)} fewer tubes, no plates, joints with no bolt clearance to work loose, and a frame that arrives in one piece. What bolting buys is that nothing leaves the house except the plate order. The welding figure is arithmetic on an assumed shop rate; no fabricator has quoted it. The bent tube figure is a mail-order service's instant quote at prototype prices, which a production tube bender should beat in a batch. Outbound freight for an assembled frame is not in either column.
 
 ${welded ? '' : `## Cutting it yourself against having it cut
 
@@ -655,14 +656,15 @@ export function roverDrilling(s: RoverSetup): DrillRow[] {
     ...kept.filter(r => r.id === 'C17' || !/gusset|lap bolt/i.test(r.purpose))
       .map(r => r.id === 'C17' ? { ...r, purpose: 'Brake clamp plate bolts, plate on the front face' } : r)
       // The caster now hangs from the top run of the bent nose hoops.
-      .map(r => r.id === 'C16' ? { ...r, id: 'C28', member: 'Nose hoop, top run' } : r)
+      .map(r => r.id === 'C16' ? { ...r, id: 'C28', member: 'Nose hoop, top run', purpose: `${r.purpose}. The tube is round: hold it in a V-block and drill on its top centerline` } : r)
       .filter(r => cutIds.has(r.id)),
   ]
 }
-/** Every bent tube as a shop reads it: the straight length to cut, then each straight run and bend in order from one end. Empty for the bolted build. */
+/** Every bent tube: the length to order, each straight run and bend in order from one end, and the corner points a bending service's order form asks for. Empty for the bolted build. */
 export function roverBendCsv(s: RoverSetup): string {
   const d = roverDimensions(s)
-  return csv([['Tube ID', 'Name', 'Quantity', 'Stock', 'Straight length before bending mm', 'Centerline bend radius mm', 'Runs in order from one end: straight mm, then bend degrees', 'Shape'], ...d.bent.map(part => [part.id, part.name, part.qty, WALL[part.wall], part.path.developed, part.path.radius, part.path.runs.map(run => 'angle' in run ? `bend ${run.angle.toFixed(1)}` : `straight ${run.straight}`).join(' / '), `${part.shape}. All bends in one plane`])])
+  const inches = (n: number) => (n / 25.4).toFixed(3)
+  return csv([['Tube ID', 'Name', 'Quantity', 'Stock', 'Ordered length mm', 'Centerline bend radius mm', 'Runs in order from one end, as finished: straight mm, then bend degrees', 'Centerline points for a bent tube order form, inches, X Y with Z zero', 'After bending', 'Shape'], ...d.bent.map(part => [part.id, part.name, part.qty, WALL[part.wall], part.length, part.path.radius, part.path.runs.map(run => 'angle' in run ? `bend ${run.angle.toFixed(1)}` : `straight ${run.straight}`).join(' / '), part.order.map(([x, y]) => `${inches(x)} ${inches(y)}`).join(' / '), part.trim ? `Saw the last end ${d.pillarAngle.toFixed(1)} degrees off square. The ordered length and the last point include ${part.trim} mm for that cut` : 'Nothing to cut', `${part.shape}. All bends in one plane`])])
 }
 /** Every welded joint with its count. Empty for the bolted build. */
 export function roverWeldCsv(s: RoverSetup): string {
@@ -713,32 +715,34 @@ So there are only three things to obtain: straight tube cut to length, flat plat
 The plates are cut by a laser-cutting service from the DXF files in the kit. You do not make those by hand.
 
 `
+  const bentCost = roverCostLines(s).find(l => l.id === 'bending'); const weldCost = roverCostLines(s).find(l => l.id === 'welding')
   const weldedShape = d.welded ? `## 1. How the aluminum frame gets its shape
 
-The frame is bent and welded by a fabrication shop and arrives as one rigid piece: ${d.cuts.reduce((n, x) => n + x.qty, 0)} tubes, ${c.bends} bends and ${c.weldJoints} welds, with no plates holding it together. The base is a flat ladder: two long side rails with ${d.stations.length} cross members between them. Each cabin side is one hoop bent from a single tube. It runs up the rear, forward along the roof, which falls ${s.taper} from rear to front, and down the front pillar, which leans back ${s.rake} to give the raked nose. An axle post stands under each hoop. The handle is one bent bar${d.swivel ? ' and the caster hangs from two bent hoops across the nose' : ''}. See base-plan.svg for the view from above and drawing.svg for the side.
+The frame is welded by a fabrication shop and arrives as one rigid piece: ${d.cuts.reduce((n, x) => n + x.qty, 0)} tubes, ${c.bends} bends and ${c.weldJoints} welds, with no plates holding it together. The base is a flat ladder of square tube: two long side rails with ${d.stations.length} cross members between them. Each cabin side is one hoop bent from a single round tube. It runs up the rear, forward along the roof, which falls ${s.taper} from rear to front, and down the front pillar, which leans back ${s.rake} to give the raked nose. A square axle post stands under each hoop. The handle is one bent round bar${d.swivel ? ' and the caster hangs from two bent round hoops across the nose' : ''}. See base-plan.svg for the view from above and drawing.svg for the side.
 
-Every bend uses one centerline radius, ${h.bendRadius} mm (4.5 inch), and each bent tube bends in a single plane. bend-schedule.csv gives the straight length to cut and each run and bend in order. The straight tubes are cut square, except the two axle posts, which have an angled top.
+The ${d.bent.reduce((n, x) => n + x.qty, 0)} bent tubes are round, 1 inch across with a 1/8 inch wall, so that a mail-order service can cut and bend them. No mail-order service was found that bends square tube. Every bend uses that service's one centerline radius, ${h.bendRadius} mm (3 inch), and each bent tube bends in a single plane. bend-schedule.csv gives each tube as the points to type into the order form, and as straight runs and bend angles for checking what arrives. The straight tubes stay square. They are cut square, except the two axle posts, which have an angled top.
 
 What is left for you once the frame arrives: bolt on the suspension and wheels${d.swivel ? ', the caster' : ''}, the brake clamps, the floor, the ramp and the cover.
 
-Welding thin aluminum tube is TIG work and not a first welding project. Unless you already weld aluminum, a shop does it. There are two ways to use one:
+Welding aluminum tube is TIG work and not a first welding project. Unless you already weld aluminum, a shop does it. There are two ways to get the frame made:
 
-1. **The shop does everything.** Send them cut-list.csv, bend-schedule.csv, weld-schedule.csv, drilling.csv, base-plan.svg and drawing.svg, and ask for a price to supply the tube, cut it, bend it, weld it and drill it. Search for "aluminum TIG welding" or "custom metal fabrication" near you, or ask at the counter of a metal supplier who they send people to. A bicycle frame builder, a marine or race-car fabricator, a community college welding program or a makerspace with a TIG welder are all worth a call for a single frame. Ask three.
-2. **You cut the straight tubes, the shop bends and welds.** Buy the bars, cut and label the straight pieces as in section 6, and bring them with the uncut stock for the bent tubes and the same drawings. That saves a little saw time. With bends involved, most shops will prefer to do all of it.
+1. **You order the bent tubes, a shop welds.** Order the bent tubes yourself as in section 3. Take them to the shop with the bars for the straight tubes, or with the straight tubes already cut as in section 6, and with cut-list.csv, weld-schedule.csv, drilling.csv, base-plan.svg and drawing.svg. The shop then needs a saw, a tube notcher and a TIG welder, and no bender. Search for "aluminum TIG welding" or "custom metal fabrication" near you, or ask at the counter of a metal supplier who they send people to. A bicycle frame builder, a marine or race-car fabricator, a community college welding program or a makerspace with a TIG welder are all worth a call for a single frame. Ask three.
+2. **The shop does everything.** Send them the same files with bend-schedule.csv, and ask for a price to supply the tube, cut it, bend it, weld it and drill it. A shop with its own bender may prefer its own radius. That is fine: the bent lengths are redrawn to suit.
 
-The cost study puts the shop work on one frame at about ${money(roverCostLines(s).filter(l => l.id === 'welding' || l.id === 'bending').reduce((n, l) => n + l.one, 0))}: ${money(roverCostLines(s).find(l => l.id === 'welding')!.one)} of welding and ${money(roverCostLines(s).find(l => l.id === 'bending')?.one ?? 0)} of bending. That is arithmetic on assumed shop rates, and no shop has seen the drawings.
+The cost study puts one frame's bent tubes at about ${money(bentCost?.one ?? 0)}, ${bentCost?.evidence.startsWith('Quoted') ? 'from the mail-order quote' : 'scaled from the mail-order quote for the starting size'}, and its welding at about ${money(weldCost!.one)}. The welding figure is arithmetic on an assumed shop rate, and no shop has seen the drawings.
 
 What to tell the shop:
 
-- Material. Chassis pieces are 1 x 1 x 1/8 inch 6061-T6. Cabin pieces are 1 x 1 x 1/16 inch 6063-T52. The cut list says which is which. The 1/16 wall is thin to weld; if they ask for 1/8 wall throughout, that works and adds about ${(d.lightM * 0.354).toFixed(1)} kg.
+- Material. Chassis pieces are 1 x 1 x 1/8 inch 6061-T6 square tube. The roof cross tubes, the floor cross members between the ends and the ramp ribs are 1 x 1 x 1/16 inch 6063-T52 square tube. The bent tubes are 1 inch OD x 1/8 inch wall 6063-T52 round tube. The cut list says which is which. The 1/16 wall is thin to weld; if they ask for 1/8 wall throughout, that works and adds about ${(d.lightM * 0.354).toFixed(1)} kg.
 - Filler is their choice, normally 4043 or 5356. If the frame will be anodized, say so first, because the filler decides whether the welds show dark afterwards.
-- Bends. Every bend is drawn at ${h.bendRadius} mm (4.5 inch) centerline radius, the tightest radius with a published clean result for 1 inch square aluminum tube with a 1/8 inch wall. If their tooling for 1 inch square tube uses another radius, that is fine: the bent lengths are redrawn to suit. Two questions for them. Can they bend the 1/8 inch wall 6061-T6 nose hoops without cracking, or what temper would they use instead? And can they bend the side hoops and handle bar in the 1/16 inch wall 6063-T52 as drawn? A thin wall can wrinkle or flatten on the inside of a bend; if they want the 1/8 inch wall for those three tubes, that adds about 3 kg and is an acceptable change.
+- Round tube on square tube. The feet of the hoops stand on the top face of the base rails. The rear foot of a side hoop is square. Its front foot is sawn ${d.pillarAngle.toFixed(1)} degrees off square so the pillar leans back, and the tube is ordered ${d.bent[0]!.trim} mm long at that end for the cut. The three roof cross tubes and the two axle post tops end on a round hoop, so each is notched (coped) to the 1 inch round with a tube notcher or a hole saw. They are cut long enough to reach the centerline of the hoop.
+- Handle. The arms of the handle bar cross the outside of the hoops' rear legs and of the axle posts, and are welded where they touch. Round on round is a small weld. Ask whether they would add a through bolt or a small gusset there.
 - Tolerances that matter: base diagonals equal within 2 mm, the frame flat on a flat table, and the two axle posts square to the base and directly opposite each other. The wheels hang from those posts.
 - Tack the whole frame, check it, then weld in short runs on alternating sides so the heat does not pull it out of square.
 - A tube that ends up closed at both ends needs a small vent hole before the last weld. Ask them to put vents on the underside.
 - Do not grind the welds flush.
 
-Welding softens the aluminum beside each weld. Nothing in this design has been calculated or tested, welded or bolted, so nothing here allows for that loss. That is one reason the release gates at the end ask for an engineer before any load.
+Welding softens the aluminum beside each weld, and 6063-T52 is a softer alloy than the 6061-T6 of the chassis to begin with. Nothing in this design has been calculated or tested, welded or bolted, so nothing here allows for either. That is one reason the release gates at the end ask for an engineer before any load.
 
 ` : ''
   const axleStep = `Slide each rear axle through its sleeve from inside. From the inside out the order is cotter, washer, ${d.sprung ? 'swing arm' : 'inner hanger, post, outer hanger'}, spacer, wheel, washer, cotter. The stack between washer faces should be ${d.rearStack} with about 0.5 of end float. Spin the wheel. It must not rub the ${d.sprung ? 'arm' : 'hanger'}.`
@@ -805,11 +809,11 @@ ${stepList(boltedCabin)}
   const hoopFront = mm(d.frontX + t / 2 - d.rearX + t)
   const weldSteps = [
     `Base ladder, flat on the welding table. Two C01 rails parallel, ${mm(2 * d.postY)} apart center to center, rear ends level. A C02 end cross member between them at the rear end and one with its center ${mm(d.stations.at(-1)! - d.rearX + t)} from the rear end. The ${d.intermediates} C14 cross members with their centers at ${d.stations.slice(1, -1).map(x => mm(x - d.rearX + t)).join(', ')} from the rear end. Tack every joint, measure both diagonals, and correct until they match within 2 mm. Then weld all round. W01.`,
-    `Axle posts. Each C03 axle post stands on a rail with its center ${mm(t + s.axle)} from the rear end, angled end up, long side to the rear. Tack, then check the two posts are square to the base and directly opposite each other before welding. W06.`,
-    `Side hoops. Stand a C26 side hoop on each rail: its rear foot on the rear end of the rail, its front foot with its center ${hoopFront} from the rear end, its roof run resting on the axle post. The roof falls ${s.taper} from rear to front and the front pillar leans back ${s.rake}. Tack, check that both hoops lean the same, then weld. W02, W04 and W07.`,
-    `Roof. Fit the three C11 cross tubes between the roof runs of the two hoops, their centers ${d.topCross.map(x => mm(x - d.rearX + t)).join(', ')} from the rear end of the rail, measured level. They sit on the straight part of the roof run, clear of the bends. W08.`,
+    `Axle posts. Each C03 axle post stands on a rail with its center ${mm(t + s.axle)} from the rear end, angled end up, long side to the rear. Its top is notched to take the round roof run of the hoop. Tack, then check the two posts are square to the base and directly opposite each other before welding. W06.`,
+    `Side hoops. Stand a C26 side hoop on each rail: its rear foot on the rear end of the rail, its front foot with its center ${hoopFront} from the rear end, its roof run seated in the notched top of the axle post. The roof falls ${s.taper} from rear to front and the front pillar leans back ${s.rake}. Tack, check that both hoops lean the same, then weld. W02, W04 and W07.`,
+    `Roof. Notch both ends of the three C11 cross tubes to the round hoop and fit them between the roof runs of the two hoops, their centers ${d.topCross.map(x => mm(x - d.rearX + t)).join(', ')} from the rear end of the rail, measured level. They sit on the straight part of the roof run, clear of the bends. W08.`,
     d.swivel ? `Nose. Stand the two C28 nose hoops across the rail extensions, a foot on each rail, with their centers ${mm(d.casterX - h.casterAlong / 2 - d.rearX + t)} and ${mm(d.casterX + h.casterAlong / 2 - d.rearX + t)} from the rear end. Their top runs must be level with each other, ${mm(d.noseBeamZ - t / 2 - d.railZ + t / 2)} above the underside of the base rail to their underside, because the caster bolts up under both. W09.` : `Fork. Butt the two C04 fork arms against the front cross member, ${d.forkY} each side of center. Stand a C05 stub post on each arm, centered ${mm(d.wheelbase - d.frontX - t)} from the cabin end of the arm. W09 and W10.`,
-    `Handle. Lay the C27 handle bar against the outside faces of the rear posts and the axle posts, its centerline ${mm(s.handle - d.railZ + t / 2)} above the underside of the base rail, the ends of its two arms 40 past the axle posts. W12.`,
+    `Handle. Lay the C27 handle bar against the outside of the hoops' rear legs and of the axle posts, its centerline ${mm(s.handle - d.railZ + t / 2)} above the underside of the base rail, the ends of its two arms 40 past the axle posts. Weld round each place it touches. W12.`,
     `Brake arms. Butt a C17 arm against the outside face of each axle post, its centerline ${mm(d.brakeZ - d.railZ - t / 2)} up the post from the post's foot, pointing outward over the tire. W11.`,
     `Ramp legs. Weld the two C08 stand legs square to the hinge-end C07 rib, 60 in from each end of the rib. This is a separate small piece. W14.`,
   ]
@@ -867,8 +871,9 @@ Order the wheel and caster first, because two dimensions in the design come from
 | A | Rear wheel | ${s.wheel === 'trail' ? '[Zoro Select 1NWV4](https://www.zoro.com/zoro-select-pneumatic-wheel-15-316dia-435lb-400-8-1nwv4/i/G1932594/), $32.89 each' : s.wheel === 'path' ? '[Harbor Freight 67467](https://www.harborfreight.com/13-inch-x-4-inch-pneumatic-tire-67467.html), $14.99 each' : 'Not selected. No suitable 20 inch wheel has been found'} | ${c.wheels} | When they arrive, measure the hub from bearing face to bearing face. If it is not ${s.hub}, enter the real number in the studio and download the kit again before cutting axles |
 ${d.swivel ? `| A | Front caster | [Service Caster SCC-100S3504-PNB-BSL](https://www.zoro.com/service-caster-10-inch-black-pneumatic-wheel-swivel-caster-with-bolt-swivel-lock-scc-100s3504-pnb-bsl/i/G705434817/), $64.69: 10 inch pneumatic, swivel lock, 350 lb and a 12-3/16 inch mounting height stated | 1 | Measure from the floor to the top of the mounting plate. This guide assumes ${s.caster}. If yours differs, enter it in the studio: it sets the nose post length. A [Harbor Freight 63799](https://www.harborfreight.com/10-in-pneumatic-swivel-caster-63799.html) at $19.99 also fits, with no swivel lock and no stated height |\n` : ''}| A | Parking brake | [POWERTEC 302F push-pull toggle clamp](https://www.zoro.com/powertec-toggle-clamp-300lbs-cap-302f-quick-release-pushpull-clamp-20304n/i/G714915420/), $10.70 each, and a [DE-STA-CO 507208 neoprene-tipped spindle, 5/16-18](https://www.zoro.com/de-sta-co-flat-tip-spindle-516-18-083-3-507208/i/G0295985/), $4.15 each | 2 clamps, 2 spindles | The spindle replaces the plain bolt that comes in the clamp plunger. Eight #10 screws and lock nuts hold the clamps to their plates |
 | B | ${d.welded ? 'Hangers and brake plates' : 'Gussets and hangers'} | A laser-cutting service. [OSH Cut](https://app.oshcut.com/cart) shows a price as soon as you drop the files in, with no account. [SendCutSend](https://sendcutsend.com) lists both materials, has no minimum quantity and ships laser parts in 1 to 3 days, and asks you to sign up first | ${d.welded ? '2 x brake_plate.dxf' : `${c.corner} x corner_gusset.dxf, ${d.angles.map(a => `${a.qty} x ${a.file}.dxf`).join(', ')}, ${c.tee} x tee_gusset.dxf, 2 x brake_plate.dxf`}${d.sprung ? `, ${c.shockPlates} x shock_plate.dxf, ${c.shockHangers} x shock_hanger.dxf` : ''}, all in 0.125 inch 6061-T6 aluminum.${d.welded ? '' : ' The roof and pillar gusset files are cut for this setup only.'}${c.hanger ? '' : ' No hangers are needed with the sprung rear and the swivel caster.'} ${c.hanger ? `${c.hanger} x ${d.wheel.hanger}.dxf in 0.125 inch 304 stainless` : ''} | Upload each of those DXF files from the metal folder, pick material and thickness, enter quantities. Add their deburring service or file the edges yourself |
-| C | Chassis tube, 1 x 1 x 1/8 inch 6061-T6 | A local metal supplier, or [Metals Depot T3118-6061](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 24 ft at $116.16 | ${heavyHome.bars} bars of 24 ft, each cut in half | Ask the supplier to cut each bar in half so it fits a car: ${heavyBars.length} pieces of 12 ft. The price is one online supplier's for a bar that ships by truck; a local counter price was not checked. ${d.welded ? 'Most shops will supply the tube themselves, so ask before buying any. The bent tubes are too long for 8 ft parcel bars' : `As 8 ft bars by parcel the same tube is $58.08 a bar and the two tubes come to ${money(parcelCost)}, ${money(parcelCost - barCost)} more`} |
-| C | Cabin tube, 1 x 1 x 1/16 inch 6063-T52 | The same supplier, or [Metals Depot T31116](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 21 ft at $65.73 | ${lightHome.bars} bars of 21 ft, each cut in half | ${lightBars.length} pieces of 10 ft 6 in. Do not swap this softer tube into the chassis positions |${tubes.length ? `
+| C | Chassis tube, 1 x 1 x 1/8 inch 6061-T6 | A local metal supplier, or [Metals Depot T3118-6061](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 24 ft at $116.16 | ${heavyHome.bars} bars of 24 ft, each cut in half | Ask the supplier to cut each bar in half so it fits a car: ${heavyBars.length} pieces of 12 ft. The price is one online supplier's for a bar that ships by truck; a local counter price was not checked. ${d.welded ? 'Most shops will supply the tube themselves, so ask before buying any' : `As 8 ft bars by parcel the same tube is $58.08 a bar and the two tubes come to ${money(parcelCost)}, ${money(parcelCost - barCost)} more`} |
+| C | Cabin tube, 1 x 1 x 1/16 inch 6063-T52 | The same supplier, or [Metals Depot T31116](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube), 21 ft at $65.73 | ${lightHome.bars} bars of 21 ft, each cut in half | ${lightBars.length} pieces of 10 ft 6 in. Do not swap this softer tube into the chassis positions |${d.welded && d.bent.length ? `
+| C | Bent tubes, 1 inch round 6063-T52 with a 1/8 inch wall | [OSH Cut](${roverBendQuote.url}), which cuts and bends them. No file is needed | ${d.bent.map(x => `${x.qty} x ${x.id} ${x.name.toLowerCase()}`).join(', ')} | Choose Add parts, then Create Bent Tube. Pick the 1 inch OD x 0.125 inch wall round tube in 6063 T52 aluminum, and type the tube's points from bend-schedule.csv, one row a point. The bend radius is the one offered, 3 inch. Wait for the design check to pass, name the part, go back to the cart and set the quantity. ${bentCost?.evidence.startsWith('Quoted') ? `Quoted at ${money(bentCost.one - c.plugs * roverBendQuote.plug)} for the set on ${roverBendQuote.checked}, before shipping and tax, every part past the design check` : 'This size has not been entered there, so it has no quote of its own'}. Signing in and ordering are yours |` : ''}${tubes.length ? `
 | C | Or: tubes laser drilled, as sticks | [${roverTubeService.name}](${roverTubeService.url}) tube laser, from the files in the tubes folder | ${sticks.length} files, quantity in each file name | Replaces both tube rows above and nearly all of section 7. ${startingSize ? `Quoted at ${money(roverTubeQuote.sticks.standard)} on ${roverTubeQuote.checked}, before shipping and tax` : `The starting size was quoted at ${money(roverTubeQuote.sticks.standard)}; this size has not been uploaded`} |` : ''}
 | D | Bolts, nuts, washers | [Bolt Depot](https://boltdepot.com/Product-Details?product=328): 1/4-20 x 2 inch grade 5 zinc hex bolt 328, lock nut 2624, SAE washer 2976 | ${boxes} box${boxes === 1 ? '' : 'es'} of 100 bolts, ${boxes} of nuts, ${Math.ceil(2 * fasteners / 100)} of washers | You need ${c.bolts} bolts${c.handleBolts ? `, plus ${c.handleBolts} at 3 inch long for the handle` : ''}${d.swivel ? ` and ${c.casterBolts} at 5/16-18 x 2-1/2 inch for the caster` : ''} |
 | D | Sleeve tube | [Online Metals DOM steel tube, 3/8 inch OD x .049 wall](https://www.onlinemetals.com/en/buy/carbon-steel/0-375-od-x-0-049-wall-x-0-28-id-carbon-steel-round-tube-a513-type-5-dom/pid/7754), $11.66 per 6 ft | ${Math.ceil(c.sleeves * 26.9 / 1828.8)} lengths of 6 ft | Cut into ${c.sleeves} sleeves, each ${t} long |
@@ -899,8 +904,8 @@ Print in this order, because the first pieces are tools for the rest.
 
 1. coupon.stl. Measure its holes with calipers. If the 6.75 hole is off by more than 0.2, adjust your slicer before printing anything else.
 2. guide_butt.stl, guide_run.stl and guide_tee.stl. These are the drill guides.
-3. One cap_heavy.stl and one cap_light.stl. Try them in an offcut of each tube.
-4. The rest: ${roverParts.filter(p => p.kind === 'print').map(p => `${q[p.id]} x ${roverPartFile(p.id)}`).join(', ')}.
+3. ${q.cap_light ? 'One cap_heavy.stl and one cap_light.stl. Try them in an offcut of each tube.' : 'One cap_heavy.stl. Try it in an offcut of the chassis tube.'}
+4. The rest: ${roverParts.filter(p => p.kind === 'print' && q[p.id]! > 0).map(p => `${q[p.id]} x ${roverPartFile(p.id)}`).join(', ')}.
 
 Files named FIT_CHECK_ONLY are plastic copies of the metal plates. Print one of each to rehearse a joint. They never go in the carrier.
 
@@ -928,12 +933,13 @@ Angled ends. Lengths are along the middle of the tube, so mark the middle of eac
 
 | Piece | End | Cut |
 | --- | --- | --- |
-${d.welded ? `| C03 axle post | Top | ${d.roofAngle.toFixed(1)} degrees off square, high side to the rear, so the sloping roof run sits flat on it |
-| C26 side hoop | Front foot | ${d.pillarAngle.toFixed(1)} degrees off square, so the pillar leans back. The rear foot is square |` : `| C03 axle post, C09 rear post | Top | ${d.roofAngle.toFixed(1)} degrees off square, high side to the rear, so the sloping top rail sits flat on it |
+${d.welded ? `| C03 axle post | Top | ${d.roofAngle.toFixed(1)} degrees off square, high side to the rear, then notched to the round roof run |
+| C11 top cross tube | Both ends | Notched to the round roof run. Cut to ${d.topCrossCut}, the distance between the hoop centerlines |
+| C26 side hoop | Front foot | ${d.pillarAngle.toFixed(1)} degrees off square, sawn after bending, so the pillar leans back. The rear foot is square |` : `| C03 axle post, C09 rear post | Top | ${d.roofAngle.toFixed(1)} degrees off square, high side to the rear, so the sloping top rail sits flat on it |
 | C21 front pillar | Foot | ${d.pillarAngle.toFixed(1)} degrees off square, so the pillar leans back |
 | C21 front pillar | Top | ${(d.pillarAngle + d.roofAngle).toFixed(1)} degrees off square, so it sits flat under the top rail |`}
 
-${d.welded ? `Cut these a little long and trim to fit against the tacked frame, or leave them to the shop.\n\nBent tubes. The cut length is the straight tube before bending. Each bends in one plane at ${h.bendRadius} centerline radius.\n\n| Tube | Qty | Cut | Runs in order from one end |\n| --- | ---: | ---: | --- |\n${d.bent.map(x => `| ${x.id} ${x.name} | ${x.qty} | ${x.path.developed} | ${x.path.runs.map(run => 'angle' in run ? `bend ${run.angle.toFixed(1)} degrees` : `straight ${run.straight}`).join(', ')} |`).join('\n')}` : 'Set the miter saw to each angle and cut a test piece from an offcut first. A degree either way is taken up by the plate; a gap you can see daylight through is not.'}
+${d.welded ? `Cut these a little long and trim to fit against the tacked frame, or leave them to the shop.\n\nBent tubes. These arrive cut and bent, so check each against its runs before taking it to the shop. Each bends in one plane at ${h.bendRadius} centerline radius.\n\n| Tube | Qty | Ordered length | Runs in order from one end |\n| --- | ---: | ---: | --- |\n${d.bent.map(x => `| ${x.id} ${x.name} | ${x.qty} | ${x.length} | ${x.path.runs.map(run => 'angle' in run ? `bend ${run.angle.toFixed(1)} degrees` : `straight ${run.straight}`).join(', ')} |`).join('\n')}` : 'Set the miter saw to each angle and cut a test piece from an offcut first. A degree either way is taken up by the plate; a gap you can see daylight through is not.'}
 ` : ''}
 Then cut ${c.sleeves} sleeves ${t} long from the 3/8 inch steel tube, ${axleSleeves} axle sleeves ${t} long and 2 wheel spacers ${d.spacer} long from the 3/4 inch tube, and the axles: 2 at ${d.rearShaft}${d.swivel ? '' : ` and 1 at ${d.frontShaft}`}. Square and deburr every one. The linked 3/4 inch x .065 wall tube is 0.620 inch inside, a hair under the 5/8 inch axle: ream it to 5/8 or buy .058 wall instead. A sleeve that is short lets the tube crush; one that is long keeps the plate from seating.
 
@@ -990,7 +996,7 @@ ${d.seats ? `## Two-seat concept
 
 ` : ''}## 14. Cover
 
-Cut the ${cover.pieces.reduce((n, p) => n + p.qty, 0)} blanks in cover-cut-schedule.csv. Sew and seal as described in materials.md. Hang the cover with the printed rail clips and the hook-and-loop tabs.
+Cut the ${cover.pieces.reduce((n, p) => n + p.qty, 0)} blanks in cover-cut-schedule.csv. Sew and seal as described in materials.md. Hang the cover with the printed rail clips and the hook-and-loop tabs.${d.welded ? ' The clips are drawn for 1 inch square tube and have not been tried on the round hoops. Print one and try it first; a hook-and-loop strap round the tube is the fallback.' : ''}
 
 ${d.ski ? `## Snow conversion
 
@@ -1192,7 +1198,7 @@ export function roverDocuments(s: RoverSetup): Record<string, string> {
   const d = roverDimensions(s)
   return {
     'assembly.md': roverAssembly(s), 'bom.csv': roverBom(s), 'materials.md': roverMaterialsMarkdown(s), 'cover-cut-schedule.csv': roverCoverCsv(s), 'cover-panels.svg': roverCoverSvg(s), 'drawing.svg': roverDrawing(s),
-    'cut-list.csv': csv([['ID', 'Quantity', 'Member', 'Stock', 'Cut mm'], ...d.cuts.map(c => [c.id, c.qty, c.name, WALL[c.wall as 'heavy' | 'light'], c.length])]),
+    'cut-list.csv': csv([['ID', 'Quantity', 'Member', 'Stock', 'Cut mm'], ...d.cuts.map(c => [c.id, c.qty, c.name, WALL[c.wall as keyof typeof WALL], c.length])]),
     'cost-notes.md': roverCostMarkdown(s), 'buy-list.md': roverBuyList(s), 'build-guide.md': roverBuildGuide(s), 'drilling.csv': roverDrillingCsv(s), ...(d.welded ? { 'weld-schedule.csv': roverWeldCsv(s), 'bend-schedule.csv': roverBendCsv(s) } : { ...Object.fromEntries(d.angles.map(a => [`metal/${a.file}.dxf`, angleGussetDxf(a.angle, a.shift)])), 'tube-order.csv': roverTubeOrderCsv(s), ...Object.fromEntries(roverSticks(s).map(t => [t.file, stepFile(t.file.slice(t.file.lastIndexOf('/') + 1, -5), tubeBrep(t.spec))])) }), 'base-plan.svg': roverBasePlan(s), 'cost-model.json': JSON.stringify(roverCostModel(s), null, 2) + '\n',
     'setup.json': JSON.stringify({ revision: 'r0', product: 'Buddy Rover', ...s, dimensions: { ...d, rampAngleRad: undefined }, status: 'BENCH_ONLY_NOT_ANIMAL_USE', ownerReportedWeightLb: 140, fitted: false, loadRated: false }, null, 2) + '\n',
   }

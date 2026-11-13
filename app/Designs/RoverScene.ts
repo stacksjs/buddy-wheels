@@ -43,21 +43,23 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
     for (const [leg, dir] of [['a', a], ['b', b]] as const) slab(`angle-${id}-${leg}`, [115, 40, h.plate], add3(add3(datum, scale(out, t / 2 + h.plate / 2)), scale(dir, 37.5)), dir, crossV(out, dir), frame)
   }
   /**
-   * One tube bent along a polyline with the build's bend radius at every inner corner. Each bend is drawn as short straight pieces
-   * whose lengths add up to the true arc, so the scene's tube total still equals the developed lengths in the cut list.
+   * One round tube bent along a polyline with the build's bend radius at every inner corner. Each bend is drawn as short straight pieces
+   * whose lengths add up to the true arc, so the scene's bent total still equals the developed lengths in the bend schedule.
    */
-  const bentTube = (id: string, heavy: boolean, points: V[], steps = 8) => {
+  const bentTube = (id: string, points: V[], steps = 8) => {
+    // A cylinder node is placed by its middle, a square tube node by its start.
+    const tube = (piece: string, length: number, start: V, dir: V) => rod(piece, h.roundOd / 2, length, add3(start, scale(dir, length / 2)), dir, cabin, h.roundOd / 2 - h.roundWall)
     const R = h.bendRadius; const sub3 = (a: V, b: V): V => [a[0] - b[0], a[1] - b[1], a[2] - b[2]]; const norm = (a: V): V => scale(a, 1 / Math.hypot(a[0], a[1], a[2]))
     let from = points[0]!
     for (let i = 0; i + 1 < points.length; i++) {
       const b = points[i + 1]!; const d1 = norm(sub3(b, points[i]!))
-      if (i + 2 >= points.length) { tube(`${id}-run-${i}`, heavy, Math.hypot(...sub3(b, from)), from, d1); break }
+      if (i + 2 >= points.length) { tube(`${id}-run-${i}`, Math.hypot(...sub3(b, from)), from, d1); break }
       const d2 = norm(sub3(points[i + 2]!, b)); const angle = Math.acos(Math.max(-1, Math.min(1, dot(d1, d2)))); const tangent = R * Math.tan(angle / 2)
-      const start = add3(b, scale(d1, -tangent)); tube(`${id}-run-${i}`, heavy, Math.hypot(...sub3(start, from)), from, d1)
+      const start = add3(b, scale(d1, -tangent)); tube(`${id}-run-${i}`, Math.hypot(...sub3(start, from)), from, d1)
       // The bend turns from d1 toward d2 about a center one radius to the inside of the corner.
       const inward = norm(sub3(d2, scale(d1, dot(d1, d2)))); const center = add3(start, scale(inward, R))
       const on = (phi: number): V => add3(center, add3(scale(inward, -R * Math.cos(phi)), scale(d1, R * Math.sin(phi))))
-      for (let k = 0; k < steps; k++) { const p = on(angle * k / steps); const q = on(angle * (k + 1) / steps); tube(`${id}-bend-${i}-${k}`, heavy, R * angle / steps, p, norm(sub3(q, p))) }
+      for (let k = 0; k < steps; k++) { const p = on(angle * k / steps); const q = on(angle * (k + 1) / steps); tube(`${id}-bend-${i}-${k}`, R * angle / steps, p, norm(sub3(q, p))) }
       from = add3(b, scale(d2, tangent))
     }
   }
@@ -109,12 +111,12 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
     for (const end of [-1, 1] as const) {
       cap(`base-cap-${side}-${end}`, true, [end < 0 ? railStart : railStart + d.rail, y, d.railZ], [end, 0, 0]); if (!d.welded) cap(`top-cap-${side}-${end}`, false, end < 0 ? [railStart, y, d.topZ] : [railStart + d.topRail, y, d.topZ - s.taper], scale(roofDir, end))
     }
-    tube(`axle-post-${side}`, true, d.axlePost, [0, y, d.railZ + t / 2], [0, 0, 1])
+    tube(`axle-post-${side}`, true, d.axlePostCut, [0, y, d.railZ + t / 2], [0, 0, 1])
     const pillarDir: V = d.pillarDir; const rearPostX = d.rearX - t / 2; const frontCornerX = d.frontX + t / 2
     // Rear post, square at the foot. Front pillar from the base front corner, leaning back by the rake.
     // Welded: rear post, roof run and front pillar are one hoop bent from a single tube. Bolted: three straight tubes.
     const hoop = d.bent.find(part => part.id === 'C26')
-    if (hoop) bentTube(`side-hoop-${side}`, false, hoop.path.points.map(([x, z]): V => [x, y, z]))
+    if (hoop) bentTube(`side-hoop-${side}`, hoop.path.points.map(([x, z]): V => [x, y, z]))
     else { tube(`corner-post-rear-${side}`, false, d.post, [rearPostX, y, d.railZ + t / 2], [0, 0, 1]); tube(`front-pillar-${side}`, false, d.pillar, [frontCornerX, y, d.railZ + t / 2], pillarDir) }
     // These uprights carry the cover, not the dog: one plate on the outside face only. Plates at the sloped roof and the pillar are cut to angle.
     gusset(`base-corner-rear-${side}`, 'corner_gusset', [rearPostX, y, d.railZ], [0, side, 0], [0, 0, 1], [1, 0, 0])
@@ -199,12 +201,14 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
     }
     const armY = side * (outer + t / 2)
     if (!d.welded) tube(`handle-arm-${side}`, false, d.handleArm, [d.gripX, armY, d.armZ], [1, 0, 0])
-    cap(`handle-cap-${side}`, false, [d.gripX + d.handleArm, armY, d.armZ], [1, 0, 0])
+    // Welded: the round handle bar ends in a bought plug. Bolted: a printed cap on the square arm.
+    if (d.welded) rod(`handle-plug-${side}`, h.roundOd / 2, 3, [d.gripX + d.handleArm + 1.5, armY, d.armZ], [1, 0, 0], accent)
+    else cap(`handle-cap-${side}`, false, [d.gripX + d.handleArm, armY, d.armZ], [1, 0, 0])
     if (!d.welded) cap(`grip-cap-${side}`, false, [d.gripX + t / 2, side * d.grip / 2, s.handle], [0, side, 0])
   }
   d.stations.forEach((x, i) => tube(`base-cross-${i}`, i === 0 || i === d.stations.length - 1, s.width, [x, -s.width / 2, d.railZ], across))
   for (const [i, x] of d.topCross.entries()) {
-    tube(`top-cross-${i}`, false, s.width, [x, -s.width / 2, zTop(x)], across)
+    tube(`top-cross-${i}`, false, d.topCrossCut, [x, -d.topCrossCut / 2, zTop(x)], across)
     add(`ridge-saddle-${i}`, stl('ridge_saddle'), accent, place([1, 0, 0], [0, 1, 0], [x, 0, zTop(x) + t / 2 - 26]))
   }
   const topMid = d.rearX - t + d.topRail / 2
@@ -222,7 +226,7 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
   // The grip tube lies across the tops of the arm ends.
   // Welded: the handle is one flat U, two arms and the grip. Bolted: the grip tube lies across the tops of the arm ends.
   const handleBar = d.bent.find(part => part.id === 'C27')
-  if (handleBar) bentTube('handle-bar', false, handleBar.path.points.map(([x, py]): V => [x, py, s.handle]))
+  if (handleBar) bentTube('handle-bar', handleBar.path.points.map(([x, py]): V => [x, py, s.handle]))
   else tube('handle-grip', false, d.grip, [d.gripX + t / 2, -d.grip / 2, s.handle], across)
   rod('handle-foam', 17, d.welded ? s.width + 3 * t - 2 * h.bendRadius - 20 : s.width - 60, [d.gripX + t / 2, 0, s.handle], across, '#29322d', 12.9)
   slab('floor-panel', [d.floorLen, s.width + 2 * t, h.panel], [(d.rearX + d.frontX) / 2, 0, d.deck - h.panel / 2], [1, 0, 0], across, wood)
@@ -232,7 +236,7 @@ export function roverScene(s: RoverSetup, view: RoverView = {}): ModelScene {
       const bx = d.casterX + end * h.casterAlong / 2
       // Welded: each beam and its two posts are one upside-down U bent from a single tube.
       const noseHoop = d.bent.find(part => part.id === 'C28')
-      if (noseHoop) bentTube(`nose-hoop-${end}`, true, noseHoop.path.points.map(([py, pz]): V => [bx, py, pz]))
+      if (noseHoop) bentTube(`nose-hoop-${end}`, noseHoop.path.points.map(([py, pz]): V => [bx, py, pz]))
       else { tube(`caster-beam-${end}`, true, d.casterBeam, [bx, -outer, beamZ], across); for (const side of [-1, 1]) cap(`caster-beam-cap-${end}-${side}`, true, [bx, side * outer, beamZ], [0, side, 0]) }
     }
     if (rolling) slab('caster-plate', [115, 100, 6], [d.casterX, 0, s.caster - 3], [1, 0, 0], across, steel)

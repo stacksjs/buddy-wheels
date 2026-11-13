@@ -28,7 +28,7 @@ Coordinates: X forward, Y across, Z up. Origin on the ground under the rear axle
 | Ground clearance under the base gussets | 108.125 |
 | Rear wheel | 15 inch trail (4.00-8) |
 | Assumed wheel hub through-length | 101.6 |
-| Estimated empty mass, arithmetic only | 44.4 kg (98 lb) |
+| Estimated empty mass, arithmetic only | 45.9 kg (101 lb) |
 
 ## Stated geometry beside the reference trailer
 
@@ -41,14 +41,14 @@ Burley Bark Ranger XL figures are the maker's published numbers, read 2026-11-11
 | Interior height | 29.9 in | 39.4 in |
 | Interior volume ratio | 1.0 | 2.29 |
 | Entry | 9 in step-up at a tailgate | 8.0 degree ramp, no step |
-| Weight | 33 lb | about 98 lb estimated |
+| Weight | 33 lb | about 101 lb estimated |
 | Capacity | 100 lb stated by its maker | none. Untested bench design |
 
 Rover is much larger and much heavier. The mass is the price of a bolted frame and plywood panels and is the first thing a second revision should reduce.
 
 ## Planning statics, not test results
 
-With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 90 mm ahead of the rear axle and the front wheel carries about 10% of that mass. The swivel caster steers without lifting anything. Lifting the front to climb a curb takes roughly 107 N (24 lbf) down on the handle. A swivel caster can shimmy at a run, so lock the swivel with its bolt-on lock before running and steer by lifting the front as with a fixed wheel. A dog that stands at the tailgate moves the center behind the axle. The two tip-stop feet exist for that case and their setting and strength are unproven.
+With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 90 mm ahead of the rear axle and the front wheel carries about 10% of that mass. The swivel caster steers without lifting anything. Lifting the front to climb a curb takes roughly 108 N (24 lbf) down on the handle. A swivel caster can shimmy at a run, so lock the swivel with its bolt-on lock before running and steer by lifting the front as with a fixed wheel. A dog that stands at the tailgate moves the center behind the axle. The two tip-stop feet exist for that case and their setting and strength are unproven.
 
 ## Cut list
 
@@ -56,44 +56,44 @@ With a 72.6 kg (160 lb) planning mass centered in the cabin, its center sits 90 
 | --- | ---: | --- | --- | ---: |
 | C01 | 2 | Base side rail | 1/8 wall 6061-T6 | 1678.65 |
 | C02 | 2 | Base end cross member | 1/8 wall 6061-T6 | 700 |
-| C03 | 2 | Axle post | 1/8 wall 6061-T6 | 909.9122 |
+| C03 | 2 | Axle post | 1/8 wall 6061-T6 | 922.6122 |
 | C06 | 2 | Ramp side curb rail | 1/8 wall 6061-T6 | 1000 |
 | C07 | 2 | Ramp under rib | 1/16 wall 6063-T52 | 688 |
 | C08 | 2 | Ramp stand leg | 1/8 wall 6061-T6 | 107.3571 |
-| C11 | 3 | Top cross tube | 1/16 wall 6063-T52 | 700 |
+| C11 | 3 | Top cross tube | 1/16 wall 6063-T52 | 725.4 |
 | C14 | 3 | Base intermediate cross member | 1/16 wall 6063-T52 | 700 |
 | C17 | 2 | Brake arm | 1/8 wall 6061-T6 | 140 |
-| C26 | 2 | Side hoop | 1/16 wall 6063-T52 | 2848.9582 |
-| C27 | 1 | Handle bar | 1/16 wall 6063-T52 | 2663.484 |
-| C28 | 2 | Nose hoop | 1/8 wall 6061-T6 | 999.284 |
+| C26 | 2 | Side hoop | 1 inch round, 1/8 wall 6063-T52 | 2882.2637 |
+| C27 | 1 | Handle bar | 1 inch round, 1/8 wall 6063-T52 | 2696.1894 |
+| C28 | 2 | Nose hoop | 1 inch round, 1/8 wall 6063-T52 | 1031.9894 |
 | C22 | 2 | Swing arm | 1/8 wall 6061-T6 | 357.8103 |
 | C23 | 2 | Shock spacer tube | 1/8 wall 6061-T6 | 60 |
 
-Total 11.91 m of 1/8 inch wall 6061-T6 and 13.94 m of 1/16 inch wall 6063-T52. Base cross members sit at X = -572.7, -241.35, 95, 421.35, 752.7.
+Total 9.93 m of 1/8 inch wall 6061-T6 and 5.65 m of 1/16 inch wall 6063-T52 square tube, and 10.52 m of 1 inch round 6063-T52 in the bent tubes. Base cross members sit at X = -572.7, -241.35, 95, 421.35, 752.7.
 
 ## Joints
 
-The frame is bent and welded by a fabrication shop and arrives in one piece: 29 tubes, 10 bends and 36 welded joints, with no gussets. Each cabin side is one hoop bent from a single tube: up the rear, along the roof, which falls 180 from rear to front, 10.2 degrees, and down the front pillar, which leans back 22.7 degrees from upright. The handle is one bent bar and the caster hangs from two bent hoops across the nose.
+The frame is welded by a fabrication shop and arrives in one piece: 29 tubes, 10 bends and 36 welded joints, with no gussets. The base, posts and cross tubes are square tube. The bent tubes are round, 1 inch across with a 1/8 inch wall, so a mail-order service can cut and bend them. Each cabin side is one hoop bent from a single tube: up the rear, along the roof, which falls 180 from rear to front, 10.2 degrees, and down the front pillar, which leans back 22.7 degrees from upright. The handle is one bent bar and the caster hangs from two bent hoops across the nose.
 
-| Bent tube | Qty | Straight length before bending | Bends, all at 114.3 mm (4.5 inch) centerline radius | Shape |
+| Bent tube | Qty | Ordered length | Bends, all at 76.2 mm (3 inch) centerline radius | Shape |
 | --- | ---: | ---: | --- | --- |
-| C26 Side hoop | 2 | 2848.9582 | 100.2 degrees, 57.1 degrees | Rear post, roof run and front pillar in one. Both bends turn the same way |
-| C27 Handle bar | 1 | 2663.484 | 90.0 degrees, 90.0 degrees | A flat U: two arms and the grip between them |
-| C28 Nose hoop | 2 | 999.284 | 90.0 degrees, 90.0 degrees | An upside-down U across the carrier that carries the caster |
+| C26 Side hoop | 2 | 2882.2637 | 100.2 degrees, 57.1 degrees | Rear post, roof run and front pillar in one. Both bends turn the same way |
+| C27 Handle bar | 1 | 2696.1894 | 90.0 degrees, 90.0 degrees | A flat U: two arms and the grip between them |
+| C28 Nose hoop | 2 | 1031.9894 | 90.0 degrees, 90.0 degrees | An upside-down U across the carrier that carries the caster |
 
 The welds are listed in weld-schedule.csv and the bends in bend-schedule.csv.
 
 | Weld | Qty | Joint | How |
 | --- | ---: | --- | --- |
 | W01 | 10 | Base cross member to base side rail | Square tee, fillet all round |
-| W02 | 2 | Side hoop rear foot to base side rail | Square tee, fillet all round |
-| W04 | 2 | Side hoop front foot to base side rail | Tee, foot cut 22.7 degrees off square so the pillar leans back, fillet all round |
+| W02 | 2 | Side hoop rear foot to base side rail | Round tube cut square, standing on the top face of the rail, fillet all round |
+| W04 | 2 | Side hoop front foot to base side rail | Round tube standing on the top face of the rail, foot sawn 22.7 degrees off square so the pillar leans back, fillet all round |
 | W06 | 2 | Axle post to base side rail | Square tee, fillet all round |
-| W07 | 2 | Axle post to the roof run of the side hoop | Tee, post top cut 10.2 degrees off square, fillet all round |
-| W08 | 6 | Top cross tube to the roof run of the side hoop | Square tee, fillet all round |
-| W09 | 4 | Nose hoop foot to base side rail | Square tee, fillet all round |
+| W07 | 2 | Axle post to the roof run of the side hoop | Tee onto round tube: post top cut 10.2 degrees off square and notched (coped) to the 25.4 round tube, fillet all round |
+| W08 | 6 | Top cross tube to the roof run of the side hoop | Tee onto round tube: end notched (coped) to the 25.4 round tube, fillet all round |
+| W09 | 4 | Nose hoop foot to base side rail | Round tube cut square, standing on the top face of the rail, fillet all round |
 | W11 | 2 | Brake arm to axle post | Square tee, fillet all round |
-| W12 | 4 | Handle bar to rear post and to axle post | Lap, fillet both long edges |
+| W12 | 4 | Handle bar arm to the rear leg of the side hoop and to the axle post | Crossing lap: the round arm lies against the outside of the hoop leg (round on round) and of the axle post (round on flat). Fillet round each contact. A small weld; the shop may add a through bolt |
 | W14 | 2 | Ramp leg to ramp rib | Square tee, fillet all round |
 
 What still bolts on: the two swing arms on their pivot bolts, the two shocks, the two brake clamp plates and the caster. Tube bores are 9.725 for the 1/4 inch sleeves, plate holes 6.75, axle sleeve bores 19.25. All are nominal.
@@ -133,15 +133,14 @@ Each rear wheel hangs on a trailing swing arm outside the base rail. The arm piv
 | Shock movement per unit of wheel movement | 0.51 |
 | Rate at the wheel | 20.7 N/mm (118 lb/in) |
 | Wheel travel | about 59 mm |
-| Settles under its own weight | about 6 mm |
-| Settles with the 72.6 kg planning mass | about 22 mm, on 46.1 kg per rear wheel |
+| Settles under its own weight | about 7 mm |
+| Settles with the 72.6 kg planning mass | about 22 mm, on 46.5 kg per rear wheel |
 
 These are arithmetic from the drawn geometry and one candidate shock, taking the seller's spring label as pounds per inch, which nobody has checked. No shock has been fitted or measured, and the tires add their own give on top. The same shock is sold with softer and stiffer springs, so the settle can be tuned once a real one is on the frame. There is no ride measurement and no comparison with any other carrier. Open points: side play at a single-bolt pivot, the parking brake pad on a tire that now moves with the load, and the unsprung front caster.
 
 ## Printing
 
 - Chassis tube cap, cap_heavy.stl, quantity 16. Closes 1/8 inch wall tube ends. End protection only.
-- Cabin tube cap, cap_light.stl, quantity 12. Closes .065 inch wall tube ends. End protection only.
 - Ramp threshold toe, ramp_toe.stl, quantity 3. Ground-supported bevel that removes the step at the ramp edge. It is not the ramp structure.
 - Roof ridge saddle, ridge_saddle.stl, quantity 3. Holds the ridge pole above the frame so the roof sheds water. Carries fabric tension only.
 - Cover rail clip, fabric_clip.stl, quantity 28. Snaps a cover hem onto a frame tube. No restraint or structural function.

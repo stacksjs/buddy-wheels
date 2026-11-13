@@ -4,32 +4,32 @@ Checked 2026-11-12, USD, integer cents, native Bun arithmetic. Configuration rov
 
 ## Result
 
-At 100 carriers the modeled landed manufacturing cost is **$1,564.38 each** at listed prices. A single build at retail quantities is **$2,950.38**. The first count of this design, on November 11, was $2,037.93 and $3,254.89, with 20 inch wheels, the original cover and most prices as allowances.
+At 100 carriers the modeled landed manufacturing cost is **$1,666.02 each** at listed prices. A single build at retail quantities is **$3,082.31**. The first count of this design, on November 11, was $2,037.93 and $3,254.89, with 20 inch wheels, the original cover and most prices as allowances.
 
-The owner set the Run price to $999.00 on November 12, 2026. At the counted cost that is $565.38 below cost on every carrier, before card fees, returns, support or freight. A 30% gross margin at that price needs the cost at $699.30 or less, so $865.08 has to come out. At today's cost the price that would carry a 30% margin is about $2,235.00.
+The owner set the Run price to $999.00 on November 12, 2026. At the counted cost that is $667.02 below cost on every carrier, before card fees, returns, support or freight. A 30% gross margin at that price needs the cost at $699.30 or less, so $966.72 has to come out. At today's cost the price that would carry a 30% margin is about $2,381.00.
 
-If the tube is bought by weight, it drops again. $337.09 of the total is 32.5 lb of aluminum tube priced as 21 ft and 24 ft stock bars at $3.13 and $4.84 per foot. A 100-carrier batch is about 1.6 tons of two extrusions and would be bought from a mill or distributor. At an assumed $4.00 per pound with 8% scrap the tube line falls to $140.40 and the total to **$1,367.69**, which a price near $1,954.00 would carry. That rate is an assumption with no quote behind it.
+If the tube is bought by weight, it drops again. $220.93 of the total is 21.8 lb of aluminum tube priced as 21 ft and 24 ft stock bars at $3.13 and $4.84 per foot. A 100-carrier batch is about 1.1 tons of two extrusions and would be bought from a mill or distributor. At an assumed $4.00 per pound with 8% scrap the tube line falls to $94.18 and the total to **$1,539.27**, which a price near $2,199.00 would carry. That rate is an assumption with no quote behind it.
 
 For scale, the reference trailer sold for $729.95 at one retailer on the check date, with a 100 lb stated capacity and a 36.2 x 22.4 x 29.9 inch interior. Rover's cabin is about twice that volume. Rover does not reach that price in either scenario.
 
 ## Welded against bolted
 
-The same carrier can be built two ways, with the same shape and the same running gear. The welded frame goes to a shop: each cabin side, the handle and each nose hoop is bent from one tube and the rest is welded. The bolted frame is the home build: every tube is straight and every joint is a pair of flat plates. Both are counted with the same rules.
+The same carrier can be built two ways, with the same shape and the same running gear. The welded frame goes to a shop: each cabin side, the handle and each nose hoop is one round tube, cut and bent by a mail-order service, and the shop welds them to a square-tube base. The bolted frame is the home build: every tube is straight and every joint is a pair of flat plates. Both are counted with the same rules.
 
 | | Welded | Bolted |
 | --- | ---: | ---: |
-| Counted cost each, at 100 | $1,564.38 | $1,600.05 |
-| Counted cost of one | $2,950.38 | $2,977.64 |
+| Counted cost each, at 100 | $1,666.02 | $1,600.05 |
+| Counted cost of one | $3,082.31 | $2,977.64 |
 | Frame tubes | 29 | 39 |
 | Tube bends | 10 | 0 |
 | Welded joints | 36 | 0 |
 | Bolted joints | 8 | 172 |
 | Plates to cut | 10 | 62 |
-| Planning mass, kg | 44.4 | 52.3 |
+| Planning mass, kg | 45.9 | 52.3 |
 | Ships | Assembled, by truck | Flat, in cartons |
-| Who can build it | A shop that bends tube and TIG welds | One person at home with a saw and a drill, plates by mail order |
+| Who can build it | A shop with a TIG welder, from mail-order bent tubes | One person at home with a saw and a drill, plates by mail order |
 
-On these counts the two builds cost about the same. The welded frame comes out $35.67 less each at 100 and $27.26 less for one, which is well inside the error of shop figures nobody has quoted. At 100 it trades about $230.77 of plates, bolts, sleeves and drilling time for $162.00 of welding, $23.00 of bending and $20.00 more packaging. What the shop build buys is about 7.9 kg less mass, 10 fewer tubes, no plates, joints with no bolt clearance to work loose, and a frame that arrives in one piece. What bolting buys is that nothing leaves the house except the plate order. The welding and bending figures are arithmetic on assumed shop rates; no fabricator has quoted them, and the bend radius is unproven for this tube. Outbound freight for an assembled frame is not in either column.
+On these counts the welded frame comes out $65.97 more each at 100 and $104.67 more for one. That gap is smaller than the uncertainty in the welding figure, which nobody has quoted. At 100 it trades about $230.77 of plates, bolts, sleeves and drilling time, and $126.06 of bar stock, for $162.00 of welding, $240.80 of bent tubes and $20.00 more packaging. What the shop build buys is about 6.4 kg less mass, 10 fewer tubes, no plates, joints with no bolt clearance to work loose, and a frame that arrives in one piece. What bolting buys is that nothing leaves the house except the plate order. The welding figure is arithmetic on an assumed shop rate; no fabricator has quoted it. The bent tube figure is a mail-order service's instant quote at prototype prices, which a production tube bender should beat in a batch. Outbound freight for an assembled frame is not in either column.
 
 ## What changed since the first count
 
@@ -54,10 +54,10 @@ On these counts the two builds cost about the same. The welded frame comes out $
 
 | Line | One carrier | 100-carrier allocation | Evidence |
 | --- | ---: | ---: | --- |
-| Aluminum tube, whole stock bars with kerf | $429.51 | $337.09 | Observed 2026-11-12 |
+| Aluminum tube, whole stock bars with kerf | $298.05 | $220.93 | Observed 2026-11-12 |
 | 2 brake clamp plates, laser cut 1/8 inch 6061 | $24.46 | $3.20 | One carrier: quoted 2026-11-12. Batch: allowance |
 | 36 TIG welded joints by a fabrication shop | $540.00 | $162.00 | RFQ |
-| 10 tube bends at one radius, by the same shop | $180.00 | $23.00 | RFQ |
+| 5 round tubes cut and bent by a mail-order service, 10 bends, and 2 end plugs | $443.39 | $240.80 | Quoted 2026-11-12 |
 | 2 pneumatic trail wheels, 15 inch 4.00-8 | $65.78 | $65.78 | Observed 2026-11-12 |
 | Front swivel caster with swivel lock, 10 inch pneumatic, and four bolts | $67.69 | $66.89 | Observed 2026-11-12 + nut and sleeve allowance |
 | 2 stock-shaft axles, sleeves, spacers, washers and cotters | $26.44 | $10.47 | Observed 2026-11-12, rod from a listing |
@@ -74,11 +74,11 @@ On these counts the two builds cost about the same. The welded frame comes out $
 | Inbound freight allocation | $90.00 | $30.00 | RFQ |
 | Machine wear and shop consumables | $10.00 | $6.00 | RFQ |
 | Weather cover, floor set and ramp surface | $830.06 | $399.97 | Listed materials + assumed sewing |
-| **Landed manufacturing** | **$2,950.38** | **$1,564.38** | Mostly unquoted |
+| **Landed manufacturing** | **$3,082.31** | **$1,666.02** | Mostly unquoted |
 
 - **2 brake clamp plates, laser cut 1/8 inch 6061:** One aluminum profile. The welded frame has no gussets. No quote was run; upload the DXF file to a cutting service for a real price.
 - **36 TIG welded joints by a fabrication shop:** No shop has quoted this. Batch: 3.5 minutes a joint on a jig at $70 a shop hour, plus a $15 share of the jig. One frame: 10 minutes a joint at $90 an hour, fit-up included. A real quote replaces all of it.
-- **10 tube bends at one radius, by the same shop:** No shop has quoted this. Batch: $1.50 a bend plus an $8 share of tooling and setup. One frame: $12 a bend plus $60 of setup. The bends are drawn at a 4.5 inch centerline radius, the tightest with a published clean result for 1 inch square aluminum with a 1/8 inch wall. Whether a shop can bend the 6061-T6 nose hoops at it without cracking, or the 1/16 inch wall side hoops and handle bar without wrinkling them, is its call; it may ask for a softer temper, a thicker wall or a larger radius.
+- **5 round tubes cut and bent by a mail-order service, 10 bends, and 2 end plugs:** OSH Cut's instant quote for the starting setup, read 2026-11-12: the tube itself in 1 inch OD x 1/8 inch wall round 6063-T52, cut and bent at a 3 inch centerline radius. For one carrier: $100.50 a side hoop, $116.09 for the handle bar and $61.65 a nose hoop. At the quantities for 100 carriers: $61.45, $58.04 and $28.43. Every part passed the service's design check; nothing was ordered. Other sizes are that quote scaled by tube length, not quoted. A production tube bender would be asked for a batch price. The two end plugs for the handle bar are a $1.50 allowance each.
 - **2 pneumatic trail wheels, 15 inch 4.00-8:** $32.89 each, no bulk discount assumed. Ball bearings, 5/8 inch bore and a 4 inch hub are stated by the supplier.
 - **Front swivel caster with swivel lock, 10 inch pneumatic, and four bolts:** Service Caster SCC-100S3504-PNB-BSL at $64.69: 12-3/16 inch mounting height and 350 lb stated, with a bolt-on swivel lock. Plate size and bolt pattern are not on the page.
 - **2 stock-shaft axles, sleeves, spacers, washers and cotters:** One 5/8 inch x 3 ft plain steel rod at $20.57 (store listing), 12 inches of 3/4 inch DOM tube at $4.99, 5/8 inch washers at $0.15 and cotters at $0.07.
@@ -95,7 +95,7 @@ On these counts the two builds cost about the same. The welded frame comes out $
 - **Inbound freight allocation:** Truck freight for long bars in a batch. For one build, delivery of the parts, with the tube collected from a local supplier. Unquoted.
 - **Machine wear and shop consumables:** Drill bits, blades, jig wear.
 
-Tube packing at 100 carriers: 223 bars of 1/16 inch wall, 21 ft each, and 164 bars of 1/8 inch wall, 24 ft each. One carrier needs 3 and 2 whole bars.
+Tube packing at 100 carriers: 94 bars of 1/16 inch wall, 21 ft each, and 137 bars of 1/8 inch wall, 24 ft each. One carrier needs 1 and 2 whole bars.
 
 ## Cover and soft goods detail
 
@@ -174,17 +174,17 @@ A trailer that retails near $730 is typically built for a small fraction of that
 
 Rover r0 is the opposite on every point: one-off architecture, retail material prices, United States labor rates and a rigid box cabin twice the size.
 
-What each lever would do to the $1,564.38 counted cost, as estimates:
+What each lever would do to the $1,666.02 counted cost, as estimates:
 
 | Lever | Estimated effect | What it needs |
 | --- | ---: | --- |
-| Tube bought by weight from a mill or distributor | about -$196.69 | A quote. The study assumes $4.00 per pound |
+| Tube bought by weight from a mill or distributor | about -$126.75 | A quote. The study assumes $4.00 per pound |
 | Have the cover cut and sewn by a contract shop from roll goods | about -$135 | A sewing quote on a sample |
 | Front caster without a swivel lock, from its maker at $41.38 | -$23.31 | Accepting walking pace only |
 | 13 inch wheels at $14.99 | -$35.80 | Accepting a rougher roll |
-| **All of the above** | **about $1,173.58** | |
+| **All of the above** | **about $1,345.16** | |
 
-That is about the $999.00 price with no margin left. Getting to $699.30, a 30% margin, takes about another $474.28 out. On this architecture there is no obvious place to find it. The realistic route is the one the cheaper products take: a bent and welded folding frame with fabric sides, made by a contract factory, keeping the two things that make Rover different, the size and the walk-in ramp. That is a new design and needs factory quotes, not a revision of this one.
+That is about the $999.00 price with no margin left. Getting to $699.30, a 30% margin, takes about another $645.86 out. On this architecture there is no obvious place to find it. The realistic route is the one the cheaper products take: a bent and welded folding frame with fabric sides, made by a contract factory, keeping the two things that make Rover different, the size and the walk-in ramp. That is a new design and needs factory quotes, not a revision of this one.
 
 ## What would bring it down further
 
@@ -193,6 +193,6 @@ That is about the $999.00 price with no margin left. Getting to $699.30, a 30% m
 3. Plates. 2 brake clamp plates, laser cut 1/8 inch 6061 are an allowance, about $3.20. Uploading the DXF files to a cutting service turns that into a real number in minutes.
 4. The cover is now $399.97. The ramp surface, floor pad and mesh are the largest material lines left; sewing is $100.00.
 
-Selling-cost lines at the current price, per carrier at 100: payment fee $29.27, returns reserve $49.95, support $15.00, acquisition $35.00. Contribution before fixed overhead: -$694.60.
+Selling-cost lines at the current price, per carrier at 100: payment fee $29.27, returns reserve $49.95, support $15.00, acquisition $35.00. Contribution before fixed overhead: -$796.24.
 
 Rebuild with `./buddy design:rover`. Inspect at https://buddywheels.org/design-studio-rover.
