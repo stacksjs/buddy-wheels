@@ -262,7 +262,7 @@ test('Rover cost study charges whole stock, every parts-list line and paid labor
   for (const q of [0, 0.5, Infinity, 1001]) expect(() => packRoverStock(roverStart, 'light', q)).toThrow()
   const base = roverEconomics(weldedStart); const one = roverEconomics(weldedStart, 1)
   expect(base.cogs).toBe(166602)
-  expect(one.cogs).toBe(308231)
+  expect(one.cogs).toBe(309325)
   expect(base.cogsMill).toBe(153927)
   expect(roverEconomics(wp({ wheel: 'run', hub: 75 })).cogs).toBe(163316)
   expect(roverEconomics(wp({ wheel: 'path', hub: 82.55 })).cogs).toBe(162993)
@@ -296,12 +296,13 @@ test('Rover cost study charges whole stock, every parts-list line and paid labor
   expect(boltedOne.cogs).toBe(297764)
   expect(bolted.stainlessUpgrade).toBe(3956)
   expect(base.cogs - bolted.cogs).toBe(6597)
-  expect(one.cogs - boltedOne.cogs).toBe(10467)
+  expect(one.cogs - boltedOne.cogs).toBe(11561)
   // The one-carrier plate line is the real laser quote, and the softer alloy is priced only as an option.
   expect(roverPlateCost(homeStart)).toEqual({ frame: 51562, suspension: 3560, total: 55122 })
   expect(roverPlateCost(homeStart, 'h32').total).toBe(38384)
   expect(roverCostLines(homeStart).find(l => l.id === 'gussets')!.one).toBe(51562)
-  expect(roverPlateCost(weldedStart)).toEqual({ frame: 2446, suspension: 3560, total: 6006 })
+  // The welded frame's ten plates are priced from their own order, which costs more a plate than the bolted frame's larger one.
+  expect(roverPlateCost(weldedStart)).toEqual({ frame: 2732, suspension: 4368, total: 7100 })
   expect(roverTubeQuote.metal.standard).toBe(roverTubeQuote.sticks.standard + roverPlateCost(homeStart).total)
   expect(roverTubeQuote.sticks.standard).toBeLessThan(roverTubeQuote.single.standard)
   expect(roverTubeQuote.sticks.standard).toBeGreaterThan(boltedOne.tube)
@@ -317,7 +318,7 @@ test('Rover cost study charges whole stock, every parts-list line and paid labor
   expect(roverCostLines(boltedSetup).some(l => l.id === 'bending')).toBe(false)
   expect(roverCostLines(boltedSetup).some(l => l.id === 'welding')).toBe(false)
   // Suspension is a counted line with a real shock price, and the rigid welded build keeps its own total.
-  expect(roverCostLines(weldedStart).find(l => l.id === 'suspension')).toMatchObject({ batch: 9048, one: 12258 })
+  expect(roverCostLines(weldedStart).find(l => l.id === 'suspension')).toMatchObject({ batch: 9048, one: 13066 })
   expect(roverCostLines(weldedStart).some(l => l.id === 'hangers')).toBe(false)
   expect(roverEconomics(wp({ ride: 'rigid' })).cogs).toBe(157930)
   expect(roverEconomics(wp({ cabin: 'seats' })).cogs).toBe(179551)

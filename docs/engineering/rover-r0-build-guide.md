@@ -62,7 +62,7 @@ Order the wheel and caster first, because two dimensions in the design come from
 | G | Cover materials | See buy-list.md for every line with its link | | Cut list in cover-cut-schedule.csv |
 | H | Filament | Any PETG for fit trials, ASA for parts left in the sun | About 1 kg | 64 printed pieces in all |
 
-Materials for one build come to about $2,367.30 before tax and shipping. buy-list.md splits that into prices read on a supplier page and allowances.
+Materials for one build come to about $2,378.24 before tax and shipping. buy-list.md splits that into prices read on a supplier page and allowances.
 
 ## 4. Tools
 

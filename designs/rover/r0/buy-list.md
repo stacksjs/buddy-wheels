@@ -2,7 +2,7 @@
 
 Configuration rover-r0-l1300-w700-h1000-r1000-a560-g1000-hub101.6-trail-swivel310-k350-t180-welded-sprung. Checked 2026-11-12, USD, before tax and shipping. This is what one builder buys for one bench carrier, in whole bars, sheets, yards and packs, so it is more than the material the carrier consumes. It is a bench build. Nothing here is rated or approved for carrying an animal.
 
-**Materials to buy: about $2,367.30.** $1,800.30 of that has a supplier page behind it. The remaining $567.00 is allowance and needs a quote or a shop visit. Your own time is extra: the study assumes about 6 hours of cutting and assembly, with the welding done by a shop, and 9 hours of sewing.
+**Materials to buy: about $2,378.24.** $1,811.24 of that has a supplier page behind it. The remaining $567.00 is allowance and needs a quote or a shop visit. Your own time is extra: the study assumes about 6 hours of cutting and assembly, with the welding done by a shop, and 9 hours of sewing.
 
 ## Frame, running gear and hardware
 
@@ -10,7 +10,7 @@ Configuration rover-r0-l1300-w700-h1000-r1000-a560-g1000-hub101.6-trail-swivel31
 | --- | ---: | --- |
 | [1 bars of 1 x 1 x 1/16 inch 6063-T52 square tube, 21 ft each, cut in half to carry](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube) | $65.73 | Observed 2026-11-12 |
 | [2 bars of 1 x 1 x 1/8 inch 6061-T6 square tube, 24 ft each, cut in half to carry](https://www.metalsdepot.com/aluminum-products/aluminum-square-tube) | $232.32 | Observed 2026-11-12 |
-| [2 brake clamp plates, laser cut 1/8 inch 6061](https://app.oshcut.com) | $24.46 | One carrier: quoted 2026-11-12. Batch: allowance |
+| [2 brake clamp plates, laser cut 1/8 inch 6061](https://app.oshcut.com) | $27.32 | One carrier: quoted 2026-11-12. Batch: allowance |
 | 36 TIG welded joints by a fabrication shop | $540.00 | RFQ |
 | [5 round tubes cut and bent by a mail-order service, 10 bends, and 2 end plugs](https://app.oshcut.com) | $443.39 | Quoted 2026-11-12 |
 | [2 pneumatic trail wheels, 15 inch 4.00-8](https://www.zoro.com/zoro-select-pneumatic-wheel-15-316dia-435lb-400-8-1nwv4/i/G1932594/) | $65.78 | Observed 2026-11-12 |
@@ -21,9 +21,9 @@ Configuration rover-r0-l1300-w700-h1000-r1000-a560-g1000-hub101.6-trail-swivel31
 | [Hinge, two latches, carriage bolts and strap hardware](https://www.zoro.com/zoro-select-piano-hinge-stainless-steel-full-surface-mounting-1-in-leaf-w-x-36-in-leaf-h-stainless-steel-2zfk4/i/G1671966/) | $51.19 | Observed 2026-11-12 + strap allowance |
 | [Wheel chocks, grip, tip-stop feet, floor fasteners, bedding tape and ridge pole](https://www.harborfreight.com/solid-rubber-wheel-chock-96479.html) | $105.77 | Observed 2026-11-12, partly from listings |
 | [Parking brake: two push-pull toggle clamps with neoprene-tipped spindles](https://www.zoro.com/powertec-toggle-clamp-300lbs-cap-302f-quick-release-pushpull-clamp-20304n/i/G714915420/) | $31.70 | Observed 2026-11-12 + screw allowance |
-| [Rear suspension: two coil-over shocks, eight bolt-on mount plates, pivot bolts, bushings and mount bolts](https://www.amazon.com/LvTu-Bicycle-Absorber-Suspension-Bushing/dp/B0CH6DCCPS) | $122.58 | Observed 2026-11-12 + hardware allowances |
+| [Rear suspension: two coil-over shocks, eight bolt-on mount plates, pivot bolts, bushings and mount bolts](https://www.amazon.com/LvTu-Bicycle-Absorber-Suspension-Bushing/dp/B0CH6DCCPS) | $130.66 | Observed 2026-11-12 + hardware allowances |
 | Printed service parts and fixtures | $27.00 | Computed volume + allowance |
-| **Subtotal** | **$1,917.25** | |
+| **Subtotal** | **$1,928.19** | |
 
 The tube is priced as full-length bars at one online supplier's listed prices; a local supplier's counter price was not checked. Cut from the bars with cut-list.csv. Send metal/*.dxf to a laser or waterjet shop for the 2 brake clamp plates. The plate prices above are a real quote for one carrier. The frame is welded by a fabrication shop from weld-schedule.csv; build-guide.md says how to find one and what to ask. The parts list in bom.csv has every specification.
 

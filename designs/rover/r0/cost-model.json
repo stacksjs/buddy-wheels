@@ -461,23 +461,23 @@
       "total": 83006,
       "status": "LISTED_CANDIDATES_WITH_UNQUOTED_PRODUCTION_ASSUMPTIONS"
     },
-    "other": 195420,
-    "cogs": 308231,
+    "other": 196514,
+    "cogs": 309325,
     "retail": 99900,
-    "gross": -208331,
-    "grossPercent": -208.53953953953953,
+    "gross": -209425,
+    "grossPercent": -209.63463463463464,
     "maxCogs": 69930,
-    "headroom": -238301,
+    "headroom": -239395,
     "meetsCostGate": false,
     "fee": 2927,
     "reserve": 4995,
     "support": 1500,
     "acquisition": 3500,
-    "contribution": -221253,
-    "retailForGate": 440400,
+    "contribution": -222347,
+    "retailForGate": 441900,
     "tubeMill": 9418,
-    "cogsMill": 287844,
-    "retailForGateMill": 411300,
+    "cogsMill": 288938,
+    "retailForGateMill": 412800,
     "stainlessUpgrade": 184,
     "status": "UNQUOTED_BENCH_COST_STUDY_NOT_A_PRICE"
   },
@@ -486,13 +486,13 @@
       "id": "gussets",
       "name": "2 brake clamp plates, laser cut 1/8 inch 6061",
       "batch": 320,
-      "one": 2446,
+      "one": 2732,
       "coverage": [
         "M04"
       ],
       "evidence": "One carrier: quoted 2026-11-12. Batch: allowance",
       "url": "https://app.oshcut.com",
-      "note": "One aluminum profile. The welded frame has no gussets. No quote was run; upload the DXF file to a cutting service for a real price."
+      "note": "One aluminum profile. The welded frame has no gussets. For one carrier this is OSH Cut's instant-quote price in 6061-T6, $13.66 a plate, read 2026-11-12 with only this frame's ten plates and five bent tubes in the cart. The same plate was $12.23 in the larger order for the bolted frame. The batch figure is an allowance of $1.60 a plate with no quote behind it."
     },
     {
       "id": "welding",
@@ -639,7 +639,7 @@
       "id": "suspension",
       "name": "Rear suspension: two coil-over shocks, eight bolt-on mount plates, pivot bolts, bushings and mount bolts",
       "batch": 9048,
-      "one": 12258,
+      "one": 13066,
       "coverage": [
         "M05",
         "M09",
@@ -651,7 +651,7 @@
       ],
       "evidence": "Observed 2026-11-12 + hardware allowances",
       "url": "https://www.amazon.com/LvTu-Bicycle-Absorber-Suspension-Bushing/dp/B0CH6DCCPS",
-      "note": "LvTu 150 mm coil-over at $31.05 each, read on its product page: 30 mm travel, 24 mm wide eyes with an 8 mm bore, springs labeled 150 to 650 lbs. The label is the seller's nominal figure with a rider-weight table, not a measured rate. Bunting EF081008 bronze flanged bearings at $5.29 per pack of three (a listing price) and 1/2-13 x 4 inch grade 5 bolts at $1.64 with $0.41 lock nuts. The mount plates are priced from the one-carrier laser quote, about $4.45 each, and are an allowance in the batch. The pivot crush sleeves, washers, M8 eye bolts and long hanger bolts are allowances. The swing arms and spacer tubes are counted in the tube line."
+      "note": "LvTu 150 mm coil-over at $31.05 each, read on its product page: 30 mm travel, 24 mm wide eyes with an 8 mm bore, springs labeled 150 to 650 lbs. The label is the seller's nominal figure with a rider-weight table, not a measured rate. Bunting EF081008 bronze flanged bearings at $5.29 per pack of three (a listing price) and 1/2-13 x 4 inch grade 5 bolts at $1.64 with $0.41 lock nuts. The mount plates are priced from the one-carrier laser quote, about $5.46 each, and are an allowance in the batch. The pivot crush sleeves, washers, M8 eye bolts and long hanger bolts are allowances. The swing arms and spacer tubes are counted in the tube line."
     },
     {
       "id": "prints",
@@ -839,6 +839,13 @@
       "unit": "all 62 aluminum plates",
       "url": "https://app.oshcut.com",
       "note": "Read 2026-11-12 on the same page after uploading the eight DXF files: 30 corner gussets at $9.47, 12 tee gussets at $8.19, 10 angled gussets at $10.15 to $12.43, 2 brake plates at $12.23 and 8 shock mount plates at about $4.45. All passed the design check. The same plates in 5052-H32 came to $383.84. With the eight tube sticks the whole metal order was $1,746.66 at the standard lead of 7 business days, $2,357.87 at 6 and $2,532.72 at 5, before shipping and tax. Nothing was ordered."
+    },
+    {
+      "name": "OSH Cut order for one starting welded carrier: 5 bent round tubes and 10 plates",
+      "price": 51139,
+      "unit": "the whole cart, standard lead",
+      "url": "https://app.oshcut.com",
+      "note": "Read 2026-11-12 with only the welded frame's parts in the cart: 2 side hoops at $100.50, 1 handle bar at $116.09 and 2 nose hoops at $61.65 in 1 inch round 6063-T52, and in 1/8 inch 6061-T6 2 brake plates at $13.66, 4 shock plates at $5.51 and 4 shock hangers at $5.41. The ten plates came to $71.00 against $60.06 when they shared an order with the bolted frame's 52 gussets. All six lines passed the design check. Standard lead was 6 business days; expedited $690.38 and rush $741.51. Before shipping and tax. Nothing was ordered."
     },
     {
       "name": "Mutual Screw FC1198-25-S-12 round spacer, 3/8 OD x 1/4 ID x 1 inch, clear zinc steel, pack of 250",
