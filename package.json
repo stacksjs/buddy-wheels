@@ -68,16 +68,16 @@
     "test:finish": "bun scripts/qa-finish.ts"
   },
   "dependencies": {
-    "@stacksjs/actions": "^0.75.628",
-    "@stacksjs/browser": "0.75.628",
+    "@stacksjs/actions": "^0.75.640",
+    "@stacksjs/browser": "0.75.640",
     "@stacksjs/cli": "0.75.628",
     "@stacksjs/database": "0.75.628",
-    "@stacksjs/defaults": "0.75.628",
+    "@stacksjs/defaults": "0.75.640",
     "@stacksjs/env": "^0.75.628",
-    "@stacksjs/image": "0.75.628",
-    "@stacksjs/orm": "0.75.628",
+    "@stacksjs/image": "0.75.640",
+    "@stacksjs/orm": "0.75.640",
     "@stacksjs/path": "^0.75.628",
-    "@stacksjs/stx": "0.2.913",
+    "@stacksjs/stx": "0.2.923",
     "stacks": "^0.75.628"
   },
   "workspaces": [
@@ -95,10 +95,10 @@
   },
   "devDependencies": {
     "@actions/expressions": "0.3.61",
-    "@stacksjs/components": "0.2.913",
-    "@stacksjs/testing": "0.75.628",
+    "@stacksjs/components": "0.2.922",
+    "@stacksjs/testing": "0.75.640",
     "better-dx": "^0.2.37",
-    "bun-plugin-stx": "0.2.913"
+    "bun-plugin-stx": "0.2.923"
   },
   "author": "Chris Breuer <chris@stacksjs.com>",
   "repository": {
